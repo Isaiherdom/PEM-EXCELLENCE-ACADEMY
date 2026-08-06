@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa · Escuela de Calidad ISO 9001 · PEM Excellence Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --amber:#E8A33D; --red:#E8603D; --text:#F1F3F0; --muted:#8A968E;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:28px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,32px);margin:0 0 8px;}
+  .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
+
+  .coverage-band{
+    display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--green);
+    border-radius:12px;padding:16px 20px;margin:22px 0 30px;
+  }
+  .coverage-check{width:34px;height:34px;border-radius:50%;background:rgba(22,194,112,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .coverage-text b{color:var(--green);}
+  .coverage-text{font-size:13.5px;color:var(--text);line-height:1.55;}
+
+  .mod-card{
+    border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-bottom:12px;overflow:hidden;
+  }
+  .mod-head{display:flex;align-items:center;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .mod-n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--green);width:34px;flex-shrink:0;}
+  .mod-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;flex:1;min-width:200px;}
+  .mod-clause{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);}
+  .status-pill{font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:3px 9px;border-radius:20px;letter-spacing:.05em;flex-shrink:0;}
+  .status-pill.live{background:rgba(22,194,112,.15);color:var(--green);}
+  .status-pill.pending{background:rgba(138,150,142,.15);color:var(--muted);}
+  .mod-body{padding:16px 20px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;}
+  .mod-obj{font-size:13px;color:var(--text);line-height:1.55;}
+  .mod-obj-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+  .meta-box{font-size:12.5px;}
+  .meta-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+  .meta-val{color:var(--text);}
+
+  @media(max-width:720px){.mod-body{grid-template-columns:1fr;}}
+
+  footer{text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;margin-top:24px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">PEM Excellence Academy · Escuela de Calidad</div>
+    <h1>Mapa completo — ISO 9001:2015</h1>
+    <div class="sub">12 módulos, cada uno mapeado a una o más subcláusulas de la norma, con objetivo, duración y tipo de evaluación bajo el estándar Gold Standard (PEM-ACAD-GOLD-01).</div>
+  </div>
+
+  <div class="coverage-band">
+    <div class="coverage-check">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16C270" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>
+    </div>
+    <div class="coverage-text">
+      <b>Cobertura confirmada:</b> las cláusulas 4 a 10 de ISO 9001:2015 —Contexto, Liderazgo, Planificación, Apoyo, Operación, Evaluación del desempeño y Mejora— quedan cubiertas en su totalidad al recorrer los 12 módulos. Ninguna subcláusula queda fuera de la ruta.
+    </div>
+  </div>
+
+  <div id="modules"></div>
+  <footer>PEM-ACAD-MAP-9001-01 · Escuela de Calidad · Basado en PEM-ACAD-GOLD-01</footer>
+</div>
+
+<script>
+const MODULES = [
+  {n:1,title:"Fundamentos y contexto de la organización",clause:"Cl. 4.1–4.4",status:"live",
+   obj:"Que el colaborador entienda qué son el contexto, las partes interesadas y el alcance del SGC, y por qué la operación de PEM en 5 bases exige un sistema consistente.",
+   dur:"≈28 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:2,title:"Liderazgo y compromiso de la dirección",clause:"Cl. 5.1",status:"live",
+   obj:"Que Dirección y gerencia comprendan los 8 compromisos de liderazgo y cómo se demuestran en decisiones operativas reales, no en documentos firmados.",
+   dur:"≈28 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:3,title:"Política de calidad, roles y responsabilidades",clause:"Cl. 5.2–5.3",status:"live",
+   obj:"Que cada puesto identifique su rol y autoridad específica dentro del SGC, y entienda cómo la política de calidad se traduce en su trabajo diario.",
+   dur:"≈25 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:4,title:"Riesgos y oportunidades",clause:"Cl. 6.1",status:"live",
+   obj:"Que el colaborador identifique riesgos y oportunidades reales de su operación (ej. desgaste de componentes críticos) antes de que se conviertan en no conformidades.",
+   dur:"≈25 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:5,title:"Objetivos de calidad y planificación de cambios",clause:"Cl. 6.2–6.3",status:"live",
+   obj:"Que se entienda cómo se fijan objetivos de calidad medibles en PEM y cómo se planifica un cambio (ej. nuevo cliente, nueva base) sin comprometer el sistema.",
+   dur:"≈25 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:6,title:"Recursos, competencia y toma de conciencia",clause:"Cl. 7.1–7.3",status:"live",
+   obj:"Que se comprenda qué recursos exige el SGC (personas, infraestructura, ambiente, instrumentos calibrados) y qué significa ser competente y consciente del propio rol.",
+   dur:"≈27 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:7,title:"Comunicación e información documentada",clause:"Cl. 7.4–7.5",status:"live",
+   obj:"Que se entienda qué se comunica, cuándo y a quién dentro del SGC, y cómo se controla la información documentada (procedimientos, registros, bitácoras) sin caer en exceso de papeleo.",
+   dur:"≈25 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:8,title:"Planificación y control operacional",clause:"Cl. 8.1",status:"live",
+   obj:"Que el colaborador entienda cómo se planifica y controla la operación diaria (arranque de un Gas Jack, checklist previo) para cumplir los requisitos del servicio.",
+   dur:"≈28 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:9,title:"Requisitos del cliente y diseño del servicio",clause:"Cl. 8.2–8.3",status:"live",
+   obj:"Que se comprenda cómo se capturan y confirman los requisitos de clientes como PEMEX o PERENCO, y cómo se diseñan o adaptan servicios nuevos con control.",
+   dur:"≈30 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:10,title:"Control de proveedores externos y compras",clause:"Cl. 8.4",status:"live",
+   obj:"Que se entienda cómo se evalúa y controla a proveedores críticos (ej. refacciones, calibración externa) para que no introduzcan riesgo al servicio.",
+   dur:"≈25 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:11,title:"Provisión del servicio y control de salidas no conformes",clause:"Cl. 8.5–8.7",status:"live",
+   obj:"Que se entienda cómo se controla la ejecución del servicio en campo, la liberación de un equipo, y qué hacer cuando algo no cumple la especificación.",
+   dur:"≈30 min",eval:"Examen HTML · 10 preguntas · 80%"},
+  {n:12,title:"Evaluación del desempeño, auditoría interna y mejora",clause:"Cl. 9.1–9.3, 10.1–10.3",status:"live",
+   obj:"Que se comprenda cómo se mide el desempeño del SGC, qué es una auditoría interna, cómo se revisa por la dirección, y cómo una no conformidad se convierte en mejora real, cerrando el ciclo PHVA visto en el Módulo 1.",
+   dur:"≈30 min",eval:"Examen HTML · 10 preguntas · 80%"}
+];
+
+document.getElementById('modules').innerHTML = MODULES.map(m=>`
+  <div class="mod-card">
+    <div class="mod-head">
+      <div class="mod-n">${String(m.n).padStart(2,'0')}</div>
+      <div class="mod-title">${m.title}</div>
+      <div class="mod-clause">${m.clause}</div>
+      <span class="status-pill ${m.status}">${m.status==='live'?'ENTREGADO':'PENDIENTE'}</span>
+    </div>
+    <div class="mod-body">
+      <div class="mod-obj"><div class="mod-obj-label">Objetivo</div>${m.obj}</div>
+      <div class="meta-box"><div class="meta-label">Duración</div><div class="meta-val">${m.dur}</div></div>
+      <div class="meta-box"><div class="meta-label">Evaluación</div><div class="meta-val">${m.eval}</div></div>
+    </div>
+  </div>
+`).join('');
+</script>
+</body>
+</html>

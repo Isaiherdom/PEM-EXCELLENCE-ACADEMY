@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Eliminación de peligros y jerarquía de controles · Módulo 9 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--amber:#E8A33D;--green:#16C270;--red:#E8603D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:640px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .pyramid{display:flex;flex-direction:column;gap:4px;align-items:center;}
+  .tier{
+    display:flex;align-items:center;justify-content:center;text-align:center;border-radius:8px;padding:12px 10px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:#06140D;
+  }
+  .tier .sub{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:10.5px;margin-top:3px;color:#06140D;opacity:.85;}
+  .t1{width:38%;background:var(--green);}
+  .t2{width:52%;background:#5BC98A;}
+  .t3{width:68%;background:#E8A33D;}
+  .t4{width:84%;background:#EDB768;}
+  .t5{width:100%;background:var(--red);color:#fff;}
+  .t5 .sub{color:#fff;opacity:.9;}
+
+  .example{margin-top:24px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--surface);font-size:12px;color:var(--muted);line-height:1.55;}
+  .example b{color:var(--text);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Seguridad</div>
+      <h1>La jerarquía de controles</h1>
+    </div>
+    <div class="doccode">INFO-45001-M9<br>Nivel 4 · Experto</div>
+  </div>
+
+  <div class="pyramid">
+    <div class="tier t1">Eliminación<span class="sub">Quitar el peligro por completo</span></div>
+    <div class="tier t2">Sustitución<span class="sub">Cambiar por algo menos peligroso</span></div>
+    <div class="tier t3">Controles de ingeniería<span class="sub">Guardas, barreras físicas</span></div>
+    <div class="tier t4">Controles administrativos<span class="sub">Procedimientos, LOTO, señalización</span></div>
+    <div class="tier t5">Equipo de protección personal<span class="sub">Último recurso — reduce la consecuencia, no el peligro</span></div>
+  </div>
+
+  <div class="example"><b>Ejemplo — pieza en movimiento (Módulo 4):</b> primero se evalúa si el diseño puede eliminar el punto de contacto; si no, se instala una guarda física (ingeniería); se refuerza con procedimiento de bloqueo (administrativo); y el guante de protección es el respaldo final, no la única medida.</div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 45001:2018 · Cláusula 8.1.2</span>
+  </div>
+</div>
+</body>
+</html>

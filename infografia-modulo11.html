@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Provisión del servicio y salidas no conformes · Módulo 11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--red:#E8603D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:760px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,28px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .start{border:1px solid var(--amber);border-radius:12px;background:rgba(232,163,61,.08);padding:14px 18px;margin-bottom:16px;font-size:13px;text-align:center;}
+  .start b{color:var(--amber);}
+
+  .branches{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .branch{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;text-align:center;}
+  .branch .n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:8px;}
+  .branch .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;margin-bottom:8px;}
+  .branch .d{font-size:11px;color:var(--muted);line-height:1.45;}
+  .branch.ok{border-top:3px solid var(--green);}
+
+  .end{margin-top:16px;border:1px solid var(--green);border-radius:12px;background:rgba(22,194,112,.06);padding:14px 18px;text-align:center;font-size:12.5px;color:var(--text);}
+  .end b{color:var(--green);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:640px){.branches{grid-template-columns:1fr 1fr;}}
+  @media(max-width:400px){.branches{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Calidad</div>
+      <h1>Qué hacer con una salida no conforme</h1>
+    </div>
+    <div class="doccode">INFO-9001-M11<br>Nivel 5 · Auditor Interno</div>
+  </div>
+
+  <div class="start"><b>Se detecta:</b> un parámetro del servicio no cumple el criterio de aceptación definido en la planificación operacional.</div>
+
+  <div class="branches">
+    <div class="branch ok"><div class="n">Opción 1</div><div class="t">Corrección</div><div class="d">Se corrige la desviación antes de continuar la operación.</div></div>
+    <div class="branch ok"><div class="n">Opción 2</div><div class="t">Segregación</div><div class="d">Se aísla o retiene la salida no conforme mientras se decide.</div></div>
+    <div class="branch ok"><div class="n">Opción 3</div><div class="t">Informar al cliente</div><div class="d">Se comunica la desviación de forma transparente.</div></div>
+    <div class="branch ok"><div class="n">Opción 4</div><div class="t">Concesión autorizada</div><div class="d">Persona con autoridad definida aprueba la liberación, con registro.</div></div>
+  </div>
+
+  <div class="end"><b>Nunca:</b> entregar la salida no conforme sin identificarla, controlarla o registrarla — eso rompe la cadena de autoridad del Módulo 3.</div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 9001:2015 · Cláusula 8.5–8.7</span>
+  </div>
+</div>
+</body>
+</html>

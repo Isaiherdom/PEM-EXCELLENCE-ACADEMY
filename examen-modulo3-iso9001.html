@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 3 · ISO 9001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --green-dim:#0B3D28; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(22,194,112,0.08), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--green);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--green);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--green);background:rgba(22,194,112,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--green);color:#06140D;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--green);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--green);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Calidad</div>
+  <h1>Módulo 3 — Política, Roles y Responsabilidades</h1>
+  <div class="sub">ISO 9001 Cl. 5.2–5.3 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#16C270" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-9001-M3 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "Si le preguntas a un operador de campo cuál es la política de calidad de PEM y no sabe responder, ¿de quién es principalmente la falla?",
+    options: [
+      "Del operador, por no memorizar el documento",
+      "Del sistema: la Cl. 5.2 exige que la política esté disponible y se comunique de forma que se entienda dentro de la organización, no solo que exista firmada",
+      "No es una falla, la política es solo para auditoría externa",
+      "Es responsabilidad exclusiva de Recursos Humanos"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 5.2, la política de calidad de PEM debe:",
+    options: [
+      "Ser un texto genérico copiado de otra empresa del sector",
+      "Ser apropiada al propósito y contexto de PEM, incluir compromiso de cumplir requisitos y de mejora continua, y proporcionar un marco para los objetivos de calidad",
+      "Cambiar cada vez que hay una auditoría",
+      "Solo mencionar el nombre del cliente principal"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un supervisor de base tiene autoridad para detener el arranque de un Gas Jack si detecta que un parámetro crítico está fuera de rango, sin esperar autorización del Director General. Esto refleja:",
+    options: [
+      "Una falta de disciplina operativa",
+      "La asignación de responsabilidades y autoridades de la Cl. 5.3: cada rol tiene la autoridad clara que necesita para sostener el SGC en su nivel",
+      "Un exceso de control que debe corregirse",
+      "Una decisión que no tiene relación con ISO 9001"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la Cl. 5.3 exige que los roles y responsabilidades del SGC estén claramente asignados y comunicados en PEM?",
+    options: [
+      "Para que exista un organigrama bonito en la oficina",
+      "Para que cuando algo falle (ej. una no conformidad repetida), se sepa exactamente quién tiene la autoridad para actuar, sin ambigüedad entre bases",
+      "Es un requisito solo aplicable a la Dirección General",
+      "Solo aplica al Responsable del SGI"
+    ],
+    correct: 1
+  },
+  {
+    q: "El Responsable del SGI en PEM tiene, entre sus responsabilidades según la Cl. 5.3, la de:",
+    options: [
+      "Tomar todas las decisiones operativas de cada base",
+      "Asegurar que el SGC es conforme a los requisitos de la norma e informar a la Dirección sobre su desempeño",
+      "Sustituir al Director General en juntas de negocio",
+      "Firmar todas las órdenes de compra de la empresa"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un gerente de base traduce la política de calidad de PEM en una meta concreta para su equipo: 'cero fallas repetidas de Gas Jack en el trimestre'. Esto es un ejemplo de:",
+    options: [
+      "Una meta sin relación con la política de calidad",
+      "Cómo la política de calidad, según Cl. 5.2, proporciona el marco para establecer objetivos de calidad medibles en cada nivel de la organización",
+      "Una decisión que corresponde solo a Recursos Humanos",
+      "Un objetivo que debería fijar únicamente el cliente"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si dos gerentes de distintas bases interpretan de forma distinta quién tiene autoridad para liberar un equipo después de mantenimiento, esto indica:",
+    options: [
+      "Una situación normal que no requiere ajuste",
+      "Un incumplimiento de la Cl. 5.3: las responsabilidades y autoridades deben estar asignadas y comunicadas de forma clara y consistente en toda la organización",
+      "Que la política de calidad está mal redactada",
+      "Un problema exclusivo de comunicación interna sin relación con la norma"
+    ],
+    correct: 1
+  },
+  {
+    q: "La política de calidad de PEM debe revisarse:",
+    options: [
+      "Nunca, una vez firmada es definitiva",
+      "Cuando cambia el contexto de la organización (nuevo cliente, nueva regulación, nueva base) para seguir siendo apropiada, según la Cl. 5.2",
+      "Solo si lo exige un auditor externo",
+      "Cada mes sin importar si hay cambios reales"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Qué distingue a un rol con 'responsabilidad' de uno con 'autoridad' dentro del SGC de PEM?",
+    options: [
+      "Son términos idénticos en la norma",
+      "Responsabilidad es lo que un rol debe hacer o sostener; autoridad es la facultad real para tomar la decisión correspondiente (ej. detener una operación, liberar un equipo)",
+      "La autoridad solo la tiene el Director General en cualquier caso",
+      "La responsabilidad solo aplica al área de Calidad"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 3 es que cada colaborador de PEM entienda que política, roles y responsabilidades:",
+    options: [
+      "Son documentos que solo importan durante la auditoría anual",
+      "Dan claridad sobre qué se espera de cada rol y qué autoridad tiene para sostener la calidad en su trabajo diario, evitando ambigüedad entre bases",
+      "Son responsabilidad exclusiva de la Dirección General",
+      "No tienen relación con la operación de campo"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 3. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

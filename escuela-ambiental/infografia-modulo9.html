@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Preparación y respuesta ante emergencias · Módulo 9 · ISO 14001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--blue:#4C9AFF;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:760px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .ring{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+  .stage{padding:0 8px;position:relative;}
+  .stage:not(:last-child)::after{content:"→";position:absolute;top:22px;right:-2px;color:var(--line);font-size:16px;}
+  .stage-box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 12px;text-align:center;height:100%;}
+  .stage-box.gap{border-color:var(--amber);}
+  .stage-icon{font-size:20px;margin-bottom:8px;}
+  .stage-t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;margin-bottom:6px;}
+  .stage-d{font-size:10.5px;color:var(--muted);line-height:1.4;}
+
+  .loop-note{text-align:center;font-size:12.5px;color:var(--muted);max-width:560px;margin:20px auto 0;line-height:1.6;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:600px){.ring{grid-template-columns:1fr 1fr;gap:12px;}.stage:not(:last-child)::after{display:none;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela Ambiental</div>
+      <h1>El ciclo del simulacro</h1>
+    </div>
+    <div class="doccode">INFO-14001-M9<br>Nivel 3 · Avanzado</div>
+  </div>
+
+  <div class="ring">
+    <div class="stage"><div class="stage-box"><div class="stage-icon">📋</div><div class="stage-t">Planificar</div><div class="stage-d">Procedimiento con roles y responsabilidades definidos</div></div></div>
+    <div class="stage"><div class="stage-box"><div class="stage-icon">🏃</div><div class="stage-t">Ejecutar simulacro</div><div class="stage-d">Con las personas que realmente estarían presentes</div></div></div>
+    <div class="stage"><div class="stage-box gap"><div class="stage-icon">🔎</div><div class="stage-t">Detectar brechas</div><div class="stage-d">Ej. dos operadores no sabían dónde estaba el kit</div></div></div>
+    <div class="stage"><div class="stage-box"><div class="stage-icon">🔧</div><div class="stage-t">Ajustar y repetir</div><div class="stage-d">El procedimiento y la capacitación se corrigen</div></div></div>
+  </div>
+
+  <div class="loop-note">El simulacro no termina en "detectar brechas" — vuelve a "planificar" con lo aprendido. Así es como una emergencia real se responde en minutos, no en 40.</div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 14001:2015 · Cláusula 8.2</span>
+  </div>
+</div>
+</body>
+</html>

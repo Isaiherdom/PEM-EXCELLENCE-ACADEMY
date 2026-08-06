@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenida · PEM Excellence Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --blue:#4C9AFF; --amber:#E8A33D; --red:#E8603D;
+    --text:#F1F3F0; --muted:#8A968E;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
+  .hero{
+    padding:60px 20px 44px;text-align:center;border-bottom:1px solid var(--line);
+    background:radial-gradient(900px 400px at 50% -20%, rgba(22,194,112,0.10), transparent 60%);
+  }
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--green);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4.5vw,40px);margin:0 0 14px;line-height:1.15;}
+  .hero p{color:var(--muted);max-width:600px;margin:0 auto;font-size:14.5px;line-height:1.65;}
+
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px;}
+  section{margin-top:52px;}
+  .sec-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
+  .sec-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin:0 0 18px;}
+  .sec-text{color:var(--muted);font-size:14.5px;line-height:1.7;max-width:720px;}
+  .sec-text b{color:var(--text);}
+
+  .analogy{
+    margin-top:18px;border:1px solid var(--line);border-left:3px solid var(--green);border-radius:0 12px 12px 0;
+    background:var(--surface);padding:16px 20px;font-size:13.5px;color:var(--text);line-height:1.6;max-width:720px;
+  }
+
+  .schools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px;}
+  .school{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px;}
+  .school .dot{width:12px;height:12px;border-radius:50%;margin-bottom:10px;}
+  .school .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;}
+  .school .norm{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px;margin-bottom:8px;}
+  .school .risk{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+  .sgi-band{
+    margin-top:18px;border:1px solid var(--green);border-radius:12px;background:rgba(22,194,112,.06);
+    padding:16px 20px;font-size:13.5px;text-align:center;
+  }
+  .sgi-band b{color:var(--green);}
+
+  .howworks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;}
+  .step{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;text-align:center;}
+  .step .n{font-family:'JetBrains Mono',monospace;color:var(--amber);font-size:11px;margin-bottom:8px;}
+  .step .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;margin-bottom:6px;}
+  .step .d{font-size:11px;color:var(--muted);line-height:1.5;}
+
+  .cta{
+    margin-top:56px;text-align:center;border:1px solid var(--green);border-radius:16px;
+    background:rgba(22,194,112,.06);padding:32px 20px;
+  }
+  .cta h3{font-family:'Space Grotesk',sans-serif;font-size:20px;margin:0 0 10px;}
+  .cta p{color:var(--muted);font-size:13.5px;margin:0 0 18px;}
+  .cta a{
+    display:inline-block;background:var(--green);color:#06140D;font-weight:600;font-size:14px;
+    padding:12px 26px;border-radius:9px;text-decoration:none;
+  }
+
+  footer{text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:50px;}
+
+  @media(max-width:780px){.schools{grid-template-columns:1fr 1fr;}.howworks{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.schools{grid-template-columns:1fr;}.howworks{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="eyebrow">PEM Excellence Academy</div>
+    <h1>Antes de empezar, 90 segundos de contexto</h1>
+    <p>No necesitas saber nada de normas ISO para arrancar. Esta página te da lo mínimo que necesitas para que el Módulo 1 tenga sentido desde la primera diapositiva.</p>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <div class="sec-label">01</div>
+      <div class="sec-title">¿Qué es un sistema de gestión?</div>
+      <div class="sec-text">Es la forma organizada en que PEM hace su trabajo para que el resultado <b>no dependa de la suerte del turno o de quién esté de guardia</b>. No es un conjunto de documentos — es que la manera de operar sea consistente entre las 5 bases, y que cuando algo sale mal, sepamos exactamente por qué y cómo corregirlo.</div>
+      <div class="analogy">Piénsalo como el manual de vuelo de un piloto: no reemplaza su criterio, pero asegura que cada despegue siga los mismos pasos verificados, sin importar qué piloto esté al mando ese día.</div>
+    </section>
+
+    <section>
+      <div class="sec-label">02</div>
+      <div class="sec-title">¿Qué es una norma ISO?</div>
+      <div class="sec-text">ISO es una organización internacional que publica <b>estándares</b> — requisitos mínimos que un sistema de gestión debe cumplir para que cualquier persona externa (un cliente, un auditor, una autoridad) pueda confiar en él sin tener que revisarlo todo desde cero. Cuando PEM está "certificado" en una norma, significa que un tercero independiente confirmó que el sistema realmente cumple esos requisitos — no que PEM lo dice por su cuenta.</div>
+    </section>
+
+    <section>
+      <div class="sec-label">03</div>
+      <div class="sec-title">¿Por qué PEM tiene 4 escuelas?</div>
+      <div class="sec-text">Cada norma cubre un tipo de riesgo distinto de la operación. Por eso PEM Excellence Academy tiene una escuela exclusiva por norma, no una mezcla genérica de "compliance":</div>
+      <div class="schools">
+        <div class="school"><div class="dot" style="background:#16C270"></div><div class="name">Escuela de Calidad</div><div class="norm">ISO 9001</div><div class="risk">Que el servicio cumpla lo que se promete al cliente.</div></div>
+        <div class="school"><div class="dot" style="background:#4C9AFF"></div><div class="name">Escuela Ambiental</div><div class="norm">ISO 14001</div><div class="risk">Que la operación no dañe el entorno donde trabajamos.</div></div>
+        <div class="school"><div class="dot" style="background:#E8A33D"></div><div class="name">Escuela de Seguridad</div><div class="norm">ISO 45001</div><div class="risk">Que nadie se lastime haciendo su trabajo.</div></div>
+        <div class="school"><div class="dot" style="background:#E8603D"></div><div class="name">Escuela de Ética</div><div class="norm">ISO 37001</div><div class="risk">Que las decisiones de negocio sean íntegras.</div></div>
+      </div>
+      <div class="sgi-band">Las 4 juntas forman el <b>Sistema de Gestión Integral (SGI)</b> de PEM — un solo sistema, visto desde 4 ángulos de riesgo distintos.</div>
+    </section>
+
+    <section>
+      <div class="sec-label">04</div>
+      <div class="sec-title">Cómo funciona la Academia</div>
+      <div class="sec-text">Cada módulo sigue siempre la misma estructura, para que aprender el segundo módulo sea más rápido que el primero:</div>
+      <div class="howworks">
+        <div class="step"><div class="n">01</div><div class="t">Video (4 min)</div><div class="d">Un requisito de la norma, explicado con un caso real de PEM.</div></div>
+        <div class="step"><div class="n">02</div><div class="t">Flashcards</div><div class="d">10 términos clave, con su significado aplicado a tu trabajo.</div></div>
+        <div class="step"><div class="n">03</div><div class="t">Infografía</div><div class="d">Una imagen que resume la idea central del módulo.</div></div>
+        <div class="step"><div class="n">04</div><div class="t">Examen (10 preg.)</div><div class="d">80% para aprobar. Al lograrlo, tu certificado se genera al instante.</div></div>
+      </div>
+    </section>
+
+    <div class="cta">
+      <h3>Listo. Ya tienes lo que necesitas.</h3>
+      <p>El Módulo 1 de cada escuela retoma esta base y la lleva a tu operación específica.</p>
+      <a href="index.html">Ir al hub de PEM Excellence Academy</a>
+    </div>
+  </div>
+
+  <footer>PEM-ACAD-BIENVENIDA-01 · Excepción documentada al Gold Standard (PEM-ACAD-GOLD-01) · Sin examen, sin certificado</footer>
+</body>
+</html>

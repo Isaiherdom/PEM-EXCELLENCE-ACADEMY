@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Académico · PEM Excellence Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --amber:#E8A33D; --blue:#4C9AFF; --red:#E8603D;
+    --text:#F1F3F0; --muted:#8A968E;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
+  .wrap{max-width:1280px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,34px);margin:0 0 8px;}
+  .sub{color:var(--muted);font-size:14.5px;max-width:720px;line-height:1.6;}
+
+  .rail-explainer{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 40px;
+  }
+  .rail-card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--surface);}
+  .rail-card.formal{border-top:3px solid var(--blue);}
+  .rail-card.pem{border-top:3px solid var(--green);}
+  .rail-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+  .rail-card.formal .rail-tag{color:var(--blue);}
+  .rail-card.pem .rail-tag{color:var(--green);}
+  .rail-card p{font-size:13px;color:var(--muted);line-height:1.55;margin:0;}
+  .rail-card b{color:var(--text);}
+
+  .schools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .school{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;}
+  .school-head{padding:16px 16px 14px;border-bottom:1px solid var(--line);}
+  .school-code{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;}
+  .school-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;margin:4px 0 2px;}
+  .school-norm{font-family:'JetBrains Mono',monospace;font-size:11px;}
+  .s-9001 .school-norm{color:var(--green);} .s-9001{border-top:3px solid var(--green);}
+  .s-14001 .school-norm{color:var(--blue);} .s-14001{border-top:3px solid var(--blue);}
+  .s-45001 .school-norm{color:var(--amber);} .s-45001{border-top:3px solid var(--amber);}
+  .s-37001 .school-norm{color:var(--red);} .s-37001{border-top:3px solid var(--red);}
+  .status{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:2px 7px;border-radius:20px;letter-spacing:.05em;}
+  .status.live{background:rgba(22,194,112,0.15);color:var(--green);}
+  .status.planned{background:rgba(138,150,142,0.15);color:var(--muted);}
+
+  .mod-list{padding:6px 0;}
+  .mod{
+    display:flex;gap:10px;padding:9px 16px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.4;
+  }
+  .mod:last-child{border-bottom:none;}
+  .mod.built{background:rgba(22,194,112,0.06);}
+  .mod-n{font-family:'JetBrains Mono',monospace;color:var(--muted);flex-shrink:0;width:20px;}
+  .mod-body{flex:1;}
+  .mod-clause{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);display:block;margin-top:2px;}
+  .built-badge{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--green);}
+
+  .footer-note{margin-top:30px;font-size:12px;color:var(--muted);text-align:center;font-family:'JetBrains Mono',monospace;}
+
+  @media(max-width:1000px){.schools{grid-template-columns:1fr 1fr;}}
+  @media(max-width:620px){.schools{grid-template-columns:1fr;}.rail-explainer{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">PEM Excellence Academy · Arquitectura Académica</div>
+    <h1>Mapa completo de escuelas y módulos</h1>
+    <div class="sub">4 escuelas normativas exclusivas, una por norma. Cada escuela recorre 12 módulos siguiendo la estructura de cláusulas Anexo SL, adaptados al lenguaje operativo de PEM. El Nivel 1–6 de cada colaborador (Fundamentos → Líder SGI) atraviesa estas escuelas según el perfil.</div>
+  </div>
+
+  <div class="rail-explainer">
+    <div class="rail-card formal">
+      <div class="rail-tag">Riel normativo</div>
+      <p>Cada módulo enseña primero el <b>requisito formal de la cláusula</b> tal como lo pediría un auditor: qué exige la norma, qué evidencia espera. Este riel nunca se diluye ni se reemplaza por el ejemplo — es el estándar que se audita.</p>
+    </div>
+    <div class="rail-card pem">
+      <div class="rail-tag">Riel operativo PEM</div>
+      <p>Inmediatamente después, el mismo requisito se ancla a <b>un escenario real de PEM</b> (Gas Jack, compresor, base específica). El ejemplo no sustituye el requisito — lo hace memorable y aplicable el día siguiente en campo.</p>
+    </div>
+  </div>
+
+  <div class="schools" id="schools"></div>
+
+  <div class="footer-note">PEM-ACAD-MAP-01 · Doble riel aplicado en video, examen (preguntas de definición + preguntas de escenario) e infografía de cada módulo</div>
+</div>
+
+<script>
+const SCHOOLS = [
+  {
+    code:"ESCUELA 01 · s-9001", cls:"s-9001", title:"Escuela de Calidad", norm:"ISO 9001:2015", status:"live",
+    modules:[
+      ["Fundamentos y contexto de la organización","Cl. 4","built"],
+      ["Liderazgo y compromiso de la dirección","Cl. 5.1","built"],
+      ["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3","built"],
+      ["Riesgos y oportunidades","Cl. 6.1","built"],
+      ["Objetivos de calidad y planificación de cambios","Cl. 6.2–6.3","built"],
+      ["Recursos, competencia y toma de conciencia","Cl. 7.1–7.3","built"],
+      ["Comunicación e información documentada","Cl. 7.4–7.5","built"],
+      ["Planificación y control operacional","Cl. 8.1","built"],
+      ["Requisitos del cliente y diseño del servicio","Cl. 8.2–8.3","built"],
+      ["Control de proveedores externos y compras","Cl. 8.4","built"],
+      ["Provisión del servicio y salidas no conformes","Cl. 8.5–8.7","built"],
+      ["Evaluación del desempeño, auditoría y mejora","Cl. 9–10","built"]
+    ]
+  },
+  {
+    code:"ESCUELA 02 · s-14001", cls:"s-14001", title:"Escuela Ambiental", norm:"ISO 14001:2015", status:"live",
+    modules:[
+      ["Fundamentos y contexto ambiental de PEM","Cl. 4","built"],
+      ["Liderazgo y política ambiental","Cl. 5","built"],
+      ["Partes interesadas y requisitos legales ambientales","Cl. 4.2, 6.1.3","built"],
+      ["Aspectos e impactos ambientales","Cl. 6.1.2","built"],
+      ["Objetivos ambientales y planificación de acciones","Cl. 6.2","built"],
+      ["Recursos, competencia y conciencia ambiental","Cl. 7.1–7.3","built"],
+      ["Comunicación e información documentada","Cl. 7.4–7.5","built"],
+      ["Control operacional ambiental (residuos, derrames, sustancias)","Cl. 8.1","built"],
+      ["Preparación y respuesta ante emergencias ambientales","Cl. 8.2","built"],
+      ["Evaluación del desempeño ambiental","Cl. 9.1","built"],
+      ["Cumplimiento legal ambiental","Cl. 9.1.2","built"],
+      ["Auditoría interna y mejora continua ambiental","Cl. 9.2–10","built"]
+    ]
+  },
+  {
+    code:"ESCUELA 03 · s-45001", cls:"s-45001", title:"Escuela de Seguridad y Salud", norm:"ISO 45001:2018", status:"live",
+    modules:[
+      ["Fundamentos y contexto de SST en PEM","Cl. 4","built"],
+      ["Liderazgo y participación de los trabajadores","Cl. 5.1, 5.4","built"],
+      ["Consulta y participación de los trabajadores","Cl. 5.4","built"],
+      ["Identificación de peligros y evaluación de riesgos","Cl. 6.1.2","built"],
+      ["Requisitos legales en SST","Cl. 6.1.3","built"],
+      ["Objetivos y planificación de SST","Cl. 6.2","built"],
+      ["Recursos, competencia y conciencia en SST","Cl. 7.1–7.3","built"],
+      ["Comunicación y consulta","Cl. 7.4","built"],
+      ["Eliminación de peligros y jerarquía de controles","Cl. 8.1.2","built"],
+      ["Gestión del cambio y contratación externa","Cl. 8.1.3–8.1.4","built"],
+      ["Preparación y respuesta ante emergencias","Cl. 8.2","built"],
+      ["Investigación de incidentes, auditoría y mejora","Cl. 9–10","built"]
+    ]
+  },
+  {
+    code:"ESCUELA 04 · s-37001", cls:"s-37001", title:"Escuela de Ética y Cumplimiento", norm:"ISO 37001:2025", status:"live",
+    modules:[
+      ["Fundamentos y contexto del riesgo de soborno en PEM","Cl. 4","built"],
+      ["Liderazgo, función de cumplimiento y compromiso","Cl. 5","built"],
+      ["Política antisoborno y gobierno","Cl. 5.2–5.3","built"],
+      ["Evaluación de riesgo de soborno","Cl. 6, 8.9","built"],
+      ["Debida diligencia de terceros, socios y clientes","Cl. 8.2","built"],
+      ["Controles financieros y no financieros","Cl. 8.3–8.4","built"],
+      ["Regalos, hospitalidad, donativos y beneficios","Cl. 8.5–8.6","built"],
+      ["Compromisos anti-soborno de terceros","Cl. 8.7","built"],
+      ["Canal de denuncias (whistleblowing)","Cl. 8.9","built"],
+      ["Investigaciones y conflictos de interés","Cl. 8.10, 8.13","built"],
+      ["Comunicación, competencia y conciencia","Cl. 7","built"],
+      ["Evaluación del desempeño, auditoría interna y mejora","Cl. 9–10","built"]
+    ]
+  }
+];
+
+const el = document.getElementById('schools');
+el.innerHTML = SCHOOLS.map(s=>`
+  <div class="school ${s.cls}">
+    <div class="school-head">
+      <div class="school-code">${s.code.split(' · ')[0]}</div>
+      <div class="school-title">${s.title}</div>
+      <div class="school-norm">${s.norm}</div>
+      <span class="status ${s.status}">${s.status==='live'?'ESCUELA COMPLETA — 12/12 MÓDULOS':'FUTURA'}</span>
+    </div>
+    <div class="mod-list">
+      ${s.modules.map((m,i)=>`
+        <div class="mod ${m[2]?'built':''}">
+          <div class="mod-n">${String(i+1).padStart(2,'0')}</div>
+          <div class="mod-body">${m[0]}<span class="mod-clause">${m[1]}${m[2]?' · <span class="built-badge">ENTREGADO</span>':''}</span></div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+`).join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 8 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,163,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--amber);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--amber);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--amber);background:rgba(232,163,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--amber);color:#1A1000;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--amber);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--amber);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Seguridad</div>
+  <h1>Módulo 8 — Comunicación y Consulta</h1>
+  <div class="sub">ISO 45001 Cl. 7.4 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8A33D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-45001-M8 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "Ocurre un accidente de trabajo en una base de PEM que, según la ley, debe notificarse a la autoridad laboral dentro de un plazo determinado. Nadie lo notifica a tiempo. Según Cl. 7.4, esto es principalmente una falla en:",
+    options: [
+      "La suerte, los accidentes son impredecibles",
+      "La comunicación externa planificada: PEM debe determinar qué, cuándo, a quién y cómo comunicar sobre el sistema de SST, incluyendo obligaciones legales de notificación",
+      "Un tema exclusivo del área legal, sin relación con el sistema de SST",
+      "Algo que solo debe reportar el trabajador afectado"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 7.4, la comunicación de SST de PEM debe planificarse determinando:",
+    options: [
+      "Solo el medio de comunicación a usar",
+      "Qué comunicar, cuándo, con quién, cómo y quién es responsable de comunicarlo, tanto interna como externamente",
+      "Únicamente la comunicación con el cliente, no con la autoridad laboral",
+      "Solo se define una vez y nunca se ajusta"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un peligro identificado en la base de Reynosa (por ejemplo, un punto ciego en una zona de tránsito de montacargas) nunca se comunica a las otras 4 bases, aunque el mismo riesgo aplica en todas. Esto representa:",
+    options: [
+      "Una decisión razonable, cada base es independiente",
+      "Una falla de comunicación interna (Cl. 7.4) que aumenta el riesgo de que el mismo peligro cause un incidente en otra base",
+      "Un tema sin relación con el sistema de SST",
+      "Algo que solo le corresponde decidir a la autoridad laboral"
+    ],
+    correct: 1
+  },
+  {
+    q: "Una plática de seguridad ('toolbox talk') antes de iniciar la jornada, donde se revisan peligros específicos del día, es un ejemplo de:",
+    options: [
+      "Un trámite sin ningún valor real para la operación",
+      "Comunicación interna efectiva según Cl. 7.4: información relevante de SST llegando a quienes la necesitan, en el momento en que la necesitan",
+      "Un requisito exclusivo de empresas manufactureras",
+      "Algo que reemplaza la necesidad de cualquier otro control operacional"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cuál de las siguientes es un ejemplo de comunicación EXTERNA relevante para el sistema de SST de PEM, según Cl. 7.4?",
+    options: [
+      "Una plática de seguridad interna antes de iniciar el turno",
+      "Notificar a la autoridad laboral (como la STPS) sobre un accidente de trabajo que cumple los criterios legales de reporte",
+      "Un mensaje interno entre dos supervisores de la misma base",
+      "La capacitación interna de un nuevo operador"
+    ],
+    correct: 1
+  },
+  {
+    q: "El término 'consulta' en el título de la Cl. 7.4 (Comunicación y consulta) se refiere, en el contexto de SST, a:",
+    options: [
+      "Un concepto idéntico a informar, sin diferencia real",
+      "Un proceso de doble vía: PEM no solo informa a los trabajadores, sino que busca y considera su opinión antes de decisiones que afectan su seguridad, conectando con lo visto en los Módulos 2 y 3",
+      "Un trámite exclusivo de la autoridad laboral",
+      "Algo que solo aplica a decisiones financieras"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué es importante que la comunicación de un peligro entre bases sea rápida y no dependa de que alguien recuerde mencionarlo en la siguiente junta general?",
+    options: [
+      "No es importante, las juntas generales son suficientes para cualquier tema",
+      "Porque un peligro real —como el punto ciego de montacargas— puede causar un incidente en otra base mientras la información espera un canal formal lento",
+      "Porque las juntas generales ya cubren automáticamente todos los temas de seguridad",
+      "Es un tema exclusivo del área de comunicación corporativa"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si PEM tiene un procedimiento de comunicación de incidentes documentado, pero en la práctica los reportes tardan semanas en circular entre bases, esto representa:",
+    options: [
+      "Un cumplimiento suficiente de la Cl. 7.4, ya que el procedimiento existe",
+      "El mismo riesgo de 'procedimiento de papel' visto en otras escuelas: un mecanismo que existe mas no se ejecuta con la velocidad que la seguridad real exige",
+      "Un tema sin relación con el sistema de gestión de SST",
+      "Algo que solo debe corregirse si lo detecta la autoridad laboral"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta este módulo con la comunicación vista en las Escuelas de Calidad y Ambiental?",
+    options: [
+      "No tiene relación, son requisitos completamente distintos en cada escuela",
+      "Aplica la misma disciplina de planificar qué/cuándo/quién/cómo comunicar, ahora enfocada en información que puede prevenir una lesión, con la consulta añadida como elemento propio de SST",
+      "Reemplaza por completo lo visto en las otras escuelas",
+      "Solo se relaciona si el mismo gerente lidera las 3 escuelas"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 8 es que cada colaborador de PEM entienda que comunicación y consulta en SST:",
+    options: [
+      "Son requisitos burocráticos que solo importan en la auditoría externa",
+      "Aseguran que la información de seguridad —incluidas obligaciones legales de notificación— llegue a tiempo, y que la voz de los trabajadores se escuche antes de decisiones que afectan su seguridad",
+      "Solo aplican a los documentos del área de Seguridad",
+      "Se resuelven automáticamente con una junta general mensual"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8A33D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 8. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

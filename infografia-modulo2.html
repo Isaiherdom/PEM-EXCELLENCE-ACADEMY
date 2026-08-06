@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Liderazgo y compromiso · Módulo 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:800px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,28px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .item{border:1px solid var(--line);border-radius:12px;padding:16px 14px;background:var(--surface);position:relative;}
+  .item .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);margin-bottom:8px;}
+  .item .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;margin-bottom:8px;line-height:1.3;}
+  .item .d{font-size:11.5px;color:var(--muted);line-height:1.5;}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:680px){.grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:420px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Calidad</div>
+      <h1>Los 8 compromisos del líder según ISO 9001 Cl. 5.1</h1>
+    </div>
+    <div class="doccode">INFO-9001-M2<br>Nivel 1 · Fundamentos</div>
+  </div>
+  <div class="grid">
+    <div class="item"><div class="n">01</div><div class="t">Rendir cuentas</div><div class="d">De la eficacia del SGC ante el negocio, no solo ante el auditor.</div></div>
+    <div class="item"><div class="n">02</div><div class="t">Alinear política y estrategia</div><div class="d">La política de calidad es compatible con hacia dónde va PEM como negocio.</div></div>
+    <div class="item"><div class="n">03</div><div class="t">Integrar al negocio</div><div class="d">El SGC vive dentro de cotizar, operar y facturar — no aparte.</div></div>
+    <div class="item"><div class="n">04</div><div class="t">Promover procesos y riesgo</div><div class="d">Ver la operación como cadena conectada; anticipar antes de que falle.</div></div>
+    <div class="item"><div class="n">05</div><div class="t">Asegurar recursos</div><div class="d">Presupuesto y herramientas a tiempo — como calibrar instrumentos antes del vencimiento.</div></div>
+    <div class="item"><div class="n">06</div><div class="t">Comunicar la importancia</div><div class="d">Explicar el porqué, para que no se viva como trámite de oficina.</div></div>
+    <div class="item"><div class="n">07</div><div class="t">Lograr resultados</div><div class="d">Revisar indicadores reales, no solo documentos firmados.</div></div>
+    <div class="item"><div class="n">08</div><div class="t">Dirigir y apoyar personas</div><div class="d">Reportar una no conformidad no debe tener costo para quien la detecta.</div></div>
+  </div>
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 9001:2015 · Cláusula 5.1</span>
+  </div>
+</div>
+</body>
+</html>

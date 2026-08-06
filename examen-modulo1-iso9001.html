@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 1 · ISO 9001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C;
+    --surface:#141815;
+    --surface-2:#1B211D;
+    --line:#26302A;
+    --green:#16C270;
+    --green-dim:#0B3D28;
+    --amber:#E8A33D;
+    --text:#F1F3F0;
+    --muted:#8A968E;
+    --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(22,194,112,0.08), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--green);
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:10px;
+  }
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:clamp(24px,5vw,32px);
+    font-weight:700;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{
+    height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;
+  }
+  .progress-fill{height:100%;background:var(--green);width:0%;transition:width .35s ease;}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 24px;
+    margin-bottom:16px;
+  }
+  .qnum{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;
+  }
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:13px 14px;border:1px solid var(--line);border-radius:10px;
+    margin-bottom:10px;cursor:pointer;transition:.15s;
+    background:var(--surface-2);
+  }
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--green);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--green);background:rgba(22,194,112,0.08);}
+
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:14px;
+    border:none;border-radius:10px;padding:13px 22px;cursor:pointer;
+    transition:.15s;
+  }
+  .btn-primary{background:var(--green);color:#06140D;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+  }
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--green);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{
+    border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;
+    font-size:13.5px;background:var(--surface-2);
+  }
+  .review-item.correct{border-left:3px solid var(--green);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Calidad</div>
+  <h1>Módulo 1 — Fundamentos ISO 9001</h1>
+  <div class="sub">10 reactivos · aprobatorio 80% · sin límite de tiempo</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div id="quiz"></div>
+
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#16C270" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+
+  <footer>PEM-EXAM-9001-M1 · Production Enhancement México</footer>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "Un Gas Jack presenta la misma falla tres veces en el mismo trimestre, en tres bases distintas. Según el enfoque a procesos de ISO 9001, ¿cuál es la causa más probable?",
+    options: [
+      "El operador de turno no siguió el procedimiento",
+      "Un problema del sistema (diseño del proceso, mantenimiento o control), no un error aislado de una persona",
+      "Mala suerte, es normal en operación de campo",
+      "El cliente no dio mantenimiento correcto"
+    ],
+    correct: 1
+  },
+  {
+    q: "En PEM, la calidad según ISO 9001 se entiende principalmente como:",
+    options: [
+      "Llenar la mayor cantidad de formatos posible",
+      "Cumplir el reglamento aunque la operación falle",
+      "Que la operación sea predecible y confiable, no accidental",
+      "Una responsabilidad exclusiva del área de Calidad"
+    ],
+    correct: 2
+  },
+  {
+    q: "El ciclo PHVA (Planificar-Hacer-Verificar-Actuar) aplicado a la operación de un compresor reciprocante significa:",
+    options: [
+      "Planificar el mantenimiento, operar, verificar parámetros contra especificación, y actuar corrigiendo desviaciones",
+      "Solo se aplica a documentos de calidad, no a operación de campo",
+      "Es un trámite que hace únicamente el gerente de planta",
+      "Reemplaza las bitácoras de operación"
+    ],
+    correct: 0
+  },
+  {
+    q: "¿Qué significa 'contexto de la organización' en ISO 9001 para PEM?",
+    options: [
+      "El organigrama de la empresa",
+      "Los factores internos y externos (clientes como PEMEX/PERENCO, normativa, condiciones de campo, capacidades técnicas) que afectan la capacidad de PEM para entregar el servicio",
+      "El historial de auditorías pasadas",
+      "El presupuesto anual de operaciones"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cuál de las siguientes es una parte interesada (stakeholder) relevante para el Sistema de Gestión de Calidad de PEM?",
+    options: [
+      "Solo PEMEX, porque es el cliente principal",
+      "Solo el Director General",
+      "Clientes (PEMEX, PERENCO, Kodiak), autoridades regulatorias, empleados y proveedores críticos",
+      "Únicamente las empresas certificadoras"
+    ],
+    correct: 2
+  },
+  {
+    q: "Un operador detecta que la presión de descarga de un Gas Jack está fuera de rango y lo reporta de inmediato siguiendo el procedimiento, aunque eso implique detener el equipo. Esto es un ejemplo de:",
+    options: [
+      "Pérdida de producción injustificada",
+      "Aplicación correcta del enfoque a procesos y control operacional",
+      "Un error que debe sancionarse",
+      "Una decisión que no le corresponde al operador"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué ISO 9001 le importa a un mecánico o técnico de campo, y no solo a Calidad?",
+    options: [
+      "No le importa, es responsabilidad exclusiva de Calidad",
+      "Porque cada tarea de campo (torque correcto, registro de mantenimiento, reporte de anomalías) es parte del proceso que sostiene la certificación y la confiabilidad ante el cliente",
+      "Porque debe memorizar la norma completa",
+      "Porque así lo exige un auditor externo una vez al año"
+    ],
+    correct: 1
+  },
+  {
+    q: "Una 'no conformidad' en el SGC de PEM es:",
+    options: [
+      "Un castigo administrativo",
+      "Un desvío respecto a un requisito (procedimiento, especificación del cliente o norma) que debe identificarse y corregirse",
+      "Solo aplica a documentos, no a operación",
+      "Un término exclusivo de auditorías externas"
+    ],
+    correct: 1
+  },
+  {
+    q: "PEM opera en Reynosa, Villahermosa, Poza Rica, CDMX y Monterrey. ¿Por qué esto es relevante para el SGC?",
+    options: [
+      "No es relevante, la norma es igual en todos lados",
+      "Solo importa para logística de nómina",
+      "El sistema debe garantizar que el mismo estándar de calidad y control operacional se aplique de forma consistente en las cinco bases",
+      "Cada base debe tener su propia norma distinta"
+    ],
+    correct: 2
+  },
+  {
+    q: "El objetivo final de este Módulo 1 es que el colaborador de PEM entienda que ISO 9001:",
+    options: [
+      "Es un trámite de la oficina de Calidad",
+      "Es una herramienta operativa que hace que el trabajo diario en campo sea más confiable, seguro y predecible para el cliente y para PEM",
+      "Solo aplica al personal administrativo",
+      "Se resume en pasar la auditoría anual"
+    ],
+    correct: 1
+  }
+];
+
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+
+function selectOpt(i){
+  answers[current]=i;
+  renderQ();
+}
+
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){
+    current++;
+    renderQ();
+  } else {
+    finish();
+  }
+}
+function prevQ(){
+  if(current>0){current--;renderQ();}
+}
+
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 1. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{
+    document.getElementById('gaugeArc').style.strokeDashoffset = offset;
+  },100);
+}
+
+renderQ();
+</script>
+</body>
+</html>

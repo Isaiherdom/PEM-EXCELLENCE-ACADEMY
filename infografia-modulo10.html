@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Control de proveedores externos · Módulo 10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--red:#E8603D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:780px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,28px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .pcard{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:16px;}
+  .pcard.high{border-top:3px solid var(--red);}
+  .pcard.med{border-top:3px solid var(--amber);}
+  .pcard.low{border-top:3px solid var(--green);}
+  .plevel{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+  .pcard.high .plevel{color:var(--red);} .pcard.med .plevel{color:var(--amber);} .pcard.low .plevel{color:var(--green);}
+  .pname{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;margin-bottom:10px;}
+  .pbar{height:6px;background:var(--surface-2,#1B211D);border-radius:4px;overflow:hidden;margin-bottom:10px;}
+  .pbar-fill{height:100%;border-radius:4px;}
+  .pcard.high .pbar-fill{background:var(--red);width:90%;}
+  .pcard.med .pbar-fill{background:var(--amber);width:55%;}
+  .pcard.low .pbar-fill{background:var(--green);width:25%;}
+  .pdesc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:640px){.cards{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Calidad</div>
+      <h1>El control es proporcional al impacto, no al tamaño del proveedor</h1>
+    </div>
+    <div class="doccode">INFO-9001-M10<br>Nivel 4 · Experto</div>
+  </div>
+
+  <div class="cards">
+    <div class="pcard high">
+      <div class="plevel">Control alto</div>
+      <div class="pname">Calibración de instrumentos críticos</div>
+      <div class="pbar"><div class="pbar-fill"></div></div>
+      <div class="pdesc">Afecta directamente mediciones usadas para verificar conformidad de un Gas Jack. Evaluación, seguimiento y auditoría periódica.</div>
+    </div>
+    <div class="pcard med">
+      <div class="plevel">Control medio</div>
+      <div class="pname">Refacciones y componentes críticos</div>
+      <div class="pbar"><div class="pbar-fill"></div></div>
+      <div class="pdesc">Impacta la operación del equipo. Criterios de aceptación definidos y revisión de cada lote recibido.</div>
+    </div>
+    <div class="pcard low">
+      <div class="plevel">Control básico</div>
+      <div class="pname">Insumos administrativos</div>
+      <div class="pbar"><div class="pbar-fill"></div></div>
+      <div class="pdesc">Sin impacto directo en la conformidad del servicio entregado al cliente. Verificación estándar de recepción.</div>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 9001:2015 · Cláusula 8.4</span>
+  </div>
+</div>
+</body>
+</html>

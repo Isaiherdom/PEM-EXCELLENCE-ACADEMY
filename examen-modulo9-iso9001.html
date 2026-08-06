@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 9 · ISO 9001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --green-dim:#0B3D28; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(22,194,112,0.08), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--green);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--green);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--green);background:rgba(22,194,112,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--green);color:#06140D;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--green);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--green);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Calidad</div>
+  <h1>Módulo 9 — Requisitos del Cliente y Diseño del Servicio</h1>
+  <div class="sub">ISO 9001 Cl. 8.2–8.3 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#16C270" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-9001-M9 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "Antes de aceptar un nuevo contrato de compresión, PEM confirma por escrito las especificaciones técnicas exactas que pidió el cliente, aunque ya se habían discutido verbalmente. Esto corresponde a:",
+    options: [
+      "Un paso innecesario si el cliente ya lo mencionó de palabra",
+      "La revisión de los requisitos relacionados con el servicio (Cl. 8.2): confirmar que PEM entiende y puede cumplir lo que el cliente pidió antes de comprometerse",
+      "Un requisito exclusivo del área legal, sin relación con el SGC",
+      "Algo que solo aplica a clientes nuevos, no a PEMEX o PERENCO"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 8.2, la comunicación con el cliente debe incluir, entre otros elementos:",
+    options: [
+      "Solo el envío de la factura al finalizar el servicio",
+      "Proporcionar información sobre el servicio, tratar consultas y pedidos, obtener retroalimentación del cliente (incluidas quejas) y manejar la propiedad del cliente cuando aplique",
+      "Únicamente la negociación del precio",
+      "Solo se comunica si el cliente lo solicita expresamente"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un cliente solicita a mitad de contrato un cambio en las especificaciones del servicio de compresión. Según Cl. 8.2, ¿qué debe hacer PEM antes de continuar?",
+    options: [
+      "Aplicar el cambio de inmediato sin revisión adicional",
+      "Revisar el cambio, confirmar que se puede cumplir, y asegurar que la información documentada correspondiente se actualice y se comunique a quienes ejecutan el servicio",
+      "Ignorarlo hasta el siguiente contrato",
+      "Aplicarlo solo si el precio del contrato aumenta"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cuándo aplica la Cl. 8.3 (Diseño y desarrollo) a los servicios de PEM?",
+    options: [
+      "Nunca, PEM no diseña nada, solo ejecuta procedimientos fijos",
+      "Cuando PEM adapta o desarrolla un servicio para condiciones específicas de un cliente o de un pozo que no están cubiertas por un procedimiento estándar existente",
+      "Únicamente cuando lo exige la certificación ISO",
+      "Solo aplica a productos físicos, nunca a servicios"
+    ],
+    correct: 1
+  },
+  {
+    q: "PEM adapta un servicio de desarenamiento a las condiciones específicas de un pozo con características inusuales. Según Cl. 8.3, ¿qué se debe planificar en ese diseño?",
+    options: [
+      "Nada especial, se resuelve directamente en campo por el operador",
+      "Las etapas del diseño, las entradas (requisitos del pozo), los controles de revisión y verificación, y las salidas (especificación final del servicio adaptado)",
+      "Solo el costo adicional del servicio adaptado",
+      "Únicamente la fecha de entrega"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué es importante que las 'entradas' del diseño de un servicio adaptado (Cl. 8.3) estén claramente determinadas antes de empezar?",
+    options: [
+      "No es importante, el diseño se ajusta sobre la marcha sin problema",
+      "Porque si los requisitos reales del pozo o del cliente no están bien identificados desde el inicio, el servicio adaptado puede no cumplir la necesidad real, aunque técnicamente se ejecute bien",
+      "Solo importa para efectos de facturación",
+      "Es un requisito que solo aplica a diseño de productos físicos"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un cambio en el diseño de un servicio adaptado, ya aprobado por el cliente, se modifica de nuevo sin registrar ni comunicar el cambio. Esto representa un riesgo similar al visto en:",
+    options: [
+      "El Módulo 6, sobre competencia del personal",
+      "El Módulo 7, sobre control de la información documentada — un cambio no controlado puede dejar circulando una versión incorrecta del diseño del servicio",
+      "El Módulo 2, sobre liderazgo de la Dirección",
+      "Ningún módulo anterior tiene relación con esto"
+    ],
+    correct: 1
+  },
+  {
+    q: "La retroalimentación del cliente, incluidas sus quejas, según la Cl. 8.2 debe:",
+    options: [
+      "Ignorarse si el contrato ya se cerró",
+      "Ser recopilada y gestionada como parte de la comunicación con el cliente, alimentando la mejora del servicio",
+      "Solo tratarse si la queja es formal y por escrito notarial",
+      "Ser responsabilidad exclusiva del área comercial, sin relación con el SGC"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Qué pasa si PEM acepta un contrato sin revisar realmente si tiene la capacidad de cumplir las especificaciones solicitadas?",
+    options: [
+      "No hay ningún riesgo si el equipo está disponible en ese momento",
+      "Se incumple la revisión de requisitos de la Cl. 8.2, y aumenta el riesgo de comprometerse con algo que PEM no puede entregar de forma conforme",
+      "Es una decisión exclusivamente comercial, sin relación con el SGC",
+      "Solo es un problema si el cliente es PEMEX"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 9 es que cada colaborador de PEM entienda que capturar bien los requisitos del cliente y controlar el diseño de un servicio adaptado:",
+    options: [
+      "Son pasos burocráticos que retrasan el trabajo real de campo",
+      "Aseguran que lo que se promete al cliente es exactamente lo que se puede cumplir, y que cualquier adaptación del servicio se controla con el mismo rigor que un procedimiento estándar",
+      "Solo importan en contratos grandes con PEMEX",
+      "Se resuelven automáticamente si el equipo técnico tiene experiencia suficiente"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 9. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

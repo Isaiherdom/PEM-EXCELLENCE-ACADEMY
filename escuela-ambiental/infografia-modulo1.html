@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Contexto ambiental · Módulo 1 · ISO 14001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--blue:#4C9AFF;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:720px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,28px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .center{border:1px solid var(--blue);border-radius:14px;background:rgba(76,154,255,.07);padding:16px 20px;text-align:center;margin-bottom:16px;}
+  .center b{font-family:'Space Grotesk',sans-serif;font-size:16px;}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .node{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;text-align:center;}
+  .node .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+  .node .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;margin-bottom:6px;}
+  .node .d{font-size:11px;color:var(--muted);line-height:1.45;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:600px){.grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:400px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela Ambiental</div>
+      <h1>Todo lo que rodea la operación de PEM, la afecta</h1>
+    </div>
+    <div class="doccode">INFO-14001-M1<br>Nivel 1 · Fundamentos</div>
+  </div>
+
+  <div class="center"><b>PEM</b> — 5 bases · compresión, generación, desarenamiento, plantas de aminas</div>
+
+  <div class="grid">
+    <div class="node"><div class="k">Autoridad</div><div class="t">SEMARNAT / ASEA</div><div class="d">Regulación ambiental que puede cambiar y exige monitoreo continuo.</div></div>
+    <div class="node"><div class="k">Comunidad</div><div class="t">Poblaciones cercanas</div><div class="d">Afectadas por emisiones, ruido o derrames de la operación.</div></div>
+    <div class="node"><div class="k">Cliente</div><div class="t">PEMEX / PERENCO</div><div class="d">Exigen cumplimiento ambiental como parte del servicio contratado.</div></div>
+    <div class="node"><div class="k">Interno</div><div class="t">Colaboradores</div><div class="d">Detectan primero una fuga, un derrame o una señal ambiental temprana.</div></div>
+    <div class="node"><div class="k">Recurso</div><div class="t">Agua y combustibles</div><div class="d">Uso y manejo que debe controlarse en cada base.</div></div>
+    <div class="node"><div class="k">Residuo</div><div class="t">Aceites y residuos</div><div class="d">Generados por mantenimiento y operación de equipos críticos.</div></div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 14001:2015 · Cláusula 4</span>
+  </div>
+</div>
+</body>
+</html>

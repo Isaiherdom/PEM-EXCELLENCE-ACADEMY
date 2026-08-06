@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Aspectos e impactos ambientales · Módulo 4 · ISO 14001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--blue:#4C9AFF;--amber:#E8A33D;--green:#16C270;--red:#E8603D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:840px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:18px;}
+  thead th{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);}
+  tbody td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .act{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;}
+  .sig{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 9px;border-radius:20px;}
+  .sig.high{background:rgba(232,96,61,.15);color:var(--red);}
+  .sig.med{background:rgba(232,163,61,.15);color:var(--amber);}
+  .sig.low{background:rgba(22,194,112,.15);color:var(--green);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela Ambiental</div>
+      <h1>Matriz de aspectos e impactos ambientales</h1>
+    </div>
+    <div class="doccode">INFO-14001-M4<br>Nivel 2 · Intermedio</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Actividad</th><th>Aspecto ambiental</th><th>Impacto potencial</th><th>Significancia</th></tr></thead>
+    <tbody>
+      <tr><td class="act">Compresión reciprocante</td><td>Consumo de combustible</td><td>Emisiones a la atmósfera</td><td><span class="sig med">Media</span></td></tr>
+      <tr><td class="act">Generación de energía</td><td>Ruido de operación continua</td><td>Molestia a comunidad cercana</td><td><span class="sig med">Media</span></td></tr>
+      <tr><td class="act">Mantenimiento de equipos</td><td>Manejo de aceites usados</td><td>Contaminación de suelo o agua</td><td><span class="sig high">Alta</span></td></tr>
+      <tr><td class="act">Desarenamiento</td><td>Generación de residuos sólidos</td><td>Disposición inadecuada de residuos</td><td><span class="sig med">Media</span></td></tr>
+      <tr><td class="act">Oficinas administrativas</td><td>Consumo de agua y energía</td><td>Uso de recursos naturales</td><td><span class="sig low">Baja</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 14001:2015 · Cláusula 6.1.2</span>
+  </div>
+</div>
+</body>
+</html>

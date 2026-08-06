@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 3 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,163,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--amber);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--amber);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--amber);background:rgba(232,163,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--amber);color:#1A1000;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--amber);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--amber);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Seguridad</div>
+  <h1>Módulo 3 — Consulta y Participación de los Trabajadores</h1>
+  <div class="sub">ISO 45001 Cl. 5.4 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8A33D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-45001-M3 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "En una base de PEM, la información sobre riesgos se comunica solo por escrito y en términos muy técnicos, sin considerar que algunos operadores prefieren explicación verbal directa. Según Cl. 5.4, esto representa:",
+    options: [
+      "Una forma válida y suficiente de comunicación, sin necesidad de ajuste",
+      "Un obstáculo a la participación real: la norma exige eliminar barreras —como el idioma, el formato o el acceso a la información— que impiden que los trabajadores participen de forma efectiva",
+      "Un tema que no tiene relación con la participación de los trabajadores",
+      "Algo que solo debe resolver el área de Recursos Humanos"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 5.4, ¿sobre cuáles de los siguientes temas PEM debe consultar a los trabajadores no directivos?",
+    options: [
+      "Únicamente el horario de comidas en cada base",
+      "Las necesidades y expectativas de las partes interesadas, la política de SST, la asignación de roles, cómo cumplir los requisitos legales, los objetivos de SST, y los controles aplicables a la subcontratación",
+      "Solo temas administrativos sin relación con SST",
+      "La norma no exige consultar temas específicos, solo informar"
+    ],
+    correct: 1
+  },
+  {
+    q: "PEM cuenta con un comité mixto de seguridad e higiene con representación de trabajadores, como exige la normativa laboral mexicana. Esto es un ejemplo concreto de:",
+    options: [
+      "Un requisito exclusivamente legal, sin relación con ISO 45001",
+      "Un mecanismo formal que cumple simultáneamente la ley laboral mexicana y el requisito de participación real de la Cl. 5.4",
+      "Un trámite adicional sin ningún propósito operativo",
+      "Algo que solo aplica a empresas manufactureras"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cuál de los siguientes es un obstáculo real a la participación que PEM debe eliminar según Cl. 5.4?",
+    options: [
+      "Que los trabajadores tengan demasiado tiempo disponible para participar",
+      "El temor a represalias por reportar un peligro o dar una opinión sobre un riesgo",
+      "Que el comité de seguridad se reúna con demasiada frecuencia",
+      "Que los trabajadores conozcan bien su área de trabajo"
+    ],
+    correct: 1
+  },
+  {
+    q: "Antes de contratar un servicio externo que va a operar dentro de las instalaciones de PEM (por ejemplo, una cuadrilla subcontratada), la Cl. 5.4 espera que PEM:",
+    options: [
+      "Solo firme el contrato comercial, sin ninguna consulta adicional",
+      "Consulte y determine los controles de SST aplicables a esa contratación, considerando el riesgo que ese personal externo puede introducir a la operación",
+      "Delegue toda la responsabilidad de seguridad al subcontratista, sin ninguna consulta interna",
+      "Espere a que ocurra un incidente para definir los controles necesarios"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la participación de los trabajadores debe ocurrir DURANTE el horario laboral, con tiempo asignado, y no como una actividad adicional fuera de turno?",
+    options: [
+      "No es un requisito real, es solo una buena práctica opcional",
+      "Porque si la participación implica un costo personal de tiempo no remunerado, se convierte en otro obstáculo que reduce la participación real, contrario al espíritu de Cl. 5.4",
+      "Porque la ley lo exige exclusivamente para personal sindicalizado",
+      "Porque solo aplica a supervisores, no a operadores"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un mecanismo de consulta que solo funciona en español, en una base donde parte del personal tiene mayor dominio de otro idioma o dialecto, representa:",
+    options: [
+      "Una situación sin relevancia para la participación efectiva",
+      "Una barrera de idioma que la Cl. 5.4 exige identificar y eliminar para que la participación sea real, no solo formal",
+      "Un tema exclusivamente de Recursos Humanos, sin relación con SST",
+      "Algo que se resuelve automáticamente con el tiempo"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se diferencia este Módulo 3 del Módulo 2 (Liderazgo y participación)?",
+    options: [
+      "No hay diferencia real, ambos módulos cubren exactamente lo mismo",
+      "El Módulo 2 estableció el principio de liderazgo y participación; este módulo profundiza en los mecanismos concretos de consulta —qué temas, cómo, y qué obstáculos eliminar— para que esa participación sea efectiva en la práctica",
+      "Este módulo reemplaza por completo lo visto en el Módulo 2",
+      "Solo se diferencian en el color de la diapositiva"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si PEM documenta un procedimiento de consulta a los trabajadores, pero en la práctica nunca se aplica antes de decisiones que afectan su seguridad, esto representa:",
+    options: [
+      "Un cumplimiento suficiente de la Cl. 5.4, ya que el procedimiento existe",
+      "El mismo riesgo de 'requisito de papel' visto en otras escuelas de la Academia: un mecanismo que existe en documento pero no se ejecuta no genera participación real",
+      "Un tema sin relación con el sistema de gestión de SST",
+      "Algo que solo debe corregirse si lo detecta la autoridad laboral"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 3 es que cada colaborador de PEM entienda que la consulta y participación de los trabajadores:",
+    options: [
+      "Es un trámite formal que se cumple con tener un comité documentado",
+      "Requiere mecanismos reales y accesibles —sin barreras de idioma, tiempo o temor a represalias— para que la participación sea efectiva, no solo simbólica",
+      "Solo aplica a los temas que decida la Dirección compartir",
+      "Se resuelve automáticamente si existe un sindicato en la empresa"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8A33D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 3. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

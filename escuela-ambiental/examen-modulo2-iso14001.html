@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 2 · ISO 14001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --blue:#4C9AFF; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(76,154,255,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px var(--blue);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--blue);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--blue);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--blue);background:rgba(76,154,255,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--blue);color:#06140D;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--blue);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--blue);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela Ambiental</div>
+  <h1>Módulo 2 — Liderazgo y Política Ambiental</h1>
+  <div class="sub">ISO 14001 Cl. 5 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#4C9AFF" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-14001-M2 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "El Director General de PEM aprueba presupuesto para equipo de contención de derrames en las 5 bases, antes de que la temporada de lluvias aumente el riesgo. Según Cl. 5.1, esto es evidencia de:",
+    options: [
+      "Un gasto operativo sin relación con el SGA",
+      "Liderazgo ambiental real: asegurar la disponibilidad de recursos para el sistema de gestión ambiental antes de que el riesgo se materialice",
+      "Una decisión que corresponde únicamente al área de Mantenimiento",
+      "Un requisito que solo aplica si lo exige el cliente"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 5.2, la política ambiental de PEM debe incluir, entre otros elementos:",
+    options: [
+      "Solo un compromiso genérico de 'cuidar el planeta'",
+      "Un compromiso con la protección del medio ambiente, el cumplimiento de los requisitos legales aplicables, y la mejora continua del desempeño ambiental",
+      "Únicamente metas financieras relacionadas con multas ambientales",
+      "Un documento que solo conoce el área de HSE"
+    ],
+    correct: 1
+  },
+  {
+    q: "Al igual que en la Escuela de Calidad, la política ambiental de PEM debe estar:",
+    options: [
+      "Solo documentada, sin necesidad de comunicarse",
+      "Disponible, comunicada y entendida por los colaboradores en las 5 bases, no solo archivada",
+      "Reservada exclusivamente para presentarse en la auditoría externa",
+      "Redactada únicamente en inglés para uso corporativo"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un gerente de base delega en un supervisor la autoridad para detener una operación si detecta un riesgo ambiental inminente, como una fuga activa. Esto corresponde a:",
+    options: [
+      "Una decisión fuera del alcance de la norma",
+      "Cl. 5.3: asignación clara de roles, responsabilidades y autoridades ambientales, igual que se vio con la cadena de autoridad en la Escuela de Calidad",
+      "Una responsabilidad exclusiva del área de Seguridad, sin relación con el SGA",
+      "Algo que solo puede decidir el Director General en persona"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué el liderazgo ambiental no puede delegarse por completo al área de HSE?",
+    options: [
+      "Porque HSE no tiene ninguna función ambiental",
+      "Porque la norma exige compromiso visible de la alta dirección: asignar recursos, comunicar la importancia y rendir cuentas del desempeño ambiental, algo que va más allá de la función técnica de HSE",
+      "Porque solo el Director General puede operar equipo de contención",
+      "Porque así lo decide cada empresa según su preferencia, sin relación con la norma"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si dos bases de PEM tienen políticas ambientales distintas o interpretaciones diferentes de la misma política, esto representa:",
+    options: [
+      "Una situación aceptable, cada base puede adaptar la política a su gusto",
+      "Una falla de comunicación y liderazgo según Cl. 5.2, que puede generar respuestas inconsistentes ante un mismo tipo de riesgo ambiental",
+      "Un tema que no tiene relación con el SGA",
+      "Un problema exclusivo de Recursos Humanos"
+    ],
+    correct: 1
+  },
+  {
+    q: "El compromiso de mejora continua dentro de la política ambiental de PEM se refleja, en la práctica, cuando:",
+    options: [
+      "Se cumple solo lo mínimo indispensable para evitar una multa",
+      "Una lección aprendida de un incidente ambiental menor en una base se convierte en un ajuste real del procedimiento, compartido con las otras bases",
+      "Se documenta el compromiso, sin ninguna acción posterior",
+      "Se aplica únicamente en las bases con más antigüedad"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un supervisor exige que su cuadrilla siga el procedimiento de manejo de residuos peligrosos, aunque tome más tiempo que el método habitual. Esto es un ejemplo de:",
+    options: [
+      "Un exceso de control sin sustento normativo",
+      "Liderazgo distribuido: el mismo principio de Cl. 5.1 aplicado a su nivel de autoridad, igual que se vio en el Módulo 2 de la Escuela de Calidad",
+      "Una función exclusiva del área de Calidad",
+      "Una decisión que retrasa innecesariamente la operación, sin justificación"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Qué riesgo real corre PEM si la política ambiental existe en papel, pero la Dirección nunca la respalda con recursos ni comunicación activa?",
+    options: [
+      "Ninguno, mientras el documento esté firmado",
+      "Los colaboradores tratan la gestión ambiental como un trámite de oficina, aumentando la probabilidad de que una señal temprana —como una fuga menor— no se reporte a tiempo",
+      "Solo afecta la imagen de la empresa ante el auditor externo",
+      "Solo afecta al área de HSE, sin relación con la operación de campo"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 2 es que cada líder de PEM entienda que el liderazgo y la política ambiental:",
+    options: [
+      "Se limitan a firmar un documento una vez al año",
+      "Son una decisión visible y sostenida —recursos, comunicación, ejemplo y autoridad definida— que se demuestra en decisiones operativas reales, igual que el liderazgo de calidad visto anteriormente",
+      "Son responsabilidad exclusiva de un solo puesto en la organización",
+      "Solo se evalúan durante la auditoría externa de certificación"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#4C9AFF;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 2. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

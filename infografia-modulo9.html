@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Requisitos del cliente y diseño del servicio · Módulo 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:640px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,28px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .funnel{display:flex;flex-direction:column;gap:10px;}
+  .flevel{
+    border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:14px 20px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .flevel:nth-child(1){margin-right:0%;}
+  .flevel:nth-child(2){margin-right:5%;}
+  .flevel:nth-child(3){margin-right:10%;}
+  .flevel:nth-child(4){margin-right:15%;border-color:var(--green);background:rgba(22,194,112,.06);}
+  .fn{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);width:22px;flex-shrink:0;}
+  .ft{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;margin-bottom:3px;}
+  .fd{font-size:11.5px;color:var(--muted);line-height:1.4;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:480px){.flevel{margin-right:0 !important;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Calidad</div>
+      <h1>De la solicitud del cliente al servicio confirmado</h1>
+    </div>
+    <div class="doccode">INFO-9001-M9<br>Nivel 4 · Experto</div>
+  </div>
+
+  <div class="funnel">
+    <div class="flevel"><div class="fn">01</div><div><div class="ft">Solicitud del cliente</div><div class="fd">PEMEX, PERENCO o Kodiak describen la necesidad del servicio.</div></div></div>
+    <div class="flevel"><div class="fn">02</div><div><div class="ft">Determinación de requisitos</div><div class="fd">Se identifican las especificaciones técnicas exactas solicitadas.</div></div></div>
+    <div class="flevel"><div class="fn">03</div><div><div class="ft">Revisión de capacidad</div><div class="fd">PEM confirma que puede cumplir lo solicitado antes de comprometerse.</div></div></div>
+    <div class="flevel"><div class="fn">04</div><div><div class="ft">Servicio confirmado</div><div class="fd">Especificación aceptada, documentada y comunicada a quien lo ejecuta.</div></div></div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 9001:2015 · Cláusula 8.2–8.3</span>
+  </div>
+</div>
+</body>
+</html>

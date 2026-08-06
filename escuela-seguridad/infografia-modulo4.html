@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Identificación de peligros y evaluación de riesgos · Módulo 4 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--amber:#E8A33D;--green:#16C270;--red:#E8603D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:760px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .matrix-wrap{display:flex;gap:10px;align-items:flex-end;}
+  .yaxis{display:flex;flex-direction:column;justify-content:space-between;height:220px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);padding:4px 0;}
+  .grid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:4px;height:220px;}
+  .cell{border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:#06140D;font-weight:600;text-align:center;padding:4px;}
+  .low{background:rgba(22,194,112,.55);}
+  .med{background:rgba(232,163,61,.6);}
+  .high{background:rgba(232,96,61,.62);}
+  .xaxis{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:6px;padding-left:44px;}
+
+  .examples{margin-top:22px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .ex{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface);font-size:11px;color:var(--muted);line-height:1.5;}
+  .ex b{color:var(--text);display:block;margin-bottom:4px;font-size:12px;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:560px){.examples{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Seguridad</div>
+      <h1>Matriz de evaluación de riesgo</h1>
+    </div>
+    <div class="doccode">INFO-45001-M4<br>Nivel 2 · Intermedio</div>
+  </div>
+
+  <div class="matrix-wrap">
+    <div class="yaxis"><span>Alta</span><span>Media</span><span>Baja</span></div>
+    <div class="grid">
+      <div class="cell med">Medio</div><div class="cell high">Alto</div><div class="cell high">Alto</div>
+      <div class="cell low">Bajo</div><div class="cell med">Medio</div><div class="cell high">Alto</div>
+      <div class="cell low">Bajo</div><div class="cell low">Bajo</div><div class="cell med">Medio</div>
+    </div>
+  </div>
+  <div class="xaxis"><span>Leve</span><span>Moderado</span><span>Severo</span></div>
+
+  <div class="examples">
+    <div class="ex"><b>Alto</b>Pieza en movimiento sin guarda — probabilidad y severidad altas.</div>
+    <div class="ex"><b>Medio</b>Ruido continuo de un generador — severidad moderada, exposición frecuente.</div>
+    <div class="ex"><b>Bajo</b>Superficie irregular en zona de tránsito poco usada — baja probabilidad e impacto.</div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 45001:2018 · Cláusula 6.1.2</span>
+  </div>
+</div>
+</body>
+</html>

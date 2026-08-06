@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Investigaciones y conflictos de interés · Módulo 10 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--red:#E8603D;--amber:#E8A33D;--green:#16C270;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:760px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .section-title{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px;}
+  .timeline{display:flex;gap:8px;margin-bottom:24px;}
+  .tstep{flex:1;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 10px;text-align:center;}
+  .tstep .n{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--red);margin-bottom:4px;}
+  .tstep .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;line-height:1.3;}
+
+  .coi-box{border:1px solid var(--amber);border-radius:12px;background:rgba(232,163,61,.06);padding:16px 18px;}
+  .coi-box .title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;margin-bottom:8px;}
+  .coi-box .body{font-size:12px;color:var(--muted);line-height:1.6;}
+  .coi-box .body b{color:var(--text);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:600px){.timeline{flex-wrap:wrap;}.tstep{flex:1 1 45%;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+      <h1>Investigación justa, conflicto declarado a tiempo</h1>
+    </div>
+    <div class="doccode">INFO-37001-M10<br>Nivel 4 · Experto</div>
+  </div>
+
+  <div class="section-title">Proceso de investigación (Cl. 8.10)</div>
+  <div class="timeline">
+    <div class="tstep"><div class="n">01</div><div class="t">Recepción del reporte</div></div>
+    <div class="tstep"><div class="n">02</div><div class="t">Asignación imparcial</div></div>
+    <div class="tstep"><div class="n">03</div><div class="t">Investigación confidencial</div></div>
+    <div class="tstep"><div class="n">04</div><div class="t">Decisión y acción</div></div>
+    <div class="tstep"><div class="n">05</div><div class="t">Cierre documentado</div></div>
+  </div>
+
+  <div class="section-title">Ejemplo de conflicto de interés (Cl. 8.13)</div>
+  <div class="coi-box">
+    <div class="title">Declaración de Integridad</div>
+    <div class="body">Un colaborador de Compras tiene un <b>familiar directo</b> como dueño de una empresa participante en una licitación de PEM. Declara el conflicto <b>antes</b> de la decisión y se <b>abstiene</b> de participar en ella.</div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGAS</span>
+    <span>ISO 37001:2025 · Cláusula 8.10, 8.13</span>
+  </div>
+</div>
+</body>
+</html>

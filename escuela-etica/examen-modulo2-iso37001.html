@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 2 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --red:#E8603D; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,96,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--red);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--red);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--red);background:rgba(232,96,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--red);color:#1A0A05;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--red);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--red);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+  <h1>Módulo 2 — Liderazgo, Función de Cumplimiento y Compromiso</h1>
+  <div class="sub">ISO 37001 Cl. 5 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8603D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-37001-M2 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "El Director General de PEM nombra formalmente a un colaborador con autoridad e independencia real para operar la Función Antisoborno, incluyendo acceso directo a la alta dirección. Según Cl. 5, esto es evidencia de:",
+    options: [
+      "Un trámite administrativo sin relación con el liderazgo real",
+      "Liderazgo y compromiso genuino: asegurar que la función de cumplimiento tenga la autoridad, independencia y recursos necesarios para operar sin interferencia",
+      "Una decisión que corresponde únicamente al área legal",
+      "Un requisito opcional que solo aplica si el cliente lo exige"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 5, el liderazgo de PEM en materia antisoborno se demuestra, entre otras formas, cuando:",
+    options: [
+      "Firma la política antisoborno una vez y no vuelve a mencionarla",
+      "Rinde cuentas de la eficacia del SGAS, asegura recursos para su funcionamiento, y comunica activamente la importancia de la integridad en las decisiones de negocio",
+      "Delega el 100% de la responsabilidad a la Función Antisoborno, sin ningún involucramiento",
+      "Asiste únicamente a la auditoría externa de certificación"
+    ],
+    correct: 1
+  },
+  {
+    q: "La 'función de cumplimiento' (Función Antisoborno) que exige la Cl. 5 debe tener, entre otras características:",
+    options: [
+      "Total dependencia jerárquica del área que audita, para simplificar la estructura",
+      "Independencia suficiente frente a las áreas que podrían generar un riesgo de soborno, y acceso directo a la alta dirección cuando sea necesario",
+      "Autoridad exclusivamente simbólica, sin recursos reales asignados",
+      "Un nombramiento informal, sin documentación necesaria"
+    ],
+    correct: 1
+  },
+  {
+    q: "El Comité de Integridad de PEM revisa periódicamente el desempeño del SGAS y toma decisiones sobre casos reportados. Esto es un ejemplo de:",
+    options: [
+      "Una estructura decorativa sin poder de decisión real",
+      "Gobierno del sistema antisoborno (Cl. 5): un mecanismo formal que sostiene el liderazgo y la rendición de cuentas de forma continua, no solo en el nombramiento inicial",
+      "Un requisito exclusivo de empresas que cotizan en bolsa",
+      "Algo que reemplaza la necesidad de la Función Antisoborno"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la independencia de la Función Antisoborno es un requisito crítico según Cl. 5?",
+    options: [
+      "No es un requisito real, es una interpretación exagerada de la norma",
+      "Porque si la función depende directamente del área que podría generar el riesgo (por ejemplo, Compras), su capacidad real de detectar y reportar problemas se ve comprometida",
+      "Porque la independencia solo importa para efectos de auditoría externa",
+      "Porque la norma exige que la función reporte exclusivamente a un tercero externo"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un gerente de base asigna presupuesto y tiempo para que su equipo participe en una capacitación de integridad, en vez de tratarla como algo secundario frente a metas comerciales. Esto es un ejemplo de:",
+    options: [
+      "Una pérdida de tiempo operativo sin beneficio real",
+      "Liderazgo distribuido en integridad: el mismo principio del Comité de Integridad y la Dirección, aplicado a su nivel de autoridad",
+      "Una función que corresponde exclusivamente a Recursos Humanos",
+      "Algo que no tiene sustento en la norma"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta el liderazgo antisoborno (Cl. 5) con el liderazgo visto en las otras escuelas de PEM (Calidad, Ambiental, Seguridad)?",
+    options: [
+      "No tiene relación, son requisitos completamente distintos en cada escuela",
+      "Aplica el mismo principio de compromiso visible, recursos asegurados y rendición de cuentas, con un elemento propio: la independencia formal de la función de cumplimiento frente a las áreas de riesgo",
+      "Reemplaza por completo el liderazgo visto en las otras escuelas",
+      "Solo se relaciona si el mismo Director lidera las 4 escuelas"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si la Función Antisoborno de PEM existe en el organigrama, pero en la práctica nunca tiene acceso real a la Dirección ni recursos para investigar un caso, esto representa:",
+    options: [
+      "Un cumplimiento suficiente de la Cl. 5, ya que el nombramiento existe",
+      "El mismo riesgo de 'liderazgo de papel' visto en otras escuelas: un cargo que existe en documento pero no tiene autoridad real para actuar",
+      "Un tema sin relación con el sistema antisoborno",
+      "Algo que solo debe corregirse si lo detecta la autoridad externa"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Qué riesgo real corre PEM si el liderazgo antisoborno existe solo en documentos, sin respaldo real de recursos ni autoridad?",
+    options: [
+      "Ninguno, mientras la política esté firmada",
+      "Los colaboradores tratan la integridad como un trámite de oficina, aumentando la probabilidad de que una situación real de riesgo —como la del Módulo 1— no se reporte ni se atienda",
+      "Solo afecta la imagen de la empresa ante el auditor externo",
+      "Solo afecta a la Función Antisoborno, sin relación con la operación de campo"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 2 es que cada líder de PEM entienda que el liderazgo y la función de cumplimiento antisoborno:",
+    options: [
+      "Se limitan a nombrar formalmente a una persona responsable",
+      "Requieren compromiso visible, recursos reales, independencia de la función de cumplimiento, y un mecanismo de gobierno continuo —como el Comité de Integridad— que sostenga el sistema en el tiempo",
+      "Son responsabilidad exclusiva de un solo puesto en la organización",
+      "Solo se evalúan durante la auditoría externa de certificación"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8603D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 2. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

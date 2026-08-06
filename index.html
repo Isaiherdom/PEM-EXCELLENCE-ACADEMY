@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --blue:#4C9AFF; --amber:#E8A33D; --red:#E8603D;
+    --text:#F1F3F0; --muted:#8A968E;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
+  .hero{
+    padding:56px 20px 40px;text-align:center;border-bottom:1px solid var(--line);
+    background:radial-gradient(900px 400px at 50% -20%, rgba(22,194,112,0.10), transparent 60%);
+  }
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--green);text-transform:uppercase;margin-bottom:14px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,44px);margin:0 0 12px;}
+  .hero p{color:var(--muted);max-width:560px;margin:0 auto;font-size:14.5px;line-height:1.6;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+  .refs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
+  .ref-link{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);border:1px solid var(--line);padding:7px 14px;border-radius:20px;text-decoration:none;transition:.15s;}
+  .ref-link:hover{color:var(--text);border-color:var(--green);}
+
+  .schools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px;}
+  .school-tab{
+    border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface);cursor:pointer;text-align:left;
+  }
+  .school-tab.active{border-color:var(--green);}
+  .school-tab .dot{width:10px;height:10px;border-radius:50%;margin-bottom:10px;}
+  .school-tab .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;}
+  .school-tab .norm{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px;}
+  .school-tab .prog{font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:8px;}
+
+  .modgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:22px;}
+  .modcard{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;}
+  .modcard-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .modcard-n{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--green);}
+  .modcard-clause{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+  .modcard-title{padding:12px 16px 4px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;line-height:1.3;}
+  .assets{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 16px 16px;}
+  .asset-link{
+    display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text);text-decoration:none;
+    border:1px solid var(--line);border-radius:8px;padding:8px 10px;transition:.15s;background:var(--surface-2);
+  }
+  .asset-link:hover{border-color:var(--green);color:var(--green);}
+
+  .empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 0;font-family:'JetBrains Mono',monospace;}
+
+  footer{text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:50px;}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="eyebrow">PEM Excellence Academy</div>
+    <h1>Este es el producto final</h1>
+    <p>Una página de inicio, sin instalación, que conecta cada activo — Gamma, video, examen, flashcards, infografía, certificado — en un solo lugar. Se aloja gratis (GitHub Pages o SharePoint) y se abre en cualquier navegador.</p>
+    <div class="refs">
+      <a class="ref-link" href="bienvenida-orientacion.html" style="border-color:var(--green);color:var(--green);">👋 Empieza aquí — Bienvenida</a>
+      <a class="ref-link" href="gold-standard-identidad-visual.html">Gold Standard — Identidad</a>
+      <a class="ref-link" href="mapa-academico-pem-excellence-academy.html">Mapa Académico</a>
+      <a class="ref-link" href="rutas-aprendizaje-pem-excellence-academy.html">Rutas de Aprendizaje</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="schools" id="schoolTabs"></div>
+    <div class="modgrid" id="modGrid"></div>
+  </div>
+
+  <footer>PEM-ACAD-HUB-01 · Production Enhancement México · Prototipo funcional</footer>
+
+<script>
+const SCHOOLS = {
+  "9001": {
+    name:"Escuela de Calidad", norm:"ISO 9001:2015", color:"#16C270", active:true, progress:"12/12",
+    prefix:"", examSuffix:"-iso9001",
+    modules:[
+      ["Fundamentos y contexto de la organización","Cl. 4"],
+      ["Liderazgo y compromiso de la dirección","Cl. 5.1"],
+      ["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3"],
+      ["Riesgos y oportunidades","Cl. 6.1"],
+      ["Objetivos de calidad y planificación de cambios","Cl. 6.2–6.3"],
+      ["Recursos, competencia y toma de conciencia","Cl. 7.1–7.3"],
+      ["Comunicación e información documentada","Cl. 7.4–7.5"],
+      ["Planificación y control operacional","Cl. 8.1"],
+      ["Requisitos del cliente y diseño del servicio","Cl. 8.2–8.3"],
+      ["Control de proveedores externos y compras","Cl. 8.4"],
+      ["Provisión del servicio y salidas no conformes","Cl. 8.5–8.7"],
+      ["Evaluación del desempeño, auditoría y mejora","Cl. 9–10"]
+    ]
+  },
+  "14001": {
+    name:"Escuela Ambiental", norm:"ISO 14001:2015", color:"#4C9AFF", active:true, progress:"12/12",
+    prefix:"escuela-ambiental/", examSuffix:"-iso14001",
+    modules:[
+      ["Fundamentos y contexto ambiental","Cl. 4"],
+      ["Liderazgo y política ambiental","Cl. 5"],
+      ["Partes interesadas y requisitos legales","Cl. 4.2 / 6.1.3"],
+      ["Aspectos e impactos ambientales","Cl. 6.1.2"],
+      ["Objetivos ambientales y planificación de acciones","Cl. 6.2"],
+      ["Recursos, competencia y toma de conciencia ambiental","Cl. 7.1–7.3"],
+      ["Comunicación e información documentada ambiental","Cl. 7.4–7.5"],
+      ["Control operacional ambiental","Cl. 8.1"],
+      ["Preparación y respuesta ante emergencias","Cl. 8.2"],
+      ["Evaluación del desempeño ambiental","Cl. 9.1"],
+      ["Cumplimiento legal ambiental","Cl. 9.1.2"],
+      ["Auditoría interna y mejora continua ambiental","Cl. 9.2–10"]
+    ]
+  },
+  "45001": {
+    name:"Escuela de Seguridad", norm:"ISO 45001:2018", color:"#E8A33D", active:true, progress:"12/12",
+    prefix:"escuela-seguridad/", examSuffix:"-iso45001",
+    modules:[
+      ["Fundamentos y contexto de SST","Cl. 4"],
+      ["Liderazgo y participación de los trabajadores","Cl. 5.1, 5.4"],
+      ["Consulta y participación de los trabajadores","Cl. 5.4"],
+      ["Identificación de peligros y evaluación de riesgos","Cl. 6.1.2"],
+      ["Requisitos legales en SST","Cl. 6.1.3"],
+      ["Objetivos y planificación de SST","Cl. 6.2"],
+      ["Recursos, competencia y toma de conciencia en SST","Cl. 7.1–7.3"],
+      ["Comunicación y consulta","Cl. 7.4"],
+      ["Eliminación de peligros y jerarquía de controles","Cl. 8.1.2"],
+      ["Gestión del cambio y contratación externa","Cl. 8.1.3–8.1.4"],
+      ["Preparación y respuesta ante emergencias","Cl. 8.2"],
+      ["Investigación de incidentes, auditoría y mejora","Cl. 9–10"]
+    ]
+  },
+  "37001": {
+    name:"Escuela de Ética", norm:"ISO 37001:2025", color:"#E8603D", active:true, progress:"12/12",
+    prefix:"escuela-etica/", examSuffix:"-iso37001",
+    modules:[
+      ["Fundamentos y contexto del riesgo de soborno","Cl. 4"],
+      ["Liderazgo, función de cumplimiento y compromiso","Cl. 5"],
+      ["Política antisoborno y gobierno","Cl. 5.2–5.3"],
+      ["Evaluación de riesgo de soborno","Cl. 6, 8.9"],
+      ["Debida diligencia de terceros, socios y clientes","Cl. 8.2"],
+      ["Controles financieros y no financieros","Cl. 8.3–8.4"],
+      ["Regalos, hospitalidad, donativos y beneficios","Cl. 8.5–8.6"],
+      ["Compromisos antisoborno de terceros","Cl. 8.7"],
+      ["Canal de denuncias (whistleblowing)","Cl. 8.9"],
+      ["Investigaciones y conflictos de interés","Cl. 8.10, 8.13"],
+      ["Comunicación, competencia y conciencia","Cl. 7"],
+      ["Evaluación del desempeño, auditoría interna y mejora","Cl. 9–10"]
+    ]
+  }
+};
+
+let current = "9001";
+
+function renderTabs(){
+  const el = document.getElementById('schoolTabs');
+  el.innerHTML = Object.entries(SCHOOLS).map(([key,s])=>`
+    <div class="school-tab ${key===current?'active':''}" onclick="selectSchool('${key}')" style="border-top:3px solid ${s.color}">
+      <div class="dot" style="background:${s.color}"></div>
+      <div class="name">${s.name}</div>
+      <div class="norm">${s.norm}</div>
+      <div class="prog" style="color:${s.color}">${s.progress} módulos</div>
+    </div>
+  `).join('');
+}
+
+function selectSchool(key){
+  current = key;
+  renderTabs();
+  renderModules();
+}
+
+function renderModules(){
+  const s = SCHOOLS[current];
+  const el = document.getElementById('modGrid');
+  if(!s.active || s.modules.length===0){
+    el.innerHTML = `<div class="empty">Escuela futura — malla de 12 módulos definida, contenido pendiente de construcción.</div>`;
+    return;
+  }
+  el.innerHTML = s.modules.map((m,i)=>{
+    const n = i+1;
+    return `
+    <div class="modcard">
+      <div class="modcard-head">
+        <span class="modcard-n">M${n}</span>
+        <span class="modcard-clause">${m[1]}</span>
+      </div>
+      <div class="modcard-title">${m[0]}</div>
+      <div class="assets">
+        <a class="asset-link" href="${s.prefix}examen-modulo${n}${s.examSuffix}.html">📝 Examen</a>
+        <a class="asset-link" href="${s.prefix}certificado-modulo${n}.html">🎖 Certificado</a>
+        <a class="asset-link" href="${s.prefix}flashcards-modulo${n}.html">🗂 Flashcards</a>
+        <a class="asset-link" href="${s.prefix}infografia-modulo${n}.html">📊 Infografía</a>
+      </div>
+    </div>
+  `}).join('');
+}
+
+renderTabs();
+renderModules();
+</script>
+</body>
+</html>

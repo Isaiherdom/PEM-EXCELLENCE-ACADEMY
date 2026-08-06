@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Liderazgo y participación de los trabajadores · Módulo 2 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--amber:#E8A33D;--green:#16C270;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:780px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .chain{display:flex;flex-direction:column;gap:0;}
+  .step{display:flex;gap:16px;align-items:flex-start;position:relative;padding-bottom:26px;}
+  .step:last-child{padding-bottom:0;}
+  .step::before{content:"";position:absolute;left:19px;top:40px;bottom:0;width:1px;background:var(--line);}
+  .step:last-child::before{display:none;}
+  .step-node{
+    width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--amber);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'JetBrains Mono',monospace;
+    font-weight:600;font-size:13px;color:var(--amber);z-index:1;
+  }
+  .step-body{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .step-role{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;margin-bottom:4px;}
+  .step-action{font-size:12.5px;color:var(--muted);line-height:1.5;}
+  .step-ok{display:inline-block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);background:rgba(22,194,112,.1);padding:3px 8px;border-radius:6px;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Seguridad</div>
+      <h1>De un peligro reportado a una acción real</h1>
+    </div>
+    <div class="doccode">INFO-45001-M2<br>Nivel 1 · Fundamentos</div>
+  </div>
+
+  <div class="chain">
+    <div class="step">
+      <div class="step-node">1</div>
+      <div class="step-body">
+        <div class="step-role">Trabajador de campo</div>
+        <div class="step-action">Detecta una escalera de acceso en mal estado y la reporta de inmediato, sin temor a consecuencias.</div>
+        <span class="step-ok">Derecho: reportar sin represalia</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-node">2</div>
+      <div class="step-body">
+        <div class="step-role">Comité de seguridad</div>
+        <div class="step-action">Con representación real de operadores, evalúa el reporte y prioriza la corrección.</div>
+        <span class="step-ok">Derecho: participar en la evaluación</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-node">3</div>
+      <div class="step-body">
+        <div class="step-role">Gerente de base</div>
+        <div class="step-action">Asigna recursos para corregir la escalera antes de que ocurra un incidente.</div>
+        <span class="step-ok">Liderazgo: recursos asegurados a tiempo</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-node">4</div>
+      <div class="step-body">
+        <div class="step-role">Mismo trabajador</div>
+        <div class="step-action">Confirma que la corrección se hizo, reforzando la confianza en el sistema de reporte.</div>
+        <span class="step-ok">El ciclo se refuerza, no se apaga</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 45001:2018 · Cláusula 5.1, 5.4</span>
+  </div>
+</div>
+</body>
+</html>

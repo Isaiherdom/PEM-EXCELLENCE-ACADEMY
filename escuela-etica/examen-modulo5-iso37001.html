@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 5 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --red:#E8603D; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,96,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--red);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--red);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--red);background:rgba(232,96,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--red);color:#1A0A05;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--red);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--red);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+  <h1>Módulo 5 — Debida Diligencia de Terceros, Socios y Clientes</h1>
+  <div class="sub">ISO 37001 Cl. 8.2 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8603D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-37001-M5 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "PEM contrata a un nuevo proveedor de alto riesgo (según la matriz del Módulo 4) sin verificar su reputación, su estructura de propiedad, ni si aparece en alguna lista de sanciones. Según Cl. 8.2, esto representa:",
+    options: [
+      "Una práctica normal si el proveedor ofrece buen precio",
+      "Una falla de debida diligencia: PEM debe investigar a terceros antes de iniciar la relación, de forma proporcional al nivel de riesgo identificado",
+      "Un tema que solo le corresponde verificar al área legal externa",
+      "Algo que solo se revisa si el proveedor ya causó un problema antes"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 8.2, el nivel de debida diligencia que PEM aplica a un tercero debe ser:",
+    options: [
+      "Exactamente igual para todos los terceros, sin importar su nivel de riesgo",
+      "Proporcional al riesgo identificado en la evaluación del Módulo 4: mayor profundidad de verificación para relaciones de mayor riesgo",
+      "Mínimo siempre, para no retrasar los procesos de contratación",
+      "Aplicable únicamente a clientes, nunca a proveedores"
+    ],
+    correct: 1
+  },
+  {
+    q: "El Procedimiento de Verificación de Antecedentes de PEM (documento interno) exige distintos niveles de revisión según el riesgo del tercero. Esto es un ejemplo directo de:",
+    options: [
+      "Burocracia innecesaria sin relación con la norma",
+      "La forma concreta de aplicar la debida diligencia proporcional que exige la Cl. 8.2, evitando tratar todos los casos por igual",
+      "Un requisito exclusivo para socios de negocio, no para proveedores",
+      "Algo que reemplaza la necesidad de la matriz de riesgo del Módulo 4"
+    ],
+    correct: 1
+  },
+  {
+    q: "Para un proveedor clasificado como de BAJO riesgo (por ejemplo, papelería de oficina), la debida diligencia proporcional según Cl. 8.2 sería:",
+    options: [
+      "Exactamente la misma investigación exhaustiva que para un proveedor de alto riesgo",
+      "Una verificación básica —datos generales, existencia legal— sin necesidad de una investigación exhaustiva de estructura de propiedad o listas de sanciones",
+      "Ninguna verificación, ya que el riesgo es bajo",
+      "Solo se aplica si el proveedor lo solicita"
+    ],
+    correct: 1
+  },
+  {
+    q: "Para un proveedor clasificado como de ALTO riesgo (por ejemplo, un intermediario en trámites regulatorios), la debida diligencia proporcional debería incluir:",
+    options: [
+      "Solo el nombre y el número de contacto del representante",
+      "Verificación de reputación, estructura de propiedad real, presencia en listas de sanciones o personas políticamente expuestas, y revisión periódica mientras dure la relación",
+      "Únicamente una llamada telefónica informal",
+      "Solo se verifica una vez, sin revisión posterior durante la relación"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la debida diligencia no termina al firmar el contrato con un tercero de alto riesgo?",
+    options: [
+      "Porque debe repetirse todos los días sin excepción",
+      "Porque las circunstancias de un tercero pueden cambiar con el tiempo —nuevos socios, nuevas sanciones, cambios de propiedad—, por lo que el monitoreo debe continuar durante la relación comercial",
+      "Porque la norma no exige ninguna verificación después de firmar",
+      "Porque solo debe repetirse si el tercero lo solicita"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta la debida diligencia (Cl. 8.2) con la evaluación de riesgo del Módulo 4?",
+    options: [
+      "No tiene relación, son procesos completamente independientes",
+      "La evaluación de riesgo del Módulo 4 determina el nivel de riesgo de cada tipo de tercero, y ese nivel es exactamente lo que define la profundidad de la debida diligencia que se le aplica",
+      "La debida diligencia reemplaza la necesidad de la matriz de riesgo",
+      "Solo se relacionan si el tercero ya fue sancionado antes"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si PEM aplica el mismo nivel superficial de verificación a todos los terceros, sin diferenciar por riesgo, ¿qué consecuencia real se genera?",
+    options: [
+      "Ninguna, mientras se documente que se hizo alguna verificación",
+      "Los terceros de mayor riesgo real pueden pasar sin la investigación que necesitan, mientras se invierte tiempo excesivo verificando terceros de bajo riesgo que no lo requieren",
+      "Es un tema exclusivo del área de Compras, sin relación con el SGAS",
+      "Se resuelve automáticamente si el tercero firma una declaración de integridad"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un socio de negocio (por ejemplo, en un proyecto conjunto) presenta señales de alerta durante la debida diligencia —como estructura de propiedad opaca o antecedentes de sanciones—. Según el espíritu de Cl. 8.2, PEM debe:",
+    options: [
+      "Ignorar las señales si el proyecto es comercialmente atractivo",
+      "Evaluar esas señales de alerta antes de continuar la relación, y decidir con base en el riesgo real, no solo en el beneficio comercial esperado",
+      "Delegar toda la decisión al área comercial, sin involucrar a la Función Antisoborno",
+      "Proceder de inmediato, ya que la debida diligencia es solo un trámite formal"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 5 es que cada colaborador de PEM entienda que la debida diligencia de terceros, socios y clientes:",
+    options: [
+      "Es un trámite uniforme que se aplica igual a todos los casos",
+      "Debe ser proporcional al riesgo real identificado, continuar durante toda la relación comercial, y ser la forma concreta de proteger a PEM antes de que un tercero de alto riesgo se convierta en un problema real",
+      "Solo aplica a contratos internacionales de gran monto",
+      "Es responsabilidad exclusiva del área legal externa de PEM"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8603D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 5. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

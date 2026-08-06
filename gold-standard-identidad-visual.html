@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Identidad Visual · GOLD STANDARD · PEM Excellence Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --blue:#4C9AFF; --amber:#E8A33D; --red:#E8603D;
+    --text:#F1F3F0; --muted:#8A968E;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:36px 16px 80px;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:40px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4.5vw,38px);margin:0 0 10px;}
+  .sub{color:var(--muted);font-size:14.5px;max-width:700px;line-height:1.6;}
+
+  section{margin-bottom:46px;}
+  .sec-title{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:6px;}
+  .sec-h{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:0 0 18px;}
+
+  /* Colors */
+  .palette{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+  .swatch{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);}
+  .swatch-fill{height:70px;}
+  .swatch-meta{padding:10px 12px;font-family:'JetBrains Mono',monospace;}
+  .swatch-name{font-size:12px;font-weight:600;}
+  .swatch-hex{font-size:10.5px;color:var(--muted);}
+  .swatch-use{font-size:10px;color:var(--muted);margin-top:4px;font-family:'Inter',sans-serif;}
+
+  .school-accents{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+  .accent-card{border-radius:12px;padding:16px;border:1px solid var(--line);}
+  .accent-card .dot{width:14px;height:14px;border-radius:50%;margin-bottom:10px;}
+  .accent-card .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;}
+  .accent-card .norm{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px;}
+  .accent-card .status{font-family:'JetBrains Mono',monospace;font-size:9px;margin-top:8px;display:inline-block;padding:2px 7px;border-radius:20px;}
+
+  /* Typography */
+  .type-row{display:flex;align-items:baseline;gap:20px;padding:16px 0;border-bottom:1px solid var(--line);}
+  .type-row:last-child{border-bottom:none;}
+  .type-label{width:160px;flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  .type-sample-display{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;}
+  .type-sample-body{font-family:'Inter',sans-serif;font-size:15px;}
+  .type-sample-mono{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.04em;}
+
+  /* Signature */
+  .signature-block{display:flex;gap:30px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;}
+  .gauge-demo{position:relative;width:140px;height:140px;flex-shrink:0;}
+  .gauge-label-demo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-label-demo span{display:block;}
+  .gauge-num{font-size:26px;}
+  .gauge-of-demo{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .signature-text{flex:1;min-width:240px;font-size:13.5px;color:var(--muted);line-height:1.6;}
+  .signature-text b{color:var(--text);}
+
+  /* Components */
+  .comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .comp-card{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--surface);}
+  .comp-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+  .demo-btn{display:inline-block;padding:11px 18px;border-radius:9px;font-weight:600;font-size:13px;margin-right:8px;}
+  .demo-btn.primary{background:var(--green);color:#06140D;}
+  .demo-btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text);}
+  .demo-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 9px;border-radius:20px;background:rgba(22,194,112,.15);color:var(--green);}
+  .demo-card-mini{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface-2);font-size:12.5px;}
+
+  table.spec{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.spec th{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);}
+  table.spec td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  table.spec td:first-child{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);white-space:nowrap;}
+
+  footer{text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;margin-top:20px;}
+  @media(max-width:700px){.comp-grid{grid-template-columns:1fr;}.school-accents{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">PEM Excellence Academy · GOLD STANDARD</div>
+    <h1>Guía de Identidad Visual</h1>
+    <div class="sub">Consolidado a partir de los Módulos 1 y 2 (Escuela de Calidad). Este documento es la referencia obligatoria de diseño para todos los módulos futuros, en las 4 escuelas.</div>
+  </div>
+
+  <section>
+    <div class="sec-title">01 — Color</div>
+    <div class="sec-h">Base compartida + acento por escuela</div>
+    <div class="palette">
+      <div class="swatch"><div class="swatch-fill" style="background:#0B0E0C"></div><div class="swatch-meta"><div class="swatch-name">Fondo</div><div class="swatch-hex">#0B0E0C</div><div class="swatch-use">Base de todo activo, sin excepción</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:#141815"></div><div class="swatch-meta"><div class="swatch-name">Superficie</div><div class="swatch-hex">#141815</div><div class="swatch-use">Tarjetas, contenedores</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:#1B211D"></div><div class="swatch-meta"><div class="swatch-name">Superficie 2</div><div class="swatch-hex">#1B211D</div><div class="swatch-use">Inputs, elementos anidados</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:#26302A"></div><div class="swatch-meta"><div class="swatch-name">Línea</div><div class="swatch-hex">#26302A</div><div class="swatch-use">Bordes, divisores</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:#F1F3F0"></div><div class="swatch-meta"><div class="swatch-name">Texto</div><div class="swatch-hex">#F1F3F0</div><div class="swatch-use">Texto primario</div></div></div>
+      <div class="swatch"><div class="swatch-fill" style="background:#8A968E"></div><div class="swatch-meta"><div class="swatch-name">Texto muted</div><div class="swatch-hex">#8A968E</div><div class="swatch-use">Subtítulos, metadatos</div></div></div>
+    </div>
+
+    <div class="school-accents">
+      <div class="accent-card" style="border-top:3px solid #16C270"><div class="dot" style="background:#16C270"></div><div class="name">Escuela de Calidad</div><div class="norm">ISO 9001 · #16C270</div><span class="status" style="background:rgba(22,194,112,.15);color:#16C270">ACTIVA</span></div>
+      <div class="accent-card" style="border-top:3px solid #4C9AFF"><div class="dot" style="background:#4C9AFF"></div><div class="name">Escuela Ambiental</div><div class="norm">ISO 14001 · #4C9AFF</div><span class="status" style="background:rgba(76,154,255,.15);color:#4C9AFF">FUTURA</span></div>
+      <div class="accent-card" style="border-top:3px solid #E8A33D"><div class="dot" style="background:#E8A33D"></div><div class="name">Escuela de Seguridad</div><div class="norm">ISO 45001 · #E8A33D</div><span class="status" style="background:rgba(232,163,61,.15);color:#E8A33D">FUTURA</span></div>
+      <div class="accent-card" style="border-top:3px solid #E8603D"><div class="dot" style="background:#E8603D"></div><div class="name">Ética y Cumplimiento</div><div class="norm">ISO 37001 · #E8603D</div><span class="status" style="background:rgba(232,96,61,.15);color:#E8603D">FUTURA</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">02 — Tipografía</div>
+    <div class="sec-h">3 familias, cada una con un solo trabajo</div>
+    <div class="type-row"><div class="type-label">Display<br>Space Grotesk 700</div><div class="type-sample-display">Liderazgo y Compromiso</div></div>
+    <div class="type-row"><div class="type-label">Cuerpo<br>Inter 400/600</div><div class="type-sample-body">Cada tarea de campo es parte del proceso que sostiene la certificación.</div></div>
+    <div class="type-row"><div class="type-label">Utilitaria<br>JetBrains Mono 500/600</div><div class="type-sample-mono">PEM-EXAM-9001-M2 · CL. 5.1</div></div>
+  </section>
+
+  <section>
+    <div class="sec-title">03 — Elemento de firma</div>
+    <div class="sec-h">El manómetro / dial circular</div>
+    <div class="signature-block">
+      <div class="gauge-demo">
+        <svg viewBox="0 0 140 140" width="140" height="140">
+          <circle cx="70" cy="70" r="58" fill="none" stroke="#1B211D" stroke-width="10"/>
+          <circle cx="70" cy="70" r="58" fill="none" stroke="#16C270" stroke-width="10" stroke-linecap="round"
+            stroke-dasharray="364" stroke-dashoffset="65" transform="rotate(-90 70 70)"/>
+        </svg>
+        <div class="gauge-label-demo"><span class="gauge-num">90%</span><span class="gauge-of-demo">9/10</span></div>
+      </div>
+      <div class="signature-text">
+        Un motivo recurrente en toda la industria de PEM: presión, medición, control dentro de rango. Se usa como <b>medidor de calificación en los exámenes</b>, <b>sello en los certificados</b> y puede aparecer en infografías ligadas a monitoreo o desempeño. Es el único elemento decorativo permitido fuera del sistema de tarjetas — todo lo demás es tipografía y color plano.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">04 — Componentes</div>
+    <div class="sec-h">Patrones reutilizables</div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-title">Botones</div>
+        <span class="demo-btn primary">Acción primaria</span>
+        <span class="demo-btn ghost">Acción secundaria</span>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Eyebrow / etiqueta de sección</div>
+        <div class="eyebrow" style="margin:0;">PEM Excellence Academy</div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Tag de estado</div>
+        <span class="demo-tag">ENTREGADO</span>
+      </div>
+      <div class="comp-card">
+        <div class="comp-title">Tarjeta base</div>
+        <div class="demo-card-mini">Borde 1px, radio 10–16px, superficie var(--surface). Contenedor único para preguntas, módulos, ítems de infografía.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">05 — Convención de nomenclatura de documentos</div>
+    <div class="sec-h">Códigos obligatorios por activo</div>
+    <table class="spec">
+      <tr><th>Activo</th><th>Formato</th><th>Ejemplo</th></tr>
+      <tr><td>Examen HTML</td><td>PEM-EXAM-[NORMA]-M[N]</td><td>PEM-EXAM-9001-M2</td></tr>
+      <tr><td>Certificado</td><td>CERT-[NORMA]-M[N]</td><td>CERT-9001-M2</td></tr>
+      <tr><td>Infografía</td><td>INFO-[NORMA]-M[N]</td><td>INFO-9001-M2</td></tr>
+      <tr><td>Kit de texto (Gamma/video/HeyGen/KPIs)</td><td>PEM-ACAD-M[N]-KIT-01</td><td>PEM-ACAD-M2-KIT-01</td></tr>
+      <tr><td>Mapa académico / rutas</td><td>PEM-ACAD-MAP-01 / PEM-ACAD-RUTAS-01</td><td>—</td></tr>
+    </table>
+  </section>
+
+  <footer>PEM-ACAD-GOLD-01 · Consolidado a partir de Módulos 1–2 · Vigente para las 4 escuelas</footer>
+</div>
+</body>
+</html>

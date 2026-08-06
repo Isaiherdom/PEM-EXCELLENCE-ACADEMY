@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards · Módulo 1 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px 60px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:24px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:13.5px;margin-bottom:8px;}
+  .counter{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:24px;}
+  .stage{width:100%;max-width:460px;perspective:1400px;}
+  .card{position:relative;width:100%;height:300px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+  .card.flipped{transform:rotateY(180deg);}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px;border:1px solid var(--line);}
+  .front{background:var(--surface);}
+  .back{background:linear-gradient(160deg,#241C0E,#141815);transform:rotateY(180deg);border-color:var(--amber);}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--amber);text-transform:uppercase;margin-bottom:14px;}
+  .term{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;line-height:1.25;}
+  .def{font-size:14px;line-height:1.55;color:var(--text);}
+  .flip-hint{position:absolute;bottom:14px;font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+  .controls{display:flex;gap:12px;margin-top:26px;width:100%;max-width:460px;}
+  button{flex:1;padding:13px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-weight:600;font-size:14px;cursor:pointer;}
+  button:hover{border-color:var(--amber);}
+  button.primary{background:var(--amber);color:#1A1002;border:none;}
+  .dots{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap;justify-content:center;max-width:460px;}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--line);}
+  .dot.active{background:var(--amber);}
+</style>
+</head>
+<body>
+  <div class="eyebrow">PEM Excellence Academy</div>
+  <h1>Flashcards — Módulo 1</h1>
+  <div class="sub">Fundamentos y contexto de SST · ISO 45001 Cl. 4</div>
+  <div class="counter" id="counter">1 / 10</div>
+  <div class="stage">
+    <div class="card" id="card" onclick="flip()">
+      <div class="face front">
+        <div class="tag">Término</div>
+        <div class="term" id="termText"></div>
+        <div class="flip-hint">Toca para ver la definición</div>
+      </div>
+      <div class="face back">
+        <div class="tag">En PEM significa</div>
+        <div class="def" id="defText"></div>
+        <div class="flip-hint">Toca para volver</div>
+      </div>
+    </div>
+  </div>
+  <div class="controls">
+    <button onclick="prev()">Anterior</button>
+    <button class="primary" onclick="next()">Siguiente</button>
+  </div>
+  <div class="dots" id="dots"></div>
+<script>
+const CARDS = [
+  {term:"Contexto de SST (Cl. 4.1)", def:"Cuestiones internas y externas que afectan la capacidad de PEM de prevenir lesiones y enfermedades del trabajo."},
+  {term:"Sistema de gestión de SST", def:"La forma organizada en que PEM anticipa y controla los peligros de su operación, no solo reacciona a accidentes."},
+  {term:"Casi-incidente", def:"Un mecánico cerca de un componente en movimiento sin lesión — información valiosa que debe reportarse, no ignorarse."},
+  {term:"Trabajadores como parte interesada central", def:"A diferencia de Calidad y Ambiental, ISO 45001 exige explícitamente su consulta y participación."},
+  {term:"Alcance del sistema de SST", def:"Incluye todas las actividades, lugares y personas —incluido personal de contratistas— afectadas por los riesgos de PEM."},
+  {term:"ISO 45001 en una frase", def:"Anticipar los peligros antes de que causen una lesión, no reaccionar después de un accidente."},
+  {term:"Riesgo de componentes en movimiento", def:"Gas Jacks y compresores exigen control activo por presión y partes móviles en campo."},
+  {term:"Contexto externo (SST)", def:"Un cambio en la normativa laboral mexicana que PEM debe monitorear activamente."},
+  {term:"Consistencia entre bases (SST)", def:"Un alcance de SST mal definido genera el mismo tipo de inconsistencia visto en otras escuelas."},
+  {term:"Revisión continua del contexto de SST", def:"Cambia con nueva regulación, nuevas actividades o nuevo personal — no se define una sola vez."}
+];
+let idx = 0; let flipped = false;
+function render(){
+  document.getElementById('termText').textContent = CARDS[idx].term;
+  document.getElementById('defText').textContent = CARDS[idx].def;
+  document.getElementById('counter').textContent = (idx+1)+' / '+CARDS.length;
+  document.getElementById('card').classList.remove('flipped');
+  flipped = false;
+  document.getElementById('dots').innerHTML = CARDS.map((_,i)=>`<div class="dot ${i===idx?'active':''}"></div>`).join('');
+}
+function flip(){ flipped=!flipped; document.getElementById('card').classList.toggle('flipped',flipped); }
+function next(){ idx=(idx+1)%CARDS.length; render(); }
+function prev(){ idx=(idx-1+CARDS.length)%CARDS.length; render(); }
+render();
+</script>
+</body>
+</html>

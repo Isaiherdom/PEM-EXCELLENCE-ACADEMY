@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Evaluación de riesgo de soborno · Módulo 4 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--red:#E8603D;--amber:#E8A33D;--green:#16C270;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:800px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  thead th{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);}
+  tbody td{padding:11px 8px;border-bottom:1px solid var(--line);}
+  .cat{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;}
+  .level{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 9px;border-radius:20px;}
+  .level.high{background:rgba(232,96,61,.15);color:var(--red);}
+  .level.med{background:rgba(232,163,61,.15);color:var(--amber);}
+  .level.low{background:rgba(22,194,112,.15);color:var(--green);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+      <h1>Matriz de riesgo de soborno por categoría</h1>
+    </div>
+    <div class="doccode">INFO-37001-M4<br>Nivel 2 · Intermedio</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Categoría</th><th>Ejemplo en PEM</th><th>Nivel de riesgo</th></tr></thead>
+    <tbody>
+      <tr><td class="cat">Compras</td><td>Aprobación de órdenes con proveedores recurrentes</td><td><span class="level high">Alto</span></td></tr>
+      <tr><td class="cat">Ventas / agentes comerciales</td><td>Representación ante clientes extranjeros</td><td><span class="level high">Alto</span></td></tr>
+      <tr><td class="cat">Regalos y hospitalidad</td><td>Atenciones de proveedores en fechas clave</td><td><span class="level med">Medio</span></td></tr>
+      <tr><td class="cat">Pagos de facilitación</td><td>Trámites rutinarios ante autoridad</td><td><span class="level med">Medio</span></td></tr>
+      <tr><td class="cat">Donativos y patrocinios</td><td>Contribuciones a eventos o causas externas</td><td><span class="level low">Bajo</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGAS</span>
+    <span>ISO 37001:2025 · Cláusula 6, 8.9</span>
+  </div>
+</div>
+</body>
+</html>

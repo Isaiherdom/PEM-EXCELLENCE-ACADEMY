@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 10 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,163,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--amber);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--amber);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--amber);background:rgba(232,163,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--amber);color:#1A1000;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--amber);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--amber);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Seguridad</div>
+  <h1>Módulo 10 — Gestión del Cambio y Contratación Externa</h1>
+  <div class="sub">ISO 45001 Cl. 8.1.3–8.1.4 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8A33D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-45001-M10 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "Una cuadrilla subcontratada ingresa a una base de PEM a realizar trabajo de mantenimiento, sin recibir inducción de seguridad ni verificación de su equipo de protección. Según Cl. 8.1.4, esto representa:",
+    options: [
+      "Una situación normal, la seguridad del contratista es responsabilidad exclusiva de su propia empresa",
+      "Una falla de control: PEM debe coordinar con contratistas para identificar peligros y controlar los riesgos que su actividad introduce dentro de las instalaciones",
+      "Un tema sin relación con el sistema de gestión de SST de PEM",
+      "Algo que solo aplica si el contratista permanece más de un mes en sitio"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 8.1.3, un cambio planificado que puede afectar el desempeño de SST —como incorporar una sexta base o un nuevo tipo de equipo— debe:",
+    options: [
+      "Implementarse directamente, evaluando el riesgo después si algo sale mal",
+      "Gestionarse considerando sus consecuencias potenciales sobre la seguridad ANTES de implementarlo, ajustando controles, roles y recursos según sea necesario",
+      "Aprobarse únicamente por razones comerciales, sin evaluación de SST",
+      "Evaluarse solo si el cambio afecta a más de 10 trabajadores"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Qué tipo de cambios contempla la Cl. 8.1.3 dentro de la gestión del cambio en SST?",
+    options: [
+      "Únicamente cambios de personal directivo",
+      "Nuevos productos, servicios o procesos; cambios en la fuerza laboral; cambios en requisitos legales; y cambios en el conocimiento o la tecnología que puedan afectar el desempeño de SST",
+      "Solo cambios de proveedor de equipo de protección personal",
+      "Solo cambios que ya causaron un accidente"
+    ],
+    correct: 1
+  },
+  {
+    q: "Antes de contratar personal externo para operar dentro de una base de PEM, la Cl. 8.1.4 espera que PEM:",
+    options: [
+      "Solo firme el contrato comercial, sin ninguna coordinación adicional",
+      "Coordine los procesos de compras y contratación para asegurar que los productos, servicios y personal externo cumplan los requisitos de SST de PEM antes de introducirse a la operación",
+      "Delegue toda la responsabilidad de seguridad al contratista, sin ninguna verificación",
+      "Espere a que ocurra un incidente para definir los controles necesarios"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un cambio no planificado —como la falla repentina de un proveedor de equipo de protección personal, obligando a usar una alternativa distinta— debe, según el espíritu de Cl. 8.1.3:",
+    options: [
+      "Ignorarse, ya que no fue un cambio decidido por PEM",
+      "Revisarse en cuanto a sus consecuencias sobre la seguridad, tomando acciones para mitigar cualquier efecto adverso antes de que impacte a los trabajadores",
+      "Aplicarse directamente sin ninguna revisión, ya que fue una situación fuera de control de PEM",
+      "Resolverse exclusivamente por el área de Compras, sin involucrar a SST"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la coordinación con contratistas es especialmente importante en la operación de PEM?",
+    options: [
+      "No es importante, los contratistas rara vez ingresan a las instalaciones",
+      "Porque personal externo que no conoce los peligros específicos de la base —piezas en movimiento, sustancias, zonas de riesgo— puede introducir un riesgo nuevo tanto para sí mismo como para el personal de PEM",
+      "Porque la ley prohíbe el uso de contratistas en la industria energética",
+      "Porque los contratistas siempre tienen mejor capacitación que el personal de PEM"
+    ],
+    correct: 1
+  },
+  {
+    q: "Verificar que un equipo o sustancia adquirida cumple los requisitos de SST de PEM ANTES de introducirlo a la operación (y no después de que empiece a usarse) corresponde a:",
+    options: [
+      "Un paso opcional que depende del presupuesto disponible",
+      "El control de compras y contratación que exige la Cl. 8.1.4, para evitar introducir un riesgo nuevo a través de un producto o servicio externo",
+      "Una responsabilidad exclusiva del área de Compras, sin relación con SST",
+      "Algo que solo aplica a equipo de protección personal"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta este módulo con la jerarquía de controles vista en el Módulo 9?",
+    options: [
+      "No tiene relación, son procesos completamente independientes",
+      "Antes de implementar un cambio o incorporar personal/equipo externo, se debe evaluar qué peligros introduce y aplicar la misma jerarquía de controles para gestionarlos",
+      "La gestión del cambio reemplaza la necesidad de aplicar la jerarquía de controles",
+      "Solo se relacionan si el cambio involucra maquinaria en movimiento"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si PEM incorpora una nueva base sin ajustar los roles de autoridad en SST definidos en los Módulos 2 y 3, ¿qué riesgo se genera?",
+    options: [
+      "Ninguno, los roles se ajustan automáticamente con el tiempo",
+      "La base nueva puede operar sin que esté claro quién tiene autoridad para detener una operación insegura o reportar un peligro, debilitando el sistema desde el inicio",
+      "Es un tema exclusivo de Recursos Humanos, sin relación con SST",
+      "Se resuelve solo si ocurre un accidente en esa base"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 10 es que cada colaborador de PEM entienda que la gestión del cambio y la contratación externa en SST:",
+    options: [
+      "Son trámites administrativos sin relación con la seguridad real de las personas",
+      "Extienden la disciplina de anticipar el riesgo —vista en toda esta escuela— a situaciones nuevas: un cambio planificado, uno no planificado, o la incorporación de personal y equipo externo",
+      "Solo aplican a cambios que afectan a más del 50% de la plantilla",
+      "Se resuelven automáticamente si el cambio lo aprueba la Dirección General"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8A33D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 10. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

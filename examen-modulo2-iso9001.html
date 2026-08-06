@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 2 · ISO 9001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --green:#16C270; --green-dim:#0B3D28; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(22,194,112,0.08), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--green);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--green);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--green);background:rgba(22,194,112,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--green);color:#06140D;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--green);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--green);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Calidad</div>
+  <h1>Módulo 2 — Liderazgo y Compromiso</h1>
+  <div class="sub">ISO 9001 Cl. 5.1 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#16C270" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-9001-M2 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "Según la cláusula 5.1 de ISO 9001, el liderazgo de la Dirección General se demuestra principalmente cuando:",
+    options: [
+      "Firma la política de calidad una vez al año",
+      "Rinde cuentas de la eficacia del SGC y se involucra activamente en sus resultados, no solo lo delega al área de Calidad",
+      "Delega el 100% del sistema al Responsable del SGI",
+      "Asiste a la auditoría externa de certificación"
+    ],
+    correct: 1
+  },
+  {
+    q: "El Director General de PEM aprueba presupuesto para calibrar los instrumentos de medición usados en los Gas Jacks antes de que venza su certificado de calibración. Esto es evidencia de:",
+    options: [
+      "Un gasto operativo sin relación con el SGC",
+      "Compromiso de liderazgo: asegurar la disponibilidad de los recursos necesarios para el SGC (Cl. 5.1.h)",
+      "Una decisión que debería tomar solo el área de Compras",
+      "Un requisito exclusivo de ISO 17025, no de ISO 9001"
+    ],
+    correct: 1
+  },
+  {
+    q: "'Integrar los requisitos del SGC en los procesos de negocio de la organización' significa, en PEM, que:",
+    options: [
+      "El SGC es un sistema paralelo que se revisa solo en auditoría",
+      "La calidad se decide en juntas separadas, sin relación con la operación diaria",
+      "Las decisiones de negocio (cotizar un servicio, asignar una base, programar mantenimiento) ya consideran los requisitos del sistema de calidad como parte normal del proceso, no como un trámite adicional",
+      "Solo las decisiones del área de Calidad cuentan como parte del SGC"
+    ],
+    correct: 2
+  },
+  {
+    q: "Un gerente de base reporta en la junta mensual una no conformidad detectada en su propia operación, sin que se le sancione por reportarla. Esto refleja qué compromiso de liderazgo según Cl. 5.1:",
+    options: [
+      "Ninguno, reportar errores no es parte del liderazgo",
+      "Promover el uso del enfoque a procesos y el pensamiento basado en riesgos, y dirigir y apoyar a las personas para contribuir a la eficacia del SGC",
+      "Una falta que debe corregirse de inmediato",
+      "Una responsabilidad exclusiva de Recursos Humanos"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si la Dirección General de PEM nunca comunica por qué la calidad es importante para el negocio, ¿qué riesgo real se genera en campo?",
+    options: [
+      "Ninguno, mientras el certificado ISO siga vigente",
+      "Los colaboradores tratan la calidad como un trámite de oficina, no como parte de su trabajo diario — aumentando la probabilidad de fallas repetidas como la de un Gas Jack",
+      "Solo afecta la imagen ante el auditor externo",
+      "Solo afecta al Responsable del SGI"
+    ],
+    correct: 1
+  },
+  {
+    q: "'Pensamiento basado en riesgos' que la Dirección debe promover según Cl. 5.1 significa, en la operación de PEM:",
+    options: [
+      "Evitar cualquier riesgo cancelando el servicio",
+      "Anticipar qué puede fallar en la operación (ej. desgaste de un componente crítico) antes de que se convierta en una falla real, en vez de reaccionar después",
+      "Es un concepto que solo aplica al área financiera",
+      "Solo se aplica una vez al año en la revisión por la dirección"
+    ],
+    correct: 1
+  },
+  {
+    q: "El compromiso de liderazgo de 'asegurar que el SGC logre los resultados previstos' se mide en PEM, entre otras formas, con:",
+    options: [
+      "El número de documentos firmados por la Dirección",
+      "Indicadores reales de desempeño operativo y de calidad (ej. tasa de no conformidades repetidas, cumplimiento de especificación del cliente), revisados por la Dirección",
+      "La opinión personal de cada gerente de base",
+      "El número de capacitaciones impartidas, sin relación con resultados"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué el liderazgo de Cl. 5.1 no puede delegarse por completo al Responsable del SGI?",
+    options: [
+      "Porque la norma exige que solo el Director General tome decisiones técnicas",
+      "Porque el Responsable del SGI no tiene autoridad sobre presupuesto ni operación",
+      "Porque la norma exige rendición de cuentas y compromiso visible de la alta dirección; el Responsable del SGI facilita el sistema, pero no puede sustituir la autoridad para asignar recursos, dirigir personas y sostener el resultado del negocio",
+      "Porque así lo decide cada empresa según su preferencia"
+    ],
+    correct: 2
+  },
+  {
+    q: "Un supervisor de campo que exige a su cuadrilla seguir el checklist de arranque de un Gas Jack, aunque eso tome más tiempo, está ejerciendo:",
+    options: [
+      "Una función que no le corresponde, solo Calidad debe exigir esto",
+      "Liderazgo distribuido: el mismo principio de Cl. 5.1 aplicado a su nivel de autoridad, apoyando a otros roles de gestión pertinentes",
+      "Un exceso de control operativo",
+      "Una acción sin relación con ISO 9001"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 2 es que cada líder de PEM (Director, gerente o supervisor) entienda que el liderazgo según ISO 9001:",
+    options: [
+      "Se limita a autorizar el presupuesto anual de certificación",
+      "Es una decisión visible y sostenida —recursos, comunicación, ejemplo y rendición de cuentas— que se demuestra en decisiones operativas reales, no en un documento firmado",
+      "Es responsabilidad exclusiva de un solo puesto en la organización",
+      "Solo se evalúa durante la auditoría externa"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 2. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

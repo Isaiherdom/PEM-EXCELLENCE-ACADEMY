@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Objetivos ambientales · Módulo 5 · ISO 14001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--blue:#4C9AFF;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:780px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .canvas{border:1px solid var(--blue);border-radius:14px;background:var(--surface);padding:20px 22px;margin-bottom:20px;}
+  .canvas-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+  .canvas-obj{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;line-height:1.35;}
+  .canvas-link{margin-top:10px;font-size:11.5px;color:var(--muted);}
+
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+  .cell{border:1px solid var(--line);border-radius:12px;padding:14px 12px;background:var(--surface);}
+  .cell .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+  .cell .v{font-size:12px;line-height:1.5;color:var(--text);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:700px){.grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:420px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela Ambiental</div>
+      <h1>Un objetivo ambiental bien planteado</h1>
+    </div>
+    <div class="doccode">INFO-14001-M5<br>Nivel 2 · Intermedio</div>
+  </div>
+
+  <div class="canvas">
+    <div class="canvas-label">Objetivo</div>
+    <div class="canvas-obj">Reducir en 20% el volumen de aceite usado no reciclado en la base de Villahermosa en los próximos 12 meses.</div>
+    <div class="canvas-link">Conectado al aspecto ambiental significativo identificado en el Módulo 4: manejo de aceites usados.</div>
+  </div>
+
+  <div class="grid">
+    <div class="cell"><div class="k">Qué se hará</div><div class="v">Convenio con gestor autorizado de reciclaje de aceites.</div></div>
+    <div class="cell"><div class="k">Recursos</div><div class="v">Contenedores certificados y capacitación al personal de mantenimiento.</div></div>
+    <div class="cell"><div class="k">Responsable</div><div class="v">Gerente de base Villahermosa, con apoyo de HSE.</div></div>
+    <div class="cell"><div class="k">Plazo</div><div class="v">12 meses, con corte de avance trimestral.</div></div>
+    <div class="cell"><div class="k">Cómo se evalúa</div><div class="v">Volumen de aceite reciclado vs. línea base del año anterior.</div></div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 14001:2015 · Cláusula 6.2</span>
+  </div>
+</div>
+</body>
+</html>

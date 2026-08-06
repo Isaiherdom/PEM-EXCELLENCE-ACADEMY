@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Canal de denuncias · Módulo 9 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--red:#E8603D;--amber:#E8A33D;--green:#16C270;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:780px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .channels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+  .ch{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px;text-align:center;font-size:11.5px;color:var(--muted);}
+  .ch b{display:block;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:12.5px;margin-bottom:4px;}
+
+  .flow{display:flex;flex-direction:column;gap:0;}
+  .step{display:flex;gap:14px;align-items:flex-start;position:relative;padding-bottom:20px;}
+  .step:last-child{padding-bottom:0;}
+  .step::before{content:"";position:absolute;left:17px;top:36px;bottom:0;width:1px;background:var(--line);}
+  .step:last-child::before{display:none;}
+  .step-node{
+    width:36px;height:36px;border-radius:50%;background:var(--surface);border:1px solid var(--red);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'JetBrains Mono',monospace;
+    font-weight:600;font-size:12px;color:var(--red);z-index:1;
+  }
+  .step-body{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 15px;}
+  .step-role{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;margin-bottom:3px;}
+  .step-action{font-size:11.5px;color:var(--muted);line-height:1.5;}
+  .step-tag{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--green);background:rgba(22,194,112,.1);padding:2px 8px;border-radius:6px;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:560px){.channels{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+      <h1>El canal de denuncias, de reporte a protección</h1>
+    </div>
+    <div class="doccode">INFO-37001-M9<br>Nivel 3 · Avanzado</div>
+  </div>
+
+  <div class="channels">
+    <div class="ch"><b>Formulario en línea</b>Disponible 24/7, con opción confidencial</div>
+    <div class="ch"><b>Contacto directo</b>Función Antisoborno o Comité de Integridad</div>
+    <div class="ch"><b>Comité de Integridad</b>Vía formal para casos de mayor gravedad</div>
+  </div>
+
+  <div class="flow">
+    <div class="step">
+      <div class="step-node">1</div>
+      <div class="step-body"><div class="step-role">Reporte de buena fe</div><div class="step-action">Un colaborador reporta una sospecha, con opción de mantenerse en confidencialidad.</div><span class="step-tag">Sin necesidad de certeza absoluta</span></div>
+    </div>
+    <div class="step">
+      <div class="step-node">2</div>
+      <div class="step-body"><div class="step-role">Recepción y protección</div><div class="step-action">El reporte se recibe y el reportante queda protegido contra represalias desde este momento.</div><span class="step-tag">Protección desde el reporte</span></div>
+    </div>
+    <div class="step">
+      <div class="step-node">3</div>
+      <div class="step-body"><div class="step-role">Seguimiento definido</div><div class="step-action">El caso sigue un proceso, que puede incluir investigación, manteniendo confidencialidad.</div><span class="step-tag">Proceso, no silencio</span></div>
+    </div>
+    <div class="step">
+      <div class="step-node">4</div>
+      <div class="step-body"><div class="step-role">Cierre del caso</div><div class="step-action">Confirmado o no, el reportante de buena fe permanece protegido.</div><span class="step-tag">Buena fe siempre protegida</span></div>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGAS</span>
+    <span>ISO 37001:2025 · Cláusula 8.9</span>
+  </div>
+</div>
+</body>
+</html>

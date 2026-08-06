@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Debida diligencia de terceros · Módulo 5 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--red:#E8603D;--amber:#E8A33D;--green:#16C270;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:700px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .scenario{font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:20px;line-height:1.55;}
+  .scenario b{color:var(--text);}
+
+  .checklist{display:flex;flex-direction:column;gap:10px;}
+  .item{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:10px;padding:13px 16px;background:var(--surface);}
+  .check{
+    width:22px;height:22px;border-radius:6px;background:rgba(232,96,61,.15);border:1px solid var(--red);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;color:var(--red);font-size:12px;font-weight:700;
+  }
+  .item-body .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;margin-bottom:3px;}
+  .item-body .d{font-size:11.5px;color:var(--muted);line-height:1.45;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+      <h1>Antes de formalizar un tercero de alto riesgo</h1>
+    </div>
+    <div class="doccode">INFO-37001-M5<br>Nivel 2 · Intermedio</div>
+  </div>
+
+  <div class="scenario"><b>Caso:</b> PEM evalúa incorporar un nuevo agente comercial para gestionar un cliente extranjero — actividad clasificada como alto riesgo en la matriz del Módulo 4.</div>
+
+  <div class="checklist">
+    <div class="item">
+      <div class="check">✓</div>
+      <div class="item-body"><div class="t">Verificación de reputación</div><div class="d">Historial de sanciones o litigios relacionados con integridad.</div></div>
+    </div>
+    <div class="item">
+      <div class="check">✓</div>
+      <div class="item-body"><div class="t">Verificación de beneficiarios reales</div><div class="d">Quién controla realmente la empresa del tercero, no solo el nombre comercial.</div></div>
+    </div>
+    <div class="item">
+      <div class="check">✓</div>
+      <div class="item-body"><div class="t">Cláusula contractual antisoborno</div><div class="d">Compromiso formal del tercero con el estándar de integridad de PEM.</div></div>
+    </div>
+    <div class="item">
+      <div class="check">✓</div>
+      <div class="item-body"><div class="t">Nivel de diligencia proporcional al riesgo</div><div class="d">Más profundidad para agentes y alto valor, menos para proveedores de bajo riesgo.</div></div>
+    </div>
+    <div class="item">
+      <div class="check">✓</div>
+      <div class="item-body"><div class="t">Monitoreo continuo</div><div class="d">La relación se revisa mientras dure — el riesgo puede cambiar después de la firma.</div></div>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGAS</span>
+    <span>ISO 37001:2025 · Cláusula 8.2</span>
+  </div>
+</div>
+</body>
+</html>

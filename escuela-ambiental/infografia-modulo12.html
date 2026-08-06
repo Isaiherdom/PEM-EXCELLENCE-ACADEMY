@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Auditoría interna y mejora continua ambiental · Módulo 12 · ISO 14001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--blue:#4C9AFF;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:700px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .ring{position:relative;width:100%;max-width:420px;aspect-ratio:1/1;margin:10px auto 24px;}
+  .ring svg{width:100%;height:100%;}
+  .ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+  .ring-center .n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--blue);}
+  .ring-center .s{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:2px;}
+
+  .steps{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .step{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;}
+  .step .k{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+  .step .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;margin-bottom:4px;}
+  .step .d{font-size:11px;color:var(--muted);line-height:1.45;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:480px){.steps{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela Ambiental</div>
+      <h1>El ciclo ambiental se cierra donde empezó</h1>
+    </div>
+    <div class="doccode">INFO-14001-M12<br>Nivel 4 · Experto</div>
+  </div>
+
+  <div class="ring">
+    <svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="82" fill="none" stroke="#26302A" stroke-width="2" stroke-dasharray="4 4"/>
+      <circle cx="100" cy="18" r="5" fill="#4C9AFF"/>
+      <circle cx="182" cy="100" r="5" fill="#4C9AFF"/>
+      <circle cx="100" cy="182" r="5" fill="#4C9AFF"/>
+      <circle cx="18" cy="100" r="5" fill="#4C9AFF"/>
+    </svg>
+    <div class="ring-center">
+      <div class="n">SGA</div>
+      <div class="s">Módulo 1 → Módulo 12 → Módulo 1</div>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="k">Verificar</div><div class="t">Desempeño y cumplimiento (M10–M11)</div><div class="d">Datos reales, no impresiones — la misma disciplina de la Escuela de Calidad.</div></div>
+    <div class="step"><div class="k">Verificar</div><div class="t">Auditoría interna (9.2)</div><div class="d">Evidencia objetiva de si el SGA funciona como se planeó.</div></div>
+    <div class="step"><div class="k">Actuar</div><div class="t">Acción correctiva (10.2)</div><div class="d">Causa raíz analizada, no solo el síntoma corregido.</div></div>
+    <div class="step"><div class="k">Actuar</div><div class="t">Mejora continua (10.3)</div><div class="d">La lección aprendida vuelve a fortalecer el contexto del Módulo 1.</div></div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 14001:2015 · Cláusula 9.2–10</span>
+  </div>
+</div>
+</body>
+</html>

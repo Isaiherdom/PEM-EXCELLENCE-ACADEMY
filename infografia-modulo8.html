@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Planificación y control operacional · Módulo 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:800px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,28px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .flow{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding-bottom:6px;}
+  .stage{flex:1;min-width:130px;position:relative;padding:0 8px;}
+  .stage:not(:last-child)::after{
+    content:"→";position:absolute;top:20px;right:-4px;color:var(--line);font-size:16px;
+  }
+  .stage-box{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 12px;height:100%;}
+  .stage-n{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);margin-bottom:6px;}
+  .stage-t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;margin-bottom:6px;line-height:1.3;}
+  .stage-d{font-size:10.5px;color:var(--muted);line-height:1.45;}
+  .gate{border-color:var(--amber);}
+  .gate .stage-n{color:var(--amber);}
+  .gate-icon{width:20px;height:20px;border-radius:50%;background:rgba(232,163,61,.15);display:flex;align-items:center;justify-content:center;margin-bottom:6px;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Calidad</div>
+      <h1>El servicio, de la planificación al control</h1>
+    </div>
+    <div class="doccode">INFO-9001-M8<br>Nivel 3 · Avanzado</div>
+  </div>
+
+  <div class="flow">
+    <div class="stage"><div class="stage-box"><div class="stage-n">01</div><div class="stage-t">Planificar</div><div class="stage-d">Requisitos del servicio y criterios de aceptación definidos</div></div></div>
+    <div class="stage"><div class="stage-box gate"><div class="stage-n">CONTROL</div><div class="stage-t">Checklist previo</div><div class="stage-d">Verificación antes de arrancar el equipo</div></div></div>
+    <div class="stage"><div class="stage-box"><div class="stage-n">02</div><div class="stage-t">Ejecutar</div><div class="stage-d">Operación del servicio bajo las condiciones planificadas</div></div></div>
+    <div class="stage"><div class="stage-box gate"><div class="stage-n">CONTROL</div><div class="stage-t">Monitoreo continuo</div><div class="stage-d">Parámetros comparados contra el criterio de aceptación</div></div></div>
+    <div class="stage"><div class="stage-box"><div class="stage-n">03</div><div class="stage-t">Registrar</div><div class="stage-d">Información documentada de que se cumplió lo planificado</div></div></div>
+    <div class="stage"><div class="stage-box gate"><div class="stage-n">CONTROL</div><div class="stage-t">Cambios</div><div class="stage-d">Cualquier desviación se revisa antes de continuar</div></div></div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 9001:2015 · Cláusula 8.1</span>
+  </div>
+</div>
+</body>
+</html>

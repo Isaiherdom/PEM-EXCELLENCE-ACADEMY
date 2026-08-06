@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 6 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,163,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--amber);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--amber);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--amber);background:rgba(232,163,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--amber);color:#1A1000;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--amber);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--amber);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Seguridad</div>
+  <h1>Módulo 6 — Objetivos y Planificación de SST</h1>
+  <div class="sub">ISO 45001 Cl. 6.2 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8A33D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-45001-M6 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "El gerente de una base dice: 'este año queremos mejorar la seguridad'. Según Cl. 6.2, ¿por qué esto NO es todavía un objetivo de SST válido?",
+    options: [
+      "Porque debería decidirlo solo el Director General",
+      "Porque no es medible, no tiene plazo ni forma de evaluarse — un objetivo de SST debe ser medible y monitoreado, igual que un objetivo de calidad o ambiental",
+      "Porque los objetivos de SST no pueden fijarse por base",
+      "En realidad sí es un objetivo válido tal como está"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 6.2, los objetivos de SST de PEM deben ser coherentes con la política, y considerar además:",
+    options: [
+      "Únicamente el presupuesto disponible del área de Seguridad",
+      "Los peligros y riesgos identificados, los requisitos legales aplicables, y los resultados de la consulta con los trabajadores",
+      "Solo la opinión del cliente más grande de PEM",
+      "Exclusivamente el historial de accidentes graves"
+    ],
+    correct: 1
+  },
+  {
+    q: "'Reducir en 30% los cuasi-accidentes reportados relacionados con piezas en movimiento en la base de Reynosa en 12 meses' es un buen objetivo de SST porque:",
+    options: [
+      "Suena comprometido con la seguridad de los trabajadores",
+      "Es medible, tiene plazo definido, y está conectado directamente a un peligro real identificado en el Módulo 4",
+      "No necesita un responsable asignado para ser válido",
+      "Aplica automáticamente a las otras 4 bases sin necesidad de adaptarlo"
+    ],
+    correct: 1
+  },
+  {
+    q: "Al planificar cómo lograr un objetivo de SST, la Cl. 6.2 exige definir, igual que en las otras escuelas de PEM:",
+    options: [
+      "Solo la fecha límite, sin más detalle",
+      "Qué se va a hacer, qué recursos se requerirán, quién será responsable, cuándo se finalizará y cómo se evaluarán los resultados",
+      "Únicamente el presupuesto asignado, sin plan de acción",
+      "Solo el nombre del objetivo"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué un objetivo de SST debe estar conectado con un peligro identificado en el Módulo 4, en vez de ser una meta genérica?",
+    options: [
+      "No es necesario, los objetivos pueden ser independientes de los peligros identificados",
+      "Porque de lo contrario se estaría invirtiendo esfuerzo en algo que no representa el riesgo real de la operación de PEM",
+      "Porque la norma exige un objetivo por cada peligro identificado, sin excepción",
+      "Porque los peligros de alto riesgo ya no requieren objetivos, solo controles"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un objetivo de SST que nunca se comunica a los trabajadores de la base donde aplica:",
+    options: [
+      "Sigue siendo válido, la comunicación es opcional en la Cl. 6.2",
+      "Incumple el mismo principio visto en Calidad y Ambiental: los objetivos deben comunicarse y monitorearse, no solo documentarse",
+      "Solo necesita comunicarse si lo pide la autoridad laboral",
+      "Es responsabilidad exclusiva de Recursos Humanos comunicarlo"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si PEM planea reducir cuasi-accidentes, pero nunca define quién es responsable de dar seguimiento al indicador, ¿qué riesgo se genera?",
+    options: [
+      "Ninguno, el objetivo se cumple solo con estar documentado",
+      "El objetivo puede quedar sin monitoreo real, y PEM no sabría si realmente se está logrando o si necesita ajustarse — el mismo riesgo de 'objetivo de papel' visto en otras escuelas",
+      "El indicador se actualiza automáticamente sin necesidad de un responsable",
+      "Es un tema que solo le corresponde verificar al cliente"
+    ],
+    correct: 1
+  },
+  {
+    q: "Los objetivos de SST de PEM se revisan y actualizan:",
+    options: [
+      "Nunca, una vez definidos permanecen igual indefinidamente",
+      "De forma periódica, considerando si los peligros, riesgos o requisitos legales han cambiado desde que se definieron",
+      "Solo si ocurre un accidente grave",
+      "Exclusivamente durante la auditoría de certificación"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta este módulo con la consulta a los trabajadores vista en el Módulo 3?",
+    options: [
+      "No hay ninguna relación entre ambos módulos",
+      "La Cl. 6.2 exige que los objetivos consideren los resultados de la consulta con los trabajadores — su participación alimenta directamente qué se prioriza",
+      "Los objetivos reemplazan la necesidad de consultar a los trabajadores",
+      "Solo se relacionan si el objetivo se incumple"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 6 es que cada líder de PEM entienda que los objetivos de SST:",
+    options: [
+      "Son declaraciones de buena voluntad sin necesidad de plan ni seguimiento",
+      "Deben ser medibles y estar planificados con la misma disciplina que un objetivo de calidad o ambiental, conectados a los peligros reales y a la voz de los trabajadores",
+      "Solo importan si el cliente los solicita explícitamente en el contrato",
+      "Se definen una sola vez, al certificar el sistema por primera vez"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8A33D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 6. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

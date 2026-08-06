@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Riesgos y oportunidades · Módulo 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--red:#E8603D;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:820px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,28px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .track{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:20px;margin-bottom:14px;}
+  .track-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;}
+  .track.bad .track-label{color:var(--red);}
+  .track.good .track-label{color:var(--green);}
+  .timeline{display:flex;align-items:stretch;gap:0;position:relative;}
+  .tpoint{flex:1;text-align:center;position:relative;padding:0 6px;}
+  .tpoint:not(:last-child)::after{
+    content:"";position:absolute;top:15px;right:-6px;width:calc(100% - 20px);height:1px;background:var(--line);
+  }
+  .tdot{width:12px;height:12px;border-radius:50%;margin:0 auto 10px;position:relative;z-index:1;}
+  .bad .tdot{background:var(--surface);border:2px solid var(--line);}
+  .bad .tpoint:last-child .tdot{background:var(--red);border-color:var(--red);}
+  .good .tdot{background:var(--surface);border:2px solid var(--green);}
+  .good .tpoint:last-child .tdot{background:var(--green);border-color:var(--green);}
+  .tlabel{font-size:11px;color:var(--muted);line-height:1.4;}
+  .tlabel b{display:block;color:var(--text);font-size:11.5px;margin-bottom:2px;}
+  .outcome{margin-top:14px;font-size:12.5px;padding:10px 14px;border-radius:8px;line-height:1.5;}
+  .bad .outcome{background:rgba(232,96,61,.08);border-left:3px solid var(--red);color:var(--text);}
+  .good .outcome{background:rgba(22,194,112,.08);border-left:3px solid var(--green);color:var(--text);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:640px){.timeline{flex-direction:column;gap:14px;}.tpoint:not(:last-child)::after{display:none;}.tpoint{text-align:left;display:flex;gap:10px;align-items:center;}.tdot{margin:0;flex-shrink:0;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Calidad</div>
+      <h1>La misma señal, dos desenlaces</h1>
+    </div>
+    <div class="doccode">INFO-9001-M4<br>Nivel 1 · Fundamentos</div>
+  </div>
+
+  <div class="track bad">
+    <div class="track-label">Sin pensamiento basado en riesgos</div>
+    <div class="timeline">
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 1</b>Vibración leve, sin reportar</div></div>
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 2</b>La señal continúa, nadie la registra</div></div>
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 3</b>Se acepta como "normal del equipo"</div></div>
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 4</b>Falla del Gas Jack en campo</div></div>
+    </div>
+    <div class="outcome">Paro no planeado, costo de reparación mayor, entrega afectada al cliente.</div>
+  </div>
+
+  <div class="track good">
+    <div class="track-label">Con pensamiento basado en riesgos</div>
+    <div class="timeline">
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 1</b>Vibración leve, reportada de inmediato</div></div>
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 1</b>Se determina como riesgo (Cl. 6.1)</div></div>
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 2</b>Acción proporcional: revisión preventiva</div></div>
+      <div class="tpoint"><div class="tdot"></div><div class="tlabel"><b>Semana 2</b>Eficacia evaluada, riesgo controlado</div></div>
+    </div>
+    <div class="outcome">Mantenimiento planificado, sin paro no programado, mismo costo bajo control.</div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGI</span>
+    <span>ISO 9001:2015 · Cláusula 6.1</span>
+  </div>
+</div>
+</body>
+</html>

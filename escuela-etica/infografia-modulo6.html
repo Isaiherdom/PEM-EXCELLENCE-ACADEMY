@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Controles financieros y no financieros · Módulo 6 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--red:#E8603D;--amber:#E8A33D;--green:#16C270;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:760px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px;}
+  .comp-card{border-radius:12px;padding:16px;border:1px solid var(--line);background:var(--surface);}
+  .comp-card.bad{border-top:3px solid var(--red);}
+  .comp-card.good{border-top:3px solid var(--green);}
+  .comp-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+  .comp-card.bad .comp-label{color:var(--red);}
+  .comp-card.good .comp-label{color:var(--green);}
+  .role-chain{display:flex;flex-direction:column;gap:6px;}
+  .role{font-size:11.5px;padding:8px 10px;border-radius:8px;background:var(--surface-2,#1B211D);border:1px solid var(--line);}
+  .comp-card.bad .role{color:var(--red);}
+  .comp-card.good .role{color:var(--text);}
+
+  .section-title{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--amber);letter-spacing:.08em;text-transform:uppercase;margin:18px 0 10px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .node{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px;font-size:11.5px;color:var(--muted);line-height:1.5;}
+  .node b{color:var(--text);display:block;margin-bottom:4px;font-size:12.5px;}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+  @media(max-width:600px){.compare,.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+      <h1>Segregación de funciones en un pago</h1>
+    </div>
+    <div class="doccode">INFO-37001-M6<br>Nivel 3 · Avanzado</div>
+  </div>
+
+  <div class="compare">
+    <div class="comp-card bad">
+      <div class="comp-label">Sin control</div>
+      <div class="role-chain">
+        <div class="role">Solicita → Aprueba → Paga</div>
+        <div class="role">Una sola persona, sin revisión cruzada</div>
+      </div>
+    </div>
+    <div class="comp-card good">
+      <div class="comp-label">Con control (Cl. 8.3)</div>
+      <div class="role-chain">
+        <div class="role">Solicita — Compras</div>
+        <div class="role">Aprueba — Gerente de base</div>
+        <div class="role">Paga — Finanzas</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Financieros vs. no financieros</div>
+  <div class="grid">
+    <div class="node"><b>Financiero</b>Registro contable que refleja la naturaleza real de cada transacción.</div>
+    <div class="node"><b>No financiero</b>Verificación de antecedentes antes de contratar personal o formalizar un proveedor.</div>
+  </div>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGAS</span>
+    <span>ISO 37001:2025 · Cláusula 8.3–8.4</span>
+  </div>
+</div>
+</body>
+</html>

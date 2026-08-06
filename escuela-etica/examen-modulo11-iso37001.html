@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 11 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --red:#E8603D; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,96,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--red);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--red);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--red);background:rgba(232,96,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--red);color:#1A0A05;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--red);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--red);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+  <h1>Módulo 11 — Comunicación, Competencia y Conciencia</h1>
+  <div class="sub">ISO 37001 Cl. 7 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8603D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-37001-M11 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "Un colaborador de Compras, área identificada como de alto riesgo desde el Módulo 4, nunca ha recibido capacitación específica sobre el sistema antisoborno de PEM. Según Cl. 7, esto representa:",
+    options: [
+      "Una situación normal, mientras el colaborador conozca las reglas generales de la empresa",
+      "Una brecha de competencia: PEM debe asegurar que el personal en roles de mayor riesgo tenga la formación específica necesaria para reconocer y gestionar situaciones de soborno",
+      "Un tema que solo le corresponde a Recursos Humanos, sin relación con el SGAS",
+      "Algo que se resuelve automáticamente con la antigüedad del colaborador"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 7, la 'toma de conciencia' que PEM debe asegurar en sus colaboradores incluye que comprendan:",
+    options: [
+      "Únicamente el organigrama de la Función Antisoborno",
+      "La política antisoborno, su contribución a la eficacia del sistema, y las implicaciones de no cumplir con los requisitos del SGAS",
+      "Solo los datos financieros de la empresa",
+      "Exclusivamente las sanciones legales aplicables en otros países"
+    ],
+    correct: 1
+  },
+  {
+    q: "La competencia exigida por Cl. 7 para la Función Antisoborno y para el personal en roles de alto riesgo (como Compras) debe ser:",
+    options: [
+      "Exactamente la misma para todos los puestos de PEM, sin distinción",
+      "Proporcional al nivel de exposición al riesgo de cada rol, con mayor profundidad de formación para quienes están en las áreas identificadas como de mayor riesgo",
+      "Definida solo una vez, al certificar el sistema por primera vez",
+      "Responsabilidad exclusiva de cada colaborador, sin ningún programa formal de PEM"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Qué debe incluir la comunicación interna del SGAS, según Cl. 7, además de la política antisoborno?",
+    options: [
+      "Solo el organigrama de la empresa",
+      "Información relevante sobre el sistema —como el canal de denuncias, los roles y responsabilidades, y actualizaciones importantes— para que el personal pueda cumplir su función real dentro del sistema",
+      "Únicamente los resultados financieros trimestrales",
+      "Solo información dirigida a la Dirección General"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la comunicación EXTERNA del SGAS —hacia proveedores, clientes y otras partes interesadas— también es relevante según Cl. 7?",
+    options: [
+      "No lo es, la comunicación del SGAS solo debe ser interna",
+      "Porque terceros que interactúan con PEM también deben conocer el estándar de integridad que la empresa exige, reforzando lo visto en la política y los compromisos de terceros de módulos anteriores",
+      "Porque la ley exige publicar el SGAS completo en medios públicos",
+      "Porque reemplaza la necesidad de cláusulas contractuales antisoborno"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta este módulo con el liderazgo y la Función Antisoborno vistos en el Módulo 2?",
+    options: [
+      "No tiene relación, son requisitos completamente independientes",
+      "El liderazgo del Módulo 2 asegura los recursos; este módulo convierte esos recursos en competencia real, conciencia genuina y comunicación efectiva en toda la organización",
+      "Este módulo reemplaza por completo la necesidad de liderazgo",
+      "Solo se relacionan si el mismo comité redacta ambos contenidos"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si PEM capacita a sus colaboradores una sola vez, al momento de su contratación, sin ninguna actualización posterior, esto representa un riesgo porque:",
+    options: [
+      "Ninguno, la capacitación inicial siempre es suficiente para toda la carrera del colaborador",
+      "El contexto de riesgo, la política y los procedimientos pueden cambiar con el tiempo —como vimos en el Módulo 1—, y una capacitación única no refleja esos cambios ni refuerza la conciencia con el tiempo",
+      "Es un tema exclusivo de Recursos Humanos, sin relación con la eficacia del SGAS",
+      "Se resuelve automáticamente si el colaborador lee la política una vez"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la toma de conciencia debe evaluarse (por ejemplo, con un examen como el de este módulo) y no solo asumirse tras compartir la información?",
+    options: [
+      "No es necesario evaluarla, compartir la información siempre garantiza que se comprendió",
+      "Porque evaluar permite verificar que la comprensión real ocurrió, en vez de asumir que la exposición a la información fue suficiente — el mismo principio aplicado en las otras 3 escuelas de la Academia",
+      "Porque la evaluación reemplaza la necesidad de aplicar la política en la práctica",
+      "Porque solo se evalúa al personal de nuevo ingreso"
+    ],
+    correct: 1
+  },
+  {
+    q: "El registro de las capacitaciones y evaluaciones de conciencia antisoborno realizadas por cada colaborador sirve, entre otras cosas, para:",
+    options: [
+      "Solo llenar un archivo administrativo sin ningún otro uso",
+      "Demostrar, ante una auditoría interna o externa, que el SGAS realmente está construyendo competencia y conciencia en la organización, no solo declarándolo en documentos",
+      "Sustituir por completo la necesidad de la política antisoborno",
+      "Únicamente justificar el presupuesto anual de capacitación"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 11 es que cada colaborador de PEM entienda que comunicación, competencia y conciencia antisoborno:",
+    options: [
+      "Son tres requisitos administrativos sin relación entre sí",
+      "Trabajan juntos para que el sistema antisoborno no dependa solo de documentos, sino de personas que realmente entienden su rol, están formadas según su nivel de riesgo, y reciben información relevante de forma continua",
+      "Solo aplican al personal de nuevo ingreso",
+      "Se resuelven automáticamente si existe una política antisoborno firmada"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8603D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 11. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

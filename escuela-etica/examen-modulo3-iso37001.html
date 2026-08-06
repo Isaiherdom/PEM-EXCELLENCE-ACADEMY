@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 3 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --red:#E8603D; --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,96,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--red);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--red);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--red);background:rgba(232,96,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--red);color:#1A0A05;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--red);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--red);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+  <h1>Módulo 3 — Política Antisoborno y Gobierno</h1>
+  <div class="sub">ISO 37001 Cl. 5.2–5.3 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8603D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-37001-M3 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "La política antisoborno de PEM existe como documento firmado, pero nunca se explicó a los operadores de campo qué significa en su trabajo diario. Según Cl. 5.2, esto es insuficiente porque:",
+    options: [
+      "Basta con que el documento exista y esté firmado por Dirección",
+      "La política debe estar disponible, comunicada y entendida por los colaboradores, no solo documentada — igual que se vio con la política de calidad y ambiental",
+      "Los operadores de campo no necesitan conocer la política antisoborno",
+      "Solo el área de Compras necesita conocerla"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 5.2, la política antisoborno de PEM debe incluir, entre otros elementos:",
+    options: [
+      "Solo una declaración genérica de 'valoramos la honestidad'",
+      "La prohibición del soborno, el compromiso de cumplir la legislación antisoborno aplicable, y el requisito de reportar cualquier sospecha de soborno sin temor a represalias",
+      "Únicamente sanciones económicas para quien incumpla, sin más contenido",
+      "Un documento confidencial que solo conoce la alta dirección"
+    ],
+    correct: 1
+  },
+  {
+    q: "El nombramiento formal de la Función Antisoborno de PEM (con fecha, alcance y autoridad definidos) corresponde a:",
+    options: [
+      "Un trámite sin relación con la Cl. 5.3",
+      "La asignación clara de roles, responsabilidades y autoridades que exige Cl. 5.3, para que se sepa exactamente quién es responsable de qué dentro del SGAS",
+      "Una decisión que no requiere documentación formal",
+      "Algo que solo aplica si el cliente lo solicita explícitamente"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la política antisoborno debe ser proporcional al riesgo real de PEM, y no un texto genérico copiado de otra empresa?",
+    options: [
+      "No es necesario, cualquier política antisoborno sirve igual para cualquier empresa",
+      "Porque una política que no refleja los riesgos reales del sector energético y las áreas de contacto con terceros de PEM (como Compras) no ofrece protección real ni orientación útil a los colaboradores",
+      "Porque la norma exige que cada empresa escriba su propia versión sin importar el contenido",
+      "Porque solo importa para efectos de la auditoría de certificación"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un colaborador de Compras entiende claramente que tiene la responsabilidad de rechazar un regalo que supere cierto valor, y sabe a quién reportar si un proveedor insiste. Esto es un ejemplo de:",
+    options: [
+      "Una situación que no tiene relación con la Cl. 5.3",
+      "Roles y responsabilidades bien asignados y comunicados: el colaborador sabe exactamente qué se espera de él y a quién acudir",
+      "Una decisión que debería tomar únicamente el Director General en cada caso",
+      "Algo que solo debería saber el área legal externa"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta la política antisoborno (Cl. 5.2) con el liderazgo visto en el Módulo 2?",
+    options: [
+      "No tiene relación, son requisitos completamente independientes",
+      "La política es la expresión formal del compromiso de liderazgo: sin una política real y comunicada, el compromiso de la Dirección visto en el Módulo 2 queda solo en la intención",
+      "La política reemplaza la necesidad de liderazgo real",
+      "Solo se relacionan si ocurre un caso de soborno confirmado"
+    ],
+    correct: 1
+  },
+  {
+    q: "Si dos bases de PEM tienen un entendimiento distinto de quién tiene autoridad para aprobar una excepción relacionada con regalos o donativos, esto representa:",
+    options: [
+      "Una situación aceptable, cada base puede decidir a su criterio",
+      "Una falla en la asignación y comunicación de roles según Cl. 5.3, que puede generar decisiones inconsistentes ante la misma situación de riesgo",
+      "Un tema sin relación con el SGAS",
+      "Algo que solo le corresponde decidir al cliente"
+    ],
+    correct: 1
+  },
+  {
+    q: "La política antisoborno de PEM debe revisarse:",
+    options: [
+      "Nunca, una vez firmada permanece igual indefinidamente",
+      "De forma periódica, considerando si el contexto de riesgo, la regulación aplicable, o el alcance del SGAS han cambiado desde su última versión",
+      "Solo si ocurre un caso de soborno confirmado",
+      "Exclusivamente durante la auditoría de certificación"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué la política antisoborno debe garantizar explícitamente que reportar una sospecha de soborno no tendrá represalias?",
+    options: [
+      "No es un requisito real de la Cl. 5.2",
+      "Porque sin esa garantía explícita, los colaboradores —como se vio en el Módulo 1 con la frase 'todos hacen esto'— tienden a no reportar situaciones reales de riesgo",
+      "Porque solo aplica a reportes hechos por escrito y firmados",
+      "Porque la garantía de no represalia solo debe ofrecerse a directivos"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 3 es que cada colaborador de PEM entienda que la política antisoborno y la asignación de roles:",
+    options: [
+      "Son formalidades que solo importan para el certificado ISO",
+      "Son la base para que, ante cualquier situación real de riesgo, se sepa qué se espera y quién tiene autoridad para actuar, con la garantía de que reportar no tiene costo personal",
+      "Solo aplican al personal directivo de PEM",
+      "Cambian cada vez que hay una auditoría nueva, sin relación con el riesgo real"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8603D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 3. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

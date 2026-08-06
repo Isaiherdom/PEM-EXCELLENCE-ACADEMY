@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEM Excellence Academy · Examen Módulo 9 · ISO 45001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
+    --amber:#E8A33D; --text:#F1F3F0; --muted:#8A968E; --bad:#E8603D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(232,163,61,0.09), transparent 60%),var(--bg);
+    color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .wrap{width:100%;max-width:680px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,5vw,32px);font-weight:700;margin:0 0 6px;line-height:1.15;}
+  .sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;}
+  .progress-rail{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin-bottom:32px;}
+  .progress-fill{height:100%;background:var(--amber);width:0%;transition:width .35s ease;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px;margin-bottom:16px;}
+  .qnum{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);letter-spacing:.08em;margin-bottom:10px;}
+  .qtext{font-size:17px;font-weight:600;line-height:1.45;margin-bottom:18px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;cursor:pointer;transition:.15s;background:var(--surface-2);}
+  .opt:hover{border-color:#3a463d;}
+  .opt input{accent-color:var(--amber);margin-top:3px;flex-shrink:0;}
+  .opt span{font-size:14.5px;line-height:1.4;}
+  .opt.selected{border-color:var(--amber);background:rgba(232,163,61,0.08);}
+  .navrow{display:flex;justify-content:space-between;gap:12px;margin-top:8px;}
+  button{font-family:'Inter',sans-serif;font-weight:600;font-size:14px;border:none;border-radius:10px;padding:13px 22px;cursor:pointer;transition:.15s;}
+  .btn-primary{background:var(--amber);color:#1A1000;}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-primary:disabled{background:var(--surface-2);color:var(--muted);cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+  .btn-ghost:hover{color:var(--text);border-color:#3a463d;}
+  #result{display:none;text-align:center;padding-top:8px;}
+  .gauge-wrap{position:relative;width:220px;height:220px;margin:12px auto 8px;}
+  .gauge-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .gauge-score{font-size:44px;display:block;line-height:1;}
+  .gauge-of{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:500;}
+  .verdict{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:18px 0 6px;}
+  .verdict.pass{color:var(--amber);}
+  .verdict.fail{color:var(--bad);}
+  .verdict-sub{color:var(--muted);font-size:14px;max-width:420px;margin:0 auto 24px;}
+  .review{text-align:left;margin-top:24px;}
+  .review-item{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;background:var(--surface-2);}
+  .review-item.correct{border-left:3px solid var(--amber);}
+  .review-item.incorrect{border-left:3px solid var(--bad);}
+  .review-q{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:6px;}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela de Seguridad</div>
+  <h1>Módulo 9 — Eliminación de Peligros y Jerarquía de Controles</h1>
+  <div class="sub">ISO 45001 Cl. 8.1.2 · 10 reactivos · aprobatorio 80%</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <div id="quiz"></div>
+  <div class="navrow" id="navrow">
+    <button class="btn-ghost" id="btnBack" onclick="prevQ()">Anterior</button>
+    <button class="btn-primary" id="btnNext" onclick="nextQ()" disabled>Siguiente</button>
+  </div>
+  <div id="result">
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 220" width="220" height="220">
+        <circle cx="110" cy="110" r="92" fill="none" stroke="#1B211D" stroke-width="14"/>
+        <circle id="gaugeArc" cx="110" cy="110" r="92" fill="none" stroke="#E8A33D" stroke-width="14"
+          stroke-linecap="round" stroke-dasharray="578" stroke-dashoffset="578"
+          transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+      </svg>
+      <div class="gauge-label">
+        <span class="gauge-score" id="scoreNum">0%</span>
+        <span class="gauge-of" id="scoreOf">0 / 10 correctas</span>
+      </div>
+    </div>
+    <div class="verdict" id="verdict"></div>
+    <div class="verdict-sub" id="verdictSub"></div>
+    <button class="btn-primary" onclick="location.reload()">Reintentar examen</button>
+    <div class="review" id="review"></div>
+  </div>
+  <footer>PEM-EXAM-45001-M9 · Production Enhancement México</footer>
+</div>
+<script>
+const QUESTIONS = [
+  {
+    q: "Ante el peligro de una pieza en movimiento identificado en el Módulo 4, PEM decide únicamente entregar guantes especiales al operador, sin considerar ninguna otra opción. Según la jerarquía de controles de Cl. 8.1.2, esto es un problema porque:",
+    options: [
+      "Los guantes son siempre la mejor opción disponible",
+      "El equipo de protección personal es el control de menor jerarquía: antes de llegar a él, se debe considerar eliminar el peligro, sustituirlo, aplicar controles de ingeniería, o controles administrativos",
+      "No hay ningún problema, cualquier control es igual de efectivo",
+      "Los guantes no tienen relación con la jerarquía de controles"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la Cl. 8.1.2, el orden de preferencia de la jerarquía de controles, de mayor a menor efectividad, es:",
+    options: [
+      "Equipo de protección personal, controles administrativos, controles de ingeniería, sustitución, eliminación",
+      "Eliminación, sustitución, controles de ingeniería, controles administrativos, y equipo de protección personal como último recurso",
+      "Todos los niveles tienen exactamente la misma efectividad, el orden no importa",
+      "Controles administrativos primero, siempre, sin importar el tipo de peligro"
+    ],
+    correct: 1
+  },
+  {
+    q: "'Eliminar' un peligro, el nivel más alto de la jerarquía, significaría en el caso de una pieza en movimiento peligrosa:",
+    options: [
+      "Poner una señal de advertencia cerca de la pieza",
+      "Rediseñar el proceso o el equipo para que esa pieza específica ya no represente un peligro de contacto, quitando la fuente del riesgo por completo",
+      "Capacitar al operador para que tenga más cuidado",
+      "Entregar equipo de protección personal más resistente"
+    ],
+    correct: 1
+  },
+  {
+    q: "Instalar una guarda física fija sobre una pieza en movimiento, para que sea físicamente imposible tener contacto directo, es un ejemplo de:",
+    options: [
+      "Control administrativo",
+      "Control de ingeniería: una solución física que reduce el riesgo sin depender del comportamiento humano",
+      "Equipo de protección personal",
+      "Eliminación completa del peligro"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un procedimiento de bloqueo y etiquetado (LOTO) antes de dar mantenimiento a un equipo con piezas en movimiento es un ejemplo de:",
+    options: [
+      "Control de ingeniería exclusivamente",
+      "Control administrativo: un procedimiento que depende de que las personas lo sigan correctamente, útil pero menos robusto que un control de ingeniería o la eliminación",
+      "Equipo de protección personal",
+      "Sustitución del peligro"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué el equipo de protección personal (EPP) se considera el control de menor jerarquía, aunque sea necesario en muchas tareas de PEM?",
+    options: [
+      "Porque el EPP nunca es necesario si se siguen los procedimientos",
+      "Porque el EPP no elimina el peligro, solo reduce la consecuencia si el peligro se materializa, y depende de que la persona lo use correctamente en todo momento",
+      "Porque el EPP es más costoso que cualquier otro control",
+      "Porque la norma prohíbe el uso de EPP en la industria petrolera"
+    ],
+    correct: 1
+  },
+  {
+    q: "PEM identifica que puede sustituir una sustancia química de alto riesgo por una alternativa de menor peligrosidad para una tarea específica. Esto corresponde al nivel de:",
+    options: [
+      "Eliminación",
+      "Sustitución: cambiar el peligro por uno de menor riesgo, sin eliminarlo por completo",
+      "Control administrativo",
+      "Equipo de protección personal"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Por qué PEM debería aplicar varios niveles de la jerarquía de controles juntos (por ejemplo, guarda física + procedimiento + EPP) en vez de confiar en uno solo?",
+    options: [
+      "No es necesario, un solo control siempre es suficiente",
+      "Porque ningún control individual es infalible, y combinar niveles —especialmente cuando la eliminación completa no es posible— reduce el riesgo de forma más robusta",
+      "Porque la norma exige aplicar los 5 niveles en todos los casos, sin excepción",
+      "Porque combinar controles siempre duplica el costo sin beneficio real"
+    ],
+    correct: 1
+  },
+  {
+    q: "¿Cómo se conecta este módulo con la identificación de peligros y evaluación de riesgos del Módulo 4?",
+    options: [
+      "No tiene relación, son procesos completamente independientes",
+      "Una vez identificado y evaluado un peligro, la jerarquía de controles es el método para decidir qué acción tomar, empezando siempre por la opción más efectiva disponible",
+      "La jerarquía de controles reemplaza la necesidad de identificar peligros",
+      "Solo se relacionan si el peligro ya causó un accidente"
+    ],
+    correct: 1
+  },
+  {
+    q: "El objetivo de este Módulo 9 es que cada colaborador de PEM entienda que la jerarquía de controles:",
+    options: [
+      "Es una lista de opciones igualmente válidas para elegir según preferencia personal",
+      "Es un orden de preferencia obligatorio: siempre se busca primero eliminar o reducir el peligro en su origen, y el equipo de protección personal es el último recurso, no el primero",
+      "Solo aplica a peligros mecánicos, no a otros tipos de riesgo",
+      "Se aplica una sola vez, al certificar el sistema por primera vez"
+    ],
+    correct: 1
+  }
+];
+let current = 0;
+let answers = new Array(QUESTIONS.length).fill(null);
+function renderQ(){
+  const q = QUESTIONS[current];
+  const el = document.getElementById('quiz');
+  el.innerHTML = `
+    <div class="card">
+      <div class="qnum">PREGUNTA ${current+1} / ${QUESTIONS.length}</div>
+      <div class="qtext">${q.q}</div>
+      ${q.options.map((opt,i)=>`
+        <label class="opt ${answers[current]===i?'selected':''}" onclick="selectOpt(${i})">
+          <input type="radio" name="opt" ${answers[current]===i?'checked':''}>
+          <span>${opt}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('progressFill').style.width = ((current)/QUESTIONS.length*100)+'%';
+  document.getElementById('btnBack').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').disabled = answers[current]===null;
+  document.getElementById('btnNext').textContent = current===QUESTIONS.length-1 ? 'Finalizar examen' : 'Siguiente';
+}
+function selectOpt(i){ answers[current]=i; renderQ(); }
+function nextQ(){
+  if(answers[current]===null) return;
+  if(current<QUESTIONS.length-1){ current++; renderQ(); } else { finish(); }
+}
+function prevQ(){ if(current>0){current--;renderQ();} }
+function finish(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('navrow').style.display='none';
+  document.getElementById('progressFill').style.width='100%';
+  let correct = 0;
+  const reviewHtml = QUESTIONS.map((q,i)=>{
+    const ok = answers[i]===q.correct;
+    if(ok) correct++;
+    return `<div class="review-item ${ok?'correct':'incorrect'}">
+      <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
+      <div>${q.q}</div>
+      ${!ok?`<div style="margin-top:8px;color:#E8A33D;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+    </div>`;
+  }).join('');
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreNum').textContent = pct+'%';
+  document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
+  document.getElementById('review').innerHTML = reviewHtml;
+  const verdict = document.getElementById('verdict');
+  const verdictSub = document.getElementById('verdictSub');
+  if(pass){
+    verdict.textContent = 'Aprobado';
+    verdict.className='verdict pass';
+    verdictSub.textContent = 'Cumples el estándar del Módulo 9. Tu certificado digital está listo para generarse.';
+  } else {
+    verdict.textContent = 'No aprobado';
+    verdict.className='verdict fail';
+    verdictSub.textContent = 'Se requiere 80% para aprobar. Revisa los reactivos abajo y vuelve a intentar.';
+    document.getElementById('gaugeArc').style.stroke = '#E8603D';
+  }
+  const circumference = 578;
+  const offset = circumference - (pct/100)*circumference;
+  setTimeout(()=>{ document.getElementById('gaugeArc').style.strokeDashoffset = offset; },100);
+}
+renderQ();
+</script>
+</body>
+</html>

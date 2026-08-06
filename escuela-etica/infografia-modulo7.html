@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infografía · Regalos, hospitalidad, donativos y beneficios · Módulo 7 · ISO 37001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--red:#E8603D;--amber:#E8A33D;--green:#16C270;--text:#F1F3F0;--muted:#8A968E;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:28px 14px 60px;}
+  .sheet{width:100%;max-width:760px;}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:18px;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3.6vw,26px);margin:6px 0 0;line-height:1.2;}
+  .doccode{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:right;}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  thead th{font-family:'JetBrains Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);}
+  tbody td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .level{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;}
+  .action{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 9px;border-radius:20px;}
+  .action.ok{background:rgba(22,194,112,.15);color:var(--green);}
+  .action.warn{background:rgba(232,163,61,.15);color:var(--amber);}
+  .action.bad{background:rgba(232,96,61,.15);color:var(--red);}
+
+  .footer-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="head">
+    <div>
+      <div class="brand">PEM Excellence Academy · Escuela de Ética y Cumplimiento</div>
+      <h1>Umbrales de regalos y hospitalidad</h1>
+    </div>
+    <div class="doccode">INFO-37001-M7<br>Nivel 3 · Avanzado</div>
+  </div>
+
+  <table>
+    <thead><tr><th>Tipo</th><th>Ejemplo</th><th>Acción requerida</th></tr></thead>
+    <tbody>
+      <tr><td class="level">Cortesía menor</td><td>Artículo promocional de bajo valor</td><td><span class="action ok">Aceptar sin registro</span></td></tr>
+      <tr><td class="level">Regalo moderado</td><td>Comida de negocios, artículo de valor medio</td><td><span class="action warn">Registrar en bitácora</span></td></tr>
+      <tr><td class="level">Regalo o evento de alto valor</td><td>Evento deportivo, artículo costoso</td><td><span class="action warn">Registrar + aprobación del superior</span></td></tr>
+      <tr><td class="level">Efectivo o equivalente</td><td>Dinero, tarjeta de regalo de alto valor</td><td><span class="action bad">Rechazar sin excepción</span></td></tr>
+      <tr><td class="level">Donativo dirigido</td><td>Causa vinculada a un funcionario con decisión pendiente</td><td><span class="action bad">Evaluación especial del Comité</span></td></tr>
+      <tr><td class="level">Pago de facilitación</td><td>Pago informal para acelerar un trámite</td><td><span class="action bad">Prohibido — reportar de inmediato</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer-row">
+    <span>Production Enhancement México · SGAS</span>
+    <span>ISO 37001:2025 · Cláusula 8.5–8.6</span>
+  </div>
+</div>
+</body>
+</html>
