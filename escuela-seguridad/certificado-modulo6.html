@@ -78,10 +78,13 @@
   .actions button{margin-top:0;}
   .btn-secondary{background:transparent;border:1px solid var(--line);color:var(--text);}
 
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;color-adjust:exact;}
   @media print{
-    body{padding:0;background:#0A0D0B;}
-    .form-box,.actions{display:none !important;}
-    .cert{max-width:100%;border-radius:0;}
+    html,body{padding:0;margin:0;background:#0A0D0B !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .form-box,.actions,.pem-home-btn{display:none !important;}
+    .cert{max-width:100%;border-radius:0;box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .cert *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    @page{margin:0;size:auto;}
   }
   .brand-block{display:flex;flex-direction:column;gap:6px;}
   .brand-block .doccode{text-align:left;}
@@ -90,17 +93,29 @@
 </style>
 </head>
 <body>
+<a href="../index.html" class="pem-home-btn" aria-label="Volver al inicio"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Inicio</a>
+<style>
+.pem-home-btn{position:fixed;top:16px;left:16px;z-index:2147483000;display:inline-flex;align-items:center;gap:7px;background:#141815;border:1px solid #26302A;color:#F1F3F0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.03em;padding:9px 15px 9px 12px;border-radius:9px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:.15s;}
+.pem-home-btn:hover{border-color:#3a463d;background:#1B211D;}
+.pem-home-btn svg{flex-shrink:0;}
+@media print{.pem-home-btn{display:none !important;}}
+@media(max-width:480px){.pem-home-btn{top:10px;left:10px;padding:7px 12px 7px 10px;font-size:10px;}}
+</style>
+
 
 <div class="form-box" id="formBox">
   <div class="eyebrow">PEM Excellence Academy · Escuela de Seguridad</div>
-  <label>Nombre completo del colaborador</label>
-  <input id="inpName" type="text" placeholder="Ej. Juan Pérez López">
-  <label>Base / ubicación</label>
-  <input id="inpBase" type="text" placeholder="Ej. Reynosa" value="Reynosa">
-  <label>Calificación obtenida (%)</label>
-  <input id="inpScore" type="number" min="80" max="100" value="90">
-  <button onclick="generarCertificado()">Generar certificado</button>
-  <div class="hint">El certificado se genera en pantalla. Usa "Imprimir / PDF" para guardarlo.</div>
+  <div id="formInner">
+    <label>Nombre completo del colaborador</label>
+    <input id="inpName" type="text" placeholder="Ej. Juan Pérez López">
+    <label>Base / ubicación</label>
+    <input id="inpBase" type="text" placeholder="Ej. Reynosa" value="Reynosa">
+    <label>Calificación obtenida</label>
+    <div id="scoreLocked" style="padding:11px 12px;background:#0B0E0C;border:1px solid #26302A;border-radius:8px;color:var(--green);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:14.5px;">—%</div>
+    <div class="hint" style="margin-top:4px;">Calificación tomada automáticamente de tu examen — no editable.</div>
+    <button onclick="generarCertificado()" style="margin-top:16px;">Generar certificado</button>
+    <div class="hint">El certificado se genera en pantalla. Usa "Imprimir / PDF" para guardarlo.</div>
+  </div>
 </div>
 
 <div id="certStage">
@@ -150,10 +165,25 @@
 </div>
 
 <script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const urlScore = params.get('score');
+  if(!urlScore){
+    document.getElementById('formInner').style.display = 'none';
+    const msg = document.createElement('div');
+    msg.style.cssText = 'color:#E8603D;font-size:13px;line-height:1.65;padding:4px 2px 2px;';
+    msg.innerHTML = 'Para generar este certificado primero debes completar y <b>aprobar el examen</b> de este módulo.<br><br>Desde la pantalla de resultados del examen encontrarás el enlace para generar tu certificado con la calificación real.';
+    document.getElementById('formBox').appendChild(msg);
+  } else {
+    document.getElementById('scoreLocked').textContent = urlScore + '%';
+  }
+})();
+
 function generarCertificado(){
+  const params = new URLSearchParams(window.location.search);
   const name = document.getElementById('inpName').value.trim() || '—';
   const base = document.getElementById('inpBase').value.trim() || '—';
-  const score = document.getElementById('inpScore').value || '—';
+  const score = params.get('score') || '—';
   const today = new Date();
   const dateStr = today.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
   const id = 'PEM-'+today.getFullYear()+'-'+Math.random().toString(36).slice(2,7).toUpperCase();
