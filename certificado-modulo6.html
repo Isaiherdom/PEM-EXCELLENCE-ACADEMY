@@ -168,6 +168,41 @@
 <script>
 const STORE_KEY = 'pemCert::' + window.location.pathname;
 
+const SCHOOL_MAP = {
+  '': {name:'Calidad', norma:'ISO 9001:2015'},
+  'escuela-ambiental': {name:'Ambiental', norma:'ISO 14001:2015'},
+  'escuela-seguridad': {name:'Seguridad', norma:'ISO 45001:2018'},
+  'escuela-etica': {name:'Ética', norma:'ISO 37001:2025'}
+};
+
+function getSchoolInfo(){
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const folder = parts.length > 1 ? parts[parts.length-2] : '';
+  return SCHOOL_MAP[folder] || SCHOOL_MAP[''];
+}
+
+function logToSheet(name, base, score, dateStr, certId){
+  try{
+    const info = getSchoolInfo();
+    const modTitleEl = document.querySelector('.cert-body b:not([id])');
+    const modTitle = modTitleEl ? modTitleEl.textContent.trim() : '';
+    const params = new URLSearchParams();
+    params.append('entry.114712706', name);
+    params.append('entry.309227604', base);
+    params.append('entry.649515577', info.name);
+    params.append('entry.1061226268', modTitle);
+    params.append('entry.700850895', info.norma);
+    params.append('entry.1733819659', score);
+    params.append('entry.2025133296', dateStr);
+    params.append('entry.1030800010', certId);
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSdxDhorigeU4L5a12yCveje0aTnHanyeHG7dyaCUYsymDyPrg/formResponse", {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body: params.toString()
+    });
+  }catch(e){}
+}
+
 function renderSavedCert(data){
   document.getElementById('outName').textContent = data.name;
   document.getElementById('outBase').textContent = data.base;
@@ -229,6 +264,8 @@ function generarCertificado(){
   try{
     localStorage.setItem(STORE_KEY, JSON.stringify({name, base, score, date: dateStr, certId: id}));
   }catch(e){}
+
+  logToSheet(name, base, score, dateStr, id);
 
   document.getElementById('formBox').style.display='none';
   document.getElementById('certStage').style.display='block';
