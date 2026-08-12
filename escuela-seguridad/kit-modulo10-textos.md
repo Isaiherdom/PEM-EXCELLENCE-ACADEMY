@@ -11,16 +11,16 @@ Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 45001 �
 Mantén exactamente la misma identidad visual de los módulos anteriores: fondo oscuro casi negro, tipografía geométrica de alto contraste, acento ámbar único (#E8A33D), estilo minimalista ejecutivo, máximo 25 palabras por diapositiva.
 
 Estructura (una idea por diapositiva):
-1. Hook — "La cuadrilla entró a la base sin inducción de seguridad. Nadie verificó su equipo de protección."
+1. Hook — "La cuadrilla entró a el sitio de trabajo sin inducción de seguridad. Nadie verificó su equipo de protección."
 2. Qué es gestión del cambio en SST (Cl. 8.1.3) — evaluar antes de implementar.
 3. Tipos de cambio: nuevos procesos, personal, requisitos legales, tecnología.
 4. Qué es coordinación con contratistas (Cl. 8.1.4).
 5. Ejemplo real: checklist de control antes de que un contratista ingrese a sitio.
 6. Cambios no planificados también se revisan por sus consecuencias en seguridad.
-7. Riesgo de una base nueva sin roles de autoridad de SST ajustados.
+7. Riesgo de un sitio de trabajo nueva sin roles de autoridad de SST ajustados.
 8. Cierre — invitación a tomar el examen del Módulo 10 y obtener el certificado digital.
 
-Usa imágenes de una inducción de seguridad a personal externo, una cuadrilla subcontratada con equipo de protección visible, y una base nueva en construcción o arranque. Incluye "PEM Excellence Academy — Escuela de Seguridad — Módulo 10" en la portada.
+Usa imágenes de una inducción de seguridad a personal externo, una cuadrilla subcontratada con equipo de protección visible, y un sitio de trabajo nueva en construcción o arranque. Incluye "PEM Excellence Academy — Escuela de Seguridad — Módulo 10" en la portada.
 ```
 
 ---
@@ -35,7 +35,7 @@ Usa imágenes de una inducción de seguridad a personal externo, una cuadrilla s
 | 4 | Coordinación con contratistas (8.1.4) | Personal externo con chaleco de PEM | "Su seguridad, también nuestra responsabilidad" |
 | 5 | Checklist de contratistas | Lista de verificación (igual a la infografía) | "5 pasos antes de ingresar" |
 | 6 | Cambio no planificado | Proveedor fallando, alternativa evaluada | "Lo inesperado también se revisa" |
-| 7 | Riesgo | Base nueva sin roles claros | "Sin ajustar, el sistema empieza débil" |
+| 7 | Riesgo | Sitio de trabajo nuevo sin roles claros | "Sin ajustar, el sistema empieza débil" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -44,7 +44,7 @@ Usa imágenes de una inducción de seguridad a personal externo, una cuadrilla s
 
 - Inducción de seguridad siendo impartida a personal externo
 - Cuadrilla subcontratada con equipo de protección visible en sitio de PEM
-- Base nueva de PEM en construcción o arranque de operaciones
+- Sitio de trabajo nuevo de PEM en construcción o arranque de operaciones
 - Checklist o formato de control de contratistas, editable en Gamma
 - Icono lineal de coordinación entre dos partes
 
@@ -55,7 +55,7 @@ Evitar: imágenes de "contratistas" genéricas de construcción sin relación co
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Una cuadrilla subcontratada entró a una base de PEM a realizar mantenimiento. Nadie le dio inducción de seguridad, nadie verificó su equipo de protección. No fue mala intención — fue la ausencia de un proceso de coordinación con contratistas."
+"Una cuadrilla subcontratada entró a un sitio de trabajo de PEM a realizar mantenimiento. Nadie le dio inducción de seguridad, nadie verificó su equipo de protección. No fue mala intención — fue la ausencia de un proceso de coordinación con contratistas."
 
 **[0:20–1:00 — Gestión del cambio]**
 "La cláusula 8.1.3 pide que PEM evalúe cualquier cambio planificado que pueda afectar el desempeño de SST —antes de implementarlo—, ajustando controles, roles y recursos según sea necesario."
@@ -73,7 +73,7 @@ Evitar: imágenes de "contratistas" genéricas de construcción sin relación co
 "Y no todo cambio es decidido por PEM. Si un proveedor de equipo de protección falla repentinamente y hay que usar una alternativa, esa situación también se revisa por sus consecuencias en seguridad antes de que impacte a los trabajadores."
 
 **[3:30–4:05 — Riesgo y cierre]**
-"Si PEM incorpora una base nueva sin ajustar los roles de autoridad de SST que vimos en los Módulos 2 y 3, esa base puede operar sin que esté claro quién tiene autoridad para detener una operación insegura. Con esto terminas el Módulo 10. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 11."
+"Si PEM incorpora un sitio de trabajo nueva sin ajustar los roles de autoridad de SST que vimos en los Módulos 2 y 3, ese sitio de trabajo puede operar sin que esté claro quién tiene autoridad para detener una operación insegura. Con esto terminas el Módulo 10. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 11."
 
 *(Duración estimada: 4:10–4:30 min)*
 

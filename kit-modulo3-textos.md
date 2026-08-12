@@ -11,7 +11,7 @@ Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 9001 �
 Mantén exactamente la misma identidad visual de los Módulos 1 y 2: fondo oscuro casi negro, tipografía geométrica de alto contraste, acento verde único (#16C270), estilo minimalista ejecutivo inspirado en Apple, Tesla y Microsoft, muy poco texto por diapositiva (máximo 25 palabras).
 
 Estructura (una idea por diapositiva):
-1. Hook — "¿Quién tiene autoridad para detener un Gas Jack si algo no cumple la especificación? Si no lo sabes, la política de calidad no está funcionando."
+1. Hook — "¿Quién tiene autoridad para detener un compresor si algo no cumple la especificación? Si no lo sabes, la política de calidad no está funcionando."
 2. Qué es la política de calidad en PEM — no es un cartel en la pared, es un compromiso operativo.
 3. Los elementos que exige la Cl. 5.2 — apropiada al contexto, marco para objetivos, compromiso de cumplimiento y mejora continua, disponible/comunicada/entendida.
 4. Roles, responsabilidades y autoridades (Cl. 5.3) — quién decide qué en PEM.
@@ -29,12 +29,12 @@ Usa imágenes de un organigrama simple estilo diagrama de flujo, un supervisor t
 
 | # | Diapositiva | Elemento visual dominante | Texto en pantalla |
 |---|---|---|---|
-| 1 | Hook | Gas Jack con indicador en zona roja, silueta de una persona dudando | "¿Quién tiene autoridad para detenerlo?" |
+| 1 | Hook | compresor con indicador en zona roja, silueta de una persona dudando | "¿Quién tiene autoridad para detenerlo?" |
 | 2 | Qué es la política | Documento estilizado, no un cartel decorativo | "No es un cartel. Es un compromiso." |
 | 3 | Elementos de la Cl. 5.2 | 4 iconos mínimos (contexto, objetivos, cumplimiento, comunicación) | "Apropiada, disponible, entendida" |
 | 4 | Roles y autoridades | Organigrama simplificado con nodos resaltados | "Quién decide qué" |
 | 5 | Cadena de autoridad | Flujo vertical de 5 pasos (igual a la infografía) | "De operador a Dirección" |
-| 6 | Riesgo | Dos supervisores con interpretaciones distintas | "Sin claridad, cada base decide diferente" |
+| 6 | Riesgo | Dos supervisores con interpretaciones distintas | "Sin claridad, cada sitio de trabajo decide diferente" |
 | 7 | Tu rol | Colaborador señalando su propio nodo en el organigrama | "Tú también tienes autoridad definida" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
@@ -55,19 +55,19 @@ Evitar: organigramas corporativos genéricos de oficina sin relación con operac
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Un Gas Jack en campo muestra un parámetro fuera de especificación. ¿Quién tiene autoridad para detenerlo en ese momento? Si la respuesta no es inmediata y clara, no es un problema de la persona en campo — es un problema de que la política de calidad y los roles de PEM no están funcionando como deberían."
+"Un compresor en campo muestra un parámetro fuera de especificación. ¿Quién tiene autoridad para detenerlo en ese momento? Si la respuesta no es inmediata y clara, no es un problema de la persona en campo — es un problema de que la política de calidad y los roles de PEM no están funcionando como deberían."
 
 **[0:20–1:00 — Qué es la política de calidad]**
-"La política de calidad de PEM no es un cartel que se cuelga en la recepción de cada base. Según la cláusula 5.2 de ISO 9001, tiene que ser apropiada al propósito y al contexto de la empresa, servir como marco para fijar objetivos, incluir el compromiso de cumplir los requisitos del cliente y de mejorar continuamente — y, sobre todo, estar disponible, comunicada y entendida. No basta con que exista el documento: un operador en Reynosa tiene que poder explicar, con sus palabras, qué espera esa política de su trabajo diario."
+"La política de calidad de PEM no es un cartel que se cuelga en la recepción de cada sitio de trabajo. Según la cláusula 5.2 de ISO 9001, tiene que ser apropiada al propósito y al contexto de la empresa, servir como marco para fijar objetivos, incluir el compromiso de cumplir los requisitos del cliente y de mejorar continuamente — y, sobre todo, estar disponible, comunicada y entendida. No basta con que exista el documento: un operador en Reynosa tiene que poder explicar, con sus palabras, qué espera esa política de su trabajo diario."
 
 **[1:00–1:45 — Roles, responsabilidades y autoridades]**
-"La cláusula 5.3 va un paso más allá: no basta con saber qué se espera, hay que saber quién decide qué. En una empresa con cinco bases como PEM, eso es crítico. Si dos supervisores de bases distintas entienden diferente quién puede aprobar un cambio en un procedimiento de arranque, el sistema ya falló — aunque el documento diga lo correcto."
+"La cláusula 5.3 va un paso más allá: no basta con saber qué se espera, hay que saber quién decide qué. En una empresa con sitios de trabajo como PEM, eso es crítico. Si dos supervisores de sitios de trabajo distintos entienden diferente quién puede aprobar un cambio en un procedimiento de arranque, el sistema ya falló — aunque el documento diga lo correcto."
 
 **[1:45–2:35 — Ejemplo: la cadena de autoridad]**
-"Veamos la cadena completa ante una desviación real. Un operador detecta el parámetro fuera de rango y detiene el equipo — esa es su autoridad. El supervisor de base recibe el reporte y decide si se corrige en sitio. Si la desviación afecta la entrega al cliente, el gerente de base decide si el servicio se libera o se retrasa. El Responsable del SGI registra la no conformidad y define la acción correctiva. Y si el patrón se repite entre bases, llega a la mesa de Dirección General, que rinde cuentas del resultado — como vimos en el Módulo 2. Cada eslabón tiene una autoridad específica, y todos la conocen antes de que ocurra la desviación, no en el momento de la crisis."
+"Veamos la cadena completa ante una desviación real. Un operador detecta el parámetro fuera de rango y detiene el equipo — esa es su autoridad. El supervisor de sitio de trabajo recibe el reporte y decide si se corrige en sitio. Si la desviación afecta la entrega al cliente, el gerente de sitio de trabajo decide si el servicio se libera o se retrasa. El Responsable del SGI registra la no conformidad y define la acción correctiva. Y si el patrón se repite entre sitios de trabajo, llega a la mesa de Dirección General, que rinde cuentas del resultado — como vimos en el Módulo 2. Cada eslabón tiene una autoridad específica, y todos la conocen antes de que ocurra la desviación, no en el momento de la crisis."
 
 **[2:35–3:15 — Riesgo de roles poco claros]**
-"Cuando esto no está claro, el patrón es predecible: la decisión se retrasa, cada base actúa distinto ante el mismo tipo de desviación, y la no conformidad se repite porque nadie con autoridad real la prioriza a tiempo. Un rol que solo existe en un documento, pero que nadie conoce en el momento de actuar, no sirve de nada."
+"Cuando esto no está claro, el patrón es predecible: la decisión se retrasa, cada sitio de trabajo actúa distinto ante el mismo tipo de desviación, y la no conformidad se repite porque nadie con autoridad real la prioriza a tiempo. Un rol que solo existe en un documento, pero que nadie conoce en el momento de actuar, no sirve de nada."
 
 **[3:15–3:50 — Tu rol y cierre]**
 "Tú también tienes una autoridad definida dentro de este sistema, sin importar tu puesto. Conocerla —y saber a quién acudir cuando la decisión no te corresponde a ti— es lo que hace que el sistema funcione en la práctica, no solo en el papel. Con esto terminas el Módulo 3. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 4."
@@ -99,7 +99,7 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte 9:16 para celular.
 | Tasa de aprobación al primer intento | % que aprueba sin reintentar | ≥ 75% |
 | Calificación promedio | Promedio del examen entre todos los intentos | ≥ 85% |
 | Tiempo promedio de finalización | Video + examen | ≤ 30 min (regla 3-8-30) |
-| Consistencia entre bases | % de supervisores de las 5 bases que identifican correctamente su nivel de autoridad en la pregunta de escenario del examen | Monitoreo por base — señal de alineación real, no solo de aprobación |
+| Consistencia entre sitios de trabajo | % de supervisores de los sitios de trabajo que identifican correctamente su nivel de autoridad en la pregunta de escenario del examen | Monitoreo por sitio de trabajo — señal de alineación real, no solo de aprobación |
 
 ---
 

@@ -13,11 +13,11 @@ Mantén exactamente la misma identidad visual de los módulos anteriores: fondo 
 Estructura (una idea por diapositiva):
 1. Hook — "Solo se analizó la tarea rutinaria. Nadie evaluó qué pasa en un arranque de emergencia."
 2. Qué exige Cl. 6.1.2 — rutinario y no rutinario, factores humanos, cambios, incidentes pasados.
-3. Ejemplo real: peligros de mantenimiento de un Gas Jack — piezas en movimiento, presión, ruido.
+3. Ejemplo real: peligros de mantenimiento de un compresor — piezas en movimiento, presión, ruido.
 4. La matriz de evaluación de riesgo — probabilidad x severidad.
 5. Los cuasi-accidentes como fuente de información real.
 6. Un cambio propuesto se evalúa ANTES de implementarse, no después.
-7. Riesgo de criterios de evaluación inconsistentes entre bases.
+7. Riesgo de criterios de evaluación inconsistentes entre sitios de trabajo.
 8. Cierre — invitación a tomar el examen del Módulo 4 y obtener el certificado digital.
 
 Usa imágenes de un análisis de riesgo en campo, una matriz de evaluación editable, y un compresor con puntos de peligro señalados. Incluye "PEM Excellence Academy — Escuela de Seguridad — Módulo 4" en la portada.
@@ -35,7 +35,7 @@ Usa imágenes de un análisis de riesgo en campo, una matriz de evaluación edit
 | 4 | Matriz de riesgo | Matriz 3x3 (igual a la infografía) | "Probabilidad × severidad" |
 | 5 | Cuasi-accidentes | Reporte sin lesión, con relevancia | "Sin lesión, con información valiosa" |
 | 6 | Cambio evaluado antes | Procedimiento nuevo con sello "evaluado" | "Antes de implementar, no después" |
-| 7 | Riesgo | Dos bases con criterios distintos | "El mismo peligro, dos respuestas" |
+| 7 | Riesgo | Dos sitios de trabajo con criterios distintos | "El mismo peligro, dos respuestas" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -44,7 +44,7 @@ Usa imágenes de un análisis de riesgo en campo, una matriz de evaluación edit
 
 - Análisis de riesgo real en campo, con checklist o formato visible
 - Matriz de evaluación de riesgo (probabilidad x severidad), editable en Gamma
-- Compresor o Gas Jack con puntos de peligro señalados visualmente
+- Compresor o compresor con puntos de peligro señalados visualmente
 - Reporte de cuasi-accidente siendo revisado
 - Icono lineal de balanza o evaluación
 
@@ -61,7 +61,7 @@ Evitar: iconografía genérica de "seguridad industrial" tipo casco y chaleco si
 "La identificación de peligros debe considerar actividades rutinarias y no rutinarias, factores humanos como la fatiga, la infraestructura y el equipo, los cambios propuestos, y los incidentes pasados — incluidos los que no causaron lesión."
 
 **[1:00–1:40 — Ejemplo real]**
-"En el mantenimiento de un Gas Jack, esto significa identificar peligros concretos: piezas en movimiento, presión residual en el sistema, y ruido continuo. Cada uno con su propio nivel de riesgo real."
+"En el mantenimiento de un compresor, esto significa identificar peligros concretos: piezas en movimiento, presión residual en el sistema, y ruido continuo. Cada uno con su propio nivel de riesgo real."
 
 **[1:40–2:20 — Matriz de riesgo]**
 "Una vez identificados, se evalúan con una matriz simple: probabilidad de que ocurra, contra la severidad si ocurre. Una pieza en movimiento sin guarda es alto riesgo — probabilidad y severidad altas. Una superficie irregular en una zona poco transitada es bajo riesgo."
@@ -73,7 +73,7 @@ Evitar: iconografía genérica de "seguridad industrial" tipo casco y chaleco si
 "Y cuando se propone un cambio —como modificar el procedimiento de arranque—, se evalúa el riesgo ANTES de implementarlo, no después de que algo salga mal."
 
 **[3:30–4:05 — Riesgo y cierre]**
-"Si cada base evalúa el mismo tipo de peligro con criterios distintos, el mismo riesgo real puede terminar prioritario en una base y menor en otra. Con esto terminas el Módulo 4. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 5."
+"Si cada sitio de trabajo evalúa el mismo tipo de peligro con criterios distintos, el mismo riesgo real puede terminar prioritario en un sitio de trabajo y menor en otra. Con esto terminas el Módulo 4. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 5."
 
 *(Duración estimada: 4:00–4:20 min)*
 

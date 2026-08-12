@@ -35,7 +35,7 @@ Usa imágenes de un tablero de indicadores real, una sesión de auditoría inter
 | 2 | Seguimiento y medición | Tablero de indicadores simple | "Datos, no impresiones" |
 | 3 | Auditoría interna | Persona revisando evidencia, sin señalar culpables | "Evidencia, no señalamientos" |
 | 4 | Revisión por la dirección | Junta con datos reales sobre la mesa | "El mismo liderazgo del Módulo 2" |
-| 5 | Acción correctiva | Icono de causa raíz (lupa hacia la base de un árbol) | "Corregir y no repetir" |
+| 5 | Acción correctiva | Icono de causa raíz (lupa hacia el sitio de trabajo de un árbol) | "Corregir y no repetir" |
 | 6 | Mejora continua | Flecha ascendente sutil | "Ajustar siempre, no solo si falla" |
 | 7 | Cierre del ciclo | Anillo PHVA (igual a la infografía) | "De Actuar, vuelve a Planificar" |
 | 8 | Cierre final | CTA grande con insignia de escuela completa | "Examen final → Escuela de Calidad completa" |
@@ -69,7 +69,7 @@ Evitar: imágenes de auditoría con connotación de "inspección punitiva" (pers
 "Esos resultados llegan a la Dirección a través de la revisión por la dirección, cláusula 9.3 — el mismo liderazgo que vimos en el Módulo 2, ahora aplicado a datos reales: desempeño del sistema, no conformidades, resultados de auditoría, y si los recursos siguen siendo suficientes."
 
 **[2:15–2:55 — Acción correctiva]**
-"Cuando aparece una no conformidad, la cláusula 10.2 exige ir más allá de corregirla: hay que analizar la causa raíz. Si la misma vibración anormal del Módulo 4 vuelve a aparecer en otra base después de una acción correctiva, eso significa que la causa raíz no se identificó bien la primera vez."
+"Cuando aparece una no conformidad, la cláusula 10.2 exige ir más allá de corregirla: hay que analizar la causa raíz. Si la misma vibración anormal del Módulo 4 vuelve a aparecer en otro sitio de trabajo después de una acción correctiva, eso significa que la causa raíz no se identificó bien la primera vez."
 
 **[2:55–3:30 — Mejora continua]**
 "La cláusula 10.3, mejora continua, no es un compromiso abstracto de la política de calidad — es usar todo lo anterior: los datos, las auditorías, la revisión por la dirección, para ajustar procesos y objetivos de forma constante, no solo cuando algo ya falló."

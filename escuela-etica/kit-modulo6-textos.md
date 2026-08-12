@@ -55,13 +55,13 @@ Evitar: iconografía de "auditoría" genérica tipo lupa sobre números sin cont
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"En una base de PEM, la misma persona solicitaba, aprobaba y pagaba la factura de un proveedor. Sin ninguna otra revisión. Eso no es eficiencia — es la ausencia exacta del control que la cláusula 8.3 exige."
+"En un sitio de trabajo de PEM, la misma persona solicitaba, aprobaba y pagaba la factura de un proveedor. Sin ninguna otra revisión. Eso no es eficiencia — es la ausencia exacta del control que la cláusula 8.3 exige."
 
 **[0:20–1:00 — Qué exige Cl. 8.3]**
 "Los controles financieros de ISO 37001 exigen segregación de funciones —que solicitar, aprobar y pagar sean personas distintas— y registros contables que reflejen con exactitud la naturaleza real de cada transacción."
 
 **[1:00–1:35 — Comparación]**
-"Sin control, una sola persona concentra todo el proceso. Con control, Compras solicita, el gerente de base aprueba, y Finanzas paga — tres personas, tres revisiones, mucho más difícil de manipular."
+"Sin control, una sola persona concentra todo el proceso. Con control, Compras solicita, el gerente de sitio de trabajo aprueba, y Finanzas paga — tres personas, tres revisiones, mucho más difícil de manipular."
 
 **[1:35–2:10 — Registro inexacto]**
 "Un registro contable que describe un regalo de alto valor como 'gastos de representación' es exactamente el tipo de vacío que la cláusula 8.3 busca cerrar: el registro debe reflejar lo que realmente ocurrió, no una descripción conveniente."

@@ -58,10 +58,10 @@ Evitar: imágenes genéricas de "cadena de suministro" tipo logística internaci
 "Un lote de pintura anticorrosiva llegó de un proveedor nuevo sin hoja de datos de seguridad ni certificado de trazabilidad. Nadie lo detuvo a tiempo, y el lote entró al almacén como si cumpliera el estándar. No fue mala suerte — fue una falla en cómo se controló a ese proveedor desde el principio."
 
 **[0:20–1:00 — Qué es Cl. 8.4]**
-"La cláusula 8.4 de ISO 9001 pide que PEM evalúe y seleccione a sus proveedores externos con base en su capacidad real de cumplir los requisitos — antes de empezar a comprarles, no después de que algo salga mal."
+"La cláusula 8.4 de ISO 9001 pide que PEM evalúe y seleccione a sus proveedores externos con sitio de trabajo en su capacidad real de cumplir los requisitos — antes de empezar a comprarles, no después de que algo salga mal."
 
 **[1:00–1:40 — Control proporcional]**
-"Y aquí hay algo clave: el nivel de control no es el mismo para todos los proveedores. Un proveedor que calibra instrumentos críticos usados para verificar un Gas Jack recibe un control alto, porque afecta directamente mediciones que determinan si el servicio es conforme. Un proveedor de insumos administrativos recibe un control básico, porque su impacto en el servicio final es mínimo."
+"Y aquí hay algo clave: el nivel de control no es el mismo para todos los proveedores. Un proveedor que calibra instrumentos críticos usados para verificar un compresor recibe un control alto, porque afecta directamente mediciones que determinan si el servicio es conforme. Un proveedor de insumos administrativos recibe un control básico, porque su impacto en el servicio final es mínimo."
 
 **[1:40–2:20 — Ejemplo: calibración]**
 "Para ese proveedor de alto impacto, PEM no se limita a recibir el certificado de calibración y archivarlo. Se define una evaluación inicial, un seguimiento periódico, y en algunos casos, una auditoría directa del proceso del proveedor."

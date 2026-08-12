@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PEM Excellence Academy</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 <style>
   :root{
     --bg:#0B0E0C; --surface:#141815; --surface-2:#1B211D; --line:#26302A;
@@ -152,17 +151,21 @@ const SCHOOLS = {
 };
 
 let current = "9001";
+const SCHOOL_ORDER = ["9001", "14001", "45001", "37001"];
 
 function renderTabs(){
   const el = document.getElementById('schoolTabs');
-  el.innerHTML = Object.entries(SCHOOLS).map(([key,s])=>`
+  el.innerHTML = SCHOOL_ORDER.map((key)=>{
+    const s = SCHOOLS[key];
+    return `
     <div class="school-tab ${key===current?'active':''}" onclick="selectSchool('${key}')" style="border-top:3px solid ${s.color}">
       <div class="dot" style="background:${s.color}"></div>
       <div class="name">${s.name}</div>
       <div class="norm">${s.norm}</div>
       <div class="prog" style="color:${s.color}">${s.progress} módulos</div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function selectSchool(key){

@@ -11,7 +11,7 @@ Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 45001 �
 Mantén exactamente la misma identidad visual del Módulo 1: fondo oscuro casi negro, tipografía geométrica de alto contraste, acento ámbar único (#E8A33D), estilo minimalista ejecutivo, máximo 25 palabras por diapositiva.
 
 Estructura (una idea por diapositiva):
-1. Hook — "Reportó la escalera dañada. Nadie le dio seguimiento. Meses después, alguien se cayó en otra base."
+1. Hook — "Reportó la escalera dañada. Nadie le dio seguimiento. Meses después, alguien se cayó en otro sitio de trabajo."
 2. Qué es liderazgo en SST (Cl. 5.1) — recursos y rendición de cuentas, igual que en las otras escuelas.
 3. Qué es participación real de los trabajadores (Cl. 5.4) — derecho a identificar peligros, no solo recibir instrucciones.
 4. Ejemplo real: comité de seguridad con representación de operadores y mecánicos.
@@ -55,7 +55,7 @@ Evitar: imágenes de "seguridad corporativa" genéricas de oficina sin relación
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Un operador reportó que una escalera de acceso a un equipo estaba en mal estado. Nadie le dio seguimiento. Meses después, el mismo tipo de riesgo causó una caída menor en otra base. El reporte existió — lo que faltó fue un mecanismo real que lo convirtiera en acción."
+"Un operador reportó que una escalera de acceso a un equipo estaba en mal estado. Nadie le dio seguimiento. Meses después, el mismo tipo de riesgo causó una caída menor en otro sitio de trabajo. El reporte existió — lo que faltó fue un mecanismo real que lo convirtiera en acción."
 
 **[0:20–1:00 — Liderazgo en SST]**
 "La cláusula 5.1 de ISO 45001 pide el mismo compromiso de liderazgo que vimos en Calidad y en Ambiental: que la Dirección asegure recursos —como equipo de protección personal— y rinda cuentas de la eficacia del sistema de seguridad."

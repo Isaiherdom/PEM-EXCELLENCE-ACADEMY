@@ -37,7 +37,7 @@ Los Módulos 1 y 2 se construyeron con libertad de diseño. De ese ejercicio, es
 ## 2. Prompt Maestro Definitivo para Gamma (plantilla reutilizable)
 
 ```
-Crea una presentación ejecutiva de máximo 8 diapositivas titulada "[NORMA] — Módulo [N]: [TÍTULO DEL MÓDULO]" para PEM Excellence Academy, la [ESCUELA] de la universidad corporativa de Production Enhancement México (PEM), empresa de servicios petroleros especializada en compresión reciprocante, Gas Jacks, well testing y plantas de aminas.
+Crea una presentación ejecutiva de máximo 8 diapositivas titulada "[NORMA] — Módulo [N]: [TÍTULO DEL MÓDULO]" para PEM Excellence Academy, la [ESCUELA] de la universidad corporativa de Production Enhancement México (PEM), empresa de servicios petroleros especializada en compresión reciprocante, well testing y plantas de aminas.
 
 Estilo visual — IDÉNTICO en todos los módulos: minimalista, ejecutivo, premium, inspirado en Apple Keynote, Tesla y Microsoft. Fondo oscuro casi negro (#0B0E0C), tipografía geométrica de alto contraste (Space Grotesk para títulos), un solo color de acento —[COLOR DE LA ESCUELA: #16C270 Calidad / #4C9AFF Ambiental / #E8A33D Seguridad / #E8603D Ética]—, muy poco texto por diapositiva (máximo 1 idea central + apoyo visual, máximo 25 palabras), nada de viñetas largas ni párrafos.
 
@@ -45,28 +45,28 @@ Estructura fija de 8 diapositivas (reemplazar solo el contenido entre corchetes)
 1. Hook — [evento o decisión operativa real de PEM que ilustra por qué importa este requisito, NUNCA la definición de la norma]
 2. Qué significa este requisito en PEM — en una frase, sin jerga de auditor
 3. El requisito formal resumido visualmente — [los puntos clave de la cláusula, en iconografía o lista mínima]
-4. Ejemplo operativo A — [escenario real de campo/base de PEM]
+4. Ejemplo operativo A — [escenario real de campo/sitio de trabajo de PEM]
 5. Ejemplo operativo B — [segundo escenario, de otra área o rol]
 6. Riesgo si no se cumple — [consecuencia operativa real, no genérica]
 7. Tu rol — [cómo distintos puestos de PEM sostienen este requisito en su tarea diaria]
 8. Cierre — invitación a tomar el examen del Módulo [N] y obtener el certificado digital
 
-Usa imágenes de referencia reales del mundo de PEM (compresores, Gas Jacks, plantas, campo abierto, instrumentos industriales, personal técnico) — nunca stock genérico de oficina. Incluye "PEM Excellence Academy — [ESCUELA] — Módulo [N]" en la portada.
+Usa imágenes de referencia reales del mundo de PEM (compresores, plantas, campo abierto, instrumentos industriales, personal técnico) — nunca stock genérico de oficina. Incluye "PEM Excellence Academy — [ESCUELA] — Módulo [N]" en la portada.
 ```
 
 ### 2.1 Ejemplo oficial de referencia — Prompt Gamma ya llenado, Módulo 1
 
 ```
-Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 9001 — Módulo 1: Fundamentos" para PEM Excellence Academy, la universidad corporativa de Production Enhancement México (PEM), empresa de servicios petroleros especializada en compresión reciprocante, Gas Jacks, well testing y plantas de aminas.
+Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 9001 — Módulo 1: Fundamentos" para PEM Excellence Academy, la universidad corporativa de Production Enhancement México (PEM), empresa de servicios petroleros especializada en compresión reciprocante, well testing y plantas de aminas.
 
 Estilo visual: minimalista, ejecutivo, premium, inspirado en Apple Keynote, Tesla y Microsoft. Fondo oscuro (casi negro), tipografía geométrica de alto contraste, un solo color de acento verde (#16C270), muy poco texto por diapositiva (máximo 1 idea central + apoyo visual), nada de viñetas largas ni párrafos.
 
 Estructura (una idea por diapositiva):
-1. Hook — una falla real de campo como apertura: "Un Gas Jack que falla no es un error de una persona. Es una falla de sistema."
+1. Hook — una falla real de campo como apertura: "Un compresor que falla no es un error de una persona. Es una falla de sistema."
 2. Qué es la calidad en PEM — no es papeleo, es que la operación sea predecible y confiable.
 3. ISO 9001 en una frase — hacer que el trabajo diario sea controlado, no accidental.
 4. El ciclo PHVA aplicado a un compresor — Planificar, Hacer, Verificar, Actuar como el ciclo real de operación.
-5. Contexto de la organización — quién afecta y a quién afecta el SGC de PEM: PEMEX, PERENCO, Kodiak, autoridades, colaboradores.
+5. Contexto de la organización — quién afecta y a quién afecta el SGC de PEM: PEMEX, CFE, Operadoras, autoridades, colaboradores.
 6. Riesgo y oportunidad — anticipar antes de que sea una falla mayor.
 7. Tu rol — cómo cada puesto (operador, mecánico, supervisor) sostiene el sistema con su tarea diaria.
 8. Cierre y siguiente paso — invitación a tomar el examen del Módulo 1 y obtener el certificado digital.
@@ -85,7 +85,7 @@ Estructura (una idea por diapositiva):
 1. Hook — "La calidad no se decreta desde una oficina. Se demuestra en la siguiente decisión de presupuesto."
 2. Qué es liderazgo real en un SGC — rendir cuentas del resultado, no firmar la política.
 3. Los 8 compromisos de la Cláusula 5.1, resumidos visualmente (rendir cuentas, alinear estrategia, integrar al negocio, promover procesos y riesgo, asegurar recursos, comunicar, lograr resultados, dirigir personas).
-4. Ejemplo real: Dirección aprobando presupuesto para calibrar instrumentos de Gas Jacks antes del vencimiento.
+4. Ejemplo real: Dirección aprobando presupuesto para calibrar instrumentos de compresores antes del vencimiento.
 5. Ejemplo real: un gerente reporta una no conformidad en junta mensual sin represalia.
 6. Riesgo de un liderazgo ausente — no conformidades que se repiten, certificación en riesgo.
 7. Tu rol como líder — el mismo principio aplica a Director, gerente y supervisor, cada uno en su nivel de autoridad.
@@ -161,7 +161,7 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte adicional 9:16 para consumo e
 - Código de documento y referencia de cláusula en el pie
 
 ### Certificados
-- Una sola pantalla, formulario de 3 campos (nombre, base, calificación) → vista generada
+- Una sola pantalla, formulario de 3 campos (nombre, sitio de trabajo, calificación) → vista generada
 - Sello con código de escuela + cláusula normativa
 - Firma: Isaí Hernández Domínguez, Responsable del SGI
 - Botón de impresión/PDF vía navegador, sin backend

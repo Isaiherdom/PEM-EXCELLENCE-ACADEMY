@@ -13,7 +13,7 @@ Mantén exactamente la misma identidad visual de los módulos anteriores: fondo 
 Estructura (una idea por diapositiva):
 1. Hook — "El checklist no es un trámite. Es el punto donde se decide si el equipo arranca o no."
 2. Qué es planificación y control operacional (Cl. 8.1) — requisitos, criterios de aceptación, recursos, control.
-3. Ejemplo real: el checklist de arranque de un Gas Jack como control operacional verificable.
+3. Ejemplo real: el checklist de arranque de un compresor como control operacional verificable.
 4. Cambios no planificados — un proveedor sustituido a mitad de contrato, y cómo se mitiga el riesgo.
 5. Procesos contratados externamente también se controlan (ej. calibración externa).
 6. Flujo completo: planificar → ejecutar → controlar → registrar, cerrando el ciclo PHVA.
@@ -55,7 +55,7 @@ Evitar: diagramas de proceso genéricos de manufactura sin relación con servici
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"El checklist de arranque de un Gas Jack no es un trámite que se llena por costumbre. Es el punto exacto donde se decide, con criterios verificables, si el equipo está en condiciones de operar o no."
+"El checklist de arranque de un compresor no es un trámite que se llena por costumbre. Es el punto exacto donde se decide, con criterios verificables, si el equipo está en condiciones de operar o no."
 
 **[0:20–1:00 — Qué es Cl. 8.1]**
 "La cláusula 8.1 de ISO 9001 pide que PEM planifique y controle sus procesos operativos determinando los requisitos del servicio, los criterios de aceptación, los recursos necesarios, y cómo se va a implementar ese control. Es la versión concreta, servicio por servicio, del enfoque a procesos que vimos desde el Módulo 1."

@@ -17,7 +17,7 @@ Estructura (una idea por diapositiva):
 4. Ejemplo real: ficha de competencia en respuesta a derrames, con evidencia disponible.
 5. Qué es toma de conciencia ambiental (Cl. 7.3) — entender la política y las implicaciones reales.
 6. Ejemplo real: un supervisor que exige el procedimiento correcto sin estar supervisado.
-7. Riesgo: recursos o capacitación inconsistentes entre bases.
+7. Riesgo: recursos o capacitación inconsistentes entre sitios de trabajo.
 8. Cierre — invitación a tomar el examen del Módulo 6 y obtener el certificado digital.
 
 Usa imágenes de un kit de contención de derrames real, un simulacro de respuesta ambiental, y una ficha o expediente de capacitación (composición abstracta). Incluye "PEM Excellence Academy — Escuela Ambiental — Módulo 6" en la portada.
@@ -35,7 +35,7 @@ Usa imágenes de un kit de contención de derrames real, un simulacro de respues
 | 4 | Ejemplo — ficha | Ficha tipo tarjeta (igual a la infografía) | "La evidencia, no solo la palabra" |
 | 5 | Toma de conciencia (7.3) | Icono de bombilla sobre procedimiento | "Entender el porqué real" |
 | 6 | Ejemplo — supervisor | Supervisor exigiendo el procedimiento sin supervisión | "Aunque nadie mire" |
-| 7 | Riesgo | Dos bases con capacitación distinta | "Sin consistencia, el sistema falla" |
+| 7 | Riesgo | Dos sitios de trabajo con capacitación distinta | "Sin consistencia, el sistema falla" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -70,7 +70,7 @@ Evitar: imágenes genéricas de "capacitación corporativa" tipo salón de clase
 "La cláusula 7.3 conecta esto con algo más profundo: que cada colaborador entienda la política ambiental, entienda cómo su tarea contribuye al sistema, y entienda las implicaciones reales —no solo administrativas— de no cumplir un requisito. Un supervisor que exige el procedimiento correcto de manejo de residuos, aunque nadie lo esté supervisando, está demostrando toma de conciencia real."
 
 **[3:00–3:35 — Riesgo]**
-"Cuando dos bases tienen niveles de capacitación ambiental muy distintos en el mismo procedimiento crítico, el sistema empieza a fallar de forma desigual — los recursos y la competencia no se están asegurando de forma consistente entre bases."
+"Cuando dos sitios de trabajo tienen niveles de capacitación ambiental muy distintos en el mismo procedimiento crítico, el sistema empieza a fallar de forma desigual — los recursos y la competencia no se están asegurando de forma consistente entre sitios de trabajo."
 
 **[3:35–4:05 — Cierre]**
 "Recursos, competencia y toma de conciencia ambiental trabajan juntos, con la misma lógica que vimos en la Escuela de Calidad. Con esto terminas el Módulo 6 y abres el Nivel 3 Avanzado de esta escuela. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 7."

@@ -64,7 +64,7 @@ Evitar: iconografía genérica de "sustentabilidad" sin datos ni plan concreto d
 "En el Módulo 4 identificamos el manejo de aceites usados como un aspecto significativo, con riesgo real de contaminación de suelo o agua. Un objetivo ambiental serio parte exactamente de ahí — no de una intención genérica desconectada del riesgo real."
 
 **[1:40–2:20 — Ejemplo real]**
-"Así se ve en la práctica: 'reducir en 20% el volumen de aceite usado no reciclado en la base de Villahermosa en los próximos 12 meses'. Con su plan completo: un convenio con un gestor autorizado de reciclaje, contenedores certificados, un responsable asignado, un plazo definido, y una forma clara de evaluar el resultado."
+"Así se ve en la práctica: 'reducir en 20% el volumen de aceite usado no reciclado en el sitio de trabajo de Villahermosa en los próximos 12 meses'. Con su plan completo: un convenio con un gestor autorizado de reciclaje, contenedores certificados, un responsable asignado, un plazo definido, y una forma clara de evaluar el resultado."
 
 **[2:20–2:55 — Comunicación y monitoreo]**
 "Ese objetivo tiene que comunicarse a quienes lo van a ejecutar, y monitorearse activamente — no basta con documentarlo y archivarlo, igual que vimos con los objetivos de calidad."

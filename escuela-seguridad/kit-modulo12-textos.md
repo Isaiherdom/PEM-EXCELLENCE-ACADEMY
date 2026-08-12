@@ -48,7 +48,7 @@ Usa imágenes de una investigación de incidente colaborativa (no punitiva), una
 - Auditoría interna de SST en sesión
 - Diagrama circular cerrando el ciclo del sistema, coherente con el de la infografía
 - Insignia o sello simple de "Escuela de Seguridad completa"
-- Vista general de una base de PEM, como cierre visual del recorrido
+- Vista general de un sitio de trabajo de PEM, como cierre visual del recorrido
 
 Evitar: imágenes de investigación o auditoría con connotación punitiva.
 
@@ -69,7 +69,7 @@ Evitar: imágenes de investigación o auditoría con connotación punitiva.
 "Esos resultados llegan a la Dirección a través de la revisión por la dirección — el mismo liderazgo que vimos en el Módulo 2, ahora aplicado a datos reales: incidentes, resultados de auditoría, y participación de los trabajadores."
 
 **[2:10–2:45 — Acción correctiva]**
-"Cuando aparece una no conformidad o un incidente, la cláusula 10.2 exige ir más allá de corregirlo: hay que analizar la causa raíz. Si el mismo tipo de incidente vuelve a aparecer en otra base, eso significa que la causa raíz no se identificó bien la primera vez — hay que retomar el análisis y aplicar con más rigor la jerarquía de controles del Módulo 9."
+"Cuando aparece una no conformidad o un incidente, la cláusula 10.2 exige ir más allá de corregirlo: hay que analizar la causa raíz. Si el mismo tipo de incidente vuelve a aparecer en otro sitio de trabajo, eso significa que la causa raíz no se identificó bien la primera vez — hay que retomar el análisis y aplicar con más rigor la jerarquía de controles del Módulo 9."
 
 **[2:45–3:20 — Mejora continua]**
 "La cláusula 10.3, mejora continua, es usar todo lo anterior —investigaciones, auditorías, evaluaciones de desempeño— para ajustar procesos y objetivos de SST de forma constante, no solo cuando algo ya falló."

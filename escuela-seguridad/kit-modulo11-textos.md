@@ -42,7 +42,7 @@ Usa imágenes de un simulacro de incendio o evacuación real, personal capacitad
 
 ## 3. Imágenes recomendadas
 
-- Simulacro real de incendio o evacuación en una base de PEM
+- Simulacro real de incendio o evacuación en un sitio de trabajo de PEM
 - Personal capacitado brindando primeros auxilios en un ejercicio
 - Ruta de evacuación señalizada claramente
 - Punto de reunión con conteo de personal
@@ -55,7 +55,7 @@ Evitar: imágenes de incendios reales graves o dramatizadas de forma alarmista.
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Durante un simulacro de incendio en una base de PEM, se descubrió que la ruta de evacuación estaba bloqueada por equipo almacenado temporalmente. Fue un simulacro, no una emergencia real — y esa es exactamente la razón por la que se hacen: para encontrar la falla antes de que importe de verdad."
+"Durante un simulacro de incendio en un sitio de trabajo de PEM, se descubrió que la ruta de evacuación estaba bloqueada por equipo almacenado temporalmente. Fue un simulacro, no una emergencia real — y esa es exactamente la razón por la que se hacen: para encontrar la falla antes de que importe de verdad."
 
 **[0:20–1:00 — Qué exige Cl. 8.2]**
 "La cláusula 8.2 de ISO 45001 pide que PEM establezca procesos para prepararse y responder ante emergencias, incluyendo respuesta planificada, primeros auxilios, comunicación a todos los involucrados, y pruebas periódicas de esa capacidad."
@@ -67,13 +67,13 @@ Evitar: imágenes de incendios reales graves o dramatizadas de forma alarmista.
 "Un simulacro real involucra a todo el personal que estaría presente en una emergencia real — no solo al área de Seguridad. Eso es lo que permite descubrir fallas reales, como una ruta bloqueada, antes de que ocurra de verdad."
 
 **[2:20–2:55 — Comunicación a terceros]**
-"Y esto incluye a contratistas y visitantes. Alguien que no conoce el procedimiento específico de la base puede no saber la ruta de evacuación o el punto de reunión si no se le comunicó de antemano."
+"Y esto incluye a contratistas y visitantes. Alguien que no conoce el procedimiento específico de el sitio de trabajo puede no saber la ruta de evacuación o el punto de reunión si no se le comunicó de antemano."
 
 **[2:55–3:30 — Revisión posterior]**
 "Después de cada simulacro o emergencia real, el procedimiento se revisa y se ajusta con lo aprendido — el mismo ciclo de mejora que hemos visto en toda esta Academia."
 
 **[3:30–4:05 — Riesgo y cierre]**
-"Si solo el gerente de una base conoce el procedimiento de emergencia en detalle, la respuesta falla si esa persona no está disponible cuando realmente se necesita. Con esto terminas el Módulo 11. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 12, el último de esta escuela."
+"Si solo el gerente de un sitio de trabajo conoce el procedimiento de emergencia en detalle, la respuesta falla si esa persona no está disponible cuando realmente se necesita. Con esto terminas el Módulo 11. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 12, el último de esta escuela."
 
 *(Duración estimada: 4:10–4:30 min)*
 
@@ -102,7 +102,7 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte 9:16 para celular.
 | Tasa de aprobación al primer intento | % que aprueba sin reintentar | ≥ 75% |
 | Calificación promedio | Promedio del examen entre todos los intentos | ≥ 85% |
 | Tiempo promedio de finalización | Video + examen | ≤ 30 min (regla 3-8-30) |
-| Simulacros realizados | Número de simulacros de emergencia ejecutados por base en el periodo | ≥ 2 por base al año |
+| Simulacros realizados | Número de simulacros de emergencia ejecutados por sitio de trabajo en el periodo | ≥ 2 por sitio de trabajo al año |
 
 ---
 

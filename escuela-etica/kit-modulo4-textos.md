@@ -17,7 +17,7 @@ Estructura (una idea por diapositiva):
 4. Por qué Compras tiene mayor riesgo — alto valor, contacto frecuente con terceros.
 5. Trámites regulatorios con presión de tiempo — riesgo alto por contacto directo con autoridad.
 6. Conexión con los roles del Módulo 3 — la evaluación dice dónde, los roles dicen quién.
-7. Riesgo de criterios de evaluación inconsistentes entre bases.
+7. Riesgo de criterios de evaluación inconsistentes entre sitios de trabajo.
 8. Cierre — invitación a tomar el examen del Módulo 4 y obtener el certificado digital.
 
 Usa imágenes de una matriz de riesgo editable, una negociación de compras, y un trámite regulatorio en gestión. Incluye "PEM Excellence Academy — Escuela de Ética y Cumplimiento — Módulo 4" en la portada.
@@ -35,7 +35,7 @@ Usa imágenes de una matriz de riesgo editable, una negociación de compras, y u
 | 4 | Riesgo en Compras | Selección de proveedor con alto valor | "Contacto frecuente, decisión de peso" |
 | 5 | Trámites regulatorios | Funcionario y presión de tiempo | "Presión + contacto = riesgo alto" |
 | 6 | Conexión con Módulo 3 | Flecha de evaluación a roles | "Dónde, y quién" |
-| 7 | Riesgo | Dos bases con criterios distintos | "Un riesgo, dos lecturas" |
+| 7 | Riesgo | Dos sitios de trabajo con criterios distintos | "Un riesgo, dos lecturas" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -73,7 +73,7 @@ Evitar: iconografía de corrupción alarmista (sobres de dinero, esposas).
 "La evaluación de riesgo y los roles del Módulo 3 trabajan juntos: la evaluación dice dónde enfocar la vigilancia, los roles dicen quién es responsable de aplicar esos controles en cada área identificada."
 
 **[3:25–4:00 — Riesgo y cierre]**
-"Si dos bases evalúan la misma actividad con criterios distintos, una puede estar aplicando controles insuficientes para un riesgo que en realidad es alto. Con esto terminas el Módulo 4. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 5."
+"Si dos sitios de trabajo evalúan la misma actividad con criterios distintos, una puede estar aplicando controles insuficientes para un riesgo que en realidad es alto. Con esto terminas el Módulo 4. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 5."
 
 *(Duración estimada: 4:00–4:20 min)*
 

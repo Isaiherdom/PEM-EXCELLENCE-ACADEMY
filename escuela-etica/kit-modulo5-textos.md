@@ -67,7 +67,7 @@ Evitar: iconografía de "investigación" tipo detective o espionaje, poco repres
 "Y esto no termina al firmar el contrato. El riesgo de un tercero puede cambiar con el tiempo —nuevos socios, cambios de propietario, una sanción posterior— por eso la relación se revisa mientras dure."
 
 **[2:15–2:50 — Cláusula antisoborno]**
-"La cláusula contractual antisoborno establece formalmente el compromiso del tercero con el estándar de integridad de PEM, y da una base contractual real para actuar si ese compromiso se incumple."
+"La cláusula contractual antisoborno establece formalmente el compromiso del tercero con el estándar de integridad de PEM, y da un sitio de trabajo contractual real para actuar si ese compromiso se incumple."
 
 **[2:50–3:25 — Conexión con Módulo 4]**
 "Esto conecta directamente con la evaluación de riesgo del Módulo 4: esa evaluación dice qué terceros necesitan mayor atención, y la debida diligencia es la acción concreta que se aplica en consecuencia."

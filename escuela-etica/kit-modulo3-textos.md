@@ -35,7 +35,7 @@ Usa imágenes de un documento de política siendo firmado, una matriz de roles e
 | 4 | Roles y autoridades | Icono de organigrama | "Quién hace qué" |
 | 5 | Matriz de roles | Tabla (igual a la infografía) | "De Dirección a cada colaborador" |
 | 6 | Riesgo — sin protección | Colaborador dudando en reportar | "Sin protección, sin reportes" |
-| 7 | Roles documentados | Documento vs. acuerdo verbal | "Consistencia entre 5 bases" |
+| 7 | Roles documentados | Documento vs. acuerdo verbal | "Consistencia entre sitios de trabajo" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -44,7 +44,7 @@ Usa imágenes de un documento de política siendo firmado, una matriz de roles e
 
 - Documento de política antisoborno siendo firmado por Dirección
 - Matriz o tabla de roles, editable en Gamma
-- Sesión de difusión de política a colaboradores de una base
+- Sesión de difusión de política a colaboradores de un sitio de trabajo
 - Icono lineal de escudo/protección para el reportante
 - Documento de contrato con cláusula antisoborno para proveedores
 
@@ -67,13 +67,13 @@ Evitar: imágenes de "políticas corporativas" genéricas de oficina sin relaci�
 "La cláusula 5.3 pide que los roles, responsabilidades y autoridades del sistema estén asignados y comunicados claramente, para que cada persona sepa exactamente qué le corresponde hacer frente al riesgo de soborno."
 
 **[2:15–2:55 — Matriz de roles]**
-"En PEM, esto se ve así: Dirección General asegura recursos y rinde cuentas; el Comité de Integridad gobierna el sistema; la Función Antisoborno opera con independencia; los gerentes de base difunden la política; cada colaborador actúa con integridad y reporta; y los proveedores conocen y aceptan el estándar que PEM exige."
+"En PEM, esto se ve así: Dirección General asegura recursos y rinde cuentas; el Comité de Integridad gobierna el sistema; la Función Antisoborno opera con independencia; los gerentes de sitio de trabajo difunden la política; cada colaborador actúa con integridad y reporta; y los proveedores conocen y aceptan el estándar que PEM exige."
 
 **[2:55–3:30 — Riesgo]**
 "Si la política prohíbe el soborno pero no menciona explícitamente la protección a quien reporta, los colaboradores pueden temer represalias — y una situación real de riesgo, como la del Módulo 1, deja de reportarse a tiempo."
 
 **[3:30–4:05 — Cierre]**
-"Los roles deben estar documentados, no solo entendidos de manera informal, para asegurar consistencia entre las 5 bases. Con esto terminas el Módulo 3. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 4."
+"Los roles deben estar documentados, no solo entendidos de manera informal, para asegurar consistencia entre los sitios de trabajo. Con esto terminas el Módulo 3. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 4."
 
 *(Duración estimada: 4:00–4:20 min)*
 

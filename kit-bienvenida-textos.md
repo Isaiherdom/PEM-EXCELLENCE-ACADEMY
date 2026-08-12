@@ -47,7 +47,7 @@ Usa el icono de cada escuela con su color correspondiente en la diapositiva 3. S
 ## 3. Prompt para HeyGen (o Synthesia)
 
 ```
-Avatar: mismo personaje base de la Academia (o uno neutral si aún no se define un avatar único por escuela), tono cálido y de bienvenida — más cercano que el tono técnico de los módulos.
+Avatar: mismo personaje sitio de trabajo de la Academia (o uno neutral si aún no se define un avatar único por escuela), tono cálido y de bienvenida — más cercano que el tono técnico de los módulos.
 Fondo: estudio neutro oscuro (#0B0E0C), sin acento de escuela específica (esta pieza es transversal a las 4).
 Voz: español mexicano neutro, ritmo ligeramente más rápido que en los módulos — es una orientación breve, no una clase.
 Guion: usar el texto de la sección 2 completo, sin cortes.

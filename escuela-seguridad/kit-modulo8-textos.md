@@ -14,7 +14,7 @@ Estructura (una idea por diapositiva):
 1. Hook — "El accidente debía notificarse en el plazo legal. Nadie lo hizo a tiempo."
 2. Qué exige Cl. 7.4 — qué, cuándo, con quién, cómo y quién comunica.
 3. Ejemplo real: la matriz de notificación de un accidente a la autoridad laboral.
-4. Comunicación interna — un peligro detectado en una base compartido con las otras 4.
+4. Comunicación interna — un peligro detectado en un sitio de trabajo compartido con las otras 4.
 5. La plática de seguridad (toolbox talk) como comunicación efectiva diaria.
 6. Consulta — doble vía, no solo informar, conectado a los Módulos 2 y 3.
 7. Riesgo: un procedimiento de comunicación que existe pero no se ejecuta con rapidez.
@@ -32,7 +32,7 @@ Usa imágenes de una plática de seguridad real antes del turno, una notificaci�
 | 1 | Hook | Reloj corriendo sobre un reporte de accidente | "El plazo se venció." |
 | 2 | Comunicación (7.4) | 5 iconos: qué, cuándo, quién, cómo, quién comunica | "5 preguntas antes de notificar" |
 | 3 | Ejemplo real | Matriz de comunicación (igual a la infografía) | "El plazo legal, no el propio" |
-| 4 | Comunicación interna | Bases compartiendo un peligro detectado | "Un peligro, cinco bases" |
+| 4 | Comunicación interna | Sitios de trabajo compartiendo un peligro detectado | "Un peligro, sitios de trabajo" |
 | 5 | Toolbox talk | Plática de seguridad real antes del turno | "Información justo a tiempo" |
 | 6 | Consulta | Trabajador y supervisor dialogando, no solo informando | "Doble vía, no solo aviso" |
 | 7 | Riesgo | Procedimiento de comunicación lento en la práctica | "Existir no es suficiente" |
@@ -55,7 +55,7 @@ Evitar: iconografía genérica de trámite gubernamental sin relación con el se
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Ocurrió un accidente de trabajo en una base de PEM que, por ley, debía notificarse a la autoridad laboral dentro de un plazo determinado. Nadie lo notificó a tiempo — no por ocultarlo, sino porque no estaba claro quién debía hacerlo ni cuándo."
+"Ocurrió un accidente de trabajo en un sitio de trabajo de PEM que, por ley, debía notificarse a la autoridad laboral dentro de un plazo determinado. Nadie lo notificó a tiempo — no por ocultarlo, sino porque no estaba claro quién debía hacerlo ni cuándo."
 
 **[0:20–1:00 — Comunicación]**
 "La cláusula 7.4 de ISO 45001 pide que PEM determine, de forma deliberada, qué comunicar sobre el sistema de SST, cuándo, con quién, cómo, y quién es el responsable — tanto dentro de la empresa como hacia afuera, incluyendo obligaciones legales de notificación."
@@ -64,7 +64,7 @@ Evitar: iconografía genérica de trámite gubernamental sin relación con el se
 "Así se ve bien hecho: ante un accidente que cumple los criterios legales, la matriz de comunicación deja claro qué se notifica, cuándo —dentro del plazo legal—, a quién —autoridad laboral y comité mixto—, cómo —notificación formal más registro interno—, y quién lo hace."
 
 **[1:40–2:15 — Comunicación interna]**
-"La misma disciplina aplica hacia adentro: un peligro detectado en una base —como un punto ciego de montacargas— debe compartirse con las otras cuatro, porque el mismo riesgo puede presentarse ahí también."
+"La misma disciplina aplica hacia adentro: un peligro detectado en un sitio de trabajo —como un punto ciego de montacargas— debe compartirse con las otras cuatro, porque el mismo riesgo puede presentarse ahí también."
 
 **[2:15–2:50 — Toolbox talk]**
 "Una plática de seguridad antes de iniciar el turno es comunicación efectiva en su forma más simple: información relevante llegando a quien la necesita, justo antes de que la necesite."

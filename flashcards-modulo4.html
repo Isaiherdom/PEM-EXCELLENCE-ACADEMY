@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flashcards · Módulo 4 · ISO 9001</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 <style>
   :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
   *{box-sizing:border-box;}
@@ -63,12 +62,12 @@
   </div>
   <div class="controls">
     <button onclick="prev()">Anterior</button>
-    <button class="primary" onclick="next()">Siguiente</button>
+    <button class="primary" id="btnNext" onclick="next()">Siguiente</button>
   </div>
   <div class="dots" id="dots"></div>
 <script>
 const CARDS = [
-  {term:"Pensamiento basado en riesgos", def:"Anticipar señales tempranas —como vibración anormal en un Gas Jack— antes de que se conviertan en falla."},
+  {term:"Pensamiento basado en riesgos", def:"Anticipar señales tempranas —como vibración anormal en un compresor— antes de que se conviertan en falla."},
   {term:"Riesgo (Cl. 6.1)", def:"Un efecto no deseado que puede impedir que el SGC logre sus resultados si no se aborda a tiempo."},
   {term:"Oportunidad", def:"Una posibilidad de mejora o crecimiento —como un nuevo servicio o cliente— que también se evalúa de forma planificada, no por impulso."},
   {term:"Determinar riesgos y oportunidades", def:"Identificarlos de forma activa al planificar el SGC, no esperar a que ocurra la falla para reaccionar."},
@@ -87,9 +86,17 @@ function render(){
   document.getElementById('card').classList.remove('flipped');
   flipped = false;
   document.getElementById('dots').innerHTML = CARDS.map((_,i)=>`<div class="dot ${i===idx?'active':''}"></div>`).join('');
+  document.getElementById('btnNext').textContent = (idx === CARDS.length - 1) ? 'Terminar ✓' : 'Siguiente';
 }
 function flip(){ flipped=!flipped; document.getElementById('card').classList.toggle('flipped',flipped); }
-function next(){ idx=(idx+1)%CARDS.length; render(); }
+function next(){
+  if(idx === CARDS.length - 1){
+    const home = document.querySelector('.pem-home-btn');
+    window.location.href = home ? home.getAttribute('href') : 'index.html';
+    return;
+  }
+  idx=(idx+1)%CARDS.length; render();
+}
 function prev(){ idx=(idx-1+CARDS.length)%CARDS.length; render(); }
 render();
 </script>

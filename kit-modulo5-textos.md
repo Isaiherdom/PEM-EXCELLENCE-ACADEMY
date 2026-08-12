@@ -16,11 +16,11 @@ Estructura (una idea por diapositiva):
 3. Los requisitos de la Cl. 6.2 — coherente con la política, medible, monitoreado, comunicado, actualizado.
 4. Ejemplo real: reducir 30% las no conformidades repetidas en Reynosa en 12 meses, con plan qué/recursos/responsable/plazo/evaluación.
 5. Qué es la planificación de cambios (Cl. 6.3) — antes de un cambio grande, se planifica.
-6. Ejemplo real: PEM incorpora una sexta base — recursos y roles definidos antes de operar.
+6. Ejemplo real: PEM incorpora una sexto sitio de trabajo — recursos y roles definidos antes de operar.
 7. Riesgo de cambiar sin planificar — el sistema se debilita desde el primer día.
 8. Cierre — invitación a tomar el examen del Módulo 5 y obtener el certificado digital.
 
-Usa imágenes de una junta de planificación real, un tablero de indicadores simple, y una base petrolera nueva en construcción o arranque. Incluye "PEM Excellence Academy — Módulo 5" en la portada.
+Usa imágenes de una junta de planificación real, un tablero de indicadores simple, y un sitio de trabajo petrolera nueva en construcción o arranque. Incluye "PEM Excellence Academy — Módulo 5" en la portada.
 ```
 
 ---
@@ -34,7 +34,7 @@ Usa imágenes de una junta de planificación real, un tablero de indicadores sim
 | 3 | Requisitos Cl. 6.2 | 5 iconos mínimos (coherente, medible, monitoreado, comunicado, actualizado) | "5 condiciones de la norma" |
 | 4 | Ejemplo real | Ficha tipo canvas (igual a la infografía) | "30% menos no conformidades" |
 | 5 | Planificación de cambios | Icono de engranaje + signo de alto | "Antes de cambiar, planificar" |
-| 6 | Ejemplo de cambio | Base nueva en construcción/arranque | "Sexta base, mismos estándares" |
+| 6 | Ejemplo de cambio | Sitio de trabajo nuevo en construcción/arranque | "Sexta sitio de trabajo, mismos estándares" |
 | 7 | Riesgo | Sistema debilitado, icono de grieta | "Sin plan, el sistema se rompe" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
@@ -44,7 +44,7 @@ Usa imágenes de una junta de planificación real, un tablero de indicadores sim
 
 - Tablero de indicadores simple (KPI board), estilo editable en Gamma
 - Junta de planificación real con participantes de distintas áreas
-- Base petrolera en construcción o arranque de operaciones
+- Sitio de trabajo petrolero en construcción o arranque de operaciones
 - Icono lineal de meta/objetivo con fecha y porcentaje
 - Icono de engranaje o proceso de cambio controlado
 
@@ -61,16 +61,16 @@ Evitar: iconografía genérica de "metas" tipo motivacional de oficina sin conex
 "Un objetivo de calidad tiene que ser medible, coherente con la política de PEM, monitoreado a lo largo del tiempo, comunicado a quienes lo van a ejecutar, y actualizado cuando sea necesario. No es una intención — es una meta con número y con fecha."
 
 **[1:00–1:45 — Ejemplo real]**
-"Veamos un ejemplo real: 'reducir en 30% las no conformidades repetidas en la base de Reynosa en los próximos 12 meses'. Ese objetivo sí cumple la norma, porque además viene con un plan: qué se va a hacer —revisión preventiva adicional en componentes con historial de falla—, qué recursos requiere, quién es el responsable, cuándo se evalúa, y cómo se va a medir el resultado."
+"Veamos un ejemplo real: 'reducir en 30% las no conformidades repetidas en el sitio de trabajo de Reynosa en los próximos 12 meses'. Ese objetivo sí cumple la norma, porque además viene con un plan: qué se va a hacer —revisión preventiva adicional en componentes con historial de falla—, qué recursos requiere, quién es el responsable, cuándo se evalúa, y cómo se va a medir el resultado."
 
 **[1:45–2:20 — Planificación de cambios]**
-"La cláusula 6.3 conecta directamente con esto. Cuando PEM decide hacer un cambio grande al sistema —una base nueva, un cliente con especificaciones distintas, un servicio nuevo— ese cambio también se planifica antes de ejecutarlo, no se improvisa sobre la marcha."
+"La cláusula 6.3 conecta directamente con esto. Cuando PEM decide hacer un cambio grande al sistema —un sitio de trabajo nueva, un cliente con especificaciones distintas, un servicio nuevo— ese cambio también se planifica antes de ejecutarlo, no se improvisa sobre la marcha."
 
 **[2:20–3:00 — Ejemplo de cambio]**
-"Por ejemplo, si PEM incorpora una sexta base de operación, antes de arrancar tiene que estar claro: qué recursos necesita esa base, quién tiene la autoridad para liberar el servicio ahí, cómo se van a reportar las no conformidades, y qué parte del sistema de calidad actual tiene que ajustarse para que esa base opere con el mismo estándar que las otras cinco."
+"Por ejemplo, si PEM incorpora una sexto sitio de trabajo de operación, antes de arrancar tiene que estar claro: qué recursos necesita ese sitio de trabajo, quién tiene la autoridad para liberar el servicio ahí, cómo se van a reportar las no conformidades, y qué parte del sistema de calidad actual tiene que ajustarse para que ese sitio de trabajo opere con el mismo estándar que las otras cinco."
 
 **[3:00–3:40 — Riesgo de no planificar]**
-"Cuando un cambio se ejecuta sin planificación, el sistema se debilita desde el primer día: nadie sabe con certeza quién decide qué, los objetivos de calidad de esa base quedan indefinidos, y las no conformidades empiezan a acumularse sin que nadie las priorice — el mismo patrón que vimos en el Módulo 3 cuando los roles no están claros."
+"Cuando un cambio se ejecuta sin planificación, el sistema se debilita desde el primer día: nadie sabe con certeza quién decide qué, los objetivos de calidad de ese sitio de trabajo quedan indefinidos, y las no conformidades empiezan a acumularse sin que nadie las priorice — el mismo patrón que vimos en el Módulo 3 cuando los roles no están claros."
 
 **[3:40–4:15 — Cierre]**
 "Con esto terminas el Módulo 5. Ahora sabes distinguir un objetivo de calidad real de una buena intención, y por qué todo cambio importante en PEM se planifica antes de ejecutarse. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 6."

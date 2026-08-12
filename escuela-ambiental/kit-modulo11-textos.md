@@ -14,10 +14,10 @@ Estructura (una idea por diapositiva):
 1. Hook — "El permiso seguía 'vigente' en el tablero. Nadie había verificado si realmente se cumplía."
 2. Registro vs. evaluación — el Módulo 3 identifica qué aplica, este módulo verifica si se cumple.
 3. Qué exige la Cl. 9.1.2 — frecuencia, método, y conocimiento continuo del estado de cumplimiento.
-4. Ejemplo real: la bitácora de evaluación de cumplimiento legal de las 5 bases.
+4. Ejemplo real: la bitácora de evaluación de cumplimiento legal de los sitios de trabajo.
 5. Autoevaluación antes de la inspección — detectar y corregir por cuenta propia.
 6. Un incumplimiento detectado se trata como no conformidad — análisis de causa raíz.
-7. Riesgo de frecuencias de evaluación inconsistentes entre bases.
+7. Riesgo de frecuencias de evaluación inconsistentes entre sitios de trabajo.
 8. Cierre — invitación a tomar el examen del Módulo 11 y obtener el certificado digital.
 
 Usa imágenes de una revisión de cumplimiento en campo, un documento legal con sello de verificación, y un calendario de evaluaciones programadas. Incluye "PEM Excellence Academy — Escuela Ambiental — Módulo 11" en la portada.
@@ -44,7 +44,7 @@ Usa imágenes de una revisión de cumplimiento en campo, un documento legal con 
 
 - Revisión de cumplimiento ambiental en campo, documento y realidad comparados
 - Documento legal con sello o marca de verificación
-- Calendario o cronograma de evaluaciones programadas por base
+- Calendario o cronograma de evaluaciones programadas por sitio de trabajo
 - Icono lineal de lupa sobre un documento
 - Persona de HSE completando una bitácora de evaluación
 
@@ -55,10 +55,10 @@ Evitar: imágenes de trámite gubernamental genérico sin relación con verifica
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"El permiso de una base seguía marcado como 'vigente' en el tablero que vimos en el Módulo 3. Pero nadie había verificado en meses si las condiciones reales de operación cumplían lo que ese permiso exigía. Tener el registro no es lo mismo que saber si se cumple."
+"El permiso de un sitio de trabajo seguía marcado como 'vigente' en el tablero que vimos en el Módulo 3. Pero nadie había verificado en meses si las condiciones reales de operación cumplían lo que ese permiso exigía. Tener el registro no es lo mismo que saber si se cumple."
 
 **[0:20–1:00 — Registro vs. evaluación]**
-"El Módulo 3 nos dio el registro de requisitos legales: qué obligaciones aplican a cada base. Este módulo va un paso más allá — la cláusula 9.1.2 exige verificar activamente si esas obligaciones realmente se están cumpliendo en la operación diaria, no solo tenerlas archivadas."
+"El Módulo 3 nos dio el registro de requisitos legales: qué obligaciones aplican a cada sitio de trabajo. Este módulo va un paso más allá — la cláusula 9.1.2 exige verificar activamente si esas obligaciones realmente se están cumpliendo en la operación diaria, no solo tenerlas archivadas."
 
 **[1:00–1:40 — Qué exige Cl. 9.1.2]**
 "PEM debe determinar con qué frecuencia evalúa su cumplimiento legal, con qué método, y mantener un conocimiento continuo de su estado — no solo saberlo cuando llega una auditoría."
@@ -70,10 +70,10 @@ Evitar: imágenes de trámite gubernamental genérico sin relación con verifica
 "El valor real de esto es hacerlo antes de que la autoridad lo haga por nosotros. Una autoevaluación interna permite detectar y corregir un incumplimiento por cuenta propia, antes de que se convierta en un hallazgo externo o una sanción."
 
 **[2:55–3:30 — Tratamiento del incumplimiento]**
-"Y cuando la evaluación detecta un incumplimiento —como el límite de emisiones en una base—, se trata exactamente igual que cualquier otra no conformidad del sistema: se analiza la causa raíz y se toman acciones correctivas, no solo se documenta y se olvida."
+"Y cuando la evaluación detecta un incumplimiento —como el límite de emisiones en un sitio de trabajo—, se trata exactamente igual que cualquier otra no conformidad del sistema: se analiza la causa raíz y se toman acciones correctivas, no solo se documenta y se olvida."
 
 **[3:30–4:05 — Riesgo y cierre]**
-"Si dos bases evalúan su cumplimiento legal con frecuencias muy distintas, sin un criterio definido, la base con menor frecuencia queda expuesta por más tiempo a un incumplimiento no detectado. Con esto terminas el Módulo 11. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 12, el último de esta escuela."
+"Si dos sitios de trabajo evalúan su cumplimiento legal con frecuencias muy distintas, sin un criterio definido, el sitio de trabajo con menor frecuencia queda expuesta por más tiempo a un incumplimiento no detectado. Con esto terminas el Módulo 11. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 12, el último de esta escuela."
 
 *(Duración estimada: 4:10–4:30 min)*
 

@@ -34,7 +34,7 @@ Usa imágenes de una reunión de comité mixto con participación real de trabaj
 | 3 | Comité mixto | Reunión real con trabajadores presentes | "Ley mexicana + norma, un mecanismo" |
 | 4 | Obstáculos reales | 3 iconos: idioma, tiempo, temor | "Lo que impide participar de verdad" |
 | 5 | Ejemplo — tabla | Comparación obstáculo/solución (igual a la infografía) | "Identificar y eliminar" |
-| 6 | Subcontratación | Cuadrilla externa entrando a la base | "El riesgo que trae alguien más" |
+| 6 | Subcontratación | Cuadrilla externa entrando a el sitio de trabajo | "El riesgo que trae alguien más" |
 | 7 | Riesgo | Documento archivado sin uso | "Existir en papel no es suficiente" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
@@ -45,7 +45,7 @@ Usa imágenes de una reunión de comité mixto con participación real de trabaj
 - Reunión de comité mixto de seguridad e higiene con trabajadores de campo presentes
 - Supervisor explicando un procedimiento verbalmente en campo, no solo por escrito
 - Tabla o comparación visual de obstáculos y soluciones, editable en Gamma
-- Cuadrilla subcontratada ingresando a una base de PEM
+- Cuadrilla subcontratada ingresando a un sitio de trabajo de PEM
 - Icono lineal de idioma/comunicación accesible
 
 Evitar: imágenes de "trabajo en equipo" genéricas de oficina sin relación con comités de seguridad reales.
@@ -70,7 +70,7 @@ Evitar: imágenes de "trabajo en equipo" genéricas de oficina sin relación con
 "PEM identifica estos obstáculos uno por uno y los elimina: explicación verbal directa en vez de solo documentos técnicos, tiempo asignado dentro del horario laboral, y una política explícita de no represalia reforzada por el propio comité."
 
 **[2:55–3:30 — Subcontratación]**
-"Esto también aplica antes de traer una cuadrilla subcontratada a la base: se consulta y se determinan los controles de SST necesarios para el riesgo que ese personal externo puede introducir — no se espera a que ocurra un incidente para definirlo."
+"Esto también aplica antes de traer una cuadrilla subcontratada a el sitio de trabajo: se consulta y se determinan los controles de SST necesarios para el riesgo que ese personal externo puede introducir — no se espera a que ocurra un incidente para definirlo."
 
 **[3:30–4:05 — Riesgo y cierre]**
 "Un procedimiento de consulta que existe solo en un documento, pero nunca se aplica antes de una decisión real, no genera ninguna participación efectiva. Con esto terminas el Módulo 3. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 4."

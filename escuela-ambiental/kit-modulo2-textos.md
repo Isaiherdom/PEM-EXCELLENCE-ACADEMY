@@ -42,11 +42,11 @@ Usa imágenes de equipo de contención de derrames, una junta de planeación amb
 
 ## 3. Imágenes recomendadas
 
-- Equipo de contención de derrames almacenado y listo en base
+- Equipo de contención de derrames almacenado y listo en sitio de trabajo
 - Junta de planeación ambiental real, con datos sobre la mesa
 - Supervisor de campo deteniendo una operación por una señal ambiental
 - Icono lineal de política/documento con check de cumplimiento
-- Mapa de las 5 bases con indicador de temporada de riesgo
+- Mapa de los sitios de trabajo con indicador de temporada de riesgo
 
 Evitar: iconografía genérica de "sustentabilidad corporativa" sin conexión a operación real.
 
@@ -55,7 +55,7 @@ Evitar: iconografía genérica de "sustentabilidad corporativa" sin conexión a 
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Antes de que empezara la temporada de lluvias, la Dirección de PEM ya había aprobado el presupuesto para equipo de contención de derrames en las 5 bases. No fue una reacción a un incidente — fue liderazgo ambiental anticipándose al riesgo."
+"Antes de que empezara la temporada de lluvias, la Dirección de PEM ya había aprobado el presupuesto para equipo de contención de derrames en los sitios de trabajo. No fue una reacción a un incidente — fue liderazgo ambiental anticipándose al riesgo."
 
 **[0:20–1:00 — Liderazgo ambiental]**
 "La cláusula 5.1 de ISO 14001 pide exactamente eso: que la Dirección asegure los recursos necesarios para el sistema de gestión ambiental antes de que el riesgo se materialice, no después. Es el mismo principio de liderazgo que vimos en la Escuela de Calidad, aplicado ahora al entorno."
@@ -102,7 +102,7 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte 9:16 para celular.
 | Tasa de aprobación al primer intento | % que aprueba sin reintentar | ≥ 75% |
 | Calificación promedio | Promedio del examen entre todos los intentos | ≥ 85% |
 | Tiempo promedio de finalización | Video + examen | ≤ 30 min (regla 3-8-30) |
-| Recursos ambientales preventivos asignados | % de bases con equipo de contención/prevención disponible antes del inicio de temporada de riesgo | 100% |
+| Recursos ambientales preventivos asignados | % de sitios de trabajo con equipo de contención/prevención disponible antes del inicio de temporada de riesgo | 100% |
 
 ---
 

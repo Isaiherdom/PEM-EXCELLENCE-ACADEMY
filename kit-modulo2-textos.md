@@ -14,7 +14,7 @@ Estructura (una idea por diapositiva):
 1. Hook — "La calidad no se decreta desde una oficina. Se demuestra en la siguiente decisión de presupuesto."
 2. Qué es liderazgo real en un SGC — rendir cuentas del resultado, no firmar la política.
 3. Los 8 compromisos de la Cláusula 5.1, resumidos visualmente (rendir cuentas, alinear estrategia, integrar al negocio, promover procesos y riesgo, asegurar recursos, comunicar, lograr resultados, dirigir personas).
-4. Ejemplo real: Dirección aprobando presupuesto para calibrar instrumentos de Gas Jacks antes del vencimiento.
+4. Ejemplo real: Dirección aprobando presupuesto para calibrar instrumentos de compresores antes del vencimiento.
 5. Ejemplo real: un gerente reporta una no conformidad en junta mensual sin represalia.
 6. Riesgo de un liderazgo ausente — no conformidades que se repiten, certificación en riesgo.
 7. Tu rol como líder — el mismo principio aplica a Director, gerente y supervisor, cada uno en su nivel de autoridad.
@@ -33,7 +33,7 @@ Usa imágenes de junta ejecutiva real (no genérica de stock), instrumentos de m
 | 2 | Qué es liderazgo real | Icono: mano sosteniendo un resultado, no un documento | "Rendir cuentas, no solo firmar" |
 | 3 | Los 8 compromisos | Grid de 8 iconos minimalistas (uno por compromiso) | "8 compromisos de la Cl. 5.1" |
 | 4 | Ejemplo — recursos | Foto de instrumento de medición siendo calibrado | "Presupuesto antes del vencimiento" |
-| 5 | Ejemplo — comunicación | Gerente hablando frente a su equipo en base | "Reportar no cuesta, ocultar sí" |
+| 5 | Ejemplo — comunicación | Gerente hablando frente a su equipo en sitio de trabajo | "Reportar no cuesta, ocultar sí" |
 | 6 | Riesgo de ausencia | Gráfico simple: línea de no conformidades repetidas subiendo | "Lo que pasa sin liderazgo" |
 | 7 | Tu rol | Tres siluetas: Director, gerente, supervisor, misma línea de autoridad distribuida | "El mismo principio, tu nivel" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
@@ -44,7 +44,7 @@ Usa imágenes de junta ejecutiva real (no genérica de stock), instrumentos de m
 
 - Sala de juntas ejecutiva real (no stock genérico), ambiente serio pero cercano
 - Instrumento de medición industrial siendo calibrado (manómetro, sensor)
-- Gerente o supervisor conversando con su equipo en una base de PEM
+- Gerente o supervisor conversando con su equipo en un sitio de trabajo de PEM
 - Gráfico de línea simple (tendencia de no conformidades), estilo minimalista editable en Gamma
 - Iconografía lineal de los 8 compromisos (accountability, recursos, comunicación, resultados, personas, riesgo, estrategia, procesos)
 
@@ -55,7 +55,7 @@ Evitar: imágenes de "liderazgo" genéricas de stock (apretón de manos, gente s
 ## 4. Guion completo para avatar (3–5 minutos)
 
 **[0:00–0:20 — Hook]**
-"En la última junta de resultados, ¿quién en tu base habló de calidad? Si la respuesta es 'nadie de Dirección', tenemos un problema — porque según ISO 9001, el liderazgo no se demuestra firmando una política una vez al año. Se demuestra en la siguiente decisión de presupuesto."
+"En la última junta de resultados, ¿quién en tu sitio de trabajo habló de calidad? Si la respuesta es 'nadie de Dirección', tenemos un problema — porque según ISO 9001, el liderazgo no se demuestra firmando una política una vez al año. Se demuestra en la siguiente decisión de presupuesto."
 
 **[0:20–1:00 — Qué es liderazgo real]**
 "La cláusula 5.1 de la norma es clara: la Dirección General tiene que rendir cuentas de la eficacia del sistema de gestión de calidad. No delegarlo por completo al Responsable del SGI, no firmarlo y olvidarlo. Rendir cuentas significa que, si el sistema no está funcionando, es una conversación de negocio — no solo un pendiente de auditoría."
@@ -64,16 +64,16 @@ Evitar: imágenes de "liderazgo" genéricas de stock (apretón de manos, gente s
 "La norma detalla ocho compromisos concretos. Rendir cuentas del resultado. Alinear la política de calidad con hacia dónde va el negocio. Integrar los requisitos del sistema en cómo se cotiza y se opera, no como trámite aparte. Promover que se piense en procesos y en riesgos antes de que algo falle. Asegurar que existan los recursos — tiempo, presupuesto, herramientas. Comunicar por qué esto importa. Asegurar que el sistema logre resultados reales. Y dirigir y apoyar a las personas que lo sostienen todos los días."
 
 **[1:50–2:35 — Ejemplo: recursos]**
-"Un ejemplo real: el certificado de calibración de un instrumento usado en los Gas Jacks está por vencer. La Dirección aprueba el presupuesto para recalibrarlo antes del vencimiento, sin esperar a que el instrumento falle en campo o a que un auditor lo detecte. Eso es liderazgo según la Cl. 5.1 — asegurar la disponibilidad de recursos, en el momento en que se necesitan, no después."
+"Un ejemplo real: el certificado de calibración de un instrumento usado en los compresores está por vencer. La Dirección aprueba el presupuesto para recalibrarlo antes del vencimiento, sin esperar a que el instrumento falle en campo o a que un auditor lo detecte. Eso es liderazgo según la Cl. 5.1 — asegurar la disponibilidad de recursos, en el momento en que se necesitan, no después."
 
 **[2:35–3:15 — Ejemplo: comunicación y personas]**
-"Otro ejemplo: un gerente de base reporta en la junta mensual una no conformidad detectada en su propia operación. No se le sanciona por reportarla — se le reconoce por detectarla a tiempo. Eso es lo que la norma llama 'dirigir y apoyar a las personas para que contribuyan a la eficacia del sistema'. Si reportar tiene costo, la gente deja de reportar — y el sistema se queda ciego."
+"Otro ejemplo: un gerente de sitio de trabajo reporta en la junta mensual una no conformidad detectada en su propia operación. No se le sanciona por reportarla — se le reconoce por detectarla a tiempo. Eso es lo que la norma llama 'dirigir y apoyar a las personas para que contribuyan a la eficacia del sistema'. Si reportar tiene costo, la gente deja de reportar — y el sistema se queda ciego."
 
 **[3:15–3:55 — Riesgo de un liderazgo ausente]**
 "Cuando este compromiso no existe, el patrón es predecible: las no conformidades se repiten, porque nadie con autoridad real las prioriza. La calidad se convierte en un trámite de oficina que nadie en campo toma en serio. Y tarde o temprano, eso se refleja en la relación con el cliente — y en el riesgo de la certificación."
 
 **[3:55–4:25 — Tu rol y cierre]**
-"Este principio no es exclusivo del Director General. Un gerente de base y un supervisor ejercen el mismo liderazgo en su nivel de autoridad — exigiendo que se siga un checklist, asignando tiempo para una revisión, escuchando cuando algo no está bien. Con esto terminas el Módulo 2. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 3."
+"Este principio no es exclusivo del Director General. Un gerente de sitio de trabajo y un supervisor ejercen el mismo liderazgo en su nivel de autoridad — exigiendo que se siga un checklist, asignando tiempo para una revisión, escuchando cuando algo no está bien. Con esto terminas el Módulo 2. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 3."
 
 *(Duración estimada: 4:10–4:30 min)*
 

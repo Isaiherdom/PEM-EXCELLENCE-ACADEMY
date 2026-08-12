@@ -8,15 +8,15 @@ Primer módulo de la Escuela de Ética. Replica exactamente la estructura del Go
 ## 1. Prompt completo para Gamma (copiar y pegar)
 
 ```
-Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 37001 — Módulo 1: Fundamentos y Contexto del Riesgo de Soborno" para PEM Excellence Academy, la Escuela de Ética y Cumplimiento de Production Enhancement México (PEM), empresa de servicios petroleros con operación en 5 bases (Reynosa, Villahermosa, Poza Rica, CDMX, Monterrey).
+Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 37001 — Módulo 1: Fundamentos y Contexto del Riesgo de Soborno" para PEM Excellence Academy, la Escuela de Ética y Cumplimiento de Production Enhancement México (PEM), empresa de servicios petroleros con operación en sitios de trabajo (Reynosa, Villahermosa, Poza Rica, CDMX, Monterrey).
 
 Estilo visual: minimalista, ejecutivo, premium, inspirado en Apple Keynote, Tesla y Microsoft. Fondo oscuro casi negro (#0B0E0C), tipografía geométrica de alto contraste, un solo color de acento rojo (#E8603D), muy poco texto por diapositiva (máximo 25 palabras).
 
 Estructura (una idea por diapositiva):
 1. Hook — "Una cena costosa y un regalo, justo antes de aprobar una orden de compra. 'Todos hacen esto.'"
 2. Qué es el contexto de riesgo de soborno de PEM (Cl. 4.1) — factores internos y externos.
-3. Partes interesadas — SENER, CNE, PEMEX, PERENCO, Kodiak, Comité de Integridad, proveedores.
-4. Alcance del SGAS — Compras, Ventas, RH, Finanzas, Operación, en las 5 bases.
+3. Partes interesadas — SENER, CNE, PEMEX, CFE, Operadoras, Comité de Integridad, proveedores.
+4. Alcance del SGAS — Compras, Ventas, RH, Finanzas, Operación, en los sitios de trabajo.
 5. ISO 37001 en una frase — anticipar el riesgo, no reaccionar tras el escándalo.
 6. Por qué el sector energético tiene mayor exposición — contratos de alto valor, autoridades.
 7. Riesgo de un contexto mal identificado — criterio inconsistente entre áreas.
@@ -47,7 +47,7 @@ Usa imágenes reales de operación petrolera, una junta de Comité de Integridad
 - Junta del Comité de Integridad de PEM (composición realista, no genérica)
 - Mapa o diagrama de nodos de partes interesadas, editable en Gamma
 - Documento de orden de compra junto a un regalo o cena (composición abstracta, sin dramatizar)
-- Vista de una base de PEM, similar a otras escuelas para mantener continuidad de marca
+- Vista de un sitio de trabajo de PEM, similar a otras escuelas para mantener continuidad de marca
 - Icono lineal de autoridad regulatoria / sector energético
 
 Evitar: iconografía de "corrupción" genérica y alarmista (sobres con dinero, esposas), que no refleja cómo se ve el riesgo real en la operación diaria.
@@ -63,10 +63,10 @@ Evitar: iconografía de "corrupción" genérica y alarmista (sobres con dinero, 
 "La cláusula 4.1 de ISO 37001 pide que PEM identifique las cuestiones internas y externas que definen su exposición real al soborno: el sector en el que opera, la relación con autoridades, y los terceros con los que trabaja todos los días."
 
 **[1:00–1:40 — Partes interesadas]**
-"Ese contexto incluye partes interesadas muy concretas: SENER y la CNE como autoridades del sector energético, clientes como PEMEX, PERENCO y Kodiak que exigen integridad como parte del servicio, el Comité de Integridad que gobierna el sistema internamente, y los proveedores, que son el punto de contacto más frecuente con el riesgo real."
+"Ese contexto incluye partes interesadas muy concretas: SENER y la CNE como autoridades del sector energético, clientes como PEMEX, CFE y Operadoras que exigen integridad como parte del servicio, el Comité de Integridad que gobierna el sistema internamente, y los proveedores, que son el punto de contacto más frecuente con el riesgo real."
 
 **[1:40–2:15 — Alcance del SGAS]**
-"El alcance del Sistema de Gestión Antisoborno de PEM tiene que reflejar dónde realmente vive el riesgo: Compras, Ventas, Recursos Humanos y Finanzas, en las 5 bases — no solo un área aislada."
+"El alcance del Sistema de Gestión Antisoborno de PEM tiene que reflejar dónde realmente vive el riesgo: Compras, Ventas, Recursos Humanos y Finanzas, en los sitios de trabajo — no solo un área aislada."
 
 **[2:15–2:50 — ISO 37001 en una frase]**
 "Si tuviéramos que resumir ISO 37001 en una idea, sería esta: anticipar el riesgo de soborno antes de que ocurra, en lugar de reaccionar después de un escándalo o una sanción. El mismo principio que hemos visto en calidad, ambiente y seguridad, aplicado ahora a la integridad del negocio."

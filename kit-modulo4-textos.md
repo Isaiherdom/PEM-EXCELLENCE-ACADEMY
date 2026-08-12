@@ -11,7 +11,7 @@ Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 9001 �
 Mantén exactamente la misma identidad visual de los Módulos 1, 2 y 3: fondo oscuro casi negro, tipografía geométrica de alto contraste, acento verde único (#16C270), estilo minimalista ejecutivo inspirado en Apple, Tesla y Microsoft, máximo 25 palabras por diapositiva.
 
 Estructura (una idea por diapositiva):
-1. Hook — "Ese Gas Jack no falló de repente. Llevaba tres semanas dando señales que nadie reportó."
+1. Hook — "Ese compresor no falló de repente. Llevaba tres semanas dando señales que nadie reportó."
 2. Qué es pensamiento basado en riesgos en PEM — anticipar, no reaccionar.
 3. Riesgo vs. oportunidad — Cl. 6.1 exige determinar ambos, no solo evitar lo malo.
 4. Ejemplo de riesgo — vibración anormal detectada a tiempo vs. ignorada.
@@ -29,7 +29,7 @@ Usa imágenes de un sensor o indicador de vibración industrial, un técnico ins
 
 | # | Diapositiva | Elemento visual dominante | Texto en pantalla |
 |---|---|---|---|
-| 1 | Hook | Gas Jack con línea de tiempo de fondo mostrando semanas | "Llevaba semanas dando señales." |
+| 1 | Hook | compresor con línea de tiempo de fondo mostrando semanas | "Llevaba semanas dando señales." |
 | 2 | Qué es pensamiento basado en riesgos | Icono: lupa sobre una señal temprana | "Anticipar, no reaccionar" |
 | 3 | Riesgo vs. oportunidad | Dos columnas simples, una roja/ámbar, una verde | "Dos caras del mismo requisito" |
 | 4 | Ejemplo de riesgo | Sensor de vibración con dato resaltado | "La señal que nadie reportó" |
@@ -55,7 +55,7 @@ Evitar: iconografía genérica de "gestión de riesgos" tipo semáforo corporati
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Ese Gas Jack no falló de la nada. Cuando se revisó el historial después de la falla, llevaba tres semanas mostrando vibración anormal — y nadie lo reportó como riesgo. La señal estaba ahí. Lo que faltó fue actuar sobre ella a tiempo."
+"Ese compresor no falló de la nada. Cuando se revisó el historial después de la falla, llevaba tres semanas mostrando vibración anormal — y nadie lo reportó como riesgo. La señal estaba ahí. Lo que faltó fue actuar sobre ella a tiempo."
 
 **[0:20–1:00 — Qué es pensamiento basado en riesgos]**
 "La cláusula 6.1 de ISO 9001 le pide a PEM determinar los riesgos y oportunidades que hay que abordar para que el sistema logre sus resultados. No es un ejercicio de oficina una vez al año — es la disciplina de anticipar antes de que una señal se convierta en una falla real, o de aprovechar antes de que una oportunidad se pierda."
@@ -64,10 +64,10 @@ Evitar: iconografía genérica de "gestión de riesgos" tipo semáforo corporati
 "Y aquí hay algo que se pasa por alto: la norma no solo habla de evitar lo malo. Habla igual de riesgos que de oportunidades. Un riesgo es un efecto no deseado que hay que prevenir o reducir. Una oportunidad es una posibilidad de mejora — un nuevo servicio, un nuevo cliente — que también se evalúa de forma planificada, no se acepta por impulso comercial."
 
 **[1:40–2:25 — Ejemplo de riesgo]**
-"Volvamos al Gas Jack. La vibración anormal era una señal temprana de riesgo. Si se hubiera reportado la primera semana, se habría podido programar una revisión preventiva — una acción proporcional al riesgo real. En cambio, al ignorarla, la señal escaló hasta convertirse en un paro no planeado y un costo de reparación mayor."
+"Volvamos al compresor. La vibración anormal era una señal temprana de riesgo. Si se hubiera reportado la primera semana, se habría podido programar una revisión preventiva — una acción proporcional al riesgo real. En cambio, al ignorarla, la señal escaló hasta convertirse en un paro no planeado y un costo de reparación mayor."
 
 **[2:25–3:00 — Ejemplo de oportunidad]**
-"Del otro lado, cuando PEM evalúa ofrecer un nuevo servicio a un cliente distinto de PEMEX o PERENCO, esa oportunidad también se analiza con el mismo cuidado: ¿qué capacidad tiene PEM para cumplirlo con la misma calidad? Evaluar la oportunidad antes de comprometerse es tan parte de la Cl. 6.1 como prevenir un riesgo."
+"Del otro lado, cuando PEM evalúa ofrecer un nuevo servicio a un cliente distinto de PEMEX o CFE, esa oportunidad también se analiza con el mismo cuidado: ¿qué capacidad tiene PEM para cumplirlo con la misma calidad? Evaluar la oportunidad antes de comprometerse es tan parte de la Cl. 6.1 como prevenir un riesgo."
 
 **[3:00–3:40 — Acciones proporcionales]**
 "La norma pide que las acciones frente a un riesgo u oportunidad sean proporcionales a su impacto, que se integren al proceso normal —no como un esfuerzo aislado— y que se evalúe si realmente funcionaron. Eso cierra el mismo ciclo PHVA del Módulo 1: planificar la acción, ejecutarla, verificar si el riesgo se controló, y ajustar si no fue así."

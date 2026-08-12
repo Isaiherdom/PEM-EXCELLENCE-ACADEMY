@@ -8,7 +8,7 @@ Primer módulo de la Escuela de Seguridad y Salud. Replica exactamente la estruc
 ## 1. Prompt completo para Gamma (copiar y pegar)
 
 ```
-Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 45001 — Módulo 1: Fundamentos y Contexto de SST" para PEM Excellence Academy, la Escuela de Seguridad y Salud de la universidad corporativa de Production Enhancement México (PEM), empresa de servicios petroleros especializada en compresión reciprocante, Gas Jacks, well testing y generación de energía.
+Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 45001 — Módulo 1: Fundamentos y Contexto de SST" para PEM Excellence Academy, la Escuela de Seguridad y Salud de la universidad corporativa de Production Enhancement México (PEM), empresa de servicios petroleros especializada en compresión reciprocante, well testing y generación de energía.
 
 Estilo visual: minimalista, ejecutivo, premium, inspirado en Apple Keynote, Tesla y Microsoft. Fondo oscuro casi negro (#0B0E0C), tipografía geométrica de alto contraste, un solo color de acento ámbar (#E8A33D), muy poco texto por diapositiva (máximo 25 palabras).
 
@@ -18,8 +18,8 @@ Estructura (una idea por diapositiva):
 3. El trabajador como parte interesada central — consulta y participación, no solo protección pasiva.
 4. Alcance del sistema de SST — actividades, lugares y personas, incluidos contratistas.
 5. ISO 45001 en una frase — anticipar el peligro, no reaccionar después del accidente.
-6. Ejemplo real: componentes en movimiento y presión en Gas Jacks y compresores.
-7. Riesgo de un contexto de SST mal identificado — inconsistencia entre bases.
+6. Ejemplo real: componentes en movimiento y presión en compresores.
+7. Riesgo de un contexto de SST mal identificado — inconsistencia entre sitios de trabajo.
 8. Cierre — invitación a tomar el examen del Módulo 1 y obtener el certificado digital.
 
 Usa imágenes reales de operación petrolera con equipo de protección visible, un mecánico trabajando cerca de un compresor con protocolo de seguridad, y un mapa simple de partes interesadas centrado en el trabajador. Incluye "PEM Excellence Academy — Escuela de Seguridad y Salud — Módulo 1" en la portada.
@@ -36,8 +36,8 @@ Usa imágenes reales de operación petrolera con equipo de protección visible, 
 | 3 | Trabajador al centro | Mapa centrado en el trabajador (igual a la infografía) | "Su voz, no solo su protección" |
 | 4 | Alcance del sistema | Iconos de actividades, lugares, contratistas | "Todos los que pueden verse afectados" |
 | 5 | ISO 45001 en una frase | Fondo ámbar, una sola línea grande | "Anticipar, no reaccionar" |
-| 6 | Ejemplo real | Gas Jack con componente en movimiento resaltado | "Presión, partes móviles, campo" |
-| 7 | Riesgo | 5 bases con entendimiento distinto | "Sin contexto claro, inconsistencia" |
+| 6 | Ejemplo real | compresor con componente en movimiento resaltado | "Presión, partes móviles, campo" |
+| 7 | Riesgo | sitios de trabajo con entendimiento distinto | "Sin contexto claro, inconsistencia" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -47,7 +47,7 @@ Usa imágenes reales de operación petrolera con equipo de protección visible, 
 - Mecánico o técnico trabajando cerca de un compresor con protocolo de seguridad visible
 - Equipo de protección personal (EPP) correctamente utilizado en campo
 - Mapa o diagrama de nodos centrado en el trabajador, editable en Gamma
-- Componente en movimiento de un Gas Jack, con señalización de seguridad
+- Componente en movimiento de un compresor, con señalización de seguridad
 - Icono lineal de consulta/participación (dos personas dialogando)
 
 Evitar: imágenes de accidentes reales o dramatizados de forma alarmista.
@@ -72,10 +72,10 @@ Evitar: imágenes de accidentes reales o dramatizados de forma alarmista.
 "Si tuviéramos que resumir esta norma en una idea, sería: anticipar los peligros de la operación antes de que causen una lesión, en lugar de reaccionar después de un accidente. El mismo pensamiento basado en riesgos que ya conoces, aplicado ahora a la seguridad de las personas."
 
 **[2:50–3:25 — Ejemplo real]**
-"Los Gas Jacks y compresores reciprocantes, por su naturaleza, involucran componentes en movimiento y presión — condiciones que exigen control activo, no indiferencia, para prevenir una lesión."
+"Los compresores reciprocantes, por su naturaleza, involucran componentes en movimiento y presión — condiciones que exigen control activo, no indiferencia, para prevenir una lesión."
 
 **[3:25–4:00 — Riesgo y cierre]**
-"Cuando dos bases entienden de forma distinta qué cubre el sistema de SST, se genera el mismo tipo de inconsistencia que ya viste en las escuelas de Calidad y Ambiental. Con esto terminas el Módulo 1 de la Escuela de Seguridad y Salud. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 2."
+"Cuando dos sitios de trabajo entienden de forma distinta qué cubre el sistema de SST, se genera el mismo tipo de inconsistencia que ya viste en las escuelas de Calidad y Ambiental. Con esto terminas el Módulo 1 de la Escuela de Seguridad y Salud. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 2."
 
 *(Duración estimada: 4:00–4:20 min)*
 

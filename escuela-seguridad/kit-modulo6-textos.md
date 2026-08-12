@@ -61,7 +61,7 @@ Evitar: iconografía genérica de "seguridad" tipo cartel motivacional sin datos
 "Un objetivo de SST tiene que ser medible, coherente con la política de PEM, y conectado a los peligros y riesgos que ya identificamos en el Módulo 4, además de considerar los resultados de la consulta con los trabajadores del Módulo 3."
 
 **[1:00–1:40 — Ejemplo real]**
-"Así se ve en la práctica: 'reducir en 30% los cuasi-accidentes reportados relacionados con piezas en movimiento en la base de Reynosa en los próximos 12 meses'. Con su plan completo: instalación de guardas adicionales, presupuesto asignado, un responsable, un plazo definido, y una forma clara de evaluar el resultado."
+"Así se ve en la práctica: 'reducir en 30% los cuasi-accidentes reportados relacionados con piezas en movimiento en el sitio de trabajo de Reynosa en los próximos 12 meses'. Con su plan completo: instalación de guardas adicionales, presupuesto asignado, un responsable, un plazo definido, y una forma clara de evaluar el resultado."
 
 **[1:40–2:20 — Comunicación y monitoreo]**
 "Ese objetivo tiene que comunicarse a quienes lo van a ejecutar, y monitorearse activamente — no basta con documentarlo y archivarlo."

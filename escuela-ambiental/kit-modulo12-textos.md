@@ -48,7 +48,7 @@ Usa imágenes de una auditoría interna colaborativa (no punitiva), un tablero d
 - Tablero de seguimiento de acciones correctivas ambientales
 - Diagrama circular cerrando el ciclo del SGA, coherente con el de la infografía
 - Insignia o sello simple de "Escuela Ambiental completa"
-- Vista general de una base de PEM, como cierre visual del recorrido
+- Vista general de un sitio de trabajo de PEM, como cierre visual del recorrido
 
 Evitar: imágenes de auditoría con connotación punitiva (personas señalando, ambiente tenso).
 
@@ -63,10 +63,10 @@ Evitar: imágenes de auditoría con connotación punitiva (personas señalando, 
 "La cláusula 9.2 es la auditoría interna ambiental: una revisión objetiva de si el sistema cumple lo que dice que hace. No es una cacería de culpables — es evidencia, recopilada por alguien que no audita su propio trabajo, para mantener la objetividad."
 
 **[1:00–1:35 — Ejemplo: objetividad]**
-"Por eso quien opera un proceso —como el manejo de residuos de una base— nunca debe ser quien audita ese mismo proceso. No por desconfianza, sino porque es difícil ver las propias desviaciones desde adentro."
+"Por eso quien opera un proceso —como el manejo de residuos de un sitio de trabajo— nunca debe ser quien audita ese mismo proceso. No por desconfianza, sino porque es difícil ver las propias desviaciones desde adentro."
 
 **[1:35–2:15 — Acción correctiva]**
-"Cuando aparece una no conformidad —ya sea en una auditoría o en la evaluación de cumplimiento legal del Módulo 11—, la cláusula 10.2 exige ir más allá de corregirla: hay que analizar la causa raíz, para que no se repita en otra base."
+"Cuando aparece una no conformidad —ya sea en una auditoría o en la evaluación de cumplimiento legal del Módulo 11—, la cláusula 10.2 exige ir más allá de corregirla: hay que analizar la causa raíz, para que no se repita en otro sitio de trabajo."
 
 **[2:15–2:50 — Mejora continua]**
 "La cláusula 10.3, mejora continua, es usar todo lo anterior —los datos del Módulo 10, las auditorías, las evaluaciones legales— para ajustar procesos y objetivos de forma constante, no solo cuando algo ya falló."

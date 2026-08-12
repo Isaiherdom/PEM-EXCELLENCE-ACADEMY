@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Infografía · Política, roles y responsabilidades · Módulo 3</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 <style>
   :root{--bg:#0B0E0C;--surface:#141815;--line:#26302A;--green:#16C270;--amber:#E8A33D;--text:#F1F3F0;--muted:#8A968E;}
   *{box-sizing:border-box;}
@@ -62,7 +61,7 @@
   </div>
 
   <div class="scenario">
-    <b>Escenario:</b> un Gas Jack en campo muestra un parámetro fuera de especificación durante la operación.
+    <b>Escenario:</b> un compresor en campo muestra un parámetro fuera de especificación durante la operación.
   </div>
 
   <div class="chain">
@@ -77,7 +76,7 @@
     <div class="step">
       <div class="step-node">2</div>
       <div class="step-body">
-        <div class="step-role">Supervisor de base</div>
+        <div class="step-role">Supervisor de sitio de trabajo</div>
         <div class="step-action">Recibe el reporte, evalúa la desviación y decide si se requiere escalar o corregir en sitio.</div>
         <span class="step-auth">Autoridad: aprobar corrección en sitio</span>
       </div>
@@ -85,7 +84,7 @@
     <div class="step">
       <div class="step-node">3</div>
       <div class="step-body">
-        <div class="step-role">Gerente de base</div>
+        <div class="step-role">Gerente de sitio de trabajo</div>
         <div class="step-action">Si la desviación afecta la entrega al cliente, decide si el servicio se libera, se retrasa o se informa al cliente.</div>
         <span class="step-auth">Autoridad: liberar o rechazar el servicio</span>
       </div>
@@ -94,7 +93,7 @@
       <div class="step-node">4</div>
       <div class="step-body">
         <div class="step-role">Responsable del SGI</div>
-        <div class="step-action">Registra la no conformidad, analiza si es un patrón entre bases y define la acción correctiva.</div>
+        <div class="step-action">Registra la no conformidad, analiza si es un patrón entre sitios de trabajo y define la acción correctiva.</div>
         <span class="step-auth">Autoridad: registrar no conformidad y acción correctiva</span>
       </div>
     </div>

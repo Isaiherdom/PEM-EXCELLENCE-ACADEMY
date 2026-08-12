@@ -17,7 +17,7 @@ Estructura (una idea por diapositiva):
 4. Ejemplo real: ficha de competencia en trabajo eléctrico seguro.
 5. Qué es toma de conciencia (Cl. 7.3) — incluye el derecho a alejarse de un peligro inminente.
 6. Ejemplo real: un operador que usa su equipo de protección sin estar supervisado.
-7. Riesgo: recursos o capacitación inconsistentes entre bases.
+7. Riesgo: recursos o capacitación inconsistentes entre sitios de trabajo.
 8. Cierre — invitación a tomar el examen del Módulo 7 y obtener el certificado digital.
 
 Usa imágenes de un técnico con equipo de protección específico, una ficha o expediente de capacitación (composición abstracta), y un trabajador alejándose de una situación de riesgo. Incluye "PEM Excellence Academy — Escuela de Seguridad — Módulo 7" en la portada.
@@ -35,7 +35,7 @@ Usa imágenes de un técnico con equipo de protección específico, una ficha o 
 | 4 | Ejemplo — ficha | Ficha tipo tarjeta (igual a la infografía) | "La evidencia, no solo la palabra" |
 | 5 | Toma de conciencia (7.3) | Icono de bombilla + puerta de salida | "Entender, y poder actuar" |
 | 6 | Ejemplo — derecho a alejarse | Trabajador retirándose de un riesgo inminente | "Alejarse no es debilidad" |
-| 7 | Riesgo | Dos bases con formación distinta | "Sin consistencia, el sistema falla" |
+| 7 | Riesgo | Dos sitios de trabajo con formación distinta | "Sin consistencia, el sistema falla" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -70,7 +70,7 @@ Evitar: imágenes genéricas de "capacitación corporativa" sin relación con ri
 "La cláusula 7.3 conecta esto con algo más profundo: que cada colaborador entienda la política de SST, su contribución al sistema, y las implicaciones reales de no cumplir — incluido algo explícito en la norma: el derecho a alejarse de una situación de trabajo que considere un peligro inminente y serio, sin temor a represalias."
 
 **[3:00–3:35 — Riesgo]**
-"Cuando dos bases tienen niveles de capacitación muy distintos en el mismo procedimiento de riesgo, el sistema empieza a fallar de forma desigual — los recursos y la competencia no se están asegurando de forma consistente."
+"Cuando dos sitios de trabajo tienen niveles de capacitación muy distintos en el mismo procedimiento de riesgo, el sistema empieza a fallar de forma desigual — los recursos y la competencia no se están asegurando de forma consistente."
 
 **[3:35–4:05 — Cierre]**
 "Recursos, competencia y toma de conciencia en SST trabajan juntos, con la misma lógica que vimos en Calidad y Ambiental. Con esto terminas el Módulo 7. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 8."

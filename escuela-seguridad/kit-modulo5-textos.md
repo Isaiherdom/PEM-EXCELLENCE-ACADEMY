@@ -17,7 +17,7 @@ Estructura (una idea por diapositiva):
 4. Cada peligro, su norma — mecánico, eléctrico, químico, ruido requieren normas distintas.
 5. Actualización normativa — un cambio en una NOM exige ajustar registro y procedimientos.
 6. Conexión con el Módulo 4 — una guarda de seguridad es requisito normativo, no solo buena práctica.
-7. Riesgo de interpretación inconsistente entre bases.
+7. Riesgo de interpretación inconsistente entre sitios de trabajo.
 8. Cierre — invitación a tomar el examen del Módulo 5 y obtener el certificado digital.
 
 Usa imágenes de un documento normativo con sello de identificación, un registro o tabla de cumplimiento editable, y equipo de protección personal específico por tipo de riesgo. Incluye "PEM Excellence Academy — Escuela de Seguridad — Módulo 5" en la portada.
@@ -35,7 +35,7 @@ Usa imágenes de un documento normativo con sello de identificación, un registr
 | 4 | Cada peligro, su norma | 4 iconos: mecánico, eléctrico, químico, ruido | "No una norma única" |
 | 5 | Actualización normativa | Documento nuevo reemplazando uno viejo | "Cambia la norma, cambia el procedimiento" |
 | 6 | Conexión con Módulo 4 | Guarda de seguridad con sello normativo | "No es opción, es requisito" |
-| 7 | Riesgo | Dos bases con interpretación distinta | "Un estándar, dos lecturas" |
+| 7 | Riesgo | Dos sitios de trabajo con interpretación distinta | "Un estándar, dos lecturas" |
 | 8 | Cierre | CTA grande | "Toma el examen → obtén tu certificado" |
 
 ---
@@ -55,7 +55,7 @@ Evitar: imágenes de trámite legal genérico sin relación con operación técn
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Nadie había identificado qué Norma Oficial Mexicana aplicaba específicamente al mantenimiento eléctrico de los equipos de una base. El personal operaba sin ese procedimiento, sin saber que existía un estándar técnico específico que debía seguir."
+"Nadie había identificado qué Norma Oficial Mexicana aplicaba específicamente al mantenimiento eléctrico de los equipos de un sitio de trabajo. El personal operaba sin ese procedimiento, sin saber que existía un estándar técnico específico que debía seguir."
 
 **[0:20–1:00 — Qué exige Cl. 6.1.3]**
 "La cláusula 6.1.3 de ISO 45001 exige que PEM identifique y tenga acceso a los requisitos legales de SST aplicables a sus peligros, determine cómo aplican, y los tenga en cuenta al mantener su sistema de gestión — no que existan solo en teoría."
@@ -73,7 +73,7 @@ Evitar: imágenes de trámite legal genérico sin relación con operación técn
 "Esto conecta directamente con lo que vimos en el Módulo 4: una guarda de seguridad en una pieza en movimiento no es solo una buena práctica — es, en muchos casos, un requisito normativo específico que PEM debe cumplir."
 
 **[3:25–4:00 — Riesgo y cierre]**
-"Si dos bases interpretan de forma distinta qué norma aplica a la misma actividad, una puede estar operando por debajo del estándar legal real sin saberlo. Con esto terminas el Módulo 5. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 6."
+"Si dos sitios de trabajo interpretan de forma distinta qué norma aplica a la misma actividad, una puede estar operando por debajo del estándar legal real sin saberlo. Con esto terminas el Módulo 5. Toma el examen de 10 preguntas — necesitas 80% para aprobar — y genera tu certificado digital. Nos vemos en el Módulo 6."
 
 *(Duración estimada: 4:00–4:20 min)*
 

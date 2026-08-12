@@ -11,7 +11,7 @@ Crea una presentación ejecutiva de máximo 8 diapositivas titulada "ISO 14001 �
 Mantén exactamente la misma identidad visual de los módulos anteriores: fondo oscuro casi negro, tipografía geométrica de alto contraste, acento azul único (#4C9AFF), estilo minimalista ejecutivo, máximo 25 palabras por diapositiva.
 
 Estructura (una idea por diapositiva):
-1. Hook — "El consumo de combustible de un Gas Jack no es solo un costo. Es un aspecto ambiental con impacto real."
+1. Hook — "El consumo de combustible de un compresor no es solo un costo. Es un aspecto ambiental con impacto real."
 2. Qué es un aspecto ambiental vs. un impacto ambiental — causa y efecto.
 3. Perspectiva de ciclo de vida — de los recursos que entran a lo que sale del proceso.
 4. Ejemplo real: la matriz de aspectos e impactos de las actividades de PEM.
@@ -29,7 +29,7 @@ Usa imágenes de un compresor con salida de emisión visible, una matriz o tabla
 
 | # | Diapositiva | Elemento visual dominante | Texto en pantalla |
 |---|---|---|---|
-| 1 | Hook | Gas Jack con indicador de consumo | "No es solo un costo." |
+| 1 | Hook | compresor con indicador de consumo | "No es solo un costo." |
 | 2 | Aspecto vs. impacto | Flecha causa → efecto | "Lo que hacemos, lo que genera" |
 | 3 | Ciclo de vida | Flujo de entrada-proceso-salida | "De principio a fin" |
 | 4 | Matriz | Tabla de aspectos (igual a la infografía) | "Actividad, aspecto, impacto" |
@@ -55,16 +55,16 @@ Evitar: imágenes de contaminación extrema o catastrofista, que no reflejan la 
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"El combustible que consume un Gas Jack durante su operación no es solo una línea en el presupuesto. Es lo que ISO 14001 llama un aspecto ambiental — y tiene un impacto real en el entorno."
+"El combustible que consume un compresor durante su operación no es solo una línea en el presupuesto. Es lo que ISO 14001 llama un aspecto ambiental — y tiene un impacto real en el entorno."
 
 **[0:20–1:00 — Aspecto vs. impacto]**
-"Un aspecto ambiental es el elemento de nuestra actividad que interactúa con el ambiente: el combustible que se consume, el aceite que se maneja, el ruido que se genera. El impacto es el efecto que eso produce: emisiones a la atmósfera, posible contaminación de suelo, molestia a una comunidad cercana. Distinguir causa de efecto es la base de este módulo."
+"Un aspecto ambiental es el elemento de nuestra actividad que interactúa con el ambiente: el combustible que se consume, el aceite que se maneja, el ruido que se genera. El impacto es el efecto que eso produce: emisiones a la atmósfera, posible contaminación de suelo, molestia a una comunidad cercana. Distinguir causa de efecto es el sitio de trabajo de este módulo."
 
 **[1:00–1:35 — Ciclo de vida]**
 "La cláusula 6.1.2 pide que PEM identifique estos aspectos considerando una perspectiva de ciclo de vida: desde los recursos que entran al proceso hasta lo que sale de él, dentro del alcance de cada actividad."
 
 **[1:35–2:15 — La matriz]**
-"En la práctica, esto se organiza en una matriz: por cada actividad de PEM —compresión, generación, mantenimiento, desarenamiento— se identifica su aspecto ambiental y el impacto potencial asociado. Esa matriz es la base de todo lo que viene después: objetivos, controles, recursos."
+"En la práctica, esto se organiza en una matriz: por cada actividad de PEM —compresión, generación, mantenimiento, desarenamiento— se identifica su aspecto ambiental y el impacto potencial asociado. Esa matriz es el sitio de trabajo de todo lo que viene después: objetivos, controles, recursos."
 
 **[2:15–2:55 — Significancia]**
 "No todos los aspectos pesan igual. Para saber cuáles son significativos, se evalúan con criterios concretos: qué tan severo sería el impacto, qué tan probable es que ocurra, qué tanto preocupa a una parte interesada, y qué exige la regulación. El manejo de aceites usados, por ejemplo, suele calificar con significancia alta por su riesgo de contaminación de suelo o agua."

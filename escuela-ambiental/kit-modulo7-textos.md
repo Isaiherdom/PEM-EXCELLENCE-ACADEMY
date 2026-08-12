@@ -14,13 +14,13 @@ Estructura (una idea por diapositiva):
 1. Hook — "El derrame debía notificarse a SEMARNAT en el plazo regulatorio. Nadie lo hizo a tiempo."
 2. Qué es la comunicación ambiental (Cl. 7.4) — qué, cuándo, con quién, cómo, quién comunica.
 3. Ejemplo real: la matriz de notificación de un derrame a la autoridad ambiental.
-4. Comunicación interna — una lección aprendida compartida entre las 5 bases.
+4. Comunicación interna — una lección aprendida compartida entre los sitios de trabajo.
 5. Qué es información documentada ambiental (Cl. 7.5) — procedimientos y registros controlados.
 6. Control de versión — procedimiento de respuesta a derrames vigente vs. obsoleto.
 7. Riesgo: una versión obsoleta en uso durante una emergencia real.
 8. Cierre — invitación a tomar el examen del Módulo 7 y obtener el certificado digital.
 
-Usa imágenes de una notificación regulatoria siendo enviada, un protocolo de respuesta a derrames con sello de vigencia, y una junta de bases compartiendo una lección aprendida. Incluye "PEM Excellence Academy — Escuela Ambiental — Módulo 7" en la portada.
+Usa imágenes de una notificación regulatoria siendo enviada, un protocolo de respuesta a derrames con sello de vigencia, y una junta de sitios de trabajo compartiendo una lección aprendida. Incluye "PEM Excellence Academy — Escuela Ambiental — Módulo 7" en la portada.
 ```
 
 ---
@@ -32,7 +32,7 @@ Usa imágenes de una notificación regulatoria siendo enviada, un protocolo de r
 | 1 | Hook | Reloj corriendo sobre un derrame | "El plazo se venció." |
 | 2 | Comunicación (7.4) | 5 iconos: qué, cuándo, quién, cómo, quién comunica | "5 preguntas antes de notificar" |
 | 3 | Ejemplo real | Matriz de comunicación (igual a la infografía) | "El plazo regulatorio, no el propio" |
-| 4 | Comunicación interna | Bases compartiendo una lección | "Una lección, cinco bases" |
+| 4 | Comunicación interna | Sitios de trabajo compartiendo una lección | "Una lección, sitios de trabajo" |
 | 5 | Información documentada (7.5) | Icono de documento con engranaje | "Crear, actualizar, controlar" |
 | 6 | Control de versión | Sello "VIGENTE" vs. "OBSOLETO" | "Una sola versión en uso" |
 | 7 | Riesgo | Procedimiento obsoleto durante emergencia | "No es el momento de dudar" |
@@ -44,7 +44,7 @@ Usa imágenes de una notificación regulatoria siendo enviada, un protocolo de r
 
 - Notificación o reporte regulatorio siendo enviado (composición abstracta, sin texto legible)
 - Protocolo de respuesta a derrames con sello de "vigente" vs. "obsoleto"
-- Junta de gerentes de distintas bases compartiendo una lección aprendida
+- Junta de gerentes de distintos sitios de trabajo compartiendo una lección aprendida
 - Icono lineal de las 5 preguntas de comunicación
 - Bitácora o registro de incidente ambiental
 
@@ -55,16 +55,16 @@ Evitar: iconografía genérica de trámite gubernamental sin relación con el se
 ## 4. Guion completo para avatar (3:30–4:30 min)
 
 **[0:00–0:20 — Hook]**
-"Un derrame menor en una de las bases de PEM superó el umbral que exige notificar a la autoridad ambiental. El procedimiento interno marcaba un plazo claro. Nadie lo notificó a tiempo — no por ocultarlo, sino porque no estaba claro quién debía hacerlo ni cuándo."
+"Un derrame menor en una de los sitios de trabajo de PEM superó el umbral que exige notificar a la autoridad ambiental. El procedimiento interno marcaba un plazo claro. Nadie lo notificó a tiempo — no por ocultarlo, sino porque no estaba claro quién debía hacerlo ni cuándo."
 
 **[0:20–1:00 — Comunicación ambiental]**
 "La cláusula 7.4 de ISO 14001 pide que PEM determine, de forma deliberada, qué comunicar sobre el SGA, cuándo, con quién, cómo, y quién es responsable — tanto dentro de la empresa como hacia afuera, incluyendo obligaciones legales de notificación ante la autoridad."
 
 **[1:00–1:40 — Ejemplo real]**
-"Así se ve bien hecho: ante un derrame que supera el umbral regulatorio, la matriz de comunicación deja claro qué se notifica —volumen y ubicación—, cuándo —dentro del plazo que marca la regulación—, a quién —SEMARNAT y, si aplica, la comunidad—, cómo —notificación formal más registro interno—, y quién lo hace —HSE de la base, con validación del Responsable del SGI."
+"Así se ve bien hecho: ante un derrame que supera el umbral regulatorio, la matriz de comunicación deja claro qué se notifica —volumen y ubicación—, cuándo —dentro del plazo que marca la regulación—, a quién —SEMARNAT y, si aplica, la comunidad—, cómo —notificación formal más registro interno—, y quién lo hace —HSE de el sitio de trabajo, con validación del Responsable del SGI."
 
 **[1:40–2:15 — Comunicación interna]**
-"La misma disciplina aplica hacia adentro: una lección aprendida de un incidente menor en una base debe compartirse con las otras cuatro, si el mismo riesgo puede presentarse ahí también."
+"La misma disciplina aplica hacia adentro: una lección aprendida de un incidente menor en un sitio de trabajo debe compartirse con las otras cuatro, si el mismo riesgo puede presentarse ahí también."
 
 **[2:15–2:55 — Información documentada]**
 "La cláusula 7.5 exige controlar los procedimientos y registros ambientales: bitácoras de residuos, protocolos de respuesta a derrames, reportes de incidentes — creados, actualizados y disponibles en su versión correcta."
