@@ -80,7 +80,7 @@ const SCHOOLS = {
     name:"Escuela de Calidad", norm:"ISO 9001:2015", color:"#16C270", active:true, progress:"12/12",
     prefix:"", examSuffix:"-iso9001",
     modules:[
-      ["Fundamentos y contexto de la organización","Cl. 4"],
+      ["Fundamentos y contexto de la organización","Cl. 4", true],
       ["Liderazgo y compromiso de la dirección","Cl. 5.1"],
       ["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3"],
       ["Riesgos y oportunidades","Cl. 6.1"],
@@ -195,6 +195,7 @@ function renderModules(){
         <a class="asset-link" href="${s.prefix}infografia-modulo${n}.html">📊 Infografía</a>
         <a class="asset-link" href="${s.prefix}examen-modulo${n}${s.examSuffix}.html">📝 Examen</a>
         <a class="asset-link" href="${s.prefix}certificado-modulo${n}.html">🎖 Certificado</a>
+        ${m[2] ? `<a class="asset-link" href="${s.prefix}video-modulo${n}.html" style="grid-column:1 / -1;border-color:var(--green);color:var(--green);">🎥 Video</a>` : ''}
       </div>
     </div>
   `}).join('');

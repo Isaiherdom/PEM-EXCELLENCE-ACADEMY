@@ -32,7 +32,7 @@ Estructura (una idea por diapositiva):
 7. Tu rol — cómo cada puesto (operador, mecánico, supervisor) sostiene el sistema con su tarea diaria.
 8. Cierre y siguiente paso — invitación a tomar el examen del Módulo 1 y obtener el certificado digital.
 
-Usa imágenes de referencia de compresores industriales, gas jacks, plantas petroleras y campo abierto — nunca stock genérico de oficina. Incluye el logo/nombre "PEM Excellence Academy" en la portada. No uses más de 25 palabras de texto visible por diapositiva.
+Usa imágenes de referencia de compresores industriales, plantas petroleras y campo abierto — nunca stock genérico de oficina. Incluye el logo/nombre "PEM Excellence Academy" en la portada. No uses más de 25 palabras de texto visible por diapositiva.
 ```
 
 ---
@@ -77,7 +77,7 @@ Evitar: stock genérico de oficina corporativa, personas en traje sin relación 
 "ISO 9001 se puede resumir en una idea: convertir el trabajo diario en algo controlado, no accidental. No es una norma que vive en un cajón de la oficina de Calidad. Es la estructura que hace que, cuando algo sale bien, sepamos por qué salió bien — y podamos repetirlo. Y cuando algo sale mal, sepamos exactamente dónde se rompió la cadena."
 
 **[1:35–2:25 — El ciclo PHVA aplicado a un compresor]**
-"La norma se mueve con un ciclo de cuatro pasos: Planificar, Hacer, Verificar, Actuar. Y esto no es abstracto — es literalmente cómo opera un compresor reciprocante. Planificas el mantenimiento y los parámetros. Haces la operación: arrancas el equipo, monitoreas. Verificas: comparas la presión de descarga contra el rango que debería tener. Y actúas: si algo está fuera de rango, lo corriges y documentas por qué pasó, para que no se repita en la siguiente sitio de trabajo. Ese ciclo nunca termina — vuelve a empezar con la lección aprendida."
+"La norma se mueve con un ciclo de cuatro pasos: Planificar, Hacer, Verificar, Actuar. Y esto no es abstracto — es literalmente cómo opera un compresor reciprocante. Planificas el mantenimiento y los parámetros. Haces la operación: arrancas el equipo, monitoreas. Verificas: comparas la presión de descarga contra el rango que debería tener. Y actúas: si algo está fuera de rango, lo corriges y documentas por qué pasó, para que no se repita en el siguiente sitio de trabajo. Ese ciclo nunca termina — vuelve a empezar con la lección aprendida."
 
 **[2:25–3:10 — Contexto de la organización]**
 "Todo sistema de calidad empieza por entender el contexto: quién nos afecta y a quién afectamos. Para PEM, eso incluye a nuestros clientes — PEMEX, CFE, Operadoras —, a las autoridades regulatorias del sector energético, a nuestros propios colaboradores en los sitios de trabajo, y a proveedores críticos. Cuando cambia algo en ese entorno — una nueva especificación de cliente, un cambio regulatorio — el sistema de calidad tiene que adaptarse. Por eso este análisis no se hace una vez y se olvida: se revisa."

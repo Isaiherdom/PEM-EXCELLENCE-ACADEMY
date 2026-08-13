@@ -71,7 +71,7 @@ Estructura (una idea por diapositiva):
 7. Tu rol — cómo cada puesto (operador, mecánico, supervisor) sostiene el sistema con su tarea diaria.
 8. Cierre y siguiente paso — invitación a tomar el examen del Módulo 1 y obtener el certificado digital.
 
-Usa imágenes de referencia de compresores industriales, gas jacks, plantas petroleras y campo abierto — nunca stock genérico de oficina. Incluye el logo/nombre "PEM Excellence Academy" en la portada. No uses más de 25 palabras de texto visible por diapositiva.
+Usa imágenes de referencia de compresores industriales, plantas petroleras y campo abierto — nunca stock genérico de oficina. Incluye el logo/nombre "PEM Excellence Academy" en la portada. No uses más de 25 palabras de texto visible por diapositiva.
 ```
 
 ### 2.2 Ejemplo oficial de referencia — Prompt Gamma ya llenado, Módulo 2
