@@ -7,7 +7,7 @@ Este archivo contiene únicamente los textos listos para copiar y pegar. Los act
 
 ## 0. Decisiones de arquitectura (Entregables 1–3, resumen ejecutivo)
 
-**Tecnología: Modelo Híbrido.** SharePoint + Teams + Power Automate como columna vertebral (registro, asignación, trazabilidad, reportes — ya disponible en la licencia M365 de PEM, costo marginal $0), + Gamma para contenido ejecutivo, + micro-apps HTML independientes como este kit (examen, certificado, flashcards) para lo que SharePoint no resuelve bien: interacción rica y gamificación. Se descarta Moodle: cuota de licencia/hosting recurrente y curva de administración que PEM no tiene capacidad de operar con el equipo actual. Se descarta plataforma propia desde cero: tiempo y costo de desarrollo no justificados a 67 colaboradores. El modelo híbrido da innovación real (activos como los de este módulo) sin gasto adicional, y escala agregando módulos sin agregar licencias.
+**Tecnología: Modelo Híbrido.** SharePoint + Teams + Power Automate como columna vertebral (registro, asignación, trazabilidad, reportes — ya disponible en la licencia M365 de PEM, costo marginal $0), + Gamma para contenido ejecutivo, + micro-apps HTML independientes como este kit (examen, certificado, flashcards) para lo que SharePoint no resuelve bien: interacción rica y gamificación. Se descarta Moodle: cuota de licencia/hosting recurrente y curva de administración que PEM no tiene capacidad de operar con el equipo actual. Se descarta plataforma propia desde cero: tiempo y costo de desarrollo no justificados para el tamaño actual de PEM. El modelo híbrido da innovación real (activos como los de este módulo) sin gasto adicional, y escala agregando módulos sin agregar licencias.
 
 **Rutas de aprendizaje (Entregable 2):** cada perfil recorre los 6 niveles con distinta profundidad y ritmo — Dirección y Gerencia priorizan Niveles 1, 5 y 6 (contexto estratégico + rol de liderazgo del SGI); Supervisores y Calidad recorren los 6 niveles completos; Operadores y Mecánicos priorizan Niveles 1–3 con máximo énfasis en aplicación de campo (como este Módulo 1); Compras, RH y Finanzas priorizan Nivel 1–2 enfocado en cómo su función conecta con el SGC (proveedores, competencias, control de registros).
 
@@ -67,11 +67,14 @@ Evitar: stock genérico de oficina corporativa, personas en traje sin relación 
 
 ## 4. Guion completo para avatar (3–5 minutos)
 
-**[0:00–0:20 — Hook]**
+**[0:00–0:15 — Bienvenida]**
+"Bienvenido a PEM Excellence Academy. Este es el Módulo 1 de la Escuela de Calidad — Fundamentos de ISO 9001. En los próximos minutos vas a entender qué significa esta norma para tu trabajo diario en PEM, con ejemplos reales de nuestra propia operación, no teoría abstracta. Empecemos."
+
+**[0:15–0:35 — Hook]**
 "Un compresor falla en campo. No una vez — tres veces, en tres sitios de trabajo distintos, en el mismo trimestre. La primera reacción es buscar al operador responsable. Pero en un sistema de gestión de calidad, la primera pregunta no es 'quién', es 'qué parte del proceso permitió que esto pasara tres veces'. Eso es exactamente lo que vas a entender en este módulo."
 
 **[0:20–0:55 — Qué es calidad en PEM]**
-"Cuando hablamos de calidad en PEM, no hablamos de llenar más formatos. Hablamos de que, sin importar si estás en Reynosa, Villahermosa, Poza Rica, Monterrey o Ciudad de México, la operación se comporte de la misma manera confiable. Eso es lo que espera PEMEX, lo que espera CFE, lo que espera Operadoras. Calidad es que el resultado no dependa de la suerte del turno."
+"Cuando hablamos de calidad en PEM, no hablamos de llenar más formatos. Hablamos de que, sin importar si estás en Reynosa, Villahermosa, Poza Rica, Monterrey o Ciudad de México, la operación se comporte de la misma manera confiable. Eso es lo que pide PEMEX, CFE, las compañías operadoras y otros clientes. Calidad es que el resultado no dependa de la suerte del turno."
 
 **[0:55–1:35 — ISO 9001 en una frase]**
 "ISO 9001 se puede resumir en una idea: convertir el trabajo diario en algo controlado, no accidental. No es una norma que vive en un cajón de la oficina de Calidad. Es la estructura que hace que, cuando algo sale bien, sepamos por qué salió bien — y podamos repetirlo. Y cuando algo sale mal, sepamos exactamente dónde se rompió la cadena."
@@ -83,7 +86,7 @@ Evitar: stock genérico de oficina corporativa, personas en traje sin relación 
 "Todo sistema de calidad empieza por entender el contexto: quién nos afecta y a quién afectamos. Para PEM, eso incluye a nuestros clientes — PEMEX, CFE, Operadoras —, a las autoridades regulatorias del sector energético, a nuestros propios colaboradores en los sitios de trabajo, y a proveedores críticos. Cuando cambia algo en ese entorno — una nueva especificación de cliente, un cambio regulatorio — el sistema de calidad tiene que adaptarse. Por eso este análisis no se hace una vez y se olvida: se revisa."
 
 **[3:10–3:50 — Tu rol]**
-"Aquí está lo más importante de este módulo: ISO 9001 no es trabajo exclusivo del área de Calidad. Si eres operador, tu checklist antes de arrancar un equipo es parte del sistema. Si eres mecánico, el torque correcto y el registro de mantenimiento son parte del sistema. Si eres supervisor, cómo reportas una anomalía es parte del sistema. El sistema de calidad de PEM son 67 personas haciendo bien su parte todos los días — no un documento en una carpeta."
+"Aquí está lo más importante de este módulo: ISO 9001 no es trabajo exclusivo del área de Calidad. Si eres operador, tu checklist antes de arrancar un equipo es parte del sistema. Si eres mecánico, el torque correcto y el registro de mantenimiento son parte del sistema. Si eres supervisor, cómo reportas una anomalía es parte del sistema. El sistema de calidad de PEM lo sostiene cada colaborador haciendo bien su parte todos los días — no un documento en una carpeta."
 
 **[3:50–4:20 — Cierre]**
 "Con esto terminas los fundamentos del Módulo 1. Ahora es momento de comprobar lo que aprendiste: toma el examen de 10 preguntas — necesitas 80% para aprobar — y al terminar vas a poder generar tu certificado digital. Nos vemos en el Módulo 2."
