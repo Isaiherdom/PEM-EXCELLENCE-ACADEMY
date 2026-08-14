@@ -95,6 +95,40 @@
 </style>
 </head>
 <body>
+<script src="../assets/auth-config.js"></script>
+<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px;">PEM Excellence Academy</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Acceso restringido — ingresa la contraseña</div>
+    <input type="password" id="pemGatePw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña">
+    <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pemAuthOK') === '1'){
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  }
+})();
+async function pemGateSubmit(){
+  const pw = document.getElementById('pemGatePw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_AUTH_HASH){
+    sessionStorage.setItem('pemAuthOK','1');
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemGatePw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemGateSubmit(); });
+});
+</script>
+
 <a href="../index.html" class="pem-home-btn" aria-label="Volver al inicio"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Inicio</a>
 <style>
 .pem-home-btn{position:fixed;top:16px;left:16px;z-index:2147483000;display:inline-flex;align-items:center;gap:7px;background:#0B1712;border:1.5px solid #16C270;color:#2CFF9B;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:11px;letter-spacing:.03em;padding:9px 15px 9px 12px;border-radius:9px;text-decoration:none;box-shadow:0 0 16px rgba(22,194,112,.45),0 4px 14px rgba(0,0,0,.4);transition:.15s;}
