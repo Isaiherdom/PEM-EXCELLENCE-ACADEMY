@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boceto — PEM Excellence Academy (estilo Halliburton)</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#FFFFFF;color:#14181A;}
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:1px solid #E5E7E4;position:sticky;top:0;background:#fff;z-index:10;}
+  .brand{font-size:17px;font-weight:800;color:#0C3221;letter-spacing:.01em;}
+  .brand span{color:#E8A33D;}
+  .navlinks{display:flex;align-items:center;gap:30px;font-size:13px;font-weight:700;color:#14181A;}
+  .navlinks span{cursor:pointer;}
+  .cta-btn{background:#0C3221;color:#fff;padding:10px 20px;border-radius:6px;}
+  .hero{position:relative;height:460px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(10,15,12,.15),rgba(6,10,8,.9)),
+    url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1600') center/cover;}
+  .hero-inner{position:absolute;bottom:0;left:0;right:0;padding:48px;}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#E8A33D;font-weight:700;margin-bottom:14px;}
+  .headline{font-size:44px;font-weight:800;color:#fff;line-height:1.15;max-width:620px;}
+  .subtext{font-size:15px;color:#D8DED9;margin-top:14px;max-width:520px;line-height:1.6;}
+  .hero-cta{display:inline-block;margin-top:24px;font-size:13px;font-weight:700;background:#fff;color:#0C3221;border-radius:6px;padding:13px 24px;}
+  .values{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;padding:40px 48px;border-bottom:1px solid #E5E7E4;}
+  .value-icon{font-size:26px;}
+  .value-title{font-size:14px;font-weight:800;margin-top:10px;}
+  .value-sub{font-size:12px;color:#6B7570;margin-top:3px;}
+  .section-title{font-size:13px;font-weight:800;color:#6B7570;text-transform:uppercase;letter-spacing:.06em;padding:36px 48px 16px;}
+  .schools{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 48px 40px;}
+  .school-card{border:1px solid #E5E7E4;border-radius:10px;overflow:hidden;transition:box-shadow .15s;}
+  .school-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);}
+  .school-img{height:110px;background-size:cover;background-position:center;}
+  .school-body{padding:14px;}
+  .school-name{font-size:14px;font-weight:800;}
+  .school-norm{font-size:11px;color:#6B7570;margin-top:2px;}
+  .news{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:0 48px 48px;}
+  .news-img{height:90px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:10px;}
+  .news-title{font-size:13px;font-weight:700;line-height:1.4;}
+</style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="brand">PRODUCTION ENHANCEMENT <span>MÉXICO</span></div>
+    <div class="navlinks">
+      <span>Escuelas ▾</span>
+      <span>Rutas de aprendizaje ▾</span>
+      <span>Certificaciones ▾</span>
+      <span>Recursos ▾</span>
+      <span class="cta-btn">Empezar</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Escuela de Calidad · ISO 9001</div>
+      <div class="headline">Donde la excelencia operativa se convierte en estándar</div>
+      <div class="subtext">Formamos a cada colaborador de PEM bajo las normas ISO que sostienen nuestra operación diaria.</div>
+      <span class="hero-cta">Empezar capacitación</span>
+    </div>
+  </div>
+
+  <div class="values">
+    <div><div class="value-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0C3221" stroke-width="1.6"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="value-title">Seguridad</div><div class="value-sub">Primero, siempre</div></div>
+    <div><div class="value-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0C3221" stroke-width="1.6"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4" stroke-linecap="round"/></svg></div><div class="value-title">Calidad</div><div class="value-sub">Resultado, no papeleo</div></div>
+    <div><div class="value-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0C3221" stroke-width="1.6"><path d="M12 22V12M12 12C12 7 8 4 4 4c0 5 3 8 8 8ZM12 12c0-4 3-6 7-6 0 4-2 7-7 6Z" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="value-title">Ambiente</div><div class="value-sub">Operación responsable</div></div>
+    <div><div class="value-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0C3221" stroke-width="1.6"><path d="M12 3v18M6 21h12M4 7h5M15 7h5M4 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5M20 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="value-title">Ética</div><div class="value-sub">Confianza real</div></div>
+  </div>
+
+  <div class="section-title">Escuelas normativas</div>
+  <div class="schools">
+    <div class="school-card">
+      <div class="school-img" style="background-image:url('https://images.unsplash.com/photo-1581093458791-9d42e3e5c9c9?w=400')"></div>
+      <div class="school-body"><div class="school-name">Calidad</div><div class="school-norm">ISO 9001</div></div>
+    </div>
+    <div class="school-card">
+      <div class="school-img" style="background-image:url('https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400')"></div>
+      <div class="school-body"><div class="school-name">Ambiental</div><div class="school-norm">ISO 14001</div></div>
+    </div>
+    <div class="school-card">
+      <div class="school-img" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400')"></div>
+      <div class="school-body"><div class="school-name">Seguridad</div><div class="school-norm">ISO 45001</div></div>
+    </div>
+    <div class="school-card">
+      <div class="school-img" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400')"></div>
+      <div class="school-body"><div class="school-name">Ética</div><div class="school-norm">ISO 37001</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Últimas actualizaciones de la academia</div>
+  <div class="news">
+    <div>
+      <div class="news-img" style="background-image:url('https://images.unsplash.com/photo-1581093458791-9d42e3e5c9c9?w=300')"></div>
+      <div class="news-title">Módulo 2 disponible: Liderazgo y compromiso</div>
+    </div>
+    <div>
+      <div class="news-img" style="background-image:url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=300')"></div>
+      <div class="news-title">Escuela de Ética alcanza 12/12 módulos</div>
+    </div>
+    <div>
+      <div class="news-img" style="background-image:url('https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=300')"></div>
+      <div class="news-title">Nueva ruta de aprendizaje: Cuentas por Pagar</div>
+    </div>
+  </div>
+
+</body>
+</html>
