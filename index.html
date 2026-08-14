@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>try{if(localStorage.getItem('pemTheme')==='pem-green')document.documentElement.setAttribute('data-theme','pem-green');}catch(e){}</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PEM Excellence Academy</title>
@@ -11,6 +13,7 @@
     --green:#16C270; --blue:#4C9AFF; --amber:#E8A33D; --red:#E8603D;
     --text:#F1F3F0; --muted:#8A968E;
   }
+  html[data-theme="pem-green"]{--bg:#071F14;--surface:#0A2A1C;--surface-2:#0F3D28;--line:#1A3D2C;--muted:#7C9688;}
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
   .hero{
@@ -64,8 +67,28 @@
       <a class="ref-link" href="rutas-aprendizaje-pem-excellence-academy.html">Rutas de Aprendizaje</a>
       <a class="ref-link" href="mapa-academico-pem-excellence-academy.html">Mapa Académico</a>
       <a class="ref-link" href="gold-standard-identidad-visual.html">Gold Standard — Identidad</a>
+      <button class="ref-link" id="themeToggleBtn" onclick="togglePemTheme()" style="cursor:pointer;font-family:inherit;background:transparent;"></button>
     </div>
   </div>
+
+  <script>
+  function updateThemeBtnLabel(){
+    var isGreen = document.documentElement.getAttribute('data-theme') === 'pem-green';
+    document.getElementById('themeToggleBtn').textContent = isGreen ? '🌑 Modo oscuro' : '🌲 Modo verde PEM';
+  }
+  function togglePemTheme(){
+    var isGreen = document.documentElement.getAttribute('data-theme') === 'pem-green';
+    if(isGreen){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','dark');
+    } else {
+      document.documentElement.setAttribute('data-theme','pem-green');
+      localStorage.setItem('pemTheme','pem-green');
+    }
+    updateThemeBtnLabel();
+  }
+  updateThemeBtnLabel();
+  </script>
 
   <div class="wrap">
     <div class="schools" id="schoolTabs"></div>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>try{if(localStorage.getItem('pemTheme')==='pem-green')document.documentElement.setAttribute('data-theme','pem-green');}catch(e){}</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificado · PEM Excellence Academy · Escuela Ambiental M12</title>
@@ -11,6 +13,7 @@
     --blue:#4C9AFF; --amber:#E8A33D;
     --text:#F1F3F0; --muted:#8A968E;
   }
+  html[data-theme="pem-green"]{--bg:#071F14;--surface:#0A2A1C;--surface-2:#0F3D28;--line:#1A3D2C;--muted:#7C9688;}
   *{box-sizing:border-box;}
   body{
     margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;

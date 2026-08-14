@@ -54,11 +54,14 @@ Evitar: imágenes de "liderazgo" genéricas de stock (apretón de manos, gente s
 
 ## 4. Guion completo para avatar (3–5 minutos)
 
-**[0:00–0:20 — Hook]**
-"En la última junta de resultados, ¿quién en tu sitio de trabajo habló de calidad? Si la respuesta es 'nadie de Dirección', tenemos un problema — porque según ISO 9001, el liderazgo no se demuestra firmando una política una vez al año. Se demuestra en la siguiente decisión de presupuesto."
+**[0:00–0:08 — Bienvenida]**
+"Bienvenido a PEM Excellence Academy — Módulo 2 de la Escuela de Calidad. Comencemos."
+
+**[0:08–0:28 — Hook]**
+"En la última junta de resultados de PEM, ¿quién del equipo directivo habló de calidad? Si la respuesta es 'nadie', tenemos un problema — porque según ISO 9001, el liderazgo no se demuestra firmando una política una vez al año. Se demuestra en la siguiente decisión de presupuesto."
 
 **[0:20–1:00 — Qué es liderazgo real]**
-"La cláusula 5.1 de la norma es clara: la Dirección General tiene que rendir cuentas de la eficacia del sistema de gestión de calidad. No delegarlo por completo al Responsable del SGI, no firmarlo y olvidarlo. Rendir cuentas significa que, si el sistema no está funcionando, es una conversación de negocio — no solo un pendiente de auditoría."
+"La cláusula 5.1 de la norma es clara: la Dirección General de PEM tiene que rendir cuentas de la eficacia del sistema de gestión de calidad. No delegarlo por completo al Responsable del SGI, no firmarlo y olvidarlo. Rendir cuentas significa que, si el sistema no está funcionando, es una conversación de negocio — no solo un pendiente de auditoría."
 
 **[1:00–1:50 — Los 8 compromisos]**
 "La norma detalla ocho compromisos concretos. Rendir cuentas del resultado. Alinear la política de calidad con hacia dónde va el negocio. Integrar los requisitos del sistema en cómo se cotiza y se opera, no como trámite aparte. Promover que se piense en procesos y en riesgos antes de que algo falle. Asegurar que existan los recursos — tiempo, presupuesto, herramientas. Comunicar por qué esto importa. Asegurar que el sistema logre resultados reales. Y dirigir y apoyar a las personas que lo sostienen todos los días."
