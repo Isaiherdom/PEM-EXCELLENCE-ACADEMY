@@ -2,237 +2,389 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#070B09">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PEM Excellence Academy</title>
 <link rel="stylesheet" href="assets/fonts.css">
 <style>
-:root{
-  --bg:#070B09;--panel:#0D1310;--panel2:#111914;--line:#22302A;
-  --green:#16C270;--green2:#0A6B47;--blue:#4C9AFF;--amber:#E8A33D;--red:#E8603D;
-  --text:#F3F6F4;--muted:#AAB5AE;--dim:#6F7B74;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;padding-bottom:70px}
-a{color:inherit}
-button{font:inherit}
-.navbar{
-  height:72px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 38px;border-bottom:1px solid rgba(255,255,255,.08);
-  background:rgba(7,11,9,.96);position:relative;z-index:20
-}
-.brand{font:800 15px 'Space Grotesk',sans-serif;letter-spacing:.02em;white-space:nowrap}
-.brand span{color:var(--amber)}
-.navlinks{display:flex;align-items:center;gap:30px;font-size:12px;font-weight:600}
-.navlinks a{text-decoration:none;color:#E8ECE9;transition:.2s}
-.navlinks a:hover{color:var(--green)}
-.nav-cta{background:#08724D;color:#fff!important;border-radius:7px;padding:11px 20px}
-.hero{
-  position:relative;height:560px;overflow:hidden;background:#050806;
-  border-bottom:1px solid var(--line)
-}
-.hero-bg{
-  position:absolute;inset:-6%;background-size:cover;background-position:center;
-  filter:blur(24px) brightness(.45);transform:scale(1.08);
-  opacity:0;transition:opacity .9s ease
-}
-.hero-bg.active{opacity:1}
-.hero-image-wrap{
-  position:absolute;inset:0;display:flex;justify-content:center;align-items:center;overflow:hidden
-}
-.hero-image{
-  position:relative;height:100%;width:auto;max-width:100%;object-fit:contain;
-  display:block;opacity:0;transition:opacity .9s ease;
-  z-index:1
-}
-.hero-image.active{opacity:1}
-.hero-image-wrap:before,.hero-image-wrap:after{
-  content:"";position:absolute;top:0;bottom:0;width:24%;z-index:2;pointer-events:none
-}
-.hero-image-wrap:before{left:0;background:linear-gradient(90deg,#070B09 0%,rgba(7,11,9,.92) 22%,rgba(7,11,9,.35) 70%,transparent 100%)}
-.hero-image-wrap:after{right:0;background:linear-gradient(270deg,#070B09 0%,rgba(7,11,9,.92) 22%,rgba(7,11,9,.35) 70%,transparent 100%)}
-.hero-top-fade{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 28%,transparent 65%,rgba(0,0,0,.62))}
-.hero-content{position:relative;z-index:5;height:100%;max-width:1440px;margin:auto;padding:98px 7% 0}
-.eyebrow{font:700 12px 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:#F1A52B;margin-bottom:20px}
-h1{font:700 clamp(40px,5vw,68px)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em;margin:0 0 22px;max-width:570px;color:#fff}
-.hero-copy{max-width:560px;color:#D3DBD6;font-size:15px;line-height:1.65;margin:0}
-.hero-cta{display:inline-block;margin-top:26px;background:#F5F7F6;color:#0A3322;border-radius:7px;padding:14px 22px;text-decoration:none;font:700 13px 'JetBrains Mono',monospace}
-.hero-controls{position:absolute;right:3.5%;bottom:23px;z-index:7;display:flex;align-items:center;gap:12px}
-.dots{display:flex;gap:9px;align-items:center}
-.dot{width:8px;height:8px;border-radius:50%;background:#707873;cursor:pointer;border:0;padding:0;transition:.2s}
-.dot.active{background:var(--green);transform:scale(1.18)}
-.counter{font:500 11px 'JetBrains Mono',monospace;border:1px solid #39433E;border-radius:18px;padding:8px 12px;color:#E4E9E6}
-.pause{width:36px;height:36px;border-radius:50%;border:1px solid #39433E;background:rgba(5,8,6,.55);color:#fff;cursor:pointer}
-.values{
-  display:grid;grid-template-columns:repeat(4,1fr);background:#0C120F;
-  border-bottom:1px solid var(--line);max-width:100%;padding:0 4%
-}
-.value{min-height:94px;display:flex;align-items:center;gap:15px;padding:18px 28px;border-right:1px solid var(--line)}
-.value:last-child{border-right:0}
-.value svg{flex:0 0 auto;stroke:var(--green)}
-.value-title{font:700 14px 'Space Grotesk',sans-serif}
-.value-sub{font-size:12px;color:#A9B4AE;margin-top:4px}
-.section{max-width:1440px;margin:auto;padding:28px 4% 0}
-.section-title{font:700 11px 'JetBrains Mono',monospace;color:var(--green);text-transform:uppercase;letter-spacing:.1em;margin-bottom:15px}
-.schoolphotos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.sp-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:.2s}
-.sp-card:hover{transform:translateY(-2px);border-color:#365246}
-.sp-img{height:145px;background-position:center;background-size:cover;position:relative}
-.sp-img:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.42))}
-.sp-body{padding:13px 15px 15px}
-.sp-name{font:700 14px 'Space Grotesk',sans-serif}
-.sp-norm{font:10px 'JetBrains Mono',monospace;color:#89968E;margin-top:3px}
-.wrap{max-width:1440px;margin:auto;padding:0 4%}
-.schools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
-.school-tab{border:1px solid var(--line);border-radius:10px;padding:17px;background:#0C120F;cursor:pointer;text-align:left;transition:.2s}
-.school-tab:hover{border-color:#365246}
-.school-tab.active{box-shadow:inset 0 2px 0 var(--accent);border-color:var(--accent)}
-.school-tab .dot{width:9px;height:9px;border-radius:50%;margin-bottom:10px}
-.school-tab .name{font:700 14px 'Space Grotesk',sans-serif}
-.school-tab .norm{font:10px 'JetBrains Mono',monospace;color:#8E9992;margin-top:3px}
-.school-tab .prog{font:10px 'JetBrains Mono',monospace;margin-top:9px}
-.modgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
-.modcard{border:1px solid var(--line);border-radius:11px;background:#0C120F;overflow:hidden}
-.modcard-head{padding:12px 15px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
-.modcard-n{font:700 14px 'Space Grotesk',sans-serif;color:var(--green)}
-.modcard-clause{font:10px 'JetBrains Mono',monospace;color:#89958E}
-.modcard-title{padding:13px 15px 5px;font:700 13px/1.35 'Space Grotesk',sans-serif;min-height:52px}
-.assets{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px 15px 15px}
-.asset-link{display:flex;align-items:center;gap:5px;font-size:11px;color:#DCE3DF;text-decoration:none;border:1px solid #26322C;border-radius:7px;padding:8px;background:#111914}
-.asset-link:hover{border-color:var(--green);color:var(--green)}
-.empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 0}
-footer{text-align:center;color:#69756E;font-size:10px;font-family:'JetBrains Mono',monospace;margin-top:50px}
-@media(max-width:900px){
-  .navbar{padding:0 18px;height:64px}.brand{font-size:13px}.navlinks{gap:12px}.navlinks a:not(:last-child){display:none}
-  .hero{height:600px}.hero-content{padding:90px 24px 0}.hero-image-wrap:before,.hero-image-wrap:after{width:32%}
-  h1{font-size:44px;max-width:470px}.hero-copy{font-size:14px;max-width:480px}
-  .values{grid-template-columns:repeat(2,1fr)}.value:nth-child(2){border-right:0}.value:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .schoolphotos{grid-template-columns:repeat(2,1fr)}.modgrid{grid-template-columns:repeat(2,1fr)}.schools{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px){
-  .hero{height:620px}.hero-image{height:100%;max-width:none;width:auto}.hero-image-wrap{justify-content:center}
-  .hero-content{padding:62px 20px 0}.eyebrow{font-size:10px;margin-bottom:14px}
-  h1{font-size:40px;max-width:360px}.hero-copy{font-size:13px;max-width:355px}
-  .hero-cta{font-size:11px;padding:12px 16px}.hero-controls{right:14px;bottom:15px}
-  .values{grid-template-columns:1fr 1fr;padding:0}.value{min-height:78px;padding:13px 12px;gap:9px}.value svg{width:19px}.value-title{font-size:12px}.value-sub{font-size:10px}
-  .section{padding:24px 16px 0}.wrap{padding:0 16px}.schoolphotos{grid-template-columns:1fr 1fr;gap:10px}.sp-img{height:105px}
-  .schools{grid-template-columns:1fr 1fr;gap:9px}.school-tab{padding:13px 11px}.school-tab .name{font-size:12px}.school-tab .norm,.school-tab .prog{font-size:9px}
-  .modgrid{grid-template-columns:1fr;gap:10px}
-}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.hero-bg,.hero-image{transition:none!important}}
+  :root{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --green:#16C270; --blue:#4C9AFF; --amber:#E8A33D; --red:#E8603D;
+    --text:#F4F7F5; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px;}
+
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--line);background:var(--bg);}
+  .brand{font-family:'Space Grotesk',sans-serif;font-size:29px;font-weight:800;color:var(--text);letter-spacing:.005em;}
+  .brand span{color:var(--amber);}
+  .navlinks{display:flex;align-items:center;gap:26px;font-size:12px;font-weight:700;}
+  .navlinks a{color:var(--text);text-decoration:none;}
+  .navlinks a:hover{color:var(--green);}
+  .nav-cta{background:var(--green);color:#06140D !important;padding:9px 18px;border-radius:6px;}
+
+  /* HERO: carrusel Halliburton-style — la fotografia completa siempre visible (nunca se recorta),
+     con un fondo desenfocado ampliado detras para llenar el lienzo sin bandas vacias. */
+  .hero{height:640px;position:relative;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
+  .track{height:100%;display:flex;transition:transform .7s ease;}
+  .slide{min-width:100%;height:100%;position:relative;overflow:hidden;background:#040605;}
+  .slide .image-fill{position:absolute;inset:-35px;background-size:cover;background-position:center;filter:blur(24px);transform:scale(1.08);opacity:.5;}
+  .slide .image-fg{position:absolute;z-index:1;left:50%;top:50%;width:auto;height:auto;max-width:100%;max-height:100%;transform:translate(-50%,-50%);object-fit:contain;display:block;}
+  .slide:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#040605 0%,rgba(4,6,5,.94) 6%,rgba(4,6,5,.66) 18%,rgba(4,6,5,.18) 34%,transparent 46%,transparent 66%,rgba(4,6,5,.28) 78%,rgba(4,6,5,.82) 92%,#040605 100%);}
+  .slide:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(4,6,5,.18),transparent 28%,transparent 62%,rgba(4,6,5,.7) 100%);}
+  .content{position:absolute;z-index:5;left:6.5%;top:50%;transform:translateY(-50%);width:min(560px,44vw);}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:16px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,42px);margin:0 0 16px;color:#fff;line-height:1.18;border-left:3px solid var(--red);padding-left:20px;}
+  .content p{color:#D8DED9;font-size:14px;line-height:1.6;margin:0 0 0 23px;max-width:480px;}
+  .hero-cta{display:inline-block;margin:22px 0 0 23px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;background:#fff;color:#0C3221;border:none;border-radius:6px;padding:12px 22px;text-decoration:none;cursor:pointer;}
+
+  .controls{position:absolute;right:4%;bottom:20px;z-index:8;display:flex;align-items:center;gap:14px;}
+  .dots{display:flex;gap:9px;}
+  .dot{width:8px;height:8px;border:0;border-radius:50%;background:rgba(255,255,255,.35);padding:0;cursor:pointer;transition:.2s;}
+  .dot.active{background:var(--green);width:22px;border-radius:4px;}
+  .counter{font-family:'JetBrains Mono',monospace;font-size:11px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.3);color:#fff;border-radius:20px;padding:6px 12px;}
+  .pause{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.3);color:#fff;cursor:pointer;font-size:13px;line-height:1;}
+
+  .pillars{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-bottom:1px solid var(--line);}
+  .pillar{padding:24px 30px;border-right:1px solid var(--line);display:flex;gap:14px;align-items:center;}
+  .pillar:last-child{border:0;}
+  .pillar .value-title{color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;margin-top:0;}
+  .pillar .value-sub{color:var(--muted);font-size:11px;margin-top:2px;}
+
+  .section-title{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:28px 40px 14px;}
+  .schoolphotos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0 40px 8px;}
+  .sp-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);}
+  .sp-img{height:230px;background-size:cover;background-position:center 35%;}
+  .sp-placeholder{background:var(--surface-2);}
+  .sp-body{padding:12px;}
+  .sp-name{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;}
+  .sp-norm{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px;}
+
+  .schools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px;}
+  .school-tab{
+    border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface);cursor:pointer;text-align:left;
+  }
+  .school-tab.active{border-color:var(--green);}
+  .school-tab .dot{width:10px;height:10px;border-radius:50%;margin-bottom:10px;}
+  .school-tab .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;}
+  .school-tab .norm{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px;}
+  .school-tab .prog{font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:8px;}
+
+  .modgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:22px;}
+  .modcard{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;}
+  .modcard-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+  .modcard-n{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--green);}
+  .modcard-clause{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+  .modcard-title{padding:12px 16px 4px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;line-height:1.3;}
+  .assets{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 16px 16px;}
+  .asset-link{
+    display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text);text-decoration:none;
+    border:1px solid var(--line);border-radius:8px;padding:8px 10px;transition:.15s;background:var(--surface-2);
+  }
+  .asset-link:hover{border-color:var(--green);color:var(--green);}
+
+  .empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 0;font-family:'JetBrains Mono',monospace;}
+
+  footer{text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:50px;}
+
+  @media(max-width:900px){
+    .navbar{padding:16px 20px;}
+    .brand{font-size:20px;}
+    .navlinks{gap:14px;font-size:11px;}
+    .navlinks a:not(.nav-cta){display:none;}
+    .hero{height:600px;}
+    .content{left:6%;width:70vw;}
+    h1{font-size:30px;}
+    .pillars,.schoolphotos,.schools{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:600px){
+    .hero{height:560px;}
+    .content{left:20px;top:auto;bottom:60px;transform:none;width:calc(100% - 40px);}
+    h1{font-size:26px;}
+    .content p{font-size:12.5px;}
+    .controls{right:16px;bottom:16px;}
+    .schoolphotos,.schools{grid-template-columns:1fr;}
+  }
+  @media(prefers-reduced-motion:reduce){.track{transition:none;}}
 </style>
 </head>
 <body>
 <script src="assets/auth-config.js"></script>
-<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#070B09;display:flex;align-items:center;justify-content:center;padding:20px">
- <div style="max-width:350px;width:100%;background:#101712;border:1px solid #26352E;border-radius:14px;padding:28px 24px;text-align:center">
-  <div style="font:700 11px 'JetBrains Mono';letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px">PEM Excellence Academy</div>
-  <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px">Acceso restringido — ingresa la contraseña</div>
-  <input type="password" id="pemGatePw" style="width:100%;padding:11px;font-size:15px;background:#070B09;border:1px solid #26352E;color:#fff;border-radius:8px;margin-bottom:10px" placeholder="Contraseña">
-  <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:0;padding:11px;border-radius:8px;font-weight:700;cursor:pointer">Entrar</button>
-  <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none">Contraseña incorrecta</div>
- </div>
+<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px;">PEM Excellence Academy</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Acceso restringido — ingresa la contraseña</div>
+    <input type="password" id="pemGatePw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña">
+    <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
 </div>
-<script>
-(function(){if(sessionStorage.getItem('pemAuthOK')==='1')document.getElementById('pemGateOverlay').style.display='none';})();
-async function pemGateSubmit(){const pw=document.getElementById('pemGatePw').value;const enc=new TextEncoder().encode(pw);const buf=await crypto.subtle.digest('SHA-256',enc);const hash=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');if(hash===PEM_AUTH_HASH){sessionStorage.setItem('pemAuthOK','1');document.getElementById('pemGateOverlay').style.display='none'}else document.getElementById('pemGateError').style.display='block'}
-document.addEventListener('DOMContentLoaded',()=>{const e=document.getElementById('pemGatePw');if(e)e.addEventListener('keydown',x=>{if(x.key==='Enter')pemGateSubmit()})});
-</script>
-
-<header class="navbar">
- <div class="brand">PRODUCTION ENHANCEMENT <span>MÉXICO</span></div>
- <nav class="navlinks">
-  <a href="mapa-academico-pem-excellence-academy.html">Escuelas⌄</a>
-  <a href="rutas-aprendizaje-pem-excellence-academy.html">Rutas de aprendizaje⌄</a>
-  <a href="gold-standard-identidad-visual.html">Identidad⌄</a>
-  <a class="nav-cta" href="bienvenida-orientacion.html">Empezar</a>
- </nav>
-</header>
-
-<section class="hero" id="heroCarousel">
- <div class="hero-bg active" style="background-image:url('assets/img/hero-01-antisoborno.jpg')"></div>
- <div class="hero-bg" style="background-image:url('assets/img/hero-02-equipo-pem.jpg')"></div>
- <div class="hero-bg" style="background-image:url('assets/img/hero-03-operacion-aerea.jpg')"></div>
- <div class="hero-bg" style="background-image:url('assets/img/hero-04-compresor-crankshaft.jpg')"></div>
- <div class="hero-bg" style="background-image:url('assets/img/hero-05-compresor-operacion.jpg')"></div>
- <div class="hero-bg" style="background-image:url('assets/img/hero-06-taller-escuela.jpg')"></div>
- <div class="hero-image-wrap">
-  <img class="hero-image active" src="assets/img/hero-01-antisoborno.jpg" alt="Integridad y prevención del soborno">
-  <img class="hero-image" src="assets/img/hero-02-equipo-pem.jpg" alt="Personal PEM durante una capacitación en campo">
-  <img class="hero-image" src="assets/img/hero-03-operacion-aerea.jpg" alt="Operación industrial PEM vista desde el aire">
-  <img class="hero-image" src="assets/img/hero-04-compresor-crankshaft.jpg" alt="Mantenimiento de compresor reciprocante">
-  <img class="hero-image" src="assets/img/hero-05-compresor-operacion.jpg" alt="Equipo de compresión en operación">
-  <img class="hero-image" src="assets/img/hero-06-taller-escuela.jpg" alt="Taller Escuela PEM">
- </div>
- <div class="hero-top-fade"></div>
- <div class="hero-content">
-  <div class="eyebrow">PEM EXCELLENCE ACADEMY</div>
-  <h1>Donde la excelencia operativa se convierte en estándar</h1>
-  <p class="hero-copy">La plataforma de capacitación normativa de PEM: un solo lugar donde cada colaborador aprende, a su ritmo, lo que su rol exige de las normas ISO que rigen la operación.</p>
-  <a class="hero-cta" href="bienvenida-orientacion.html">Empezar capacitación</a>
- </div>
- <div class="hero-controls">
-  <div class="dots" id="heroDots"></div>
-  <div class="counter" id="heroCounter">1 / 6</div>
-  <button class="pause" id="heroPause" aria-label="Pausar carrusel">Ⅱ</button>
- </div>
-</section>
-
-<section class="values">
- <div class="value"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg><div><div class="value-title">Seguridad</div><div class="value-sub">Primero, siempre</div></div></div>
- <div class="value"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="m8 13 3 3 5-6"/></svg><div><div class="value-title">Calidad</div><div class="value-sub">Resultado, no papeleo</div></div></div>
- <div class="value"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 22V12M12 12C12 7 8 4 4 4c0 5 3 8 8 8ZM12 12c0-4 3-6 7-6 0 4-2 7-7 6Z"/></svg><div><div class="value-title">Ambiente</div><div class="value-sub">Operación responsable</div></div></div>
- <div class="value"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 3v18M6 21h12M4 7h5M15 7h5M4 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5M20 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5"/></svg><div><div class="value-title">Ética</div><div class="value-sub">Confianza real</div></div></div>
-</section>
-
-<section class="section" id="schools">
- <div class="section-title">Escuelas normativas</div>
- <div class="schoolphotos">
-  <div class="sp-card"><div class="sp-img" style="background-image:url('assets/img/calidad-alineador.jpg')"></div><div class="sp-body"><div class="sp-name">Calidad</div><div class="sp-norm">ISO 9001</div></div></div>
-  <div class="sp-card"><div class="sp-img" style="background-image:url('assets/img/hero-05-compresor-operacion.jpg')"></div><div class="sp-body"><div class="sp-name">Ambiental</div><div class="sp-norm">ISO 14001</div></div></div>
-  <div class="sp-card"><div class="sp-img" style="background-image:url('assets/img/hero-02-equipo-pem.jpg')"></div><div class="sp-body"><div class="sp-name">Seguridad</div><div class="sp-norm">ISO 45001</div></div></div>
-  <div class="sp-card"><div class="sp-img" style="background-image:url('assets/img/hero-01-antisoborno.jpg')"></div><div class="sp-body"><div class="sp-name">Ética</div><div class="sp-norm">ISO 37001</div></div></div>
- </div>
-</section>
-
-<div class="wrap">
- <div class="schools" id="schoolTabs"></div>
- <div class="modgrid" id="modGrid"></div>
-</div>
-<footer>PEM-ACAD-HUB-01 · Production Enhancement México · Prototipo funcional</footer>
-
-<script>
-const SCHOOLS={
-"9001":{name:"Escuela de Calidad",norm:"ISO 9001:2015",color:"#16C270",prefix:"",examSuffix:"-iso9001",progress:"12/12",modules:[
-["Fundamentos y contexto de la organización","Cl. 4",true],["Liderazgo y compromiso de la dirección","Cl. 5.1"],["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3"],["Riesgos y oportunidades","Cl. 6.1"],["Objetivos de calidad y planificación de cambios","Cl. 6.2–6.3"],["Recursos, competencia y toma de conciencia","Cl. 7.1–7.3"],["Comunicación e información documentada","Cl. 7.4–7.5"],["Planificación y control operacional","Cl. 8.1"],["Requisitos del cliente y diseño del servicio","Cl. 8.2–8.3"],["Control de proveedores externos y compras","Cl. 8.4"],["Provisión del servicio y salidas no conformes","Cl. 8.5–8.7"],["Evaluación del desempeño, auditoría y mejora","Cl. 9–10"]]},
-"14001":{name:"Escuela Ambiental",norm:"ISO 14001:2015",color:"#4C9AFF",prefix:"escuela-ambiental/",examSuffix:"-iso14001",progress:"12/12",modules:[
-["Fundamentos y contexto ambiental","Cl. 4"],["Liderazgo y política ambiental","Cl. 5"],["Partes interesadas y requisitos legales","Cl. 4.2 / 6.1.3"],["Aspectos e impactos ambientales","Cl. 6.1.2"],["Objetivos ambientales y planificación de acciones","Cl. 6.2"],["Recursos, competencia y toma de conciencia ambiental","Cl. 7.1–7.3"],["Comunicación e información documentada ambiental","Cl. 7.4–7.5"],["Control operacional ambiental","Cl. 8.1"],["Preparación y respuesta ante emergencias","Cl. 8.2"],["Evaluación del desempeño ambiental","Cl. 9.1"],["Cumplimiento legal ambiental","Cl. 9.1.2"],["Auditoría interna y mejora continua ambiental","Cl. 9.2–10"]]},
-"45001":{name:"Escuela de Seguridad",norm:"ISO 45001:2018",color:"#E8A33D",prefix:"escuela-seguridad/",examSuffix:"-iso45001",progress:"12/12",modules:[
-["Fundamentos y contexto de SST","Cl. 4"],["Liderazgo y participación de los trabajadores","Cl. 5.1, 5.4"],["Consulta y participación de los trabajadores","Cl. 5.4"],["Identificación de peligros y evaluación de riesgos","Cl. 6.1.2"],["Requisitos legales en SST","Cl. 6.1.3"],["Objetivos y planificación de SST","Cl. 6.2"],["Recursos, competencia y toma de conciencia en SST","Cl. 7.1–7.3"],["Comunicación y consulta","Cl. 7.4"],["Eliminación de peligros y jerarquía de controles","Cl. 8.1.2"],["Gestión del cambio y contratación externa","Cl. 8.1.3–8.1.4"],["Preparación y respuesta ante emergencias","Cl. 8.2"],["Investigación de incidentes, auditoría y mejora","Cl. 9–10"]]},
-"37001":{name:"Escuela de Ética",norm:"ISO 37001:2025",color:"#E8603D",prefix:"escuela-etica/",examSuffix:"-iso37001",progress:"12/12",modules:[
-["Fundamentos y contexto del riesgo de soborno","Cl. 4"],["Liderazgo, función de cumplimiento y compromiso","Cl. 5"],["Política antisoborno y gobierno","Cl. 5.2–5.3"],["Evaluación de riesgo de soborno","Cl. 6, 8.9"],["Debida diligencia de terceros, socios y clientes","Cl. 8.2"],["Controles financieros y no financieros","Cl. 8.3–8.4"],["Regalos, hospitalidad, donativos y beneficios","Cl. 8.5–8.6"],["Compromisos antisoborno de terceros","Cl. 8.7"],["Canal de denuncias (whistleblowing)","Cl. 8.9"],["Investigaciones y conflictos de interés","Cl. 8.10, 8.13"],["Comunicación, competencia y conciencia","Cl. 7"],["Evaluación del desempeño, auditoría interna y mejora","Cl. 9–10"]]}
-};
-let current="9001";const ORDER=["9001","14001","45001","37001"];
-function renderTabs(){document.getElementById('schoolTabs').innerHTML=ORDER.map(k=>{const s=SCHOOLS[k];return `<div class="school-tab ${k===current?'active':''}" onclick="selectSchool('${k}')" style="--accent:${s.color}"><div class="dot" style="background:${s.color}"></div><div class="name">${s.name}</div><div class="norm">${s.norm}</div><div class="prog" style="color:${s.color}">${s.progress} módulos</div></div>`}).join('')}
-function selectSchool(k){current=k;renderTabs();renderModules()}
-function renderModules(){const s=SCHOOLS[current];document.getElementById('modGrid').innerHTML=s.modules.map((m,i)=>{let n=i+1;return `<article class="modcard"><div class="modcard-head"><span class="modcard-n">M${n}</span><span class="modcard-clause">${m[1]}</span></div><div class="modcard-title">${m[0]}</div><div class="assets"><a class="asset-link" href="${s.prefix}flashcards-modulo${n}.html">▣ Flashcards</a><a class="asset-link" href="${s.prefix}infografia-modulo${n}.html">▤ Infografía</a><a class="asset-link" href="${s.prefix}examen-modulo${n}${s.examSuffix}.html">✎ Examen</a><a class="asset-link" href="${s.prefix}certificado-modulo${n}.html">◇ Certificado</a>${m[2]?`<a class="asset-link" href="${s.prefix}video-modulo${n}.html" style="grid-column:1/-1;border-color:var(--green);color:var(--green)">▶ Video</a>`:''}</div></article>`}).join('')}
-renderTabs();renderModules();
-</script>
 <script>
 (function(){
- const imgs=[...document.querySelectorAll('.hero-image')],bgs=[...document.querySelectorAll('.hero-bg')],dotsEl=document.getElementById('heroDots'),counter=document.getElementById('heroCounter'),pause=document.getElementById('heroPause');
- let current=0,paused=false,timer;
- dotsEl.innerHTML=imgs.map((_,i)=>`<button class="dot ${i===0?'active':''}" aria-label="Ir a imagen ${i+1}"></button>`).join('');
- const dots=[...dotsEl.children];
- function show(i){imgs[current].classList.remove('active');bgs[current].classList.remove('active');dots[current].classList.remove('active');current=(i+imgs.length)%imgs.length;imgs[current].classList.add('active');bgs[current].classList.add('active');dots[current].classList.add('active');counter.textContent=`${current+1} / ${imgs.length}`}
- function reset(){clearInterval(timer);if(!paused)timer=setInterval(()=>show(current+1),6800)}
- dots.forEach((d,i)=>d.addEventListener('click',()=>{show(i);reset()}));
- pause.addEventListener('click',()=>{paused=!paused;pause.textContent=paused?'▶':'Ⅱ';pause.setAttribute('aria-label',paused?'Reanudar carrusel':'Pausar carrusel');reset()});
- document.getElementById('heroCarousel').addEventListener('mouseenter',()=>clearInterval(timer));
- document.getElementById('heroCarousel').addEventListener('mouseleave',reset);
- reset();
+  if(sessionStorage.getItem('pemAuthOK') === '1'){
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  }
 })();
+async function pemGateSubmit(){
+  const pw = document.getElementById('pemGatePw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_AUTH_HASH){
+    sessionStorage.setItem('pemAuthOK','1');
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemGatePw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemGateSubmit(); });
+});
+</script>
+
+  <div class="navbar">
+    <div class="brand">PRODUCTION ENHANCEMENT <span>MÉXICO</span></div>
+    <div class="navlinks">
+      <a href="mapa-academico-pem-excellence-academy.html">Escuelas ▾</a>
+      <a href="rutas-aprendizaje-pem-excellence-academy.html">Rutas de aprendizaje ▾</a>
+      <a href="gold-standard-identidad-visual.html">Identidad ▾</a>
+      <a class="nav-cta" href="bienvenida-orientacion.html">Empezar</a>
+    </div>
+  </div>
+
+  <section class="hero" aria-label="PEM Excellence Academy" id="heroCarousel">
+    <div class="track" id="heroTrack">
+      <article class="slide">
+        <div class="image-fill" style="background-image:url('assets/img/hero-planta-atardecer.jpg')"></div>
+        <img class="image-fg" src="assets/img/hero-planta-atardecer.jpg" alt="Instalación de PEM al atardecer">
+        <div class="content">
+          <div class="kicker">PEM Excellence Academy</div>
+          <h1>Donde la excelencia operativa<br>se convierte en estándar</h1>
+          <p>Formamos a cada colaborador de PEM bajo las normas ISO que sostienen nuestra operación.</p>
+          <a class="hero-cta" href="bienvenida-orientacion.html">Empezar capacitación</a>
+        </div>
+      </article>
+      <article class="slide">
+        <div class="image-fill" style="background-image:url('assets/img/calidad-alineador.jpg')"></div>
+        <img class="image-fg" src="assets/img/calidad-alineador.jpg" alt="Técnico realizando alineación de compresor">
+        <div class="content">
+          <div class="kicker">Escuela de Calidad · ISO 9001</div>
+          <h1>La calidad se mide en resultados, no en papeleo</h1>
+          <p>Doce módulos que llevan la norma ISO 9001 al trabajo diario de cada colaborador.</p>
+          <a class="hero-cta" href="#escuelas" onclick="selectSchool('9001')">Ir a Escuela de Calidad</a>
+        </div>
+      </article>
+      <article class="slide">
+        <div class="image-fill" style="background-image:url('assets/img/etica-integridad.jpg')"></div>
+        <img class="image-fg" src="assets/img/etica-integridad.jpg" alt="Ejecutivos rechazando un acto de soborno">
+        <div class="content">
+          <div class="kicker">Integridad y ética · ISO 37001</div>
+          <h1>Hacer lo correcto también es parte del estándar</h1>
+          <p>Formación para fortalecer una cultura de integridad, transparencia y tolerancia cero al soborno.</p>
+          <a class="hero-cta" href="#escuelas" onclick="selectSchool('37001')">Ir a Escuela de Ética</a>
+        </div>
+      </article>
+    </div>
+    <div class="controls">
+      <div class="dots" id="heroDots"></div>
+      <div class="counter" id="heroCounter">1 / 3</div>
+      <button class="pause" id="heroPause" aria-label="Pausar carrusel">Ⅱ</button>
+    </div>
+  </section>
+
+  <div class="pillars">
+    <div class="pillar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16C270" stroke-width="1.6"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="value-title">Seguridad</div><div class="value-sub">Primero, siempre</div></div></div>
+    <div class="pillar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16C270" stroke-width="1.6"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4" stroke-linecap="round"/></svg><div><div class="value-title">Calidad</div><div class="value-sub">Resultado, no papeleo</div></div></div>
+    <div class="pillar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16C270" stroke-width="1.6"><path d="M12 22V12M12 12C12 7 8 4 4 4c0 5 3 8 8 8ZM12 12c0-4 3-6 7-6 0 4-2 7-7 6Z" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="value-title">Ambiente</div><div class="value-sub">Operación responsable</div></div></div>
+    <div class="pillar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16C270" stroke-width="1.6"><path d="M12 3v18M6 21h12M4 7h5M15 7h5M4 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5M20 7l-2 5a3.5 3.5 0 0 0 7 0l-2-5" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="value-title">Ética</div><div class="value-sub">Confianza real</div></div></div>
+  </div>
+
+  <script>
+  (function(){
+    var slides = document.querySelectorAll('#heroCarousel .slide');
+    var track = document.getElementById('heroTrack');
+    var dotsBox = document.getElementById('heroDots');
+    var counter = document.getElementById('heroCounter');
+    var pauseBtn = document.getElementById('heroPause');
+    var i = 0, playing = true, timer;
+    slides.forEach(function(_, n){
+      var d = document.createElement('button');
+      d.className = 'dot' + (n===0?' active':'');
+      d.setAttribute('aria-label', 'Ir a imagen ' + (n+1));
+      d.onclick = function(){ go(n); restart(); };
+      dotsBox.appendChild(d);
+    });
+    var dots = Array.prototype.slice.call(dotsBox.children);
+    function go(n){
+      i = (n + slides.length) % slides.length;
+      track.style.transform = 'translateX(-' + (i*100) + '%)';
+      dots.forEach(function(d,x){ d.classList.toggle('active', x===i); });
+      counter.textContent = (i+1) + ' / ' + slides.length;
+    }
+    function start(){
+      clearInterval(timer);
+      if(playing && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        timer = setInterval(function(){ go(i+1); }, 6500);
+      }
+    }
+    function restart(){ start(); }
+    pauseBtn.onclick = function(){
+      playing = !playing;
+      pauseBtn.textContent = playing ? 'Ⅱ' : '▶';
+      start();
+    };
+    document.addEventListener('visibilitychange', function(){
+      document.hidden ? clearInterval(timer) : start();
+    });
+    start();
+  })();
+  </script>
+
+  <div class="section-title">Escuelas normativas</div>
+  <div class="schoolphotos">
+    <div class="sp-card"><div class="sp-img" style="background-image:url('assets/img/calidad-alineador.jpg')"></div><div class="sp-body"><div class="sp-name">Calidad</div><div class="sp-norm">ISO 9001</div></div></div>
+    <div class="sp-card"><div class="sp-img sp-placeholder"></div><div class="sp-body"><div class="sp-name">Ambiental</div><div class="sp-norm">ISO 14001</div></div></div>
+    <div class="sp-card"><div class="sp-img sp-placeholder"></div><div class="sp-body"><div class="sp-name">Seguridad</div><div class="sp-norm">ISO 45001</div></div></div>
+    <div class="sp-card"><div class="sp-img" style="background-image:url('assets/img/etica-integridad.jpg')"></div><div class="sp-body"><div class="sp-name">Ética</div><div class="sp-norm">ISO 37001</div></div></div>
+  </div>
+
+  <div class="wrap" id="escuelas">
+    <div class="schools" id="schoolTabs"></div>
+    <div class="modgrid" id="modGrid"></div>
+  </div>
+
+  <footer>PEM-ACAD-HUB-01 · Production Enhancement México · Prototipo funcional</footer>
+
+<script>
+const SCHOOLS = {
+  "9001": {
+    name:"Escuela de Calidad", norm:"ISO 9001:2015", color:"#16C270", active:true, progress:"12/12",
+    prefix:"", examSuffix:"-iso9001",
+    modules:[
+      ["Fundamentos y contexto de la organización","Cl. 4", true],
+      ["Liderazgo y compromiso de la dirección","Cl. 5.1"],
+      ["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3"],
+      ["Riesgos y oportunidades","Cl. 6.1"],
+      ["Objetivos de calidad y planificación de cambios","Cl. 6.2–6.3"],
+      ["Recursos, competencia y toma de conciencia","Cl. 7.1–7.3"],
+      ["Comunicación e información documentada","Cl. 7.4–7.5"],
+      ["Planificación y control operacional","Cl. 8.1"],
+      ["Requisitos del cliente y diseño del servicio","Cl. 8.2–8.3"],
+      ["Control de proveedores externos y compras","Cl. 8.4"],
+      ["Provisión del servicio y salidas no conformes","Cl. 8.5–8.7"],
+      ["Evaluación del desempeño, auditoría y mejora","Cl. 9–10"]
+    ]
+  },
+  "14001": {
+    name:"Escuela Ambiental", norm:"ISO 14001:2015", color:"#4C9AFF", active:true, progress:"12/12",
+    prefix:"escuela-ambiental/", examSuffix:"-iso14001",
+    modules:[
+      ["Fundamentos y contexto ambiental","Cl. 4"],
+      ["Liderazgo y política ambiental","Cl. 5"],
+      ["Partes interesadas y requisitos legales","Cl. 4.2 / 6.1.3"],
+      ["Aspectos e impactos ambientales","Cl. 6.1.2"],
+      ["Objetivos ambientales y planificación de acciones","Cl. 6.2"],
+      ["Recursos, competencia y toma de conciencia ambiental","Cl. 7.1–7.3"],
+      ["Comunicación e información documentada ambiental","Cl. 7.4–7.5"],
+      ["Control operacional ambiental","Cl. 8.1"],
+      ["Preparación y respuesta ante emergencias","Cl. 8.2"],
+      ["Evaluación del desempeño ambiental","Cl. 9.1"],
+      ["Cumplimiento legal ambiental","Cl. 9.1.2"],
+      ["Auditoría interna y mejora continua ambiental","Cl. 9.2–10"]
+    ]
+  },
+  "45001": {
+    name:"Escuela de Seguridad", norm:"ISO 45001:2018", color:"#E8A33D", active:true, progress:"12/12",
+    prefix:"escuela-seguridad/", examSuffix:"-iso45001",
+    modules:[
+      ["Fundamentos y contexto de SST","Cl. 4"],
+      ["Liderazgo y participación de los trabajadores","Cl. 5.1, 5.4"],
+      ["Consulta y participación de los trabajadores","Cl. 5.4"],
+      ["Identificación de peligros y evaluación de riesgos","Cl. 6.1.2"],
+      ["Requisitos legales en SST","Cl. 6.1.3"],
+      ["Objetivos y planificación de SST","Cl. 6.2"],
+      ["Recursos, competencia y toma de conciencia en SST","Cl. 7.1–7.3"],
+      ["Comunicación y consulta","Cl. 7.4"],
+      ["Eliminación de peligros y jerarquía de controles","Cl. 8.1.2"],
+      ["Gestión del cambio y contratación externa","Cl. 8.1.3–8.1.4"],
+      ["Preparación y respuesta ante emergencias","Cl. 8.2"],
+      ["Investigación de incidentes, auditoría y mejora","Cl. 9–10"]
+    ]
+  },
+  "37001": {
+    name:"Escuela de Ética", norm:"ISO 37001:2025", color:"#E8603D", active:true, progress:"12/12",
+    prefix:"escuela-etica/", examSuffix:"-iso37001",
+    modules:[
+      ["Fundamentos y contexto del riesgo de soborno","Cl. 4"],
+      ["Liderazgo, función de cumplimiento y compromiso","Cl. 5"],
+      ["Política antisoborno y gobierno","Cl. 5.2–5.3"],
+      ["Evaluación de riesgo de soborno","Cl. 6, 8.9"],
+      ["Debida diligencia de terceros, socios y clientes","Cl. 8.2"],
+      ["Controles financieros y no financieros","Cl. 8.3–8.4"],
+      ["Regalos, hospitalidad, donativos y beneficios","Cl. 8.5–8.6"],
+      ["Compromisos antisoborno de terceros","Cl. 8.7"],
+      ["Canal de denuncias (whistleblowing)","Cl. 8.9"],
+      ["Investigaciones y conflictos de interés","Cl. 8.10, 8.13"],
+      ["Comunicación, competencia y conciencia","Cl. 7"],
+      ["Evaluación del desempeño, auditoría interna y mejora","Cl. 9–10"]
+    ]
+  }
+};
+
+let current = "9001";
+const SCHOOL_ORDER = ["9001", "14001", "45001", "37001"];
+
+function renderTabs(){
+  const el = document.getElementById('schoolTabs');
+  el.innerHTML = SCHOOL_ORDER.map((key)=>{
+    const s = SCHOOLS[key];
+    return `
+    <div class="school-tab ${key===current?'active':''}" onclick="selectSchool('${key}')" style="border-top:3px solid ${s.color}">
+      <div class="dot" style="background:${s.color}"></div>
+      <div class="name">${s.name}</div>
+      <div class="norm">${s.norm}</div>
+      <div class="prog" style="color:${s.color}">${s.progress} módulos</div>
+    </div>
+  `;
+  }).join('');
+}
+
+function selectSchool(key){
+  current = key;
+  renderTabs();
+  renderModules();
+}
+
+function renderModules(){
+  const s = SCHOOLS[current];
+  const el = document.getElementById('modGrid');
+  if(!s.active || s.modules.length===0){
+    el.innerHTML = `<div class="empty">Escuela futura — malla de 12 módulos definida, contenido pendiente de construcción.</div>`;
+    return;
+  }
+  el.innerHTML = s.modules.map((m,i)=>{
+    const n = i+1;
+    return `
+    <div class="modcard">
+      <div class="modcard-head">
+        <span class="modcard-n">M${n}</span>
+        <span class="modcard-clause">${m[1]}</span>
+      </div>
+      <div class="modcard-title">${m[0]}</div>
+      <div class="assets">
+        <a class="asset-link" href="${s.prefix}flashcards-modulo${n}.html">🗂 Flashcards</a>
+        <a class="asset-link" href="${s.prefix}infografia-modulo${n}.html">📊 Infografía</a>
+        <a class="asset-link" href="${s.prefix}examen-modulo${n}${s.examSuffix}.html">📝 Examen</a>
+        <a class="asset-link" href="${s.prefix}certificado-modulo${n}.html">🎖 Certificado</a>
+        ${m[2] ? `<a class="asset-link" href="${s.prefix}video-modulo${n}.html" style="grid-column:1 / -1;border-color:var(--green);color:var(--green);">🎥 Video</a>` : ''}
+      </div>
+    </div>
+  `}).join('');
+}
+
+renderTabs();
+renderModules();
 </script>
 </body>
 </html>
