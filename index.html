@@ -26,9 +26,9 @@
 
   /* HERO: fotografia completa a todo lo ancho (background-size:cover, sin bandas laterales ni desenfoque),
      con crossfade entre diapositivas — sin desplazamiento horizontal. */
-  .hero{height:640px;position:relative;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
-  .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center 42%;opacity:0;transition:opacity 1.1s ease;}
-  .hero-slide.active{opacity:1;z-index:1;}
+  .hero{height:820px;position:relative;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
+  .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center 40%;opacity:0;transform:scale(1);transition:opacity 1.4s ease,transform 7s ease;}
+  .hero-slide.active{opacity:1;z-index:1;transform:scale(1.06);}
   .hero-slide:before{content:"";position:absolute;inset:0;background:
       linear-gradient(90deg,rgba(4,6,5,.9) 0%,rgba(4,6,5,.7) 20%,rgba(4,6,5,.22) 40%,transparent 58%),
       linear-gradient(180deg,rgba(4,6,5,.12),transparent 28%,transparent 60%,rgba(4,6,5,.66) 100%);}
@@ -92,13 +92,13 @@
     .brand-title{font-size:19px;}
     .navlinks{gap:14px;font-size:11px;}
     .navlinks a:not(.nav-cta){display:none;}
-    .hero{height:600px;}
+    .hero{height:680px;}
     .hero-content{left:6%;width:70vw;}
     h1{font-size:30px;}
     .pillars,.schoolphotos,.schools{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width:600px){
-    .hero{height:560px;}
+    .hero{height:640px;}
     .hero-content{left:20px;top:auto;bottom:60px;transform:none;width:calc(100% - 40px);}
     h1{font-size:26px;}
     .hero-content p{font-size:12.5px;}
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 
   <section class="hero" aria-label="PEM Excellence Academy" id="heroCarousel">
-    <div class="hero-slide active" style="background-image:url('assets/img/hero-planta-atardecer.jpg')">
+    <div class="hero-slide active" style="background-image:url('assets/img/hero-planta-atardecer.jpg');background-position:center 46%">
       <div class="hero-content">
         <div class="kicker">PEM Excellence Academy</div>
         <h1>Donde la excelencia operativa<br>se convierte en estándar</h1>
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <a class="hero-cta" href="bienvenida-orientacion.html">🤚 Empieza aquí — Bienvenida</a>
       </div>
     </div>
-    <div class="hero-slide" style="background-image:url('assets/img/calidad-alineador.jpg')">
+    <div class="hero-slide" style="background-image:url('assets/img/calidad-alineador.jpg');background-position:center 48%">
       <div class="hero-content">
         <div class="kicker">Escuela de Calidad · ISO 9001</div>
         <h1>La calidad se mide en resultados, no en papeleo</h1>
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <a class="hero-cta" href="#escuelas" onclick="selectSchool('9001')">Ir a Escuela de Calidad</a>
       </div>
     </div>
-    <div class="hero-slide" style="background-image:url('assets/img/etica-integridad.jpg')">
+    <div class="hero-slide" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 16%">
       <div class="hero-content">
         <div class="kicker">Integridad y ética · ISO 37001</div>
         <h1>Hacer lo correcto también es parte del estándar</h1>
