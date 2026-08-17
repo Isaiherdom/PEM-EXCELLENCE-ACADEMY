@@ -137,6 +137,7 @@
   }
 
   function init(){
+    if(document.body.hasAttribute('data-pem-no-shell-nav')) return;
     document.body.insertAdjacentHTML('afterbegin', buildHeader() + buildSidebar());
     var sidebar = document.getElementById('pemSidebar');
     var overlay = document.getElementById('pemOverlay');

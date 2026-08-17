@@ -14,22 +14,41 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+  .wrap{max-width:1680px;margin:0 auto;padding:0 40px;}
 
-  /* ---- HERO: panel dividido, texto izq / foto dominante der ---- */
-  .hero{display:grid;grid-template-columns:1fr 1.15fr;min-height:420px;border-bottom:1px solid var(--line);background:var(--surface);}
-  .hero-text{padding:56px 48px;display:flex;flex-direction:column;justify-content:center;}
-  .hero-text .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:16px;}
-  .hero-text h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3vw,40px);font-weight:800;line-height:1.18;margin:0 0 18px;color:#fff;}
-  .hero-text p{color:var(--muted);font-size:15px;line-height:1.65;max-width:420px;margin:0 0 28px;}
-  .hero-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
-  .hero-actions .pem-btn-ghost{border:none;padding:0;font-weight:700;color:var(--text);}
-  .hero-photo{position:relative;background-size:cover;background-position:center 44%;}
-  .hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--surface) 0%,rgba(13,19,17,.35) 16%,transparent 40%);}
+  /* ---- NAVBAR clásico (sin sidebar en el Home) ---- */
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:26px 40px;border-bottom:1px solid var(--line);background:var(--bg);}
+  .brand{display:flex;flex-direction:column;gap:4px;}
+  .brand-kicker{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700;}
+  .brand-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.005em;}
+  .navlinks{display:flex;align-items:center;gap:26px;font-size:12px;font-weight:700;}
+  .navlinks a{color:var(--text);text-decoration:none;}
+  .navlinks a:hover{color:var(--green);}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.25);color:var(--green) !important;border:1.5px solid var(--green);border-radius:30px;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;text-decoration:none;}
 
-  /* ---- MÉTRICAS ---- */
+  /* ---- HERO: carrusel a todo lo ancho, crossfade, 5 fotos reales ---- */
+  .hero{height:640px;position:relative;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
+  .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center 40%;opacity:0;transform:scale(1);transition:opacity 1.4s ease,transform 7s ease;}
+  .hero-slide.active{opacity:1;z-index:1;transform:scale(1.06);}
+  .hero-slide:before{content:"";position:absolute;inset:0;background:
+      linear-gradient(90deg,rgba(4,6,5,.9) 0%,rgba(4,6,5,.7) 20%,rgba(4,6,5,.22) 40%,transparent 58%),
+      linear-gradient(180deg,rgba(4,6,5,.12),transparent 28%,transparent 60%,rgba(4,6,5,.66) 100%);}
+  .hero-content{position:absolute;z-index:2;left:6.5%;top:50%;transform:translateY(-50%);width:min(560px,44vw);}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:18px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.6vw,52px);margin:0 0 18px;color:#fff;line-height:1.15;border-left:3px solid var(--red);padding-left:20px;font-weight:800;}
+  .hero-content p{color:#F2F5F5;font-size:16px;line-height:1.65;margin:0 0 0 23px;max-width:500px;}
+  .hero-cta{display:inline-flex;align-items:center;gap:9px;margin:24px 0 0 23px;font-family:'JetBrains Mono',monospace;font-size:13.5px;font-weight:700;background:rgba(0,0,0,.25);color:var(--green);border:1.5px solid var(--green);border-radius:30px;padding:13px 22px;text-decoration:none;cursor:pointer;}
+  .hero-cta:hover{background:var(--green);color:#06140D;}
+
+  .controls{position:absolute;right:4%;bottom:20px;z-index:8;display:flex;align-items:center;gap:14px;}
+  .dots{display:flex;gap:9px;}
+  .dot{width:8px;height:8px;border:0;border-radius:50%;background:rgba(255,255,255,.35);padding:0;cursor:pointer;transition:.2s;}
+  .dot.active{background:var(--green);width:22px;border-radius:4px;}
+  .pause{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.3);color:#fff;cursor:pointer;font-size:13px;line-height:1;}
+
+  /* ---- MÉTRICAS (datos reales, calculados desde localStorage) ---- */
   .metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);}
-  .metric{padding:26px 32px;border-right:1px solid var(--line);}
+  .metric{padding:26px 40px;border-right:1px solid var(--line);}
   .metric:last-child{border-right:none;}
   .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
   .metric-value{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:800;color:#fff;line-height:1;}
@@ -38,7 +57,7 @@
   .metric .pem-progress{margin-top:2px;}
 
   /* ---- Secciones genéricas ---- */
-  .section-block{padding:40px 32px 8px;}
+  .section-block{padding:40px 0 8px;}
   .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;}
   .section-head h2{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;margin:0;}
   .section-head a{color:var(--blue);font-size:12.5px;font-weight:700;text-decoration:none;font-family:'JetBrains Mono',monospace;}
@@ -47,7 +66,7 @@
   .schools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
   .school-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);text-decoration:none;color:var(--text);display:block;transition:.15s;}
   .school-card:hover{border-color:var(--green);}
-  .school-photo{height:130px;background-size:cover;background-position:center 35%;position:relative;}
+  .school-photo{height:150px;background-size:cover;background-position:center 35%;position:relative;}
   .school-photo.ph{background:var(--surface-2);}
   .school-photo .ic{position:absolute;top:12px;left:12px;width:32px;height:32px;border-radius:8px;background:rgba(7,11,10,.65);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);}
   .school-body{padding:14px 16px 16px;}
@@ -68,7 +87,7 @@
   .continue-meta span{font-size:11.5px;color:var(--muted);white-space:nowrap;}
 
   /* ---- Rutas / Avisos (2 columnas) ---- */
-  .two-col{display:grid;grid-template-columns:1.3fr 1fr;gap:0;}
+  .two-col{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;}
   .routes-list, .notices-list{display:flex;flex-direction:column;gap:10px;}
   .route-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);text-decoration:none;color:var(--text);}
   .route-item .dot{width:34px;height:34px;border-radius:9px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--blue);}
@@ -101,24 +120,38 @@
   footer{text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:50px;}
 
   @media(max-width:1100px){
-    .hero{grid-template-columns:1fr;}
-    .hero-photo{min-height:220px;order:-1;}
     .metrics{grid-template-columns:repeat(2,1fr);}
     .metric:nth-child(2){border-right:none;}
     .schools-grid{grid-template-columns:repeat(2,1fr);}
     .two-col{grid-template-columns:1fr;gap:8px;}
   }
+  @media(max-width:900px){
+    .navbar{padding:20px 20px;}
+    .brand-title{font-size:24px;}
+    .brand-kicker{font-size:11.5px;}
+    .navlinks{gap:14px;font-size:11px;}
+    .navlinks a:not(.nav-cta){display:none;}
+    .hero{height:560px;}
+    .hero-content{left:6%;width:70vw;}
+    h1{font-size:32px;}
+    .schools,.schoolphotos{grid-template-columns:repeat(2,1fr);}
+  }
   @media(max-width:600px){
     .wrap{padding:0 18px;}
-    .hero-text{padding:36px 22px;}
+    .hero{height:520px;}
+    .hero-content{left:20px;top:auto;bottom:60px;transform:none;width:calc(100% - 40px);}
+    h1{font-size:27px;}
+    .hero-content p{font-size:14px;}
+    .controls{right:16px;bottom:16px;}
     .metrics{grid-template-columns:1fr 1fr;}
     .schools-grid,.schools{grid-template-columns:1fr;}
     .continue-card{flex-direction:column;align-items:flex-start;}
     .continue-photo{width:100%;height:120px;}
   }
+  @media(prefers-reduced-motion:reduce){.hero-slide{transition:none;}}
 </style>
 </head>
-<body>
+<body data-pem-no-shell-nav>
 <script src="assets/auth-config.js"></script>
 <div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
   <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
@@ -153,142 +186,228 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-<section class="hero">
-  <div class="hero-text">
-    <div class="kicker">Bienvenido</div>
-    <h1>Excelencia que se aprende.<br>Excelencia que se demuestra.</h1>
-    <p>Tu plataforma corporativa para el desarrollo de competencias, certificación y crecimiento profesional.</p>
-    <div class="hero-actions">
-      <a class="pem-btn pem-btn-primary" id="heroContinueBtn" href="bienvenida-orientacion.html">▶ Continuar aprendizaje</a>
-      <a class="pem-btn-ghost" href="#metrics">Ver mi progreso →</a>
+  <div class="navbar">
+    <div class="brand">
+      <div class="brand-kicker">Production Enhancement México</div>
+      <div class="brand-title">PEM Excellence Academy</div>
+    </div>
+    <div class="navlinks">
+      <a href="mapa-academico-pem-excellence-academy.html">Escuelas ▾</a>
+      <a href="rutas-aprendizaje-pem-excellence-academy.html">Rutas de aprendizaje ▾</a>
+      <a href="gold-standard-identidad-visual.html">Identidad ▾</a>
+      <a class="nav-cta" href="bienvenida-orientacion.html">🤚 Empieza aquí — Bienvenida</a>
     </div>
   </div>
-  <div class="hero-photo" style="background-image:url('assets/img/hero-planta-atardecer.jpg')"></div>
-</section>
 
-<section class="metrics" id="metrics">
-  <div class="metric">
-    <div class="metric-label">Tu progreso general</div>
-    <div class="metric-value" id="mProgress">—</div>
-    <div class="metric-sub" id="mProgressSub">Calculando…</div>
-  </div>
-  <div class="metric">
-    <div class="metric-label">Escuela con más avance</div>
-    <div class="metric-value-sm" id="mSchool">—</div>
-    <div class="pem-progress"><span id="mSchoolBar" style="width:0%"></span></div>
-  </div>
-  <div class="metric">
-    <div class="metric-label">Certificaciones</div>
-    <div class="metric-value" id="mCerts">—</div>
-    <div class="metric-sub">Obtenidas de 48 módulos</div>
-  </div>
-  <div class="metric">
-    <div class="metric-label">Última actividad</div>
-    <div class="metric-value-sm" id="mLast">—</div>
-  </div>
-</section>
-
-<div class="wrap">
-  <section class="section-block">
-    <div class="section-head"><h2>Escuelas de Excelencia</h2><a href="mapa-academico-pem-excellence-academy.html">Ver todas las escuelas →</a></div>
-    <div class="schools-grid">
-      <a class="school-card" href="#explorar" data-school="9001">
-        <div class="school-photo" style="background-image:url('assets/img/calidad-alineador.jpg')"><div class="ic">📋</div></div>
-        <div class="school-body">
-          <div class="school-name">Calidad</div>
-          <div class="school-desc">Hacerlo bien.</div>
-          <div class="school-norm">ISO 9001:2015</div>
-          <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="9001">—</span></div>
-          <div class="pem-progress" style="margin-top:8px"><span data-bar="9001" style="width:0%"></span></div>
-        </div>
-      </a>
-      <a class="school-card" href="#explorar" data-school="14001">
-        <div class="school-photo ph"><div class="ic">🌱</div></div>
-        <div class="school-body">
-          <div class="school-name">Medio Ambiente</div>
-          <div class="school-desc">Operar responsablemente.</div>
-          <div class="school-norm">ISO 14001:2015</div>
-          <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="14001">—</span></div>
-          <div class="pem-progress" style="margin-top:8px"><span data-bar="14001" style="width:0%"></span></div>
-        </div>
-      </a>
-      <a class="school-card" href="#explorar" data-school="45001">
-        <div class="school-photo ph"><div class="ic">🦺</div></div>
-        <div class="school-body">
-          <div class="school-name">Seguridad</div>
-          <div class="school-desc">Volver seguro.</div>
-          <div class="school-norm">ISO 45001:2018</div>
-          <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="45001">—</span></div>
-          <div class="pem-progress" style="margin-top:8px"><span data-bar="45001" style="width:0%"></span></div>
-        </div>
-      </a>
-      <a class="school-card" href="#explorar" data-school="37001">
-        <div class="school-photo" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 14%"><div class="ic">⚖️</div></div>
-        <div class="school-body">
-          <div class="school-name">Ética</div>
-          <div class="school-desc">Hacer lo correcto.</div>
-          <div class="school-norm">ISO 37001:2025</div>
-          <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="37001">—</span></div>
-          <div class="pem-progress" style="margin-top:8px"><span data-bar="37001" style="width:0%"></span></div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <section class="section-block">
-    <div class="section-head"><h2>Continúa donde lo dejaste</h2></div>
-    <div class="pem-card continue-card" id="continueCard">
-      <div class="continue-photo" id="continuePhoto" style="background-image:url('assets/img/calidad-alineador.jpg')"></div>
-      <div class="continue-body">
-        <div class="k" id="continueSchool">—</div>
-        <div class="t" id="continueTitle">Cargando…</div>
-        <div class="continue-meta">
-          <div class="pem-progress"><span id="continueBar" style="width:0%"></span></div>
-          <span id="continueMeta"></span>
-        </div>
+  <section class="hero" aria-label="PEM Excellence Academy" id="heroCarousel">
+    <div class="hero-slide active" style="background-image:url('assets/img/hero-planta-atardecer.jpg');background-position:center 46%">
+      <div class="hero-content">
+        <div class="kicker">PEM Excellence Academy</div>
+        <h1>Donde la excelencia operativa<br>se convierte en estándar</h1>
+        <p>Formamos a cada colaborador de PEM bajo las normas ISO que sostienen nuestra operación.</p>
       </div>
-      <a class="pem-btn pem-btn-primary" id="continueBtn" href="#">Continuar</a>
+    </div>
+    <div class="hero-slide" style="background-image:url('assets/img/calidad-alineador.jpg');background-position:center 22%">
+      <div class="hero-content">
+        <div class="kicker">Escuela de Calidad · ISO 9001</div>
+        <h1>La calidad se mide en resultados, no en papeleo</h1>
+        <p>Doce módulos que llevan la norma ISO 9001 al trabajo diario de cada colaborador.</p>
+        <a class="hero-cta" href="#escuelas" onclick="selectSchool('9001')">Ir a Escuela de Calidad</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('assets/img/ambiental-jardin.jpg');background-position:52% 58%">
+      <div class="hero-content">
+        <div class="kicker">Escuela Ambiental · ISO 14001</div>
+        <h1>Operar responsablemente, todos los días</h1>
+        <p>Doce módulos sobre el cuidado ambiental aplicado a la operación diaria de PEM.</p>
+        <a class="hero-cta" href="#escuelas" onclick="selectSchool('14001')">Ir a Escuela Ambiental</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('assets/img/seguridad-compresor.jpg');background-position:48% 28%">
+      <div class="hero-content">
+        <div class="kicker">Escuela de Seguridad · ISO 45001</div>
+        <h1>Volver seguro a casa, siempre</h1>
+        <p>Doce módulos que llevan la norma ISO 45001 al trabajo diario en campo.</p>
+        <a class="hero-cta" href="#escuelas" onclick="selectSchool('45001')">Ir a Escuela de Seguridad</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 14%">
+      <div class="hero-content">
+        <div class="kicker">Integridad y ética · ISO 37001</div>
+        <h1>Hacer lo correcto también es parte del estándar</h1>
+        <p>Formación para fortalecer una cultura de integridad, transparencia y tolerancia cero al soborno.</p>
+        <a class="hero-cta" href="#escuelas" onclick="selectSchool('37001')">Ir a Escuela de Ética</a>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="dots" id="heroDots"></div>
+      <button class="pause" id="heroPause" aria-label="Pausar carrusel">Ⅱ</button>
     </div>
   </section>
 
-  <div class="two-col">
+  <script>
+  (function(){
+    var slides = document.querySelectorAll('#heroCarousel .hero-slide');
+    var dotsBox = document.getElementById('heroDots');
+    var pauseBtn = document.getElementById('heroPause');
+    var i = 0, playing = true, timer;
+    slides.forEach(function(_, n){
+      var d = document.createElement('button');
+      d.className = 'dot' + (n===0?' active':'');
+      d.setAttribute('aria-label', 'Ir a imagen ' + (n+1));
+      d.onclick = function(){ go(n); restart(); };
+      dotsBox.appendChild(d);
+    });
+    var dots = Array.prototype.slice.call(dotsBox.children);
+    function go(n){
+      slides[i].classList.remove('active');
+      dots[i].classList.remove('active');
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add('active');
+      dots[i].classList.add('active');
+    }
+    function start(){
+      clearInterval(timer);
+      if(playing && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        timer = setInterval(function(){ go(i+1); }, 6500);
+      }
+    }
+    function restart(){ start(); }
+    pauseBtn.onclick = function(){
+      playing = !playing;
+      pauseBtn.textContent = playing ? 'Ⅱ' : '▶';
+      start();
+    };
+    document.addEventListener('visibilitychange', function(){
+      document.hidden ? clearInterval(timer) : start();
+    });
+    start();
+  })();
+  </script>
+
+  <section class="metrics" id="metrics">
+    <div class="metric">
+      <div class="metric-label">Tu progreso general</div>
+      <div class="metric-value" id="mProgress">—</div>
+      <div class="metric-sub" id="mProgressSub">Calculando…</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Escuela con más avance</div>
+      <div class="metric-value-sm" id="mSchool">—</div>
+      <div class="pem-progress"><span id="mSchoolBar" style="width:0%"></span></div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Certificaciones</div>
+      <div class="metric-value" id="mCerts">—</div>
+      <div class="metric-sub">Obtenidas de 48 módulos</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Última actividad</div>
+      <div class="metric-value-sm" id="mLast">—</div>
+    </div>
+  </section>
+
+  <div class="wrap">
     <section class="section-block">
-      <div class="section-head"><h2>Rutas recomendadas</h2><a href="rutas-aprendizaje-pem-excellence-academy.html">Ver todas →</a></div>
-      <div class="routes-list">
-        <a class="route-item" href="rutas-aprendizaje-pem-excellence-academy.html">
-          <div class="dot">👷</div>
-          <div><div class="rt">Operadores</div><div class="rs">Orden: Calidad → SST → Ambiental → Ética</div></div>
-          <span class="arrow">→</span>
+      <div class="section-head"><h2>Escuelas de Excelencia</h2><a href="mapa-academico-pem-excellence-academy.html">Ver todas las escuelas →</a></div>
+      <div class="schools-grid">
+        <a class="school-card" href="#explorar" data-school="9001">
+          <div class="school-photo" style="background-image:url('assets/img/calidad-alineador.jpg')"><div class="ic">📋</div></div>
+          <div class="school-body">
+            <div class="school-name">Calidad</div>
+            <div class="school-desc">Hacerlo bien.</div>
+            <div class="school-norm">ISO 9001:2015</div>
+            <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="9001">—</span></div>
+            <div class="pem-progress" style="margin-top:8px"><span data-bar="9001" style="width:0%"></span></div>
+          </div>
         </a>
-        <a class="route-item" href="rutas-aprendizaje-pem-excellence-academy.html">
-          <div class="dot">🛠️</div>
-          <div><div class="rt">Supervisores de campo</div><div class="rs">Orden: Calidad → SST → Ambiental → Ética</div></div>
-          <span class="arrow">→</span>
+        <a class="school-card" href="#explorar" data-school="14001">
+          <div class="school-photo" style="background-image:url('assets/img/ambiental-jardin.jpg');background-position:52% 42%"><div class="ic">🌱</div></div>
+          <div class="school-body">
+            <div class="school-name">Medio Ambiente</div>
+            <div class="school-desc">Operar responsablemente.</div>
+            <div class="school-norm">ISO 14001:2015</div>
+            <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="14001">—</span></div>
+            <div class="pem-progress" style="margin-top:8px"><span data-bar="14001" style="width:0%"></span></div>
+          </div>
         </a>
-        <a class="route-item" href="rutas-aprendizaje-pem-excellence-academy.html">
-          <div class="dot">🎯</div>
-          <div><div class="rt">Director de Operación</div><div class="rs">Orden: Calidad → SST → Ambiental → Ética</div></div>
-          <span class="arrow">→</span>
+        <a class="school-card" href="#explorar" data-school="45001">
+          <div class="school-photo" style="background-image:url('assets/img/seguridad-compresor.jpg');background-position:44% 22%"><div class="ic">🦺</div></div>
+          <div class="school-body">
+            <div class="school-name">Seguridad</div>
+            <div class="school-desc">Volver seguro.</div>
+            <div class="school-norm">ISO 45001:2018</div>
+            <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="45001">—</span></div>
+            <div class="pem-progress" style="margin-top:8px"><span data-bar="45001" style="width:0%"></span></div>
+          </div>
+        </a>
+        <a class="school-card" href="#explorar" data-school="37001">
+          <div class="school-photo" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 14%"><div class="ic">⚖️</div></div>
+          <div class="school-body">
+            <div class="school-name">Ética</div>
+            <div class="school-desc">Hacer lo correcto.</div>
+            <div class="school-norm">ISO 37001:2025</div>
+            <div class="school-stats"><span>12 cursos · 12 evaluaciones</span> <span class="school-pct" data-pct="37001">—</span></div>
+            <div class="pem-progress" style="margin-top:8px"><span data-bar="37001" style="width:0%"></span></div>
+          </div>
         </a>
       </div>
     </section>
 
     <section class="section-block">
-      <div class="section-head"><h2>Avisos importantes</h2></div>
-      <div class="notices-list">
-        <div class="notice-item"><div class="ic">📚</div><div><div class="nt">48 módulos disponibles</div><div class="ns">Las 4 escuelas normativas están completas y listas</div></div></div>
-        <div class="notice-item"><div class="ic">🎖</div><div><div class="nt">Descarga tu constancia</div><div class="ns">Cada examen aprobado genera tu certificado automáticamente</div></div></div>
-        <div class="notice-item"><div class="ic">🔐</div><div><div class="nt">Acceso institucional</div><div class="ns">Recuerda no compartir tu contraseña de acceso</div></div></div>
+      <div class="section-head"><h2>Continúa donde lo dejaste</h2></div>
+      <div class="pem-card continue-card" id="continueCard">
+        <div class="continue-photo" id="continuePhoto" style="background-image:url('assets/img/calidad-alineador.jpg')"></div>
+        <div class="continue-body">
+          <div class="k" id="continueSchool">—</div>
+          <div class="t" id="continueTitle">Cargando…</div>
+          <div class="continue-meta">
+            <div class="pem-progress"><span id="continueBar" style="width:0%"></span></div>
+            <span id="continueMeta"></span>
+          </div>
+        </div>
+        <a class="pem-btn pem-btn-primary" id="continueBtn" href="#">Continuar</a>
       </div>
     </section>
+
+    <div class="two-col">
+      <section class="section-block">
+        <div class="section-head"><h2>Rutas recomendadas</h2><a href="rutas-aprendizaje-pem-excellence-academy.html">Ver todas →</a></div>
+        <div class="routes-list">
+          <a class="route-item" href="rutas-aprendizaje-pem-excellence-academy.html">
+            <div class="dot">👷</div>
+            <div><div class="rt">Operadores</div><div class="rs">Orden: Calidad → SST → Ambiental → Ética</div></div>
+            <span class="arrow">→</span>
+          </a>
+          <a class="route-item" href="rutas-aprendizaje-pem-excellence-academy.html">
+            <div class="dot">🛠️</div>
+            <div><div class="rt">Supervisores de campo</div><div class="rs">Orden: Calidad → SST → Ambiental → Ética</div></div>
+            <span class="arrow">→</span>
+          </a>
+          <a class="route-item" href="rutas-aprendizaje-pem-excellence-academy.html">
+            <div class="dot">🎯</div>
+            <div><div class="rt">Director de Operación</div><div class="rs">Orden: Calidad → SST → Ambiental → Ética</div></div>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-head"><h2>Avisos importantes</h2></div>
+        <div class="notices-list">
+          <div class="notice-item"><div class="ic">📚</div><div><div class="nt">48 módulos disponibles</div><div class="ns">Las 4 escuelas normativas están completas y listas</div></div></div>
+          <div class="notice-item"><div class="ic">🎖</div><div><div class="nt">Descarga tu constancia</div><div class="ns">Cada examen aprobado genera tu certificado automáticamente</div></div></div>
+          <div class="notice-item"><div class="ic">🔐</div><div><div class="nt">Acceso institucional</div><div class="ns">Recuerda no compartir tu contraseña de acceso</div></div></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-head" id="explorar" style="padding-top:24px;"><h2>Explora todos los módulos</h2></div>
+    <div class="schools" id="schoolTabs"></div>
+    <div class="modgrid" id="modGrid"></div>
   </div>
 
-  <div class="section-head" id="explorar" style="padding-top:24px;"><h2>Explora todos los módulos</h2></div>
-  <div class="schools" id="schoolTabs"></div>
-  <div class="modgrid" id="modGrid"></div>
-</div>
-
-<footer>PEM-ACAD-HUB-01 · Production Enhancement México · Prototipo funcional</footer>
+  <footer>PEM-ACAD-HUB-01 · Production Enhancement México · Prototipo funcional</footer>
 
 <script>
 const SCHOOLS = {
@@ -464,12 +583,14 @@ window.addEventListener('DOMContentLoaded', function(){
     document.getElementById('continueBar').style.width = pctSchool + '%';
     document.getElementById('continueMeta').textContent = doneInSchool + ' de 12 módulos completados';
     document.getElementById('continueBtn').href = next.examHref;
-    document.getElementById('heroContinueBtn').href = next.examHref;
-    if(next.school.key === '9001') document.getElementById('continuePhoto').style.backgroundImage = "url('assets/img/calidad-alineador.jpg')";
-    else if(next.school.key === '37001') document.getElementById('continuePhoto').style.backgroundImage = "url('assets/img/etica-integridad.jpg')";
-    else document.getElementById('continuePhoto').style.backgroundImage = "none";
+    var photoMap = {
+      '9001':'assets/img/calidad-alineador.jpg',
+      '14001':'assets/img/ambiental-jardin.jpg',
+      '45001':'assets/img/seguridad-compresor.jpg',
+      '37001':'assets/img/etica-integridad.jpg'
+    };
+    document.getElementById('continuePhoto').style.backgroundImage = "url('" + photoMap[next.school.key] + "')";
   }
-  // shell.js corre en defer también; damos un tick para asegurar que PEM_SHELL ya existe
   setTimeout(fillDashboard, 0);
 });
 </script>
