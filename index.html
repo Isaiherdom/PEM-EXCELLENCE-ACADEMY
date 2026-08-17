@@ -8,35 +8,35 @@
 <style>
   :root{
     --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
-    --green:#16C270; --blue:#4C9AFF; --amber:#FF7A1A; --red:#E8603D;
+    --green:#22E88A; --blue:#4C9AFF; --amber:#FF7A1A; --red:#E8603D;
     --text:#FFFFFF; --muted:#AAB5AF;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
   .wrap{max-width:1100px;margin:0 auto;padding:0 20px;}
 
-  .navbar{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid var(--line);background:var(--bg);}
-  .brand{display:flex;flex-direction:column;gap:3px;}
-  .brand-kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700;}
-  .brand-title{font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:800;color:#fff;letter-spacing:-.005em;}
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:26px 40px;border-bottom:1px solid var(--line);background:var(--bg);}
+  .brand{display:flex;flex-direction:column;gap:4px;}
+  .brand-kicker{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700;}
+  .brand-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.005em;}
   .navlinks{display:flex;align-items:center;gap:26px;font-size:12px;font-weight:700;}
   .navlinks a{color:var(--text);text-decoration:none;}
   .navlinks a:hover{color:var(--green);}
-  .nav-cta{background:var(--green);color:#06140D !important;padding:9px 18px;border-radius:6px;}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.25);color:var(--green) !important;border:1.5px solid var(--green);border-radius:30px;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;text-decoration:none;}
 
   /* HERO: fotografia completa a todo lo ancho (background-size:cover, sin bandas laterales ni desenfoque),
      con crossfade entre diapositivas — sin desplazamiento horizontal. */
-  .hero{height:820px;position:relative;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
+  .hero{height:640px;position:relative;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
   .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center 40%;opacity:0;transform:scale(1);transition:opacity 1.4s ease,transform 7s ease;}
   .hero-slide.active{opacity:1;z-index:1;transform:scale(1.06);}
   .hero-slide:before{content:"";position:absolute;inset:0;background:
       linear-gradient(90deg,rgba(4,6,5,.9) 0%,rgba(4,6,5,.7) 20%,rgba(4,6,5,.22) 40%,transparent 58%),
       linear-gradient(180deg,rgba(4,6,5,.12),transparent 28%,transparent 60%,rgba(4,6,5,.66) 100%);}
   .hero-content{position:absolute;z-index:2;left:6.5%;top:50%;transform:translateY(-50%);width:min(560px,44vw);}
-  .kicker{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:16px;}
-  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,42px);margin:0 0 16px;color:#fff;line-height:1.18;border-left:3px solid var(--red);padding-left:20px;}
-  .hero-content p{color:#F2F5F5;font-size:14px;line-height:1.6;margin:0 0 0 23px;max-width:480px;}
-  .hero-cta{display:inline-flex;align-items:center;gap:9px;margin:22px 0 0 23px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;background:rgba(0,0,0,.25);color:var(--green);border:1.5px solid var(--green);border-radius:30px;padding:11px 20px;text-decoration:none;cursor:pointer;}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:18px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.6vw,52px);margin:0 0 18px;color:#fff;line-height:1.15;border-left:3px solid var(--red);padding-left:20px;font-weight:800;}
+  .hero-content p{color:#F2F5F5;font-size:16px;line-height:1.65;margin:0 0 0 23px;max-width:500px;}
+  .hero-cta{display:inline-flex;align-items:center;gap:9px;margin:24px 0 0 23px;font-family:'JetBrains Mono',monospace;font-size:13.5px;font-weight:700;background:rgba(0,0,0,.25);color:var(--green);border:1.5px solid var(--green);border-radius:30px;padding:13px 22px;text-decoration:none;cursor:pointer;}
   .hero-cta:hover{background:var(--green);color:#06140D;}
 
   .controls{position:absolute;right:4%;bottom:20px;z-index:8;display:flex;align-items:center;gap:14px;}
@@ -88,20 +88,21 @@
   footer{text-align:center;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;margin-top:50px;}
 
   @media(max-width:900px){
-    .navbar{padding:14px 20px;}
-    .brand-title{font-size:19px;}
+    .navbar{padding:20px 20px;}
+    .brand-title{font-size:24px;}
+    .brand-kicker{font-size:11.5px;}
     .navlinks{gap:14px;font-size:11px;}
     .navlinks a:not(.nav-cta){display:none;}
-    .hero{height:680px;}
+    .hero{height:560px;}
     .hero-content{left:6%;width:70vw;}
-    h1{font-size:30px;}
+    h1{font-size:32px;}
     .pillars,.schoolphotos,.schools{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width:600px){
-    .hero{height:640px;}
+    .hero{height:520px;}
     .hero-content{left:20px;top:auto;bottom:60px;transform:none;width:calc(100% - 40px);}
-    h1{font-size:26px;}
-    .hero-content p{font-size:12.5px;}
+    h1{font-size:27px;}
+    .hero-content p{font-size:14px;}
     .controls{right:16px;bottom:16px;}
     .schoolphotos,.schools{grid-template-columns:1fr;}
   }
@@ -152,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <a href="mapa-academico-pem-excellence-academy.html">Escuelas ▾</a>
       <a href="rutas-aprendizaje-pem-excellence-academy.html">Rutas de aprendizaje ▾</a>
       <a href="gold-standard-identidad-visual.html">Identidad ▾</a>
-      <a class="nav-cta" href="bienvenida-orientacion.html">Empezar</a>
+      <a class="nav-cta" href="bienvenida-orientacion.html">🤚 Empieza aquí — Bienvenida</a>
     </div>
   </div>
 
@@ -162,10 +163,9 @@ document.addEventListener('DOMContentLoaded', function(){
         <div class="kicker">PEM Excellence Academy</div>
         <h1>Donde la excelencia operativa<br>se convierte en estándar</h1>
         <p>Formamos a cada colaborador de PEM bajo las normas ISO que sostienen nuestra operación.</p>
-        <a class="hero-cta" href="bienvenida-orientacion.html">🤚 Empieza aquí — Bienvenida</a>
       </div>
     </div>
-    <div class="hero-slide" style="background-image:url('assets/img/calidad-alineador.jpg');background-position:center 48%">
+    <div class="hero-slide" style="background-image:url('assets/img/calidad-alineador.jpg');background-position:center 22%">
       <div class="hero-content">
         <div class="kicker">Escuela de Calidad · ISO 9001</div>
         <h1>La calidad se mide en resultados, no en papeleo</h1>
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <a class="hero-cta" href="#escuelas" onclick="selectSchool('9001')">Ir a Escuela de Calidad</a>
       </div>
     </div>
-    <div class="hero-slide" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 16%">
+    <div class="hero-slide" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 14%">
       <div class="hero-content">
         <div class="kicker">Integridad y ética · ISO 37001</div>
         <h1>Hacer lo correcto también es parte del estándar</h1>
