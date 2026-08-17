@@ -131,22 +131,25 @@
       '<header class="pem-header" id="pemHeader">'+
         '<button class="burger" id="pemBurger" aria-label="Abrir menú">'+svg('grid')+'</button>'+
         '<div class="crumb"><b>'+pageTitle()+'</b></div>'+
-      '</header>'+
-      '<div class="pem-overlay" id="pemOverlay"></div>'
+      '</header>'
     );
+  }
+  function buildOverlay(){
+    return '<div class="pem-overlay" id="pemOverlay"></div>';
   }
 
   function init(){
     if(document.body.hasAttribute('data-pem-no-shell-nav')) return;
-    document.body.insertAdjacentHTML('afterbegin', buildHeader() + buildSidebar());
+    var skipHeader = document.body.hasAttribute('data-pem-no-shell-header');
+    document.body.insertAdjacentHTML('afterbegin', (skipHeader ? '' : buildHeader()) + buildSidebar() + buildOverlay());
     var sidebar = document.getElementById('pemSidebar');
     var overlay = document.getElementById('pemOverlay');
-    var burger = document.getElementById('pemBurger');
+    var burger = document.getElementById('pemBurger'); // shell's own, or a page-provided one with the same id
     function toggle(open){
       sidebar.classList.toggle('open', open);
       overlay.classList.toggle('open', open);
     }
-    burger.addEventListener('click', function(){ toggle(!sidebar.classList.contains('open')); });
+    if(burger) burger.addEventListener('click', function(){ toggle(!sidebar.classList.contains('open')); });
     overlay.addEventListener('click', function(){ toggle(false); });
   }
 

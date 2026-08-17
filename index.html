@@ -17,14 +17,23 @@
   .wrap{max-width:1680px;margin:0 auto;padding:0 40px;}
 
   /* ---- NAVBAR clásico (sin sidebar en el Home) ---- */
-  .navbar{display:flex;align-items:center;justify-content:space-between;padding:26px 40px;border-bottom:1px solid var(--line);background:var(--bg);}
+  .navbar{display:flex;align-items:center;justify-content:space-between;padding:26px 40px;border-bottom:1px solid var(--line);background:var(--bg);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
   .brand{display:flex;flex-direction:column;gap:4px;}
   .brand-kicker{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700;}
   .brand-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.005em;}
   .navlinks{display:flex;align-items:center;gap:26px;font-size:12px;font-weight:700;}
   .navlinks a{color:var(--text);text-decoration:none;}
   .navlinks a:hover{color:var(--green);}
-  .nav-cta{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,.25);color:var(--green) !important;border:1.5px solid var(--green);border-radius:30px;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;text-decoration:none;}
+  .nav-cta{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#06140D !important;border:1.5px solid var(--green);border-radius:30px;padding:10px 18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;text-decoration:none;}
+  .nav-cta:hover{background:#1BC97A;border-color:#1BC97A;}
+
+  /* ---- El Home conserva el sidebar del shell, pero debajo de este navbar propio
+     (no el header genérico del shell), y sin su bloque de marca duplicado. ---- */
+  body[data-pem-no-shell-header]{padding-top:0 !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,100px) !important;height:calc(100vh - var(--home-nav-h,100px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .navbar .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:34px;height:34px;color:var(--text);cursor:pointer;margin-right:16px;}
+  @media(max-width:900px){.navbar .burger{display:inline-flex;}}
 
   /* ---- HERO: carrusel a todo lo ancho, crossfade, 5 fotos reales ---- */
   .hero{height:640px;position:relative;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
@@ -126,7 +135,7 @@
     .two-col{grid-template-columns:1fr;gap:8px;}
   }
   @media(max-width:900px){
-    .navbar{padding:20px 20px;}
+    .navbar{padding:20px 20px;margin-left:0;width:100%;}
     .brand-title{font-size:24px;}
     .brand-kicker{font-size:11.5px;}
     .navlinks{gap:14px;font-size:11px;}
@@ -151,7 +160,7 @@
   @media(prefers-reduced-motion:reduce){.hero-slide{transition:none;}}
 </style>
 </head>
-<body data-pem-no-shell-nav>
+<body data-pem-no-shell-header>
 <script src="assets/auth-config.js"></script>
 <div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
   <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
@@ -187,6 +196,9 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
   <div class="navbar">
+    <button class="burger" id="pemBurger" aria-label="Abrir menú">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+    </button>
     <div class="brand">
       <div class="brand-kicker">Production Enhancement México</div>
       <div class="brand-title">PEM Excellence Academy</div>
@@ -548,6 +560,17 @@ document.querySelectorAll('.school-card').forEach(function(card){
 });
 </script>
 
+<script>
+(function(){
+  function syncNavHeight(){
+    var nav = document.querySelector('.navbar');
+    if(nav) document.documentElement.style.setProperty('--home-nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
+</script>
 <script src="assets/shell.js" defer></script>
 <script defer>
 window.addEventListener('DOMContentLoaded', function(){
