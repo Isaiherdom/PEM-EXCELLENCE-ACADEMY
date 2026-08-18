@@ -43,6 +43,8 @@
 .pem-header .burger{display:none; background:none; border:1px solid var(--line); border-radius:7px; width:34px; height:34px; color:var(--text); cursor:pointer; align-items:center; justify-content:center;}
 .pem-header .crumb{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); letter-spacing:.02em;}
 .pem-header .crumb b{color:var(--text); font-weight:700;}
+.pem-header .theme-toggle{margin-left:auto; width:34px; height:34px; border-radius:50%; border:1px solid var(--line); background:var(--surface); color:var(--text); cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; transition:.15s; flex-shrink:0;}
+.pem-header .theme-toggle:hover{border-color:var(--accent-fixed, var(--green));}
 
 .pem-overlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:8900;}
 

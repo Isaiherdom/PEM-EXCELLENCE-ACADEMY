@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flashcards · Módulo 4 · ISO 14001</title>
@@ -9,6 +10,7 @@
 <link rel="stylesheet" href="../assets/shell.css">
 <style>
   :root{--bg:#F3F1EC;--surface:#FFFFFF;--line:#E4DFD4;--blue:#1B5FA8;--amber:#A9720F;--text:#1C1A16;--muted:#6B655A;}
+  html[data-theme="dark"]{--bg:#070B0A;--surface:#0D1311;--line:#24302B;--blue:#4C9AFF;--amber:#FF7A1A;--text:#FFFFFF;--muted:#AAB5AF;}
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px 60px;}
   .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase;margin-bottom:8px;}

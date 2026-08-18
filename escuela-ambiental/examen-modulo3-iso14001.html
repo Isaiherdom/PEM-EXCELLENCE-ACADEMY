@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PEM Excellence Academy · Examen Módulo 3 · ISO 14001</title>
@@ -11,6 +12,10 @@
   :root{
     --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
     --blue:#1B5FA8; --amber:#A9720F; --text:#1C1A16; --muted:#6B655A; --bad:#932A2A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --blue:#4C9AFF; --amber:#FF7A1A; --text:#FFFFFF; --muted:#AAB5AF; --bad:#E8603D;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}

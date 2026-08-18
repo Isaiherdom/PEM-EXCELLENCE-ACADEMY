@@ -131,11 +131,39 @@
       '<header class="pem-header" id="pemHeader">'+
         '<button class="burger" id="pemBurger" aria-label="Abrir menú">'+svg('grid')+'</button>'+
         '<div class="crumb"><b>'+pageTitle()+'</b></div>'+
+        '<button class="theme-toggle" id="pemThemeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>'+
       '</header>'
     );
   }
   function buildOverlay(){
     return '<div class="pem-overlay" id="pemOverlay"></div>';
+  }
+  function initThemeToggle(){
+    var btn = document.getElementById('pemThemeToggle');
+    if(!btn) return;
+    function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+    function updateBtn(){
+      if(isDark()){
+        btn.textContent = '☀️';
+        btn.setAttribute('aria-label','Cambiar a modo claro');
+        btn.setAttribute('title','Cambiar a modo claro');
+      } else {
+        btn.textContent = '🌙';
+        btn.setAttribute('aria-label','Cambiar a modo oscuro');
+        btn.setAttribute('title','Cambiar a modo oscuro');
+      }
+    }
+    updateBtn();
+    btn.addEventListener('click', function(){
+      if(isDark()){
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('pemTheme','light');
+      } else {
+        document.documentElement.setAttribute('data-theme','dark');
+        localStorage.setItem('pemTheme','dark');
+      }
+      updateBtn();
+    });
   }
 
   function init(){
@@ -151,6 +179,7 @@
     }
     if(burger) burger.addEventListener('click', function(){ toggle(!sidebar.classList.contains('open')); });
     overlay.addEventListener('click', function(){ toggle(false); });
+    if(!skipHeader) initThemeToggle();
   }
 
   if(document.readyState === 'loading'){

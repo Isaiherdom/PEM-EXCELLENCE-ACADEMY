@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificado · PEM Excellence Academy · Escuela de Ética M10</title>
@@ -12,6 +13,11 @@
     --bg:#F3F1EC; --surface:#FFFFFF; --line:#E4DFD4;
     --green:#932A2A; --green-dim:#E3F0E9; --amber:#A9720F;
     --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --line:#24302B;
+    --green:#E8603D; --green-dim:#0B3D28; --amber:#FF7A1A;
+    --text:#FFFFFF; --muted:#AAB5AF;
   }
   *{box-sizing:border-box;}
   body{
