@@ -1,5 +1,5 @@
 # PEM Excellence Academy — Kit de Módulo 8
-### ISO 37001 · Cl. 8.7 · Compromisos Antisoborno de Terceros · Nivel 3 Avanzado · Escuela de Ética y Cumplimiento
+### ISO 37001 · Cl. 8.6 · Compromisos Antisoborno de Terceros · Nivel 3 Avanzado · Escuela de Ética y Cumplimiento
 
 ---
 
@@ -12,7 +12,7 @@ Mantén exactamente la misma identidad visual de los módulos anteriores: fondo 
 
 Estructura (una idea por diapositiva):
 1. Hook — "Al proveedor de papelería se le exigió el mismo compromiso que a un agente de alto riesgo."
-2. Qué exige Cl. 8.7 — compromiso proporcional al riesgo, no uniforme.
+2. Qué exige Cl. 8.6 — compromiso proporcional al riesgo, no uniforme.
 3. Ejemplo real: escalera de compromiso por nivel de riesgo del tercero.
 4. Riesgo de un compromiso de papel — firmado, pero nunca reforzado.
 5. Conexión con la cláusula contractual del Módulo 5 — mecanismos que trabajan juntos.
@@ -30,7 +30,7 @@ Usa imágenes de una escalera o niveles de compromiso editable, un documento de 
 | # | Diapositiva | Elemento visual dominante | Texto en pantalla |
 |---|---|---|---|
 | 1 | Hook | Proveedor de bajo riesgo con documento extenso | "Mismo nivel, riesgo distinto." |
-| 2 | Qué exige Cl. 8.7 | Icono de proporción | "Proporcional, no uniforme" |
+| 2 | Qué exige Cl. 8.6 | Icono de proporción | "Proporcional, no uniforme" |
 | 3 | Escalera de compromiso | Escalera de 4 niveles (igual a la infografía) | "De cláusula estándar a revisión del Comité" |
 | 4 | Riesgo — compromiso de papel | Documento firmado archivado sin uso | "Firmado no es reforzado" |
 | 5 | Conexión con Módulo 5 | Flecha entre cláusula y compromiso | "Mecanismos que trabajan juntos" |
@@ -57,8 +57,8 @@ Evitar: imágenes de "acuerdos comerciales" genéricos de apretón de manos sin 
 **[0:00–0:20 — Hook]**
 "Al proveedor de papelería de oficina se le exigió el mismo compromiso antisoborno extenso que a un agente comercial de alto riesgo. Ambos firmaron el mismo documento — pero representan niveles de riesgo completamente distintos."
 
-**[0:20–1:00 — Qué exige Cl. 8.7]**
-"La cláusula 8.7 pide que el compromiso antisoborno exigido a un socio de negocio sea proporcional al riesgo identificado en el Módulo 4 — no uniforme para todos los terceros."
+**[0:20–1:00 — Qué exige Cl. 8.6]**
+"La cláusula 8.6 pide que el compromiso antisoborno exigido a un socio de negocio sea proporcional al riesgo identificado en el Módulo 4 — no uniforme para todos los terceros."
 
 **[1:00–1:40 — Escalera de compromiso]**
 "En PEM, esto se ve como una escalera: un proveedor de bajo riesgo firma una cláusula estándar; uno de riesgo medio añade una declaración específica; y un agente comercial o un socio en trámites regulatorios de alto contacto requiere un compromiso formal reforzado, con capacitación y revisión del Comité de Integridad."
@@ -108,5 +108,5 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte 9:16 para celular.
 
 **Código de documento:** PEM-ACAD-37001-M8-KIT-01
 **Escuela:** Ética y Cumplimiento · Nivel 3 · Avanzado
-**Cláusula normativa:** ISO 37001:2025 — 8.7
+**Cláusula normativa:** ISO 37001:2025 — 8.6
 **Cumplimiento del Gold Standard:** sin desviaciones respecto a PEM-ACAD-GOLD-01

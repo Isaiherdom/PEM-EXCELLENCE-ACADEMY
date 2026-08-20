@@ -1,5 +1,5 @@
 # PEM Excellence Academy — Kit de Módulo 10
-### ISO 37001 · Cl. 8.10, 8.13 · Investigaciones y Conflictos de Interés · Nivel 4 Experto · Escuela de Ética y Cumplimiento
+### ISO 37001 · Cl. 8.10 (con controles de conflicto de interés en Cl. 5.3 y 8.3) · Investigaciones y Conflictos de Interés · Nivel 4 Experto · Escuela de Ética y Cumplimiento
 
 ---
 
@@ -14,7 +14,7 @@ Estructura (una idea por diapositiva):
 1. Hook — "El gerente señalado en el reporte investigó su propio caso."
 2. Qué exige Cl. 8.10 — investigación oportuna, proporcional, confidencial e imparcial.
 3. El proceso de 5 pasos, de recepción a cierre documentado.
-4. Qué es un conflicto de interés (Cl. 8.13) — relación personal que puede influir en una decisión.
+4. Qué es un conflicto de interés — relación personal que puede influir en una decisión (controlado dentro de la Cl. 5.3 y la Cl. 8.3).
 5. Ejemplo real: declarar y abstenerse ante un familiar en una licitación.
 6. Riesgo de un conflicto declarado pero no gestionado.
 7. Conexión con el canal de denuncias del Módulo 9.
@@ -64,7 +64,7 @@ Evitar: imágenes de "interrogatorio" o investigación con tono policial/punitiv
 "El proceso completo sigue 5 pasos: recepción del reporte, asignación imparcial a alguien sin conflicto, investigación confidencial, una decisión y acción correspondiente, y un cierre documentado del caso."
 
 **[1:35–2:15 — Qué es conflicto de interés]**
-"La cláusula 8.13 va sobre los conflictos de interés: una relación personal, familiar o financiera que podría influir indebidamente en una decisión de negocio, incluso sin que exista ninguna intención de hacer algo indebido."
+"Los conflictos de interés son otro punto clave: una relación personal, familiar o financiera que podría influir indebidamente en una decisión de negocio, incluso sin que exista ninguna intención de hacer algo indebido. La norma los controla como parte de la delegación de autoridad y de los controles financieros."
 
 **[2:15–2:55 — Ejemplo real]**
 "Un colaborador de Compras cuyo familiar directo es dueño de una empresa participante en una licitación de PEM debe declarar ese conflicto antes de la decisión, y abstenerse de participar en ella — la Declaración de Integridad es exactamente el mecanismo para esto."
@@ -108,5 +108,5 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte 9:16 para celular.
 
 **Código de documento:** PEM-ACAD-37001-M10-KIT-01
 **Escuela:** Ética y Cumplimiento · Nivel 4 · Experto
-**Cláusula normativa:** ISO 37001:2025 — 8.10, 8.13
+**Cláusula normativa:** ISO 37001:2025 — 8.10 (controles de conflicto de interés en Cl. 5.3 y 8.3)
 **Cumplimiento del Gold Standard:** sin desviaciones respecto a PEM-ACAD-GOLD-01

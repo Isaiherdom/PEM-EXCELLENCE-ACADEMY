@@ -1,5 +1,5 @@
 # PEM Excellence Academy — Kit de Módulo 7
-### ISO 37001 · Cl. 8.5–8.6 · Regalos, Hospitalidad, Donativos y Beneficios · Nivel 3 Avanzado · Escuela de Ética y Cumplimiento
+### ISO 37001 · Cl. 8.7 · Regalos, Hospitalidad, Donativos y Beneficios · Nivel 3 Avanzado · Escuela de Ética y Cumplimiento
 
 ---
 
@@ -12,7 +12,7 @@ Mantén exactamente la misma identidad visual de los módulos anteriores: fondo 
 
 Estructura (una idea por diapositiva):
 1. Hook — retomar el caso del Módulo 1: la cena y el regalo antes de aprobar la orden de compra.
-2. Qué exige Cl. 8.5 — criterios claros de monto, tipo, frecuencia y registro.
+2. Qué exige Cl. 8.7 — criterios claros de monto, tipo, frecuencia y registro.
 3. Ejemplo real: tabla de umbrales de regalos y hospitalidad.
 4. Por qué el efectivo (o equivalente) se rechaza sin excepción.
 5. Donativos dirigidos — soborno indirecto sin pago directo al funcionario.
@@ -30,7 +30,7 @@ Usa imágenes de una tabla de umbrales editable, un registro de regalos siendo c
 | # | Diapositiva | Elemento visual dominante | Texto en pantalla |
 |---|---|---|---|
 | 1 | Hook | Regreso al caso del Módulo 1 | "¿Recuerdas la cena y el regalo?" |
-| 2 | Qué exige Cl. 8.5 | Icono de criterio + registro | "Criterios, no sentido común solo" |
+| 2 | Qué exige Cl. 8.7 | Icono de criterio + registro | "Criterios, no sentido común solo" |
 | 3 | Tabla de umbrales | Tabla de 6 niveles (igual a la infografía) | "De cortesía a prohibido" |
 | 4 | Efectivo prohibido | Billete tachado | "Sin excepción" |
 | 5 | Donativos dirigidos | Donación con flecha a funcionario | "Soborno sin pago directo" |
@@ -57,8 +57,8 @@ Evitar: imágenes que dramaticen la corrupción (sobres con dinero, esposas, esc
 **[0:00–0:20 — Hook]**
 "¿Recuerdas la cena y el regalo del Módulo 1, justo antes de aprobar una orden de compra? Este módulo responde exactamente qué debió hacerse en ese momento."
 
-**[0:20–1:00 — Qué exige Cl. 8.5]**
-"La cláusula 8.5 exige que la política de regalos y hospitalidad tenga criterios claros —montos, tipo de valor, frecuencia, y un proceso de registro— para distinguir una cortesía razonable de un intento de influir en una decisión."
+**[0:20–1:00 — Qué exige Cl. 8.7]**
+"La cláusula 8.7 exige que la política de regalos y hospitalidad tenga criterios claros —montos, tipo de valor, frecuencia, y un proceso de registro— para distinguir una cortesía razonable de un intento de influir en una decisión."
 
 **[1:00–1:40 — Tabla de umbrales]**
 "En PEM, esto se traduce en niveles claros: una cortesía menor se acepta sin registro; un regalo moderado se registra en bitácora; un regalo o evento de alto valor requiere registro y aprobación del superior; y el efectivo, o su equivalente, se rechaza sin excepción."
@@ -108,5 +108,5 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte 9:16 para celular.
 
 **Código de documento:** PEM-ACAD-37001-M7-KIT-01
 **Escuela:** Ética y Cumplimiento · Nivel 3 · Avanzado
-**Cláusula normativa:** ISO 37001:2025 — 8.5–8.6
+**Cláusula normativa:** ISO 37001:2025 — 8.7
 **Cumplimiento del Gold Standard:** sin desviaciones respecto a PEM-ACAD-GOLD-01

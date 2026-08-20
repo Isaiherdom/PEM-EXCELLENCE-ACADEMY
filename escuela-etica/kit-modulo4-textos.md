@@ -1,5 +1,5 @@
 # PEM Excellence Academy — Kit de Módulo 4
-### ISO 37001 · Cl. 6, 8.9 · Evaluación de Riesgo de Soborno · Nivel 2 Intermedio · Escuela de Ética y Cumplimiento
+### ISO 37001 · Cl. 4.5 · Evaluación de Riesgo de Soborno · Nivel 2 Intermedio · Escuela de Ética y Cumplimiento
 
 ---
 
@@ -12,7 +12,7 @@ Mantén exactamente la misma identidad visual de los módulos anteriores: fondo 
 
 Estructura (una idea por diapositiva):
 1. Hook — "Compras tiene más exposición que administración interna. No es percepción, es evaluación."
-2. Qué exige la Cl. 6 — sector, tipo de transacción, relaciones con terceros, regalos y hospitalidad.
+2. Qué exige la Cl. 4.5 — sector, tipo de transacción, relaciones con terceros, regalos y hospitalidad.
 3. Ejemplo real: la matriz de riesgo de soborno de PEM por área.
 4. Por qué Compras tiene mayor riesgo — alto valor, contacto frecuente con terceros.
 5. Trámites regulatorios con presión de tiempo — riesgo alto por contacto directo con autoridad.
@@ -30,7 +30,7 @@ Usa imágenes de una matriz de riesgo editable, una negociación de compras, y u
 | # | Diapositiva | Elemento visual dominante | Texto en pantalla |
 |---|---|---|---|
 | 1 | Hook | Comparación Compras vs. administración | "No es percepción, es evaluación." |
-| 2 | Qué exige Cl. 6 | 4 iconos: sector, transacción, terceros, regalos | "4 factores, no intuición" |
+| 2 | Qué exige Cl. 4.5 | 4 iconos: sector, transacción, terceros, regalos | "4 factores, no intuición" |
 | 3 | Ejemplo real | Matriz de riesgo por área | "Dónde vive el riesgo real" |
 | 4 | Riesgo en Compras | Selección de proveedor con alto valor | "Contacto frecuente, decisión de peso" |
 | 5 | Trámites regulatorios | Funcionario y presión de tiempo | "Presión + contacto = riesgo alto" |
@@ -57,7 +57,7 @@ Evitar: iconografía de corrupción alarmista (sobres de dinero, esposas).
 **[0:00–0:20 — Hook]**
 "El área de Compras de PEM tiene mayor exposición al riesgo de soborno que el área administrativa interna. Esto no es una opinión — es el resultado de una evaluación metódica, que es exactamente lo que exige la cláusula 6."
 
-**[0:20–1:00 — Qué exige Cl. 6]**
+**[0:20–1:00 — Qué exige Cl. 4.5]**
 "La evaluación de riesgo de soborno debe considerar el sector en el que opera PEM, el tipo de transacciones, la naturaleza de las relaciones con terceros, y las prácticas de regalos y hospitalidad en cada área."
 
 **[1:00–1:40 — Ejemplo real]**
@@ -108,5 +108,5 @@ Salida: 1080p 16:9 para SharePoint/Teams + recorte 9:16 para celular.
 
 **Código de documento:** PEM-ACAD-37001-M4-KIT-01
 **Escuela:** Ética y Cumplimiento · Nivel 2 · Intermedio
-**Cláusula normativa:** ISO 37001:2025 — 6, 8.9
+**Cláusula normativa:** ISO 37001:2025 — 4.5
 **Cumplimiento del Gold Standard:** sin desviaciones respecto a PEM-ACAD-GOLD-01
