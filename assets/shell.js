@@ -98,6 +98,10 @@
     if(base === 'gold-standard-identidad-visual.html') return 'Identidad visual';
     if(base === 'mi-desarrollo.html') return 'Mi desarrollo';
     if(base === 'mis-cursos.html') return 'Mis cursos';
+    if(base === 'mis-evaluaciones.html') return 'Evaluaciones';
+    if(base === 'certificaciones.html') return 'Certificaciones';
+    if(base === 'noticias.html') return 'Noticias';
+    if(base === 'recursos.html') return 'Recursos';
     if(base === 'proximamente.html') return 'Próximamente';
     if((m = base.match(/^certificado-modulo(\d+)\.html$/))) return 'Certificado · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
     if((m = base.match(/^examen-modulo(\d+)/))) return 'Examen · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
@@ -113,9 +117,13 @@
     {label:'Escuelas', href:prefix+'mapa-academico-pem-excellence-academy.html', match:/mapa-academico/, icon:'grid'},
     {label:'Rutas de aprendizaje', href:prefix+'rutas-aprendizaje-pem-excellence-academy.html', match:/rutas-aprendizaje/, icon:'route'},
     {label:'Mi desarrollo', href:prefix+'mi-desarrollo.html', match:/mi-desarrollo/, icon:'growth'},
-    {label:'Mis cursos', href:prefix+'mis-cursos.html', match:/mis-cursos/, icon:'book'}
+    {label:'Mis cursos', href:prefix+'mis-cursos.html', match:/mis-cursos/, icon:'book'},
+    {label:'Evaluaciones', href:prefix+'mis-evaluaciones.html', match:/mis-evaluaciones/, icon:'check'},
+    {label:'Certificaciones', href:prefix+'certificaciones.html', match:/certificaciones\.html/, icon:'badge'},
+    {label:'Recursos', href:prefix+'recursos.html', match:/recursos\.html/, icon:'doc'},
+    {label:'Noticias', href:prefix+'noticias.html', match:/noticias\.html/, icon:'news'}
   ];
-  var NAV_SOON = ['Evaluaciones','Certificaciones','Recursos','Noticias'];
+  var NAV_SOON = [];
 
   var ICONS = {
     home:'<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/>',
@@ -124,6 +132,10 @@
     soon:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
     growth:'<path d="M4 19h16" stroke-linecap="round"/><path d="M7 15v2M11 11v6M15 8v9M19 5v12" stroke-linecap="round"/>',
     book:'<path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5c-.8 0-1.5-.7-1.5-1.5v-13Z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5c.8 0 1.5-.7 1.5-1.5v-13Z"/>',
+    check:'<path d="M4 12l5.5 5.5L20 6.5" stroke-linecap="round" stroke-linejoin="round"/>',
+    badge:'<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5 7 20l5-2.5 5 2.5-1.5-6.5" stroke-linecap="round" stroke-linejoin="round"/>',
+    news:'<path d="M4 6.5A1.5 1.5 0 0 1 5.5 5H15v14H5.5A1.5 1.5 0 0 1 4 17.5v-11Z"/><path d="M15 8h3.5A1.5 1.5 0 0 1 20 9.5v9a1.5 1.5 0 0 1-1.5 1.5H15"/><path d="M7 9h5M7 12h5M7 15h3" stroke-linecap="round"/>',
+    doc:'<path d="M7 3.5h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M14 3.5v4h4"/><path d="M9 13h6M9 16h6M9 10h2" stroke-linecap="round"/>',
     back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }

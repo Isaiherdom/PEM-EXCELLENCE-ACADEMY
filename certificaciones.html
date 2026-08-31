@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificaciones · PEM Excellence Academy</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css">
+<script src="assets/modules.js"></script>
+<style>
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
+    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
+    --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
+    --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
+  .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px;}
+  .metric{padding:18px;}
+  .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .metric-value{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;}
+
+  .school-block{margin-bottom:32px;}
+  .school-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .school-head .dot{width:11px;height:11px;border-radius:50%;background:var(--sc,var(--green));}
+  .school-head h2{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:0;}
+  .school-head .count{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+
+  .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .cert-mini{border-radius:12px;overflow:hidden;text-decoration:none;display:block;background:linear-gradient(160deg,#0E241A,#141815);border:1px solid var(--sc,#24302B);color:#fff;transition:.15s;}
+  .cert-mini:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.18);}
+  .cert-mini-top{padding:16px 16px 10px;}
+  .cert-mini-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--sc,#FF7A1A);margin-bottom:6px;}
+  .cert-mini-title{font-weight:700;font-size:13.5px;line-height:1.35;min-height:36px;}
+  .cert-mini-bottom{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.15);}
+  .cert-mini-score{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:15px;color:var(--sc,#22E88A);}
+  .cert-mini-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:#AAB5AF;}
+
+  .empty{text-align:center;padding:60px 24px;}
+  .empty .ic{font-size:40px;margin-bottom:14px;}
+  .empty h2{font-family:'Space Grotesk',sans-serif;font-size:18px;margin:0 0 8px;}
+  .empty p{color:var(--muted);font-size:14px;max-width:480px;margin:0 auto 20px;line-height:1.6;}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#06140D;border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:none;}
+
+  @media(max-width:1000px){.cert-grid{grid-template-columns:repeat(2,1fr);} .summary{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.cert-grid{grid-template-columns:1fr;} .summary{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<script src="assets/auth-config.js"></script>
+<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px;">PEM Excellence Academy</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Acceso restringido — ingresa la contraseña</div>
+    <input type="password" id="pemGatePw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña">
+    <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pemAuthOK') === '1'){
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  }
+})();
+async function pemGateSubmit(){
+  const pw = document.getElementById('pemGatePw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_AUTH_HASH){
+    sessionStorage.setItem('pemAuthOK','1');
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemGatePw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemGateSubmit(); });
+});
+</script>
+
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">PEM Excellence Academy</div>
+      <h1>Certificaciones</h1>
+      <div class="sub">Todos los certificados que ya obtuviste, agrupados por escuela — cada uno con tu calificación real y la fecha en que lo generaste.</div>
+    </div>
+
+    <div class="summary">
+      <div class="card metric"><div class="metric-label">Certificados obtenidos</div><div class="metric-value" id="mCount">—</div></div>
+      <div class="card metric"><div class="metric-label">Escuelas con al menos 1</div><div class="metric-value" id="mSchools">—</div></div>
+      <div class="card metric"><div class="metric-label">Promedio de calificación</div><div class="metric-value" id="mAvg">—</div></div>
+      <div class="card metric"><div class="metric-label">Escuelas completas</div><div class="metric-value" id="mComplete">—</div></div>
+    </div>
+
+    <div id="content"></div>
+  </div>
+
+<script>
+function render(){
+  if(!window.PEM_SHELL){ setTimeout(render, 30); return; }
+
+  let allCerts = [];
+  let schoolsWithCerts = [];
+  let contentHtml = '';
+
+  PEM_SCHOOL_ORDER.forEach(key=>{
+    const s = PEM_SCHOOLS[key];
+    const earned = [];
+    for(let n=1;n<=12;n++){
+      const cert = PEM_SHELL.readCert(s.prefix, n);
+      if(cert) earned.push({n, title:s.modules[n-1][0], cert});
+    }
+    if(earned.length === 0) return;
+    schoolsWithCerts.push(key);
+    allCerts = allCerts.concat(earned.map(e=>e.cert));
+
+    contentHtml += `<div class="school-block">
+      <div class="school-head" style="--sc:${s.color}">
+        <span class="dot"></span>
+        <h2>${s.name}</h2>
+        <span class="count">· ${earned.length} de 12 certificados</span>
+      </div>
+      <div class="cert-grid">
+        ${earned.map(e => `
+          <a class="cert-mini" style="--sc:${s.color}" href="${s.prefix}certificado-modulo${e.n}.html">
+            <div class="cert-mini-top">
+              <div class="cert-mini-eyebrow">Módulo ${e.n} · ${s.norm}</div>
+              <div class="cert-mini-title">${e.title}</div>
+            </div>
+            <div class="cert-mini-bottom">
+              <span class="cert-mini-score">${e.cert.score}%</span>
+              <span class="cert-mini-date">${e.cert.date}</span>
+            </div>
+          </a>
+        `).join('')}
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('mCount').textContent = allCerts.length + ' / 48';
+  document.getElementById('mSchools').textContent = schoolsWithCerts.length + ' / 4';
+  const avg = allCerts.length ? Math.round(allCerts.reduce((a,c)=>a+parseFloat(c.score),0)/allCerts.length) : 0;
+  document.getElementById('mAvg').textContent = allCerts.length ? avg + '%' : '—';
+  const complete = PEM_SCHOOL_ORDER.filter(key=>{
+    let n = 0;
+    for(let i=1;i<=12;i++){ if(PEM_SHELL.readCert(PEM_SCHOOLS[key].prefix, i)) n++; }
+    return n === 12;
+  }).length;
+  document.getElementById('mComplete').textContent = complete + ' / 4';
+
+  const el = document.getElementById('content');
+  if(allCerts.length === 0){
+    el.innerHTML = `<div class="card empty">
+      <div class="ic">🎖</div>
+      <h2>Aún no tienes certificados</h2>
+      <p>En cuanto apruebes tu primer examen y generes el certificado, aparecerá aquí automáticamente.</p>
+      <a class="btn" href="mis-cursos.html">Ir a Mis cursos</a>
+    </div>`;
+  } else {
+    el.innerHTML = contentHtml;
+  }
+}
+render();
+</script>
+
+<script src="assets/shell.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluaciones · PEM Excellence Academy</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css">
+<script src="assets/modules.js"></script>
+<style>
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
+    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
+    --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
+    --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
+  .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+  .metric{padding:18px;}
+  .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .metric-value{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;}
+
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+  .filter-btn{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:20px;padding:8px 16px;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;font-family:'Inter',sans-serif;}
+  .filter-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--fc,var(--muted));}
+  .filter-btn.active{border-color:var(--fc,var(--green));color:var(--fc,var(--green));background:color-mix(in srgb, var(--fc,var(--green)) 10%, var(--surface));}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--line);}
+  tbody td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--surface-2);}
+  .school-tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;}
+  .school-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--sc,var(--green));}
+  .mod-title{color:var(--muted);font-size:12px;}
+  .score{font-family:'Space Grotesk',sans-serif;font-weight:800;}
+  .score.ok{color:var(--green);}
+  .status-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 10px;border-radius:20px;}
+  .status-badge.ok{background:color-mix(in srgb, var(--green) 14%, var(--surface));color:var(--green);}
+  .status-badge.pending{background:var(--surface-2);color:var(--muted);}
+  .row-action{font-size:12px;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:7px;padding:6px 10px;white-space:nowrap;}
+  .row-action:hover{border-color:var(--green);color:var(--green);}
+
+  @media(max-width:900px){
+    .summary{grid-template-columns:repeat(2,1fr);}
+    table, thead, tbody, th, td, tr{display:block;}
+    thead{display:none;}
+    tbody tr{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;padding:10px 12px;}
+    tbody td{border:none;padding:5px 0;}
+    tbody td::before{content:attr(data-label);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:2px;}
+  }
+  @media(max-width:600px){.summary{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<script src="assets/auth-config.js"></script>
+<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px;">PEM Excellence Academy</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Acceso restringido — ingresa la contraseña</div>
+    <input type="password" id="pemGatePw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña">
+    <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pemAuthOK') === '1'){
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  }
+})();
+async function pemGateSubmit(){
+  const pw = document.getElementById('pemGatePw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_AUTH_HASH){
+    sessionStorage.setItem('pemAuthOK','1');
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemGatePw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemGateSubmit(); });
+});
+</script>
+
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">PEM Excellence Academy</div>
+      <h1>Evaluaciones</h1>
+      <div class="sub">Tu historial de resultados en los 48 exámenes — calificación y fecha reales, tomadas del certificado que generaste al aprobar cada uno. (No se guarda registro de intentos no aprobados.)</div>
+    </div>
+
+    <div class="summary">
+      <div class="card metric"><div class="metric-label">Exámenes aprobados</div><div class="metric-value" id="mCount">—</div></div>
+      <div class="card metric"><div class="metric-label">Promedio de calificación</div><div class="metric-value" id="mAvg">—</div></div>
+      <div class="card metric"><div class="metric-label">Última evaluación</div><div class="metric-value" id="mLast" style="font-size:15px;">—</div></div>
+      <div class="card metric"><div class="metric-label">Pendientes</div><div class="metric-value" id="mPending">—</div></div>
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div class="card" style="overflow:auto;">
+      <table>
+        <thead>
+          <tr><th>Escuela</th><th>Módulo</th><th>Calificación</th><th>Fecha</th><th>Estado</th><th></th></tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+let activeFilter = 'all';
+
+function buildFilters(){
+  const el = document.getElementById('filters');
+  let html = `<button class="filter-btn ${activeFilter==='all'?'active':''}" onclick="setFilter('all')">Todas</button>`;
+  PEM_SCHOOL_ORDER.forEach(key=>{
+    const s = PEM_SCHOOLS[key];
+    html += `<button class="filter-btn ${activeFilter===key?'active':''}" style="--fc:${s.color}" onclick="setFilter('${key}')"><span class="dot"></span>${s.name}</button>`;
+  });
+  el.innerHTML = html;
+}
+
+function setFilter(key){
+  activeFilter = key;
+  buildFilters();
+  renderTable();
+}
+
+function renderTable(){
+  const tbody = document.getElementById('tbody');
+  let rows = [];
+  PEM_SCHOOL_ORDER.forEach(key=>{
+    if(activeFilter !== 'all' && activeFilter !== key) return;
+    const s = PEM_SCHOOLS[key];
+    s.modules.forEach((m,i)=>{
+      const n = i+1;
+      const cert = PEM_SHELL.readCert(s.prefix, n);
+      rows.push({key, s, n, title:m[0], cert});
+    });
+  });
+  tbody.innerHTML = rows.map(r=>{
+    const okClass = r.cert ? 'ok' : 'pending';
+    return `<tr>
+      <td data-label="Escuela"><span class="school-tag" style="--sc:${r.s.color}"><span class="dot"></span>${r.s.name.replace('Escuela de ','').replace('Escuela ','')}</span></td>
+      <td data-label="Módulo">M${r.n} <span class="mod-title">· ${r.title}</span></td>
+      <td data-label="Calificación">${r.cert ? `<span class="score ok">${r.cert.score}%</span>` : '—'}</td>
+      <td data-label="Fecha">${r.cert ? r.cert.date : '—'}</td>
+      <td data-label="Estado"><span class="status-badge ${okClass}">${r.cert ? '✅ Aprobado' : '⏳ Pendiente'}</span></td>
+      <td data-label="">${r.cert
+        ? `<a class="row-action" href="${r.s.prefix}certificado-modulo${r.n}.html">Ver certificado</a>`
+        : `<a class="row-action" href="${r.s.prefix}examen-modulo${r.n}${r.s.examSuffix}.html">Tomar examen</a>`}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderSummary(){
+  let certs = [];
+  PEM_SCHOOL_ORDER.forEach(key=>{
+    const s = PEM_SCHOOLS[key];
+    for(let n=1;n<=12;n++){
+      const cert = PEM_SHELL.readCert(s.prefix, n);
+      if(cert) certs.push(cert);
+    }
+  });
+  document.getElementById('mCount').textContent = certs.length + ' / 48';
+  const avg = certs.length ? Math.round(certs.reduce((a,c)=>a+parseFloat(c.score),0)/certs.length) : 0;
+  document.getElementById('mAvg').textContent = certs.length ? avg + '%' : '—';
+  const dates = certs.map(c=>c.date).filter(Boolean).sort();
+  document.getElementById('mLast').textContent = dates.length ? dates[dates.length-1] : 'Sin actividad aún';
+  document.getElementById('mPending').textContent = 48 - certs.length;
+}
+
+function init(){
+  if(!window.PEM_SHELL){ setTimeout(init, 30); return; }
+  renderSummary();
+  buildFilters();
+  renderTable();
+}
+init();
+</script>
+
+<script src="assets/shell.js" defer></script>
+</body>
+</html>

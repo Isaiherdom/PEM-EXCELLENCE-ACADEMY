@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noticias · PEM Excellence Academy</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css">
+<script src="assets/noticias.js"></script>
+<style>
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
+    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
+    --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
+    --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
+  .wrap{max-width:860px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
+  .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+
+  .notice{display:flex;gap:16px;padding:22px;margin-bottom:14px;}
+  .notice .ic{width:44px;height:44px;border-radius:12px;background:var(--nc-bg,var(--surface-2));color:var(--nc,var(--green));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+  .notice-body{flex:1;}
+  .notice-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+  .notice-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;margin-bottom:6px;}
+  .notice-text{color:var(--muted);font-size:13.5px;line-height:1.6;}
+
+  .empty{text-align:center;padding:60px 24px;color:var(--muted);}
+</style>
+</head>
+<body>
+<script src="assets/auth-config.js"></script>
+<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px;">PEM Excellence Academy</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Acceso restringido — ingresa la contraseña</div>
+    <input type="password" id="pemGatePw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña">
+    <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pemAuthOK') === '1'){
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  }
+})();
+async function pemGateSubmit(){
+  const pw = document.getElementById('pemGatePw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_AUTH_HASH){
+    sessionStorage.setItem('pemAuthOK','1');
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemGatePw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemGateSubmit(); });
+});
+</script>
+
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">PEM Excellence Academy</div>
+      <h1>Noticias</h1>
+      <div class="sub">Avisos, comunicados y actualizaciones de la plataforma.</div>
+    </div>
+    <div id="list"></div>
+  </div>
+
+<script>
+const CATEGORY_META = {
+  lanzamiento: {icon:'🚀', color:'var(--green)'},
+  curso:       {icon:'📚', color:'var(--blue)'},
+  mantenimiento:{icon:'🛠️', color:'var(--amber)'},
+  certificacion:{icon:'🎖', color:'var(--green)'},
+  aviso:       {icon:'📣', color:'var(--amber)'}
+};
+
+function formatDate(iso){
+  const [y,m,d] = iso.split('-');
+  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${parseInt(d,10)} de ${meses[parseInt(m,10)-1]} de ${y}`;
+}
+
+function render(){
+  const list = document.getElementById('list');
+  if(!window.PEM_NOTICIAS || PEM_NOTICIAS.length === 0){
+    list.innerHTML = `<div class="card empty">Todavía no hay avisos publicados.</div>`;
+    return;
+  }
+  list.innerHTML = PEM_NOTICIAS.map(n=>{
+    const meta = CATEGORY_META[n.category] || CATEGORY_META.aviso;
+    return `<div class="card notice">
+      <div class="ic" style="--nc:${meta.color}">${meta.icon}</div>
+      <div class="notice-body">
+        <div class="notice-date">${formatDate(n.date)}</div>
+        <div class="notice-title">${n.title}</div>
+        <div class="notice-text">${n.body}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+render();
+</script>
+
+<script src="assets/shell.js" defer></script>
+</body>
+</html>
