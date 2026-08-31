@@ -71,6 +71,17 @@
 
   window.PEM_SHELL = { SCHOOLS: SCHOOLS, MODULES_PER_SCHOOL: MODULES_PER_SCHOOL, computeProgress: computeProgress, nextStep: nextStep, prefix: prefix, readCert: readCert };
 
+  // ---------- Enlace "Volver al módulo" (hacia Inicio, con la escuela correcta preseleccionada) ----------
+  function backToModuleUrl(){
+    var base = path.split('/').pop();
+    var schoolKeyMap = {ambiental:'14001', etica:'37001', seguridad:'45001'};
+    var schoolMatch = path.match(/\/escuela-(ambiental|etica|seguridad)\//);
+    var schoolKey = schoolMatch ? schoolKeyMap[schoolMatch[1]] : '9001';
+    var m = base.match(/^(?:certificado|examen|flashcards|infografia|video)-modulo(\d+)/);
+    if(!m) return null;
+    return prefix + 'index.html?escuela=' + schoolKey + '&modulo=' + m[1] + '#explorar';
+  }
+
   // ---------- Breadcrumb / título de página según la ruta ----------
   function pageTitle(){
     var base = path.split('/').pop();
@@ -106,7 +117,8 @@
     home:'<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/>',
     grid:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     route:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8 7 16 17M8.5 6h7A3 3 0 0 1 18 9v3"/>',
-    soon:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'
+    soon:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }
 
@@ -127,9 +139,12 @@
     );
   }
   function buildHeader(){
+    var backUrl = backToModuleUrl();
+    var backLink = backUrl ? '<a class="back-module" href="'+backUrl+'">'+svg('back')+'<span>Volver al módulo</span></a>' : '';
     return (
       '<header class="pem-header" id="pemHeader">'+
         '<button class="burger" id="pemBurger" aria-label="Abrir menú">'+svg('grid')+'</button>'+
+        backLink+
         '<div class="crumb"><b>'+pageTitle()+'</b></div>'+
         '<button class="theme-toggle" id="pemThemeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>'+
       '</header>'
