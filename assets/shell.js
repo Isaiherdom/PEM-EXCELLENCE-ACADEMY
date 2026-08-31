@@ -96,6 +96,7 @@
     if(base.indexOf('mapa-escuela-') === 0) return 'Mapa de escuela';
     if(base === 'cambiar-contrasena.html') return 'Cambiar contraseña';
     if(base === 'gold-standard-identidad-visual.html') return 'Identidad visual';
+    if(base === 'mi-desarrollo.html') return 'Mi desarrollo';
     if(base === 'proximamente.html') return 'Próximamente';
     if((m = base.match(/^certificado-modulo(\d+)\.html$/))) return 'Certificado · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
     if((m = base.match(/^examen-modulo(\d+)/))) return 'Examen · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
@@ -109,15 +110,17 @@
   var NAV_REAL = [
     {label:'Inicio', href:prefix+'index.html', match:/(^|\/)index\.html$|\/$/, icon:'home'},
     {label:'Escuelas', href:prefix+'mapa-academico-pem-excellence-academy.html', match:/mapa-academico/, icon:'grid'},
-    {label:'Rutas de aprendizaje', href:prefix+'rutas-aprendizaje-pem-excellence-academy.html', match:/rutas-aprendizaje/, icon:'route'}
+    {label:'Rutas de aprendizaje', href:prefix+'rutas-aprendizaje-pem-excellence-academy.html', match:/rutas-aprendizaje/, icon:'route'},
+    {label:'Mi desarrollo', href:prefix+'mi-desarrollo.html', match:/mi-desarrollo/, icon:'growth'}
   ];
-  var NAV_SOON = ['Mi desarrollo','Mis cursos','Evaluaciones','Certificaciones','Recursos','Noticias'];
+  var NAV_SOON = ['Mis cursos','Evaluaciones','Certificaciones','Recursos','Noticias'];
 
   var ICONS = {
     home:'<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/>',
     grid:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     route:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8 7 16 17M8.5 6h7A3 3 0 0 1 18 9v3"/>',
     soon:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    growth:'<path d="M4 19h16" stroke-linecap="round"/><path d="M7 15v2M11 11v6M15 8v9M19 5v12" stroke-linecap="round"/>',
     back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }
