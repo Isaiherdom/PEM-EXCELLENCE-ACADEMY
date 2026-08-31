@@ -32,6 +32,7 @@
   .navbar{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;justify-content:space-between;padding:26px 40px;border-bottom:1px solid var(--line);background:var(--bg);}
   .brand{display:flex;flex-direction:column;gap:4px;}
   .brand-kicker{font-family:'JetBrains Mono',monospace;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-fixed);font-weight:800;}
+  html[data-theme="dark"] .brand-kicker{color:#FFFFFF;}
   .brand-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:var(--text);letter-spacing:-.005em;}
   .navlinks{display:flex;align-items:center;gap:26px;font-size:12px;font-weight:700;}
   .navlinks a:not(.nav-cta){color:var(--text);text-decoration:none;text-transform:uppercase;}
@@ -232,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 
   <section class="hero" aria-label="PEM Excellence Academy" id="heroCarousel">
-    <div class="hero-slide active" style="background-image:url('assets/img/hero-planta-atardecer.jpg');background-position:center 46%">
+    <div class="hero-slide active" style="background-image:url('assets/img/hero-planta-atardecer.jpg');background-position:center 40%">
       <div class="hero-content">
         <div class="kicker">PEM Excellence Academy</div>
         <h1>Donde la excelencia operativa<br>se convierte en estándar</h1>
@@ -263,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <a class="hero-cta" href="#escuelas" onclick="selectSchool('45001')">Ir a Escuela de Seguridad</a>
       </div>
     </div>
-    <div class="hero-slide" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 35%">
+    <div class="hero-slide" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 42%">
       <div class="hero-content">
         <div class="kicker">Integridad y ética · ISO 37001</div>
         <h1>Hacer lo correcto también es parte del estándar</h1>
@@ -374,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function(){
           </div>
         </a>
         <a class="school-card" href="#explorar" data-school="37001">
-          <div class="school-photo" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 35%"><div class="ic">⚖️</div></div>
+          <div class="school-photo" style="background-image:url('assets/img/etica-integridad.jpg');background-position:center 42%"><div class="ic">⚖️</div></div>
           <div class="school-body">
             <div class="school-name">Ética</div>
             <div class="school-desc">Hacer lo correcto.</div>
