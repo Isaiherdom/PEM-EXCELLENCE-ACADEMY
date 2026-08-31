@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis cursos · PEM Excellence Academy</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css">
+<script src="assets/modules.js"></script>
+<style>
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
+    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
+    --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
+    --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
+  .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
+  .metric{padding:18px;}
+  .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .metric-value{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;}
+
+  .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
+  .tab{padding:16px;cursor:pointer;text-align:left;background:var(--surface);}
+  .tab.active{border-color:var(--sc,var(--green));}
+  .tab .dot{width:10px;height:10px;border-radius:50%;background:var(--sc,var(--green));margin-bottom:8px;}
+  .tab .name{font-weight:700;font-size:14px;}
+  .tab .norm{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px;}
+  .tab .done{font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:8px;color:var(--sc,var(--green));font-weight:700;}
+  .bar{height:6px;border-radius:5px;background:var(--surface-2);overflow:hidden;margin-top:8px;}
+  .bar span{display:block;height:100%;background:var(--sc,var(--green));border-radius:5px;}
+
+  .modgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .modcard{padding:16px;}
+  .modcard.done{border-color:var(--green);}
+  .modcard-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+  .modcard-n{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:13px;color:var(--sc,var(--green));}
+  .modcard-clause{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
+  .modcard-title{font-weight:700;font-size:14px;line-height:1.35;margin-bottom:10px;min-height:38px;}
+  .status{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:12px;padding:7px 10px;border-radius:8px;}
+  .status.ok{background:color-mix(in srgb, var(--green) 14%, var(--surface));color:var(--green);}
+  .status.pending{background:var(--surface-2);color:var(--muted);}
+  .assets{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .asset-link{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:7px;padding:7px 8px;background:var(--surface-2);}
+  .asset-link:hover{border-color:var(--sc,var(--green));color:var(--sc,var(--green));}
+
+  @media(max-width:1000px){.modgrid{grid-template-columns:repeat(2,1fr);} .summary,.tabs{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.modgrid{grid-template-columns:1fr;} .summary,.tabs{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<script src="assets/auth-config.js"></script>
+<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px;">PEM Excellence Academy</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Acceso restringido — ingresa la contraseña</div>
+    <input type="password" id="pemGatePw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña">
+    <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pemAuthOK') === '1'){
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  }
+})();
+async function pemGateSubmit(){
+  const pw = document.getElementById('pemGatePw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_AUTH_HASH){
+    sessionStorage.setItem('pemAuthOK','1');
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemGatePw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemGateSubmit(); });
+});
+</script>
+
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow">PEM Excellence Academy</div>
+      <h1>Mis cursos</h1>
+      <div class="sub">Las 4 escuelas y sus 48 módulos, con tu estado real de avance — calculado a partir de los certificados que ya generaste en este navegador.</div>
+    </div>
+
+    <div class="summary" id="summary">
+      <div class="card metric"><div class="metric-label">Certificados obtenidos</div><div class="metric-value" id="mCerts">—</div></div>
+      <div class="card metric"><div class="metric-label">Progreso general</div><div class="metric-value" id="mPct">—</div></div>
+      <div class="card metric"><div class="metric-label">Última actividad</div><div class="metric-value" id="mLast" style="font-size:15px;">—</div></div>
+      <div class="card metric"><div class="metric-label">Módulos pendientes</div><div class="metric-value" id="mPending">—</div></div>
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+    <div class="modgrid" id="modGrid"></div>
+  </div>
+
+<script>
+let current = "9001";
+
+function renderTabs(progress){
+  const el = document.getElementById('tabs');
+  el.innerHTML = PEM_SCHOOL_ORDER.map(key=>{
+    const s = PEM_SCHOOLS[key];
+    const done = progress.perSchool[key];
+    const pct = Math.round(100*done/12);
+    return `<div class="card tab ${key===current?'active':''}" style="--sc:${s.color}" onclick="selectSchool('${key}')">
+      <div class="dot"></div>
+      <div class="name">${s.name}</div>
+      <div class="norm">${s.norm}</div>
+      <div class="done">${done}/12 certificados</div>
+      <div class="bar"><span style="width:${pct}%"></span></div>
+    </div>`;
+  }).join('');
+}
+
+function selectSchool(key){
+  current = key;
+  const progress = PEM_SHELL.computeProgress();
+  renderTabs(progress);
+  renderModules(progress);
+}
+
+function renderModules(progress){
+  const s = PEM_SCHOOLS[current];
+  const el = document.getElementById('modGrid');
+  el.innerHTML = s.modules.map((m,i)=>{
+    const n = i+1;
+    const cert = PEM_SHELL.readCert(s.prefix, n);
+    const statusHtml = cert
+      ? `<div class="status ok">✅ Certificado · ${cert.score}% · ${cert.date}</div>`
+      : `<div class="status pending">⏳ Pendiente</div>`;
+    return `<div class="card modcard ${cert?'done':''}" style="--sc:${s.color}">
+      <div class="modcard-head">
+        <span class="modcard-n">M${n}</span>
+        <span class="modcard-clause">${m[1]}</span>
+      </div>
+      <div class="modcard-title">${m[0]}</div>
+      ${statusHtml}
+      <div class="assets">
+        <a class="asset-link" href="${s.prefix}flashcards-modulo${n}.html">🗂 Flashcards</a>
+        <a class="asset-link" href="${s.prefix}infografia-modulo${n}.html">📊 Infografía</a>
+        <a class="asset-link" href="${s.prefix}examen-modulo${n}${s.examSuffix}.html">📝 Examen</a>
+        <a class="asset-link" href="${s.prefix}certificado-modulo${n}.html">🎖 Certificado</a>
+        ${m[2] ? `<a class="asset-link" href="${s.prefix}video-modulo${n}.html" style="grid-column:1 / -1;border-color:${s.color};color:${s.color};">🎥 Video</a>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderSummary(progress){
+  document.getElementById('mCerts').textContent = progress.totalCerts + ' / 48';
+  document.getElementById('mPct').textContent = Math.round(100*progress.totalCerts/progress.totalModules) + '%';
+  document.getElementById('mLast').textContent = progress.lastDateStr || 'Sin actividad aún';
+  document.getElementById('mPending').textContent = (progress.totalModules - progress.totalCerts);
+}
+
+function init(){
+  if(!window.PEM_SHELL){ setTimeout(init, 30); return; }
+  const progress = PEM_SHELL.computeProgress();
+  renderSummary(progress);
+  renderTabs(progress);
+  renderModules(progress);
+}
+init();
+</script>
+
+<script src="assets/shell.js" defer></script>
+</body>
+</html>
