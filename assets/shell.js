@@ -112,6 +112,7 @@
     if(base === 'mis-cursos.html') return 'Mis cursos';
     if(base === 'mis-evaluaciones.html') return 'Evaluaciones';
     if(base === 'certificaciones.html') return 'Certificaciones';
+    if(base === 'generar-dc3.html') return 'Generar DC-3';
     if(base === 'noticias.html') return 'Noticias';
     if(base === 'recursos.html') return 'Recursos';
     if(base === 'proximamente.html') return 'Próximamente';
@@ -132,6 +133,7 @@
     {label:'Mis cursos', href:prefix+'mis-cursos.html', match:/mis-cursos/, icon:'book'},
     {label:'Evaluaciones', href:prefix+'mis-evaluaciones.html', match:/mis-evaluaciones/, icon:'check'},
     {label:'Certificaciones', href:prefix+'certificaciones.html', match:/certificaciones\.html/, icon:'badge'},
+    {label:'Generar DC-3', href:prefix+'generar-dc3.html', match:/generar-dc3/, icon:'doc'},
     {label:'Recursos', href:prefix+'recursos.html', match:/recursos\.html/, icon:'doc'},
     {label:'Noticias', href:prefix+'noticias.html', match:/noticias\.html/, icon:'news'}
   ];
