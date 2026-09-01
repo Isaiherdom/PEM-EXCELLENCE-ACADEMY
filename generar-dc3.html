@@ -23,7 +23,7 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
-  .wrap{max-width:900px;margin:0 auto;}
+  .wrap{max-width:960px;margin:0 auto;}
   .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
   .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
   h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
@@ -41,43 +41,70 @@
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#06140D;border:none;border-radius:10px;padding:13px 22px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;}
   .btn:disabled{opacity:.4;cursor:not-allowed;}
 
-  /* ---- Documento DC-3, estructura calcada del formato oficial que compartió Isaí ---- */
-  .dc3{background:#fff;color:#111;border:1px solid #ccc;border-radius:4px;padding:clamp(20px,4vw,36px);display:none;font-family:'Inter',sans-serif;}
-  .dc3.show{display:block;}
-  .dc3-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
-  .dc3-formato{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#444;}
-  .dc3-code{font-family:'JetBrains Mono',monospace;font-size:9px;color:#777;text-align:right;}
-  .dc3-title{text-align:center;font-weight:800;font-size:16px;letter-spacing:.02em;margin:6px 0 18px;text-transform:uppercase;}
-  .dc3-section{border:1px solid #999;margin-bottom:-1px;}
-  .dc3-section-head{background:#e8e8e8;font-weight:700;font-size:11px;text-align:center;padding:5px;text-transform:uppercase;border-bottom:1px solid #999;}
-  .dc3-row{display:flex;border-bottom:1px solid #ccc;}
-  .dc3-row:last-child{border-bottom:none;}
-  .dc3-cell{flex:1;padding:9px 12px;border-right:1px solid #ccc;}
+  /* ================== DOCUMENTO DC-3 — calcado del formato oficial ================== */
+  .dc3-pages{display:none;}
+  .dc3-pages.show{display:block;}
+  .dc3page{background:#fff;color:#111;border:1px solid #ccc;padding:clamp(18px,3.2vw,30px);font-family:'Inter',sans-serif;margin-bottom:20px;}
+
+  .p-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px;}
+  .p-logo img{height:34px;display:block;}
+  .p-title{text-align:center;flex:1;}
+  .p-title .t1{font-weight:800;font-size:13px;letter-spacing:.04em;}
+  .p-title .t2{font-weight:800;font-size:13px;letter-spacing:.04em;}
+  .p-seal img{display:block;height:48px;width:48px;object-fit:contain;}
+
+  .dc3-section{border:1px solid #999;margin-top:12px;}
+  .dc3-section-head{background:#111;color:#fff;font-weight:800;font-size:10.5px;text-align:center;padding:5px;text-transform:uppercase;letter-spacing:.03em;}
+  .dc3-row{display:flex;border-top:1px solid #bbb;}
+  .dc3-cell{flex:1;padding:6px 10px;border-right:1px solid #bbb;}
   .dc3-cell:last-child{border-right:none;}
-  .dc3-cell .lbl{font-size:9.5px;color:#555;margin-bottom:3px;}
-  .dc3-cell .val{font-weight:700;font-size:13px;}
-  .boxes{display:flex;gap:2px;flex-wrap:wrap;margin-top:3px;}
-  .boxes span{border:1px solid #999;width:19px;height:22px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;}
-  .legal-note{border:1px solid #999;border-top:none;font-size:9.5px;color:#333;padding:8px 12px;text-align:center;line-height:1.5;}
-  .signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;}
+  .dc3-cell .lbl{font-size:8.5px;color:#333;line-height:1.3;}
+  .dc3-cell .val{font-weight:800;font-size:13px;margin-top:3px;text-transform:uppercase;}
+
+  .boxes{display:flex;gap:2px;flex-wrap:wrap;margin-top:4px;}
+  .boxes span{border:1px solid #999;width:17px;height:20px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;flex-shrink:0;}
+  .boxes .sep{border:none;width:auto;font-weight:800;font-size:12px;padding:0 3px;}
+
+  .periodo-labels{display:flex;gap:2px;font-size:7px;color:#555;margin-top:6px;}
+  .periodo-labels span{width:17px;text-align:center;flex-shrink:0;}
+  .periodo-labels .sepw{width:14px;}
+
+  .legal-note{border:1px solid #999;border-top:none;font-size:9px;color:#222;padding:8px 12px;text-align:center;line-height:1.5;}
+
+  .signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px;padding:0 6px;}
   .sig{text-align:center;}
-  .sig-line{border-top:1px solid #333;padding-top:7px;}
-  .sig-name{font-weight:700;font-size:11.5px;}
-  .sig-role{font-family:'JetBrains Mono',monospace;font-size:9px;color:#555;margin-top:2px;line-height:1.4;}
+  .sig-line{border-top:1px solid #333;padding-top:6px;min-height:14px;}
+  .sig-name{font-weight:800;font-size:11px;text-transform:uppercase;}
+  .sig-role{font-size:8.5px;color:#444;margin-top:2px;line-height:1.4;}
+
+  .p-instr{font-size:8px;color:#333;margin-top:16px;line-height:1.6;}
+  .p-instr li{margin-bottom:2px;}
+  .p-foot{text-align:right;font-size:8px;color:#555;margin-top:10px;font-family:'JetBrains Mono',monospace;}
+
+  /* ---- Reverso ---- */
+  .rev-title{font-weight:800;font-size:11px;text-align:center;margin:10px 0 8px;text-transform:uppercase;}
+  .rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;font-size:8.5px;}
+  .rev-table{width:100%;border-collapse:collapse;}
+  .rev-table th{font-size:7.5px;text-align:left;padding:2px 4px;border-bottom:1px solid #999;}
+  .rev-table td{padding:1.5px 4px;}
+  .rev-table td.code{width:30px;color:#333;}
+  .rev-sub{color:#666;padding-left:10px;}
 
   .actions{display:flex;gap:10px;margin-top:20px;}
 
   @media print{
     body *{visibility:hidden;}
-    .dc3, .dc3 *{visibility:visible;}
-    .dc3{position:absolute;top:0;left:0;width:100%;border-radius:0;border:none;}
+    .dc3-pages, .dc3-pages *{visibility:visible;}
+    .dc3-pages{position:absolute;top:0;left:0;width:100%;}
+    .dc3page{border:none;page-break-after:always;}
   }
   @media(max-width:700px){
     .row2{grid-template-columns:1fr;}
     .dc3-row{flex-direction:column;}
-    .dc3-cell{border-right:none;border-bottom:1px solid #ccc;}
+    .dc3-cell{border-right:none;border-bottom:1px solid #bbb;}
     .dc3-cell:last-child{border-bottom:none;}
-    .signatures{grid-template-columns:1fr;}
+    .signatures,.rev-grid{grid-template-columns:1fr;}
+    .boxes span{width:14px;height:18px;font-size:9px;}
   }
 </style>
 </head>
@@ -142,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <div><label>Puesto</label><input id="puesto" placeholder="Ej. Operador de compresión"></div>
       </div>
       <label>Ocupación específica (Catálogo Nacional de Ocupaciones)</label>
-      <input id="ocupacion" placeholder="Ej. 04.1 Mecánica — confirma el código exacto en stps.gob.mx">
+      <input id="ocupacion" placeholder="Ej. 6000 — confirma el código exacto en stps.gob.mx">
     </div>
 
     <div class="card form-card">
@@ -150,93 +177,131 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="fs">Según el catálogo oficial del formato DC-3. Se sugiere una por escuela, pero puedes cambiarla.</div>
       <label>Área temática</label>
       <select id="areaTematica">
-        <option value="1000 · Producción general">1000 · Producción general</option>
-        <option value="2000 · Servicios">2000 · Servicios</option>
-        <option value="3000 · Administración, contabilidad y economía">3000 · Administración, contabilidad y economía</option>
-        <option value="4000 · Comercialización">4000 · Comercialización</option>
-        <option value="5000 · Mantenimiento y reparación">5000 · Mantenimiento y reparación</option>
-        <option value="6000 · Seguridad">6000 · Seguridad</option>
-        <option value="7000 · Desarrollo personal y familiar">7000 · Desarrollo personal y familiar</option>
-        <option value="8000 · Uso de tecnologías de la información y comunicación">8000 · Uso de tecnologías de la información y comunicación</option>
-        <option value="9000 · Participación social">9000 · Participación social</option>
+        <option value="1000 PRODUCCIÓN GENERAL">1000 · Producción general</option>
+        <option value="2000 SERVICIOS">2000 · Servicios</option>
+        <option value="3000 ADMINISTRACIÓN, CONTABILIDAD Y ECONOMÍA">3000 · Administración, contabilidad y economía</option>
+        <option value="4000 COMERCIALIZACIÓN">4000 · Comercialización</option>
+        <option value="5000 MANTENIMIENTO Y REPARACIÓN">5000 · Mantenimiento y reparación</option>
+        <option value="6000 SEGURIDAD">6000 · Seguridad</option>
+        <option value="7000 DESARROLLO PERSONAL Y FAMILIAR">7000 · Desarrollo personal y familiar</option>
+        <option value="8000 USO DE TECNOLOGÍAS DE LA INFORMACIÓN Y COMUNICACIÓN">8000 · Uso de tecnologías de la información y comunicación</option>
+        <option value="9000 PARTICIPACIÓN SOCIAL">9000 · Participación social</option>
       </select>
     </div>
 
     <button class="btn" id="genBtn" disabled>Generar DC-3</button>
 
-    <div class="dc3" id="dc3Doc">
-      <div class="dc3-top">
-        <div class="dc3-formato">FORMATO DC-3</div>
-        <div class="dc3-code" id="dc3Code"></div>
-      </div>
-      <div class="dc3-title">Constancia de Habilidades Laborales</div>
+    <div class="dc3-pages" id="dc3Pages">
 
-      <div class="dc3-section">
-        <div class="dc3-section-head">Datos del trabajador</div>
-        <div class="dc3-row">
-          <div class="dc3-cell" style="flex:2;"><div class="lbl">Nombre (apellido paterno, apellido materno, nombre)</div><div class="val" id="fName"></div></div>
-        </div>
-        <div class="dc3-row">
-          <div class="dc3-cell">
-            <div class="lbl">Clave Única de Registro de Población</div>
-            <div class="boxes" id="fCurpBoxes"></div>
+      <div class="dc3page">
+        <div class="p-top">
+          <div class="p-logo"><img src="assets/pem-logo-green.png" alt="PEM Oil & Gas"></div>
+          <div class="p-title">
+            <div class="t1">FORMATO DC-3</div>
+            <div class="t2">CONSTANCIA DE HABILIDADES LABORALES</div>
           </div>
-          <div class="dc3-cell"><div class="lbl">Ocupación específica</div><div class="val" id="fOcupacion"></div></div>
-        </div>
-        <div class="dc3-row">
-          <div class="dc3-cell"><div class="lbl">Puesto</div><div class="val" id="fPuesto"></div></div>
-        </div>
-      </div>
-
-      <div class="dc3-section">
-        <div class="dc3-section-head">Datos de la empresa</div>
-        <div class="dc3-row">
-          <div class="dc3-cell"><div class="lbl">Nombre o razón social</div><div class="val" id="fRazon"></div></div>
-        </div>
-        <div class="dc3-row">
-          <div class="dc3-cell"><div class="lbl">Registro Federal de Contribuyentes (SHCP)</div><div class="val" id="fRfc"></div></div>
-        </div>
-      </div>
-
-      <div class="dc3-section">
-        <div class="dc3-section-head">Datos del programa de capacitación y adiestramiento</div>
-        <div class="dc3-row">
-          <div class="dc3-cell" style="flex:2;"><div class="lbl">Nombre del curso</div><div class="val" id="fCurso"></div></div>
-        </div>
-        <div class="dc3-row">
-          <div class="dc3-cell"><div class="lbl">Duración en horas</div><div class="val" id="fDuracion"></div></div>
-          <div class="dc3-cell"><div class="lbl">Periodo de ejecución</div><div class="val" id="fPeriodo"></div></div>
-        </div>
-        <div class="dc3-row">
-          <div class="dc3-cell"><div class="lbl">Área temática del curso</div><div class="val" id="fAreaTematica"></div></div>
-          <div class="dc3-cell"><div class="lbl">Agente capacitador o STPS</div><div class="val" id="fAgente"></div></div>
-        </div>
-      </div>
-
-      <div class="legal-note">
-        Los datos se asientan en esta constancia bajo protesta de decir verdad, apercibidos de la responsabilidad en que incurre todo aquel que no se conduce con verdad.
-      </div>
-
-      <div class="signatures">
-        <div class="sig">
-          <div class="sig-line">
-            <div class="sig-name" id="sigCap"></div>
-            <div class="sig-role" id="sigCapRole">Instructor</div>
+          <div class="p-seal">
+            <img src="assets/pem-seal.png" alt="Sello PEM">
           </div>
         </div>
-        <div class="sig">
-          <div class="sig-line">
-            <div class="sig-name" id="sigRep"></div>
-            <div class="sig-role" id="sigRepRole"></div>
+
+        <div class="dc3-section">
+          <div class="dc3-section-head">Datos del trabajador</div>
+          <div class="dc3-row" style="border-top:none;">
+            <div class="dc3-cell"><div class="lbl">Nombre (Anotar apellido paterno, apellido materno y nombre)</div><div class="val" id="fName"></div></div>
+          </div>
+          <div class="dc3-row">
+            <div class="dc3-cell">
+              <div class="lbl">Clave Única de Registro de Población</div>
+              <div class="boxes" id="fCurpBoxes"></div>
+            </div>
+            <div class="dc3-cell"><div class="lbl">Ocupación específica (Catálogo Nacional de Ocupaciones)</div><div class="val" id="fOcupacion"></div></div>
+          </div>
+          <div class="dc3-row">
+            <div class="dc3-cell"><div class="lbl">Puesto</div><div class="val" id="fPuesto"></div></div>
           </div>
         </div>
-        <div class="sig">
-          <div class="sig-line">
-            <div class="sig-name" id="sigTrab">&nbsp;</div>
+
+        <div class="dc3-section">
+          <div class="dc3-section-head">Datos de la empresa</div>
+          <div class="dc3-row" style="border-top:none;">
+            <div class="dc3-cell"><div class="lbl">Nombre o razón social (En caso de persona física, anotar apellido paterno, apellido materno y nombre(s))</div><div class="val" id="fRazon"></div></div>
+          </div>
+          <div class="dc3-row">
+            <div class="dc3-cell"><div class="lbl">Registro Federal de Contribuyentes (SHCP)</div><div class="val" id="fRfc"></div></div>
+          </div>
+        </div>
+
+        <div class="dc3-section">
+          <div class="dc3-section-head">Datos del programa de capacitación y adiestramiento</div>
+          <div class="dc3-row" style="border-top:none;">
+            <div class="dc3-cell"><div class="lbl">Nombre del curso</div><div class="val" id="fCurso"></div></div>
+          </div>
+          <div class="dc3-row">
+            <div class="dc3-cell" style="flex:0 0 90px;"><div class="lbl">Duración en horas</div><div class="val" id="fDuracion"></div></div>
+            <div class="dc3-cell">
+              <div class="lbl">Periodo de ejecución</div>
+              <div class="periodo-labels"><span>Año</span><span>Año</span><span>Mes</span><span>Mes</span><span>Día</span><span>Día</span><span class="sepw"></span><span></span><span>Año</span><span>Año</span><span>Mes</span><span>Mes</span><span>Día</span><span>Día</span></div>
+              <div class="boxes" id="fPeriodoBoxes"></div>
+            </div>
+          </div>
+          <div class="dc3-row">
+            <div class="dc3-cell"><div class="lbl">Área temática del curso</div><div class="val" id="fAreaTematica"></div></div>
+            <div class="dc3-cell"><div class="lbl">Agente capacitador o STPS</div><div class="val" id="fAgente"></div></div>
+          </div>
+        </div>
+
+        <div class="legal-note">
+          Los datos se asientan en esta constancia bajo protesta de decir verdad, apercibidos de la responsabilidad en que incurre todo aquel que no se conduce con verdad.
+        </div>
+
+        <div class="signatures">
+          <div class="sig">
+            <div class="sig-line">
+              <div class="sig-name" id="sigCap"></div>
+            </div>
+            <div class="sig-role">Instructor</div>
+          </div>
+          <div class="sig">
+            <div class="sig-line">
+              <div class="sig-name" id="sigRep"></div>
+            </div>
+            <div class="sig-role" id="sigRepRole">Patrón o Representante Legal</div>
+          </div>
+          <div class="sig">
+            <div class="sig-line">
+              <div class="sig-name" id="sigTrab">&nbsp;</div>
+            </div>
             <div class="sig-role">Representante de los trabajadores</div>
           </div>
         </div>
+
+        <ul class="p-instr">
+          <li>Llenar a máquina o con letra de molde.</li>
+          <li>Deberá entregarse al trabajador dentro de los veinte días hábiles siguientes al término del curso de capacitación aprobado.</li>
+          <li>Las áreas y subáreas ocupacionales, y las áreas temáticas de los cursos, están disponibles en el reverso de este formato y en www.stps.gob.mx</li>
+          <li>Para empresas con más de 50 trabajadores firma el representante del patrón ante la Comisión Mixta de Capacitación, Adiestramiento y Productividad, y el representante de los trabajadores.</li>
+        </ul>
+        <div class="p-foot" id="dc3Code"></div>
       </div>
+
+      <div class="dc3page">
+        <div class="p-top">
+          <div class="p-logo"><img src="assets/pem-logo-green.png" alt="PEM Oil & Gas"></div>
+          <div class="p-title"><div class="t1">CLAVES Y DENOMINACIONES DE ÁREAS Y SUBÁREAS DEL CATÁLOGO NACIONAL DE OCUPACIONES</div></div>
+          <div class="p-seal">
+            <img src="assets/pem-seal.png" alt="Sello PEM">
+          </div>
+        </div>
+
+        <div class="rev-grid" id="revOcupaciones"></div>
+
+        <div class="rev-title">Claves y denominaciones del catálogo de áreas temáticas de los cursos</div>
+        <div class="rev-grid" id="revTematicas"></div>
+
+        <div class="p-foot">DC-3 · REVERSO</div>
+      </div>
+
     </div>
 
     <div class="actions" id="postActions" style="display:none;">
@@ -260,7 +325,7 @@ FIELDS.forEach(id=>{
   document.getElementById(id).addEventListener('input', ()=>{ saveField(id); updateBtn(); });
 });
 
-const AREA_SUGGERIDA = {"9001":2, "14001":5, "45001":5, "37001":6}; // índice del selector de área temática, por escuela
+const AREA_SUGGERIDA = {"9001":2, "14001":5, "45001":5, "37001":6};
 
 function buildPicker(){
   const sel = document.getElementById('certPicker');
@@ -302,6 +367,45 @@ function updateBtn(){
 
 function pad(n){ return n.toString().padStart(4,'0'); }
 
+const MESES = {enero:'01',febrero:'02',marzo:'03',abril:'04',mayo:'05',junio:'06',julio:'07',agosto:'08',septiembre:'09',octubre:'10',noviembre:'11',diciembre:'12'};
+function parseFecha(str){
+  if(!str) return {y:'', m:'', d:''};
+  const parts = str.toLowerCase().split(' de ');
+  if(parts.length < 3) return {y:'', m:'', d:''};
+  return { d: parts[0].padStart(2,'0'), m: MESES[parts[1]] || '', y: parts[2] };
+}
+
+function boxDigits(str){
+  return str.split('').map(c => `<span>${c}</span>`).join('');
+}
+
+const REV_OCUPACIONES = [
+  [["01","Cultivo, crianza y aprovechamiento"],["01.1","Agricultura y silvicultura"],["01.2","Ganadería"],["01.3","Pesca y acuacultura"],
+   ["02","Extracción y suministro"],["02.1","Exploración"],["02.2","Extracción"],["02.3","Refinación y beneficio"],["02.4","Provisión de energía"],["02.5","Provisión de agua"],
+   ["03","Construcción"],["03.1","Planeación y dirección de obras"],["03.2","Edificación y urbanización"],["03.3","Acabado"],["03.4","Instalación y mantenimiento"],
+   ["04","Tecnología"],["04.1","Mecánica"],["04.2","Electricidad"],["04.3","Electrónica"],["04.4","Informática"],["04.5","Telecomunicaciones"],["04.6","Procesos industriales"],
+   ["05","Procesamiento y fabricación"],["05.1","Minerales no metálicos"],["05.2","Metales"],["05.3","Alimentos y bebidas"],["05.4","Textiles y prendas de vestir"],["05.5","Materia orgánica"],["05.6","Productos químicos"],["05.7","Productos metálicos y de hule y plástico"],["05.8","Productos eléctricos y electrónicos"],["05.9","Productos impresos"]],
+  [["06","Transporte"],["06.1","Ferroviario"],["06.2","Autotransporte"],["06.3","Aéreo"],["06.4","Marítimo y fluvial"],["06.5","Servicios de apoyo"],
+   ["07","Provisión de bienes y servicios"],["07.1","Comercio"],["07.2","Alimentación y hospedaje"],["07.3","Turismo"],["07.4","Deporte y esparcimiento"],["07.5","Servicios personales"],["07.6","Reparación de artículos de uso doméstico y personal"],["07.7","Limpieza"],["07.8","Servicio postal y mensajería"],
+   ["08","Gestión y soporte administrativo"],["08.1","Bolsa, banca y seguros"],["08.2","Administración"],["08.3","Servicios legales"],
+   ["09","Salud y protección social"],["09.1","Servicios médicos"],["09.2","Inspección sanitaria y del medio ambiente"],["09.3","Seguridad social"],["09.4","Protección de bienes y/o personas"],
+   ["10","Comunicación"],["10.1","Publicación"],["10.2","Radio, cine, televisión y teatro"],["10.3","Interpretación artística"],["10.4","Traducción e interpretación lingüística"],["10.5","Publicidad, propaganda y relaciones públicas"],
+   ["11","Desarrollo y extensión del conocimiento"],["11.1","Investigación"],["11.2","Enseñanza"],["11.3","Difusión cultural"]]
+];
+const REV_TEMATICAS = [
+  [["1000","Producción general"],["2000","Servicios"],["3000","Administración, contabilidad y economía"],["4000","Comercialización"],["5000","Mantenimiento y reparación"]],
+  [["6000","Seguridad"],["7000","Desarrollo personal y familiar"],["8000","Uso de tecnologías de la información y comunicación"],["9000","Participación social"]]
+];
+
+function buildRevTable(cols){
+  return cols.map(col => `<table class="rev-table"><thead><tr><th>Clave</th><th>Denominación</th></tr></thead><tbody>` +
+    col.map(([code,name]) => `<tr><td class="code${code.includes('.')?' rev-sub':''}">${code}</td><td>${name}</td></tr>`).join('') +
+    `</tbody></table>`
+  ).join('');
+}
+document.getElementById('revOcupaciones').innerHTML = buildRevTable(REV_OCUPACIONES);
+document.getElementById('revTematicas').innerHTML = buildRevTable(REV_TEMATICAS);
+
 document.getElementById('genBtn').addEventListener('click', function(){
   const idx = document.getElementById('certPicker').value;
   const o = window.__dc3Opts[idx];
@@ -310,7 +414,7 @@ document.getElementById('genBtn').addEventListener('click', function(){
   document.getElementById('dc3Code').textContent =
     'DC3-' + o.key + '-M' + o.n + ' · PEM-' + new Date().getFullYear() + '-' + pad(Math.floor(Math.random()*9999));
 
-  document.getElementById('fName').textContent = (o.cert.name || '—').toUpperCase();
+  document.getElementById('fName').textContent = o.cert.name || '—';
 
   const curp = document.getElementById('curp').value.toUpperCase().padEnd(18, ' ');
   document.getElementById('fCurpBoxes').innerHTML =
@@ -323,24 +427,31 @@ document.getElementById('genBtn').addEventListener('click', function(){
   document.getElementById('fRfc').textContent = cfg.rfc;
 
   document.getElementById('fCurso').textContent =
-    'CONSTANCIA · ' + o.s.name + ' — Módulo ' + o.n + ': ' + o.title + ' (' + o.s.norm + ')';
-  document.getElementById('fDuracion').textContent = '0.5 horas';
-  document.getElementById('fPeriodo').textContent = (o.cert.date || '—') + ' a ' + (o.cert.date || '—');
+    o.s.name.toUpperCase() + ' — MÓDULO ' + o.n + ': ' + o.title.toUpperCase() + ' (' + o.s.norm + ')';
+  document.getElementById('fDuracion').textContent = '0.5';
+
+  const f = parseFecha(o.cert.date);
+  document.getElementById('fPeriodoBoxes').innerHTML =
+    boxDigits(f.y||'    ') + boxDigits(f.m||'  ') + boxDigits(f.d||'  ') +
+    '<span class="sep">A</span>' +
+    boxDigits(f.y||'    ') + boxDigits(f.m||'  ') + boxDigits(f.d||'  ');
+
   document.getElementById('fAreaTematica').textContent = document.getElementById('areaTematica').value;
-  document.getElementById('fAgente').textContent = 'Interno — PEM Excellence Academy';
 
   const cap = cfg.capacitadorPorEscuela[o.key];
+  document.getElementById('fAgente').textContent = cap.nombre.toUpperCase();
+
   document.getElementById('sigCap').textContent = cap.nombre;
-  document.getElementById('sigCapRole').textContent = cap.puesto + ' · Instructor';
   document.getElementById('sigRep').textContent = cfg.representanteEmpresa;
-  document.getElementById('sigRepRole').textContent = cfg.representantePuesto +
-    (cfg.masDe50Trabajadores ? ' · Representante del patrón ante la Comisión Mixta' : ' · Patrón o Representante Legal');
+  document.getElementById('sigRepRole').textContent = cfg.masDe50Trabajadores
+    ? 'Representante del patrón ante la Comisión Mixta'
+    : 'Patrón o Representante Legal';
 
   document.getElementById('sigTrab').innerHTML = cfg.representanteTrabajadores || '&nbsp;';
 
-  document.getElementById('dc3Doc').classList.add('show');
+  document.getElementById('dc3Pages').classList.add('show');
   document.getElementById('postActions').style.display = 'flex';
-  document.getElementById('dc3Doc').scrollIntoView({behavior:'smooth'});
+  document.getElementById('dc3Pages').scrollIntoView({behavior:'smooth'});
 });
 
 function init(){

@@ -15,7 +15,7 @@ window.PEM_DC3_CONFIG = {
   capacitadorPorEscuela: {
     "9001":  { nombre: "Isaí Hernández Domínguez", puesto: "Responsable del SGI" },
     "14001": { nombre: "Isaí Hernández Domínguez", puesto: "Responsable del SGI" },
-    "45001": { nombre: "Isaí Hernández Domínguez", puesto: "Responsable del SGI" },
+    "45001": { nombre: "Jesús Eymard Gómez Hernández", puesto: "Gerente de HSE" },
     "37001": { nombre: "Isaí Hernández Domínguez", puesto: "Responsable del SGI" }
   },
 
