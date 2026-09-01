@@ -38,35 +38,32 @@
   label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.04em;}
   input,select{width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);font-family:'Inter',sans-serif;font-size:13.5px;margin-bottom:16px;}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#06140D;border:none;border-radius:10px;padding:13px 22px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Inter',sans-serif;}
   .btn:disabled{opacity:.4;cursor:not-allowed;}
-  .btn-secondary{background:none;border:1px solid var(--line);color:var(--text);}
 
-  /* ---- Documento DC-3 (siempre oscuro, como el certificado) ---- */
-  .dc3{background:linear-gradient(180deg,#0E120F,#0A0D0B);border:1px solid #24302B;border-radius:16px;padding:clamp(24px,4vw,44px);color:#F1F3F0;display:none;}
+  /* ---- Documento DC-3, estructura calcada del formato oficial que compartió Isaí ---- */
+  .dc3{background:#fff;color:#111;border:1px solid #ccc;border-radius:4px;padding:clamp(20px,4vw,36px);display:none;font-family:'Inter',sans-serif;}
   .dc3.show{display:block;}
-  .dc3-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:18px;margin-bottom:22px;}
-  .dc3-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#fff;}
-  .dc3-brand span{color:#22E88A;}
-  .dc3-code{font-family:'JetBrains Mono',monospace;font-size:10px;color:#AAB5AF;text-align:right;line-height:1.6;}
-  .dc3-title{text-align:center;margin-bottom:26px;}
-  .dc3-title .eyebrow2{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#FF7A1A;text-transform:uppercase;margin-bottom:6px;}
-  .dc3-title h2{font-family:'Space Grotesk',sans-serif;font-size:26px;margin:0;color:#fff;}
-  .dc3-title .legal{font-size:11px;color:#AAB5AF;margin-top:6px;}
-  .dc3-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;}
-  .dc3-block h3{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#22E88A;margin:0 0 10px;}
-  .dc3-field{font-size:12.5px;margin-bottom:8px;color:#D8DBD8;}
-  .dc3-field b{color:#fff;display:block;font-size:13.5px;margin-top:1px;}
-  .dc3-course{background:rgba(255,255,255,.04);border-radius:10px;padding:16px;margin-bottom:26px;}
-  .dc3-course h3{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#22E88A;margin:0 0 10px;}
-  .dc3-course .name{font-weight:700;font-size:15px;color:#fff;margin-bottom:10px;}
-  .dc3-course-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-  .signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px;}
+  .dc3-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+  .dc3-formato{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#444;}
+  .dc3-code{font-family:'JetBrains Mono',monospace;font-size:9px;color:#777;text-align:right;}
+  .dc3-title{text-align:center;font-weight:800;font-size:16px;letter-spacing:.02em;margin:6px 0 18px;text-transform:uppercase;}
+  .dc3-section{border:1px solid #999;margin-bottom:-1px;}
+  .dc3-section-head{background:#e8e8e8;font-weight:700;font-size:11px;text-align:center;padding:5px;text-transform:uppercase;border-bottom:1px solid #999;}
+  .dc3-row{display:flex;border-bottom:1px solid #ccc;}
+  .dc3-row:last-child{border-bottom:none;}
+  .dc3-cell{flex:1;padding:9px 12px;border-right:1px solid #ccc;}
+  .dc3-cell:last-child{border-right:none;}
+  .dc3-cell .lbl{font-size:9.5px;color:#555;margin-bottom:3px;}
+  .dc3-cell .val{font-weight:700;font-size:13px;}
+  .boxes{display:flex;gap:2px;flex-wrap:wrap;margin-top:3px;}
+  .boxes span{border:1px solid #999;width:19px;height:22px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;}
+  .legal-note{border:1px solid #999;border-top:none;font-size:9.5px;color:#333;padding:8px 12px;text-align:center;line-height:1.5;}
+  .signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;}
   .sig{text-align:center;}
-  .sig-line{border-top:1px solid rgba(255,255,255,.35);padding-top:8px;}
-  .sig-name{font-weight:700;font-size:12.5px;color:#fff;}
-  .sig-role{font-family:'JetBrains Mono',monospace;font-size:10px;color:#AAB5AF;margin-top:2px;}
+  .sig-line{border-top:1px solid #333;padding-top:7px;}
+  .sig-name{font-weight:700;font-size:11.5px;}
+  .sig-role{font-family:'JetBrains Mono',monospace;font-size:9px;color:#555;margin-top:2px;line-height:1.4;}
 
   .actions{display:flex;gap:10px;margin-top:20px;}
 
@@ -76,7 +73,11 @@
     .dc3{position:absolute;top:0;left:0;width:100%;border-radius:0;border:none;}
   }
   @media(max-width:700px){
-    .row2,.row3,.dc3-grid,.dc3-course-grid,.signatures{grid-template-columns:1fr;}
+    .row2{grid-template-columns:1fr;}
+    .dc3-row{flex-direction:column;}
+    .dc3-cell{border-right:none;border-bottom:1px solid #ccc;}
+    .dc3-cell:last-child{border-bottom:none;}
+    .signatures{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -119,11 +120,11 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="head">
       <div class="eyebrow">PEM Excellence Academy</div>
       <h1>Generar DC-3</h1>
-      <div class="sub">Constancia de Competencias o de Habilidades Laborales (Art. 153-A LFT), generada a partir de un módulo ya certificado.</div>
+      <div class="sub">Constancia de Habilidades Laborales — mismo formato oficial que ya usa PEM, generada a partir de un módulo ya certificado.</div>
     </div>
 
     <div class="warn">
-      <b>Antes de usar este documento de forma oficial:</b> confirma con el área legal/laboral de PEM que ya cuentan con el DC-2 (Plan y Programa de Capacitación) vigente y, si aplica por el tamaño de PEM, la Comisión Mixta de Capacitación constituida — ambos son el respaldo legal real detrás de cada DC-3. Este generador no sustituye esa verificación.
+      <b>Antes de usar este documento de forma oficial:</b> confirma con el área legal/laboral de PEM que ya cuentan con el DC-2 (Plan y Programa de Capacitación) vigente y la Comisión Mixta de Capacitación constituida (obligatoria para PEM por tener más de 50 colaboradores) — ambos son el respaldo legal real detrás de cada DC-3. Este generador no sustituye esa verificación.
     </div>
 
     <div class="card form-card">
@@ -135,70 +136,92 @@ document.addEventListener('DOMContentLoaded', function(){
 
     <div class="card form-card">
       <h2>2. Datos del trabajador</h2>
-      <div class="fs">Estos datos no se guardan en el certificado original — captúralos aquí. Se recuerdan en este navegador para la próxima vez.</div>
+      <div class="fs">No están en el certificado original — captúralos aquí. Se recuerdan en este navegador para la próxima vez.</div>
       <div class="row2">
         <div><label>CURP</label><input id="curp" maxlength="18" placeholder="XXXX000000XXXXXX00"></div>
         <div><label>Puesto</label><input id="puesto" placeholder="Ej. Operador de compresión"></div>
       </div>
-      <label>Área de trabajo</label>
-      <input id="area" placeholder="Ej. Operaciones — Base Reynosa">
+      <label>Ocupación específica (Catálogo Nacional de Ocupaciones)</label>
+      <input id="ocupacion" placeholder="Ej. 04.1 Mecánica — confirma el código exacto en stps.gob.mx">
     </div>
 
     <div class="card form-card">
-      <h2>3. Datos de la empresa</h2>
-      <div class="fs">El RFC no se sube al repositorio del sitio — se guarda solo en este navegador.</div>
-      <div class="row2">
-        <div><label>Razón social</label><input id="razonSocial"></div>
-        <div><label>RFC de PEM</label><input id="rfc" placeholder="RFC de la empresa"></div>
-      </div>
+      <h2>3. Área temática del curso</h2>
+      <div class="fs">Según el catálogo oficial del formato DC-3. Se sugiere una por escuela, pero puedes cambiarla.</div>
+      <label>Área temática</label>
+      <select id="areaTematica">
+        <option value="1000 · Producción general">1000 · Producción general</option>
+        <option value="2000 · Servicios">2000 · Servicios</option>
+        <option value="3000 · Administración, contabilidad y economía">3000 · Administración, contabilidad y economía</option>
+        <option value="4000 · Comercialización">4000 · Comercialización</option>
+        <option value="5000 · Mantenimiento y reparación">5000 · Mantenimiento y reparación</option>
+        <option value="6000 · Seguridad">6000 · Seguridad</option>
+        <option value="7000 · Desarrollo personal y familiar">7000 · Desarrollo personal y familiar</option>
+        <option value="8000 · Uso de tecnologías de la información y comunicación">8000 · Uso de tecnologías de la información y comunicación</option>
+        <option value="9000 · Participación social">9000 · Participación social</option>
+      </select>
     </div>
 
     <button class="btn" id="genBtn" disabled>Generar DC-3</button>
 
     <div class="dc3" id="dc3Doc">
       <div class="dc3-top">
-        <div class="dc3-brand">PEM <span>Excellence Academy</span></div>
+        <div class="dc3-formato">FORMATO DC-3</div>
         <div class="dc3-code" id="dc3Code"></div>
       </div>
+      <div class="dc3-title">Constancia de Habilidades Laborales</div>
 
-      <div class="dc3-title">
-        <div class="eyebrow2">Artículo 153-A · Ley Federal del Trabajo</div>
-        <h2>CONSTANCIA DE COMPETENCIAS O DE HABILIDADES LABORALES</h2>
-        <div class="legal">Formato DC-3 · Capacitación interna</div>
-      </div>
-
-      <div class="dc3-grid">
-        <div class="dc3-block">
-          <h3>Datos del trabajador</h3>
-          <div class="dc3-field">Nombre completo<b id="fName"></b></div>
-          <div class="dc3-field">CURP<b id="fCurp"></b></div>
-          <div class="dc3-field">Puesto<b id="fPuesto"></b></div>
-          <div class="dc3-field">Área de trabajo<b id="fArea"></b></div>
+      <div class="dc3-section">
+        <div class="dc3-section-head">Datos del trabajador</div>
+        <div class="dc3-row">
+          <div class="dc3-cell" style="flex:2;"><div class="lbl">Nombre (apellido paterno, apellido materno, nombre)</div><div class="val" id="fName"></div></div>
         </div>
-        <div class="dc3-block">
-          <h3>Datos del empleador</h3>
-          <div class="dc3-field">Razón social<b id="fRazon"></b></div>
-          <div class="dc3-field">RFC<b id="fRfc"></b></div>
-          <div class="dc3-field">Sitio de trabajo<b id="fSitio"></b></div>
+        <div class="dc3-row">
+          <div class="dc3-cell">
+            <div class="lbl">Clave Única de Registro de Población</div>
+            <div class="boxes" id="fCurpBoxes"></div>
+          </div>
+          <div class="dc3-cell"><div class="lbl">Ocupación específica</div><div class="val" id="fOcupacion"></div></div>
+        </div>
+        <div class="dc3-row">
+          <div class="dc3-cell"><div class="lbl">Puesto</div><div class="val" id="fPuesto"></div></div>
         </div>
       </div>
 
-      <div class="dc3-course">
-        <h3>Programa de capacitación</h3>
-        <div class="name" id="fCurso"></div>
-        <div class="dc3-course-grid">
-          <div class="dc3-field">Área temática<b id="fArea2"></b></div>
-          <div class="dc3-field">Duración<b id="fDuracion"></b></div>
-          <div class="dc3-field">Fecha<b id="fFecha"></b></div>
-          <div class="dc3-field">Calificación<b id="fCalif"></b></div>
+      <div class="dc3-section">
+        <div class="dc3-section-head">Datos de la empresa</div>
+        <div class="dc3-row">
+          <div class="dc3-cell"><div class="lbl">Nombre o razón social</div><div class="val" id="fRazon"></div></div>
         </div>
+        <div class="dc3-row">
+          <div class="dc3-cell"><div class="lbl">Registro Federal de Contribuyentes (SHCP)</div><div class="val" id="fRfc"></div></div>
+        </div>
+      </div>
+
+      <div class="dc3-section">
+        <div class="dc3-section-head">Datos del programa de capacitación y adiestramiento</div>
+        <div class="dc3-row">
+          <div class="dc3-cell" style="flex:2;"><div class="lbl">Nombre del curso</div><div class="val" id="fCurso"></div></div>
+        </div>
+        <div class="dc3-row">
+          <div class="dc3-cell"><div class="lbl">Duración en horas</div><div class="val" id="fDuracion"></div></div>
+          <div class="dc3-cell"><div class="lbl">Periodo de ejecución</div><div class="val" id="fPeriodo"></div></div>
+        </div>
+        <div class="dc3-row">
+          <div class="dc3-cell"><div class="lbl">Área temática del curso</div><div class="val" id="fAreaTematica"></div></div>
+          <div class="dc3-cell"><div class="lbl">Agente capacitador o STPS</div><div class="val" id="fAgente"></div></div>
+        </div>
+      </div>
+
+      <div class="legal-note">
+        Los datos se asientan en esta constancia bajo protesta de decir verdad, apercibidos de la responsabilidad en que incurre todo aquel que no se conduce con verdad.
       </div>
 
       <div class="signatures">
         <div class="sig">
           <div class="sig-line">
             <div class="sig-name" id="sigCap"></div>
-            <div class="sig-role" id="sigCapRole"></div>
+            <div class="sig-role" id="sigCapRole">Instructor</div>
           </div>
         </div>
         <div class="sig">
@@ -209,8 +232,8 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
         <div class="sig">
           <div class="sig-line">
-            <div class="sig-name" id="sigTrab"></div>
-            <div class="sig-role">Trabajador</div>
+            <div class="sig-name" id="sigTrab">&nbsp;</div>
+            <div class="sig-role">Representante de los trabajadores</div>
           </div>
         </div>
       </div>
@@ -222,23 +245,22 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 
 <script>
-const FIELDS = ['curp','puesto','area','razonSocial','rfc'];
+const FIELDS = ['curp','puesto','ocupacion'];
 
 function loadSaved(){
   FIELDS.forEach(id=>{
     const v = localStorage.getItem('pemDC3_'+id);
     if(v) document.getElementById(id).value = v;
   });
-  if(!document.getElementById('razonSocial').value){
-    document.getElementById('razonSocial').value = PEM_DC3_CONFIG.razonSocial;
-  }
 }
 function saveField(id){
   localStorage.setItem('pemDC3_'+id, document.getElementById(id).value);
 }
 FIELDS.forEach(id=>{
-  document.getElementById(id).addEventListener('input', ()=>saveField(id));
+  document.getElementById(id).addEventListener('input', ()=>{ saveField(id); updateBtn(); });
 });
+
+const AREA_SUGGERIDA = {"9001":2, "14001":5, "45001":5, "37001":6}; // índice del selector de área temática, por escuela
 
 function buildPicker(){
   const sel = document.getElementById('certPicker');
@@ -263,12 +285,18 @@ function buildPicker(){
   window.__dc3Opts = opts;
 }
 
-document.getElementById('certPicker').addEventListener('change', updateBtn);
-FIELDS.forEach(id=>document.getElementById(id).addEventListener('input', updateBtn));
+document.getElementById('certPicker').addEventListener('change', function(){
+  const idx = this.value;
+  if(idx !== ''){
+    const o = window.__dc3Opts[idx];
+    document.getElementById('areaTematica').selectedIndex = AREA_SUGGERIDA[o.key] || 0;
+  }
+  updateBtn();
+});
 
 function updateBtn(){
   const sel = document.getElementById('certPicker').value;
-  const filled = ['curp','puesto','area','razonSocial','rfc'].every(id=>document.getElementById(id).value.trim());
+  const filled = ['curp','puesto','ocupacion'].every(id=>document.getElementById(id).value.trim());
   document.getElementById('genBtn').disabled = !(sel !== '' && filled);
 }
 
@@ -280,29 +308,35 @@ document.getElementById('genBtn').addEventListener('click', function(){
   const cfg = PEM_DC3_CONFIG;
 
   document.getElementById('dc3Code').textContent =
-    'DC3-' + o.key + '-M' + o.n + '\nPEM-' + new Date().getFullYear() + '-' + pad(Math.floor(Math.random()*9999));
+    'DC3-' + o.key + '-M' + o.n + ' · PEM-' + new Date().getFullYear() + '-' + pad(Math.floor(Math.random()*9999));
 
-  document.getElementById('fName').textContent = o.cert.name || '—';
-  document.getElementById('fCurp').textContent = document.getElementById('curp').value.toUpperCase();
+  document.getElementById('fName').textContent = (o.cert.name || '—').toUpperCase();
+
+  const curp = document.getElementById('curp').value.toUpperCase().padEnd(18, ' ');
+  document.getElementById('fCurpBoxes').innerHTML =
+    curp.split('').map(c => `<span>${c.trim()}</span>`).join('');
+
+  document.getElementById('fOcupacion').textContent = document.getElementById('ocupacion').value;
   document.getElementById('fPuesto').textContent = document.getElementById('puesto').value;
-  document.getElementById('fArea').textContent = document.getElementById('area').value;
-  document.getElementById('fArea2').textContent = document.getElementById('area').value;
 
-  document.getElementById('fRazon').textContent = document.getElementById('razonSocial').value;
-  document.getElementById('fRfc').textContent = document.getElementById('rfc').value.toUpperCase();
-  document.getElementById('fSitio').textContent = o.cert.base || '—';
+  document.getElementById('fRazon').textContent = cfg.razonSocial;
+  document.getElementById('fRfc').textContent = cfg.rfc;
 
   document.getElementById('fCurso').textContent =
-    'CONSTANCIA · ' + o.s.name + ' — Módulo ' + o.n + ': ' + o.title;
+    'CONSTANCIA · ' + o.s.name + ' — Módulo ' + o.n + ': ' + o.title + ' (' + o.s.norm + ')';
   document.getElementById('fDuracion').textContent = '0.5 horas';
-  document.getElementById('fFecha').textContent = o.cert.date || '—';
-  document.getElementById('fCalif').textContent = PEM_SHELL.scoreLabel(o.cert);
+  document.getElementById('fPeriodo').textContent = (o.cert.date || '—') + ' a ' + (o.cert.date || '—');
+  document.getElementById('fAreaTematica').textContent = document.getElementById('areaTematica').value;
+  document.getElementById('fAgente').textContent = 'Interno — PEM Excellence Academy';
 
-  document.getElementById('sigCap').textContent = cfg.capacitadorInterno;
-  document.getElementById('sigCapRole').textContent = cfg.capacitadorPuesto + ' · Capacitador interno';
+  const cap = cfg.capacitadorPorEscuela[o.key];
+  document.getElementById('sigCap').textContent = cap.nombre;
+  document.getElementById('sigCapRole').textContent = cap.puesto + ' · Instructor';
   document.getElementById('sigRep').textContent = cfg.representanteEmpresa;
-  document.getElementById('sigRepRole').textContent = cfg.representantePuesto;
-  document.getElementById('sigTrab').textContent = o.cert.name || '—';
+  document.getElementById('sigRepRole').textContent = cfg.representantePuesto +
+    (cfg.masDe50Trabajadores ? ' · Representante del patrón ante la Comisión Mixta' : ' · Patrón o Representante Legal');
+
+  document.getElementById('sigTrab').innerHTML = cfg.representanteTrabajadores || '&nbsp;';
 
   document.getElementById('dc3Doc').classList.add('show');
   document.getElementById('postActions').style.display = 'flex';
