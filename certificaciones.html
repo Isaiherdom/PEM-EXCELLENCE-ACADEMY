@@ -146,7 +146,7 @@ function render(){
               <div class="cert-mini-title">${e.title}</div>
             </div>
             <div class="cert-mini-bottom">
-              <span class="cert-mini-score">${e.cert.score}%</span>
+              <span class="cert-mini-score">${PEM_SHELL.scoreLabel(e.cert)}</span>
               <span class="cert-mini-date">${e.cert.date}</span>
             </div>
           </a>
@@ -157,8 +157,9 @@ function render(){
 
   document.getElementById('mCount').textContent = allCerts.length + ' / 48';
   document.getElementById('mSchools').textContent = schoolsWithCerts.length + ' / 4';
-  const avg = allCerts.length ? Math.round(allCerts.reduce((a,c)=>a+parseFloat(c.score),0)/allCerts.length) : 0;
-  document.getElementById('mAvg').textContent = allCerts.length ? avg + '%' : '—';
+  const validScores = allCerts.map(PEM_SHELL.scoreNum).filter(n => n !== null);
+  const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : 0;
+  document.getElementById('mAvg').textContent = validScores.length ? avg + '%' : '—';
   const complete = PEM_SCHOOL_ORDER.filter(key=>{
     let n = 0;
     for(let i=1;i<=12;i++){ if(PEM_SHELL.readCert(PEM_SCHOOLS[key].prefix, i)) n++; }

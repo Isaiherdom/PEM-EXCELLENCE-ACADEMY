@@ -69,7 +69,19 @@
     };
   }
 
-  window.PEM_SHELL = { SCHOOLS: SCHOOLS, MODULES_PER_SCHOOL: MODULES_PER_SCHOOL, computeProgress: computeProgress, nextStep: nextStep, prefix: prefix, readCert: readCert };
+  // Algunos certificados muy antiguos (generados antes de que el examen forzara
+  // el parámetro ?score=) se guardaron con "—" en vez de un número real.
+  // Este helper evita que eso rompa promedios o se vea como "—%".
+  function scoreNum(cert){
+    var n = parseFloat(cert && cert.score);
+    return isNaN(n) ? null : n;
+  }
+  function scoreLabel(cert){
+    var n = scoreNum(cert);
+    return n === null ? 'Sin calificación registrada' : n + '%';
+  }
+
+  window.PEM_SHELL = { SCHOOLS: SCHOOLS, MODULES_PER_SCHOOL: MODULES_PER_SCHOOL, computeProgress: computeProgress, nextStep: nextStep, prefix: prefix, readCert: readCert, scoreNum: scoreNum, scoreLabel: scoreLabel };
 
   // ---------- Enlace "Volver al módulo" (hacia Inicio, con la escuela correcta preseleccionada) ----------
   function backToModuleUrl(){

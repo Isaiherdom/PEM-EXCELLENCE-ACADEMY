@@ -149,7 +149,7 @@ function renderModules(progress){
     const n = i+1;
     const cert = PEM_SHELL.readCert(s.prefix, n);
     const statusHtml = cert
-      ? `<div class="status ok">✅ Certificado · ${cert.score}% · ${cert.date}</div>`
+      ? `<div class="status ok">✅ Certificado · ${PEM_SHELL.scoreLabel(cert)} · ${cert.date}</div>`
       : `<div class="status pending">⏳ Pendiente</div>`;
     return `<div class="card modcard ${cert?'done':''}" style="--sc:${s.color}">
       <div class="modcard-head">

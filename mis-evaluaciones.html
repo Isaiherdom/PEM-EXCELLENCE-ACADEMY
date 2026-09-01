@@ -164,7 +164,7 @@ function renderTable(){
     return `<tr>
       <td data-label="Escuela"><span class="school-tag" style="--sc:${r.s.color}"><span class="dot"></span>${r.s.name.replace('Escuela de ','').replace('Escuela ','')}</span></td>
       <td data-label="Módulo">M${r.n} <span class="mod-title">· ${r.title}</span></td>
-      <td data-label="Calificación">${r.cert ? `<span class="score ok">${r.cert.score}%</span>` : '—'}</td>
+      <td data-label="Calificación">${r.cert ? `<span class="score ok">${PEM_SHELL.scoreLabel(r.cert)}</span>` : '—'}</td>
       <td data-label="Fecha">${r.cert ? r.cert.date : '—'}</td>
       <td data-label="Estado"><span class="status-badge ${okClass}">${r.cert ? '✅ Aprobado' : '⏳ Pendiente'}</span></td>
       <td data-label="">${r.cert
@@ -184,8 +184,9 @@ function renderSummary(){
     }
   });
   document.getElementById('mCount').textContent = certs.length + ' / 48';
-  const avg = certs.length ? Math.round(certs.reduce((a,c)=>a+parseFloat(c.score),0)/certs.length) : 0;
-  document.getElementById('mAvg').textContent = certs.length ? avg + '%' : '—';
+  const validScores = certs.map(PEM_SHELL.scoreNum).filter(n => n !== null);
+  const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : 0;
+  document.getElementById('mAvg').textContent = validScores.length ? avg + '%' : '—';
   const dates = certs.map(c=>c.date).filter(Boolean).sort();
   document.getElementById('mLast').textContent = dates.length ? dates[dates.length-1] : 'Sin actividad aún';
   document.getElementById('mPending').textContent = 48 - certs.length;
