@@ -96,9 +96,9 @@
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;}
   @media print{
     @page{margin:12mm;}
-    body *{visibility:hidden;}
-    .dc3-pages, .dc3-pages *{visibility:visible;}
-    .dc3-pages{position:absolute;top:0;left:0;width:100%;}
+    body{background:#fff !important;padding:0 !important;margin:0 !important;}
+    .wrap > *{display:none !important;}
+    .wrap > .dc3-pages{display:block !important;}
     .dc3page{border:none;}
     .dc3page:not(:last-child){page-break-after:always;}
   }
