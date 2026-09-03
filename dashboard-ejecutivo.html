@@ -11,64 +11,142 @@
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/shell.css">
 <script src="assets/modules.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
+  /* Paleta ejecutiva fija — este dashboard siempre se ve así, sin importar
+     el modo oscuro/claro del resto del sitio (igual que certificados y DC-3). */
   :root{
-    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
-    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
-    --text:#1C1A16; --muted:#6B655A;
-  }
-  html[data-theme="dark"]{
-    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
-    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
-    --text:#FFFFFF; --muted:#AAB5AF;
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --blue:#4D78B8; --blueSoft:#E6EEF9;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
-  .wrap{max-width:1180px;margin:0 auto;}
-  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
-  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
-  .sub{color:var(--muted);font-size:14px;max-width:700px;line-height:1.6;}
-  .refresh-btn{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 16px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
-  .refresh-btn:hover{border-color:var(--green);color:var(--green);}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
 
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+  /* Navbar propio (delgado) + sidebar compartido del sitio, empujado debajo */
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:1320px;margin:0 auto;padding:26px 28px 60px;}
+
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+  .crumb{font-size:12px;color:var(--muted);}
+  .actions{display:flex;gap:8px;}
+  .actions button{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12.5px;color:#33403B;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;}
+  .actions button.primary{background:var(--green);color:#fff;border-color:var(--green);}
+  .actions button:hover{border-color:var(--green);}
+
+  .header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:16px;flex-wrap:wrap;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,34px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:520px;line-height:1.5;}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;}
+  .filters select{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 12px;color:#4B5551;font-size:12.5px;font-family:'Inter',sans-serif;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
   .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
   .state.err{color:var(--red);}
 
-  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
-  .metric{padding:20px;}
-  .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-  .metric-value{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;line-height:1;}
-  .metric-sub{font-size:11.5px;color:var(--muted);margin-top:6px;}
+  /* ---- KPIs ---- */
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
+  .kpi{padding:17px 18px;position:relative;overflow:hidden;cursor:pointer;transition:.15s;}
+  .kpi:hover{box-shadow:0 10px 26px rgba(24,39,33,.11);}
+  .kpi .label{font-size:9px;letter-spacing:1.4px;color:var(--muted);font-weight:800;text-transform:uppercase;}
+  .kpi .value{font-family:'Space Grotesk',sans-serif;font-size:29px;font-weight:800;margin:7px 0 2px;letter-spacing:-1px;}
+  .kpi .foot{font-size:11px;color:var(--muted);}
+  .kpi .delta{position:absolute;right:15px;top:17px;font-size:10px;font-weight:800;padding:5px 8px;border-radius:20px;background:var(--mint);color:var(--green);}
+  .kpi .delta.flat{background:#EEF0EE;color:var(--muted);}
+  .kpi .spark{height:4px;border-radius:5px;background:#EDF0ED;margin-top:14px;overflow:hidden;}
+  .kpi .spark span{display:block;height:100%;background:var(--green2);border-radius:5px;}
 
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px;}
-  .panel{padding:22px;}
-  .panel h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 16px;}
-  .bar-row{margin-bottom:14px;}
-  .bar-row:last-child{margin-bottom:0;}
-  .bar-row .bl{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px;}
-  .bar-row .bl b{font-weight:700;}
-  .bar-row .bl span{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11.5px;}
-  .bar-track{height:9px;border-radius:6px;background:var(--surface-2);overflow:hidden;}
-  .bar-fill{height:100%;border-radius:6px;background:var(--bc,var(--green));}
+  .section{margin-top:16px;}
+  .chartGrid{display:grid;grid-template-columns:1.45fr 1fr;gap:14px;}
+  .cardHead{display:flex;justify-content:space-between;align-items:center;padding:16px 18px 6px;}
+  .cardHead h3{margin:0;font-size:14px;font-family:'Space Grotesk',sans-serif;}
+  .cardHead span{font-size:10px;color:var(--muted);}
+  .chartBox{padding:4px 16px 15px;height:240px;}
+  .bottomGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .panelPad{padding:16px 18px;}
 
-  .section-title{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 14px;}
-  table{width:100%;border-collapse:collapse;font-size:13px;}
-  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--line);}
-  tbody td{padding:10px 14px;border-bottom:1px solid var(--line);}
-  tbody tr:last-child td{border-bottom:none;}
-  tbody tr:hover{background:var(--surface-2);}
-  .sc-tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12px;}
-  .sc-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--sc,var(--green));}
-  .score-pill{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:var(--green);}
-  .updated{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:22px;text-align:right;}
+  .progressRow{margin:13px 0;}
+  .rowTop{display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px;}
+  .rowTop strong{font-size:12px;}
+  .bar{height:8px;background:#EDF0ED;border-radius:8px;overflow:hidden;}
+  .bar span{display:block;height:100%;border-radius:8px;}
 
-  @media(max-width:900px){.summary,.two-col{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:600px){.summary,.two-col{grid-template-columns:1fr;} thead{display:none;} table,tbody,tr,td{display:block;} tbody tr{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;padding:8px 10px;} tbody td{border:none;padding:4px 0;} tbody td::before{content:attr(data-label);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;display:block;}}
+  .donutWrap{display:flex;align-items:center;gap:16px;padding:6px 18px 16px;}
+  .donut{width:130px;height:130px;position:relative;flex-shrink:0;}
+  .donut .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .donut .center b{font-family:'Space Grotesk',sans-serif;font-size:22px;}
+  .donut .center span{font-size:9px;color:var(--muted);}
+  .legend{display:grid;gap:9px;font-size:11px;flex:1;}
+  .legend div{display:flex;align-items:center;gap:8px;justify-content:space-between;}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+  .legendLabel{display:flex;align-items:center;gap:7px;}
+
+  .heat-note{background:var(--goldSoft);color:#7A5A20;font-size:10.5px;border-radius:8px;padding:8px 10px;margin-bottom:10px;line-height:1.4;}
+  .heat{display:grid;grid-template-columns:96px repeat(4,1fr);gap:4px;font-size:9px;text-align:center;}
+  .heat .rlabel{text-align:left;font-weight:700;font-size:10px;display:flex;align-items:center;}
+  .heat .head{color:var(--muted);font-weight:800;padding:4px 2px;}
+  .heat .cell{padding:8px 2px;border-radius:5px;background:#F1F2EF;color:#9AA39D;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .footerNote{font-size:10px;color:#8A9490;margin-top:12px;}
+
+  .insight{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line);}
+  .insight:last-child{border-bottom:0;padding-bottom:0;}
+  .insight:first-child{padding-top:0;}
+  .insight .icon{width:28px;height:28px;border-radius:8px;background:var(--mint);display:flex;align-items:center;justify-content:center;color:var(--green);font-weight:800;font-size:13px;flex-shrink:0;}
+  .insight.warn .icon{background:var(--goldSoft);color:var(--gold);}
+  .insight.alert .icon{background:var(--redSoft);color:var(--red);}
+  .insight strong{display:block;font-size:11.5px;margin-bottom:3px;}
+  .insight p{margin:0;font-size:10.5px;line-height:1.4;color:var(--muted);}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  thead th{text-align:left;font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;padding:10px 12px;border-top:1px solid var(--line);}
+  tbody td{padding:10px 12px;border-top:1px solid var(--line);white-space:nowrap;}
+  tbody tr:hover{background:#FAFBF9;}
+  .sc-tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:11.5px;}
+  .sc-tag .dot{background:var(--sc,var(--green));}
+  .score{font-weight:800;color:var(--green);}
+  .status-badge{font-size:9.5px;font-weight:800;padding:4px 8px;border-radius:12px;background:var(--mint);color:var(--green);}
+  .updated{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:18px;text-align:right;}
+
+  @media(max-width:1150px){
+    .grid4{grid-template-columns:repeat(2,1fr);}
+    .chartGrid,.bottomGrid{grid-template-columns:1fr;}
+  }
+  @media(max-width:640px){
+    .wrap{padding:18px 14px 50px;}
+    .grid4{grid-template-columns:1fr 1fr;}
+    .header{display:block;}
+    .filters{margin-top:12px;}
+    .donutWrap{display:block;text-align:center;}
+    .donut{margin:0 auto 14px;}
+    thead{display:none;}
+    table,tbody,tr,td{display:block;}
+    tbody tr{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;padding:8px 10px;}
+    tbody td{border:none;padding:4px 0;white-space:normal;}
+    tbody td::before{content:attr(data-label);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;display:block;}
+  }
+  @media print{
+    .exec-nav, .pem-sidebar, .pem-header, .actions, .filters{display:none !important;}
+    body[data-pem-no-shell-header]{padding:0 !important;}
+    .wrap{max-width:100%;padding:10px;}
+  }
 </style>
 </head>
-<body>
+<body data-pem-no-shell-header>
 <script src="assets/auth-config.js"></script>
 <div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
   <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
@@ -103,49 +181,142 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-  <div class="wrap">
-    <div class="head">
-      <div>
-        <div class="eyebrow">PEM Excellence Academy</div>
-        <h1>Dashboard Ejecutivo</h1>
-        <div class="sub">Avance real de capacitación en toda la empresa — conectado en vivo al registro de certificados de todos los colaboradores.</div>
-      </div>
-      <button class="refresh-btn" id="refreshBtn">⟳ Actualizar</button>
-    </div>
+<!-- Segunda contraseña, exclusiva de este dashboard -->
+<script>const PEM_ADMIN_HASH = "d6d516b23c6bd63fb299b27b0b4f702e847c07e3f912f84c00166d0137c2b43c";</script>
+<div id="pemAdminGateOverlay" style="position:fixed;inset:0;z-index:2147483646;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#FF7A1A;text-transform:uppercase;margin-bottom:10px;">Acceso exclusivo</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Este dashboard requiere una contraseña adicional.</div>
+    <input type="password" id="pemAdminPw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña de administrador">
+    <button onclick="pemAdminGateSubmit()" style="width:100%;background:#FF7A1A;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemAdminGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pemAdminOK') === '1'){
+    document.getElementById('pemAdminGateOverlay').style.display = 'none';
+  }
+})();
+async function pemAdminGateSubmit(){
+  const pw = document.getElementById('pemAdminPw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_ADMIN_HASH){
+    sessionStorage.setItem('pemAdminOK','1');
+    document.getElementById('pemAdminGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemAdminGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemAdminPw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemAdminGateSubmit(); });
+});
+</script>
 
-    <div id="loadingState" class="card state">Cargando datos en vivo…</div>
-    <div id="errorState" class="card state err" style="display:none;"></div>
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+</div>
 
-    <div id="content" style="display:none;">
-      <div class="summary" id="summary"></div>
-      <div class="two-col">
-        <div class="card panel">
-          <h2>Certificados por escuela</h2>
-          <div id="bySchool"></div>
-        </div>
-        <div class="card panel">
-          <h2>Certificados por sitio de trabajo</h2>
-          <div id="byBase"></div>
-        </div>
-      </div>
-
-      <div class="section-title">Actividad reciente</div>
-      <div class="card" style="overflow:auto;">
-        <table>
-          <thead><tr><th>Colaborador</th><th>Sitio</th><th>Escuela</th><th>Módulo</th><th>Calificación</th><th>Fecha</th></tr></thead>
-          <tbody id="recentBody"></tbody>
-        </table>
-      </div>
-      <div class="updated" id="updatedNote"></div>
+<div class="wrap">
+  <div class="topbar">
+    <div class="crumb">PEM Excellence Academy &nbsp;/&nbsp; Inteligencia de capacitación</div>
+    <div class="actions">
+      <button id="refreshBtn">↻ Actualizar</button>
+      <button class="primary" id="exportBtn">Exportar reporte</button>
     </div>
   </div>
+
+  <div class="header">
+    <div>
+      <div class="kicker">Executive Learning Intelligence</div>
+      <h1>Dashboard Ejecutivo</h1>
+      <div class="subtitle">Visión estratégica del desarrollo de competencias, certificaciones y cobertura normativa.</div>
+    </div>
+    <div class="filters">
+      <select id="fPeriodo">
+        <option value="all">Todo el historial</option>
+        <option value="90">Últimos 90 días</option>
+        <option value="30">Últimos 30 días</option>
+      </select>
+      <select id="fSitio"><option value="all">Todos los sitios</option></select>
+    </div>
+  </div>
+
+  <div id="loadingState" class="card state">Cargando datos en vivo…</div>
+  <div id="errorState" class="card state err" style="display:none;"></div>
+
+  <div id="content" style="display:none;">
+
+    <section class="grid4" id="kpiGrid"></section>
+
+    <section class="section chartGrid">
+      <div class="card">
+        <div class="cardHead"><h3>Evolución de capacitación</h3><span id="trendSpan">Horas acumuladas</span></div>
+        <div class="chartBox"><canvas id="trendChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="cardHead"><h3>Estado de participación</h3><span>Toda la organización</span></div>
+        <div class="donutWrap">
+          <div class="donut"><canvas id="donutChart"></canvas><div class="center"><b id="donutCenter">—</b><span>activos</span></div></div>
+          <div class="legend" id="donutLegend"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bottomGrid">
+      <div class="card">
+        <div class="cardHead"><h3>Cobertura por escuela</h3><span>% del total posible</span></div>
+        <div class="panelPad" id="bySchool"></div>
+      </div>
+
+      <div class="card">
+        <div class="cardHead"><h3>Mapa de madurez por rol</h3><span>Vista de ejemplo</span></div>
+        <div class="panelPad">
+          <div class="heat-note">⚠ Esta vista aún no tiene datos reales — la plataforma no captura el puesto/rol de cada colaborador todavía. Se activará automáticamente en cuanto ese dato exista (por ejemplo, al capturarlo en el generador de DC-3).</div>
+          <div class="heat" id="heatGrid"></div>
+          <div class="footerNote">1 = inicial · 5 = dominio avanzado (estructura lista, pendiente de datos reales)</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cardHead"><h3>Insights ejecutivos</h3><span>Calculados en vivo</span></div>
+        <div class="panelPad" id="insightsBox"></div>
+      </div>
+    </section>
+
+    <section class="section card" style="overflow:auto;">
+      <div class="cardHead"><h3>Actividad reciente de alto valor</h3><span id="activitySpan">Últimos certificados</span></div>
+      <table>
+        <thead><tr><th>Colaborador</th><th>Sitio</th><th>Escuela</th><th>Módulo</th><th>Calificación</th><th>Fecha</th><th>Estado</th></tr></thead>
+        <tbody id="recentBody"></tbody>
+      </table>
+    </section>
+
+    <div class="updated" id="updatedNote"></div>
+  </div>
+</div>
 
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTeHVuVNa4zwklUt6viOMWFc9qsT_aIbwhQRCDYHqfm6iLgxvoyIPVas_G_50aUB-iXroXP7Aiiz7C0/pub?gid=794441169&single=true&output=csv";
 
+// Dato real de la empresa, mantenido a mano — actualízalo si cambia la plantilla de PEM.
+const TOTAL_HEADCOUNT = 67;
+const HOURS_PER_MODULE = 0.5; // mismo criterio ya usado en Rutas de Aprendizaje y el generador de DC-3
+
 const SCHOOL_KEY_MAP = {
   "CALIDAD": "9001", "AMBIENTAL": "14001", "SEGURIDAD": "45001", "ÉTICA": "37001", "ETICA": "37001"
 };
+const MESES = {enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,octubre:9,noviembre:10,diciembre:11};
+const MESES_CORTO = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+
+let RAW_DATA = [];
+let charts = {trend:null, donut:null};
 
 function parseCSV(text){
   const rows = [];
@@ -176,74 +347,264 @@ function schoolLabel(escuela){
   const key = SCHOOL_KEY_MAP[(escuela||'').toUpperCase()];
   return (key && PEM_SCHOOLS[key]) ? PEM_SCHOOLS[key].name : (escuela || '—');
 }
+function parseFechaToDate(str){
+  if(!str) return null;
+  const parts = str.toLowerCase().trim().split(' de ');
+  if(parts.length < 3) return null;
+  const d = parseInt(parts[0],10), m = MESES[parts[1].trim()], y = parseInt(parts[2],10);
+  if(isNaN(d) || m===undefined || isNaN(y)) return null;
+  return new Date(y, m, d);
+}
 
-function render(rows){
+function parseRows(rows){
   const header = rows[0].map(h => h.trim());
   const idx = {
     nombre: header.indexOf('Nombre'), base: header.indexOf('Base'), escuela: header.indexOf('Escuela'),
     modulo: header.indexOf('Módulo'), norma: header.indexOf('Norma'), calif: header.indexOf('Calificación'),
     fecha: header.indexOf('Fecha'), certId: header.indexOf('Certificado ID')
   };
-  const data = rows.slice(1).filter(r => r[idx.nombre]).map(r => ({
-    nombre: r[idx.nombre]||'', base: (r[idx.base]||'').trim(), escuela: (r[idx.escuela]||'').trim(),
-    modulo: r[idx.modulo]||'', norma: r[idx.norma]||'', calif: (r[idx.calif]||'').trim(),
-    fecha: r[idx.fecha]||'', certId: r[idx.certId]||''
-  }));
+  return rows.slice(1).filter(r => r[idx.nombre]).map(r => {
+    const fecha = r[idx.fecha]||'';
+    return {
+      nombre: r[idx.nombre]||'', base: (r[idx.base]||'').trim(), escuela: (r[idx.escuela]||'').trim(),
+      modulo: r[idx.modulo]||'', norma: r[idx.norma]||'', calif: (r[idx.calif]||'').trim(),
+      fecha, fechaObj: parseFechaToDate(fecha), certId: r[idx.certId]||''
+    };
+  });
+}
 
-  // ---- Resumen ----
+function applyFilters(data){
+  const periodo = document.getElementById('fPeriodo').value;
+  const sitio = document.getElementById('fSitio').value;
+  let out = data;
+  if(periodo !== 'all'){
+    const days = parseInt(periodo,10);
+    const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - days);
+    out = out.filter(d => d.fechaObj && d.fechaObj >= cutoff);
+  }
+  if(sitio !== 'all'){
+    out = out.filter(d => d.base.toUpperCase() === sitio);
+  }
+  return out;
+}
+
+function bandaCalificacion(avg){
+  if(avg === null) return {label:'Sin datos', cls:''};
+  if(avg >= 90) return {label:'Excelente', cls:''};
+  if(avg >= 75) return {label:'Buena', cls:''};
+  return {label:'Necesita refuerzo', cls:'warn'};
+}
+
+function computeMonthlySeries(data){
+  const now = new Date();
+  const year = now.getFullYear();
+  const monthsAvailable = now.getMonth() + 1; // Ene..mes actual
+  const perMonth = new Array(monthsAvailable).fill(0);
+  data.forEach(d => {
+    if(d.fechaObj && d.fechaObj.getFullYear() === year){
+      const m = d.fechaObj.getMonth();
+      if(m < monthsAvailable) perMonth[m] += HOURS_PER_MODULE;
+    }
+  });
+  const cumulative = [];
+  let acc = 0;
+  perMonth.forEach(h => { acc += h; cumulative.push(Math.round(acc*10)/10); });
+  return { labels: MESES_CORTO.slice(0, monthsAvailable), values: cumulative, perMonth };
+}
+
+function render(){
+  const data = applyFilters(RAW_DATA);
+
   const total = data.length;
-  const colaboradores = new Set(data.map(d => d.nombre.toUpperCase().replace(/\s+/g,' ').trim())).size;
-  const bases = new Set(data.filter(d=>d.base).map(d => d.base.toUpperCase())).size;
+  const colaboradoresSet = new Set(data.map(d => d.nombre.toUpperCase().replace(/\s+/g,' ').trim()));
+  const colaboradores = colaboradoresSet.size;
+  const bases = new Set(data.filter(d=>d.base).map(d => d.base.toUpperCase()));
   const validScores = data.map(d => parseFloat(d.calif)).filter(n => !isNaN(n));
   const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : null;
+  const totalHoras = Math.round(total * HOURS_PER_MODULE * 10) / 10;
 
-  document.getElementById('summary').innerHTML = `
-    <div class="card metric"><div class="metric-label">Certificados totales</div><div class="metric-value">${total}</div><div class="metric-sub">Registrados en el sistema</div></div>
-    <div class="card metric"><div class="metric-label">Colaboradores activos</div><div class="metric-value">${colaboradores}</div><div class="metric-sub">Con al menos 1 certificado</div></div>
-    <div class="card metric"><div class="metric-label">Sitios de trabajo</div><div class="metric-value">${bases}</div><div class="metric-sub">Con actividad registrada</div></div>
-    <div class="card metric"><div class="metric-label">Promedio de calificación</div><div class="metric-value">${avg!==null ? avg+'%' : '—'}</div><div class="metric-sub">${validScores.length} calificaciones válidas</div></div>
+  const cobertura = Math.min(100, Math.round(100 * colaboradores / TOTAL_HEADCOUNT));
+
+  // ---- Delta real: mes actual vs mes anterior (horas) ----
+  const now = new Date();
+  const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const lastMonthStart = new Date(now.getFullYear(), now.getMonth()-1, 1);
+  const horasEsteMes = data.filter(d => d.fechaObj && d.fechaObj >= thisMonthStart).length * HOURS_PER_MODULE;
+  const horasMesPasado = data.filter(d => d.fechaObj && d.fechaObj >= lastMonthStart && d.fechaObj < thisMonthStart).length * HOURS_PER_MODULE;
+  let horasDeltaPct = null;
+  if(horasMesPasado > 0) horasDeltaPct = Math.round(100 * (horasEsteMes - horasMesPasado) / horasMesPasado);
+
+  // ---- Escuelas ----
+  const schoolKeys = PEM_SCHOOL_ORDER;
+  const modulesPerSchool = PEM_SCHOOLS[schoolKeys[0]].modules.length;
+  const schoolCoverage = schoolKeys.map(key => {
+    const label = PEM_SCHOOLS[key].name;
+    const color = PEM_SCHOOLS[key].color;
+    const count = data.filter(d => (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === key).length;
+    const potential = TOTAL_HEADCOUNT * modulesPerSchool;
+    const pct = Math.min(100, Math.round(100 * count / potential));
+    return {key, label, color, count, pct};
+  });
+  const minSchool = schoolCoverage.slice().sort((a,b)=>a.pct-b.pct)[0];
+
+  // ==================== KPIs ====================
+  document.getElementById('kpiGrid').innerHTML = `
+    <div class="card kpi" data-jump="bySchool">
+      <div class="label">Cobertura de capacitación</div>
+      <div class="value">${cobertura}%</div>
+      <div class="foot">${colaboradores} de ${TOTAL_HEADCOUNT} colaboradores con al menos 1 certificado</div>
+      <div class="delta">${colaboradores}/${TOTAL_HEADCOUNT}</div>
+      <div class="spark"><span style="width:${cobertura}%"></span></div>
+    </div>
+    <div class="card kpi" data-jump="recentBody">
+      <div class="label">Certificaciones activas</div>
+      <div class="value">${total}</div>
+      <div class="foot">De 48 módulos disponibles en la Academia</div>
+      <div class="delta">${Math.round(100*total/48)}%</div>
+      <div class="spark"><span style="width:${Math.min(100,Math.round(100*total/48))}%"></span></div>
+    </div>
+    <div class="card kpi">
+      <div class="label">Promedio de evaluación</div>
+      <div class="value">${avg!==null ? avg+'%' : '—'}</div>
+      <div class="foot">${validScores.length} evaluaciones válidas</div>
+      <div class="delta">${bandaCalificacion(avg).label}</div>
+      <div class="spark"><span style="width:${avg||0}%"></span></div>
+    </div>
+    <div class="card kpi">
+      <div class="label">Horas de aprendizaje</div>
+      <div class="value">${totalHoras} h</div>
+      <div class="foot">${horasEsteMes} h acumuladas este mes</div>
+      <div class="delta ${horasDeltaPct===null?'flat':''}">${horasDeltaPct===null ? 'Sin mes previo' : (horasDeltaPct>=0?'↑ ':'↓ ')+Math.abs(horasDeltaPct)+'%'}</div>
+      <div class="spark"><span style="width:${Math.min(100,totalHoras)}%"></span></div>
+    </div>
+  `;
+  document.querySelectorAll('.kpi[data-jump]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const target = document.getElementById(el.dataset.jump);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+
+  // ==================== Gráfica de evolución (real, Chart.js) ====================
+  const series = computeMonthlySeries(data);
+  document.getElementById('trendSpan').textContent = 'Horas acumuladas · ' + new Date().getFullYear();
+  if(charts.trend) charts.trend.destroy();
+  charts.trend = new Chart(document.getElementById('trendChart'), {
+    type:'line',
+    data:{ labels:series.labels, datasets:[{
+      label:'Horas de aprendizaje', data:series.values,
+      borderColor:'#087F5B', backgroundColor:'rgba(25,169,116,.10)', fill:true, tension:.35,
+      borderWidth:2, pointRadius:3, pointBackgroundColor:'#087F5B'
+    }]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ position:'bottom', labels:{boxWidth:10, font:{size:10}} } },
+      scales:{
+        y:{ beginAtZero:true, grid:{color:'#EDF0ED'}, ticks:{font:{size:9}} },
+        x:{ grid:{display:false}, ticks:{font:{size:9}} }
+      }
+    }
+  });
+
+  // ==================== Donut — participación real (2 estados reales) ====================
+  const sinCert = Math.max(0, TOTAL_HEADCOUNT - colaboradores);
+  document.getElementById('donutCenter').textContent = cobertura + '%';
+  if(charts.donut) charts.donut.destroy();
+  charts.donut = new Chart(document.getElementById('donutChart'), {
+    type:'doughnut',
+    data:{ labels:['Con al menos 1 certificado','Sin certificados aún'], datasets:[{
+      data:[colaboradores, sinCert], backgroundColor:['#19A974','#E3E7E3'], borderWidth:0
+    }]},
+    options:{ cutout:'74%', plugins:{ legend:{display:false} } }
+  });
+  document.getElementById('donutLegend').innerHTML = `
+    <div><span class="legendLabel"><i class="dot" style="background:#19A974"></i>Con al menos 1 certificado</span><b>${colaboradores}</b></div>
+    <div><span class="legendLabel"><i class="dot" style="background:#E3E7E3"></i>Sin certificados aún</span><b>${sinCert}</b></div>
   `;
 
-  // ---- Por escuela ----
-  const bySchoolCount = {};
-  data.forEach(d => { const k = d.escuela.toUpperCase(); bySchoolCount[k] = (bySchoolCount[k]||0)+1; });
-  const schoolEntries = Object.entries(bySchoolCount).sort((a,b)=>b[1]-a[1]);
-  const maxSchool = Math.max(1, ...schoolEntries.map(e=>e[1]));
-  document.getElementById('bySchool').innerHTML = schoolEntries.length ? schoolEntries.map(([esc,count])=>{
-    const color = schoolColor(esc);
-    const pct = Math.round(100*count/maxSchool);
-    return `<div class="bar-row"><div class="bl"><b>${schoolLabel(esc)}</b><span>${count}</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;--bc:${color}"></div></div></div>`;
-  }).join('') : '<div style="color:var(--muted);font-size:12.5px;">Sin datos aún</div>';
+  // ==================== Cobertura por escuela ====================
+  document.getElementById('bySchool').innerHTML = schoolCoverage.map(s => `
+    <div class="progressRow"><div class="rowTop"><strong>${s.label}</strong><span>${s.pct}%</span></div>
+      <div class="bar"><span style="width:${s.pct}%;background:${s.color}"></span></div></div>
+  `).join('');
 
-  // ---- Por sitio de trabajo ----
-  const byBaseCount = {};
-  data.forEach(d => { const k = d.base ? d.base.toUpperCase() : 'SIN SITIO'; byBaseCount[k] = (byBaseCount[k]||0)+1; });
-  const baseEntries = Object.entries(byBaseCount).sort((a,b)=>b[1]-a[1]);
-  const maxBase = Math.max(1, ...baseEntries.map(e=>e[1]));
-  document.getElementById('byBase').innerHTML = baseEntries.length ? baseEntries.map(([base,count])=>{
-    const pct = Math.round(100*count/maxBase);
-    return `<div class="bar-row"><div class="bl"><b>${base}</b><span>${count}</span></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div></div>`;
-  }).join('') : '<div style="color:var(--muted);font-size:12.5px;">Sin datos aún</div>';
+  // ==================== Mapa de madurez (estructura, sin datos reales aún) ====================
+  const roles = ['Dirección','Gerencias','Supervisión','Operación','Administración'];
+  let heatHtml = `<div class="head"></div><div class="head">CAL</div><div class="head">AMB</div><div class="head">SST</div><div class="head">ÉTICA</div>`;
+  roles.forEach(r => {
+    heatHtml += `<div class="rlabel">${r}</div>` + '<div class="cell">—</div>'.repeat(4);
+  });
+  document.getElementById('heatGrid').innerHTML = heatHtml;
 
-  // ---- Actividad reciente ----
-  const sorted = data.slice().reverse().slice(0, 15);
+  // ==================== Insights ejecutivos (calculados en vivo) ====================
+  const insights = [];
+  if(horasDeltaPct !== null){
+    insights.push({ icon: horasDeltaPct>=0?'↑':'↓', cls: horasDeltaPct>=0?'':'warn',
+      title: `Las horas de aprendizaje ${horasDeltaPct>=0?'subieron':'bajaron'} ${Math.abs(horasDeltaPct)}% vs. el mes anterior.`,
+      body: `${horasEsteMes} h registradas este mes, contra ${horasMesPasado} h el mes pasado.` });
+  }
+  if(minSchool){
+    insights.push({ icon:'!', cls: minSchool.pct < 75 ? 'alert' : 'warn',
+      title: `${minSchool.label} tiene la menor cobertura (${minSchool.pct}%).`,
+      body: `Es la escuela con más oportunidad de cerrar brecha en la organización.` });
+  }
+  const banda = bandaCalificacion(avg);
+  insights.push({ icon: avg!==null && avg>=90 ? '✓' : '•', cls: banda.cls,
+    title: avg!==null ? `Promedio de calificación: ${avg}% (${banda.label}).` : 'Aún no hay evaluaciones registradas.',
+    body: avg!==null ? `Calculado sobre ${validScores.length} evaluaciones válidas.` : 'En cuanto se generen certificados, este dato se calculará solo.' });
+  if(sinCert > 0){
+    insights.push({ icon:'○', cls:'warn',
+      title: `${sinCert} colaboradores sin ningún certificado registrado.`,
+      body: `Sobre una plantilla estimada de ${TOTAL_HEADCOUNT}.` });
+  }
+  document.getElementById('insightsBox').innerHTML = insights.map(i => `
+    <div class="insight ${i.cls}"><div class="icon">${i.icon}</div><div><strong>${i.title}</strong><p>${i.body}</p></div></div>
+  `).join('') || '<div style="color:var(--muted);font-size:12px;">Aún no hay suficientes datos para generar insights.</div>';
+
+  // ==================== Filtro de sitio (poblar opciones una sola vez) ====================
+  const sitioSel = document.getElementById('fSitio');
+  if(sitioSel.options.length <= 1){
+    const allBases = Array.from(new Set(RAW_DATA.filter(d=>d.base).map(d=>d.base.toUpperCase()))).sort();
+    allBases.forEach(b => {
+      const opt = document.createElement('option'); opt.value = b; opt.textContent = b;
+      sitioSel.appendChild(opt);
+    });
+  }
+
+  // ==================== Actividad reciente ====================
+  const sorted = data.slice().sort((a,b) => (b.fechaObj||0) - (a.fechaObj||0)).slice(0, 15);
   document.getElementById('recentBody').innerHTML = sorted.map(d => `
     <tr>
       <td data-label="Colaborador">${d.nombre}</td>
       <td data-label="Sitio">${d.base || '—'}</td>
       <td data-label="Escuela"><span class="sc-tag" style="--sc:${schoolColor(d.escuela)}"><span class="dot"></span>${schoolLabel(d.escuela)}</span></td>
       <td data-label="Módulo">${d.modulo}</td>
-      <td data-label="Calificación">${!isNaN(parseFloat(d.calif)) ? `<span class="score-pill">${d.calif}%</span>` : '—'}</td>
+      <td data-label="Calificación">${!isNaN(parseFloat(d.calif)) ? `<span class="score">${d.calif}%</span>` : '—'}</td>
       <td data-label="Fecha">${d.fecha}</td>
+      <td data-label="Estado"><span class="status-badge">Certificado</span></td>
     </tr>
-  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted);">Sin actividad registrada aún</td></tr>';
+  `).join('') || '<tr><td colspan="7" style="text-align:center;color:var(--muted);">Sin actividad registrada en este filtro</td></tr>';
 
   document.getElementById('updatedNote').textContent = 'Actualizado: ' + new Date().toLocaleString('es-MX');
   document.getElementById('loadingState').style.display = 'none';
   document.getElementById('errorState').style.display = 'none';
   document.getElementById('content').style.display = 'block';
+}
+
+function exportCSV(){
+  const data = applyFilters(RAW_DATA);
+  const header = ['Nombre','Base','Escuela','Modulo','Norma','Calificacion','Fecha','Certificado ID'];
+  const lines = [header.join(',')];
+  data.forEach(d => {
+    const row = [d.nombre, d.base, d.escuela, d.modulo, d.norma, d.calif, d.fecha, d.certId]
+      .map(v => `"${(v||'').toString().replace(/"/g,'""')}"`);
+    lines.push(row.join(','));
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'pem-excellence-academy-reporte-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 async function load(){
@@ -256,7 +617,8 @@ async function load(){
     const text = await res.text();
     const rows = parseCSV(text);
     if(rows.length < 1) throw new Error('La hoja está vacía');
-    render(rows);
+    RAW_DATA = parseRows(rows);
+    render();
   } catch(err){
     document.getElementById('loadingState').style.display = 'none';
     document.getElementById('errorState').style.display = 'block';
@@ -266,7 +628,21 @@ async function load(){
 }
 
 document.getElementById('refreshBtn').addEventListener('click', load);
+document.getElementById('exportBtn').addEventListener('click', exportCSV);
+document.getElementById('fPeriodo').addEventListener('change', render);
+document.getElementById('fSitio').addEventListener('change', render);
 load();
+
+// ---- Altura real del navbar propio, para el sidebar compartido ----
+(function(){
+  function syncNavHeight(){
+    var nav = document.querySelector('.exec-nav');
+    if(nav) document.documentElement.style.setProperty('--home-nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
 </script>
 
 <script src="assets/shell.js" defer></script>
