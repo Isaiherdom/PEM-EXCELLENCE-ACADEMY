@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --line:#E4DFD4;
+    --green:#0B7A4B; --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --line:#24302B;
+    --green:#22E88A; --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:24px;}
+  .box{text-align:center;max-width:420px;}
+  .box img{height:52px;margin-bottom:28px;}
+  html[data-theme="dark"] .box img{filter:brightness(0) invert(1);}
+  .code{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:10px;font-weight:700;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:26px;margin:0 0 12px;}
+  p{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 28px;}
+  a.btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#06140D;text-decoration:none;border-radius:10px;padding:13px 24px;font-weight:700;font-size:14px;font-family:'Inter',sans-serif;}
+</style>
+</head>
+<body>
+  <div class="box">
+    <img src="assets/pem-logo-green.png" alt="PEM Oil & Gas">
+    <div class="code">Error 404</div>
+    <h1>Esta página no existe</h1>
+    <p>El enlace que seguiste no corresponde a ningún módulo o sección de PEM Excellence Academy. Puede que se haya movido o que la dirección tenga un error de escritura.</p>
+    <a class="btn" href="index.html">← Volver al inicio</a>
+  </div>
+</body>
+</html>
