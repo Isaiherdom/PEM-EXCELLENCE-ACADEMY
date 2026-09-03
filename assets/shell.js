@@ -115,6 +115,7 @@
     if(base === 'generar-dc3.html') return 'Generar DC-3';
     if(base === 'noticias.html') return 'Noticias';
     if(base === 'recursos.html') return 'Recursos';
+    if(base === 'dashboard-ejecutivo.html') return 'Dashboard Ejecutivo';
     if(base === 'proximamente.html') return 'Próximamente';
     if((m = base.match(/^certificado-modulo(\d+)\.html$/))) return 'Certificado · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
     if((m = base.match(/^examen-modulo(\d+)/))) return 'Examen · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
@@ -135,6 +136,7 @@
     {label:'Certificaciones', href:prefix+'certificaciones.html', match:/certificaciones\.html/, icon:'badge'},
     {label:'Generar DC-3', href:prefix+'generar-dc3.html', match:/generar-dc3/, icon:'doc'},
     {label:'Recursos', href:prefix+'recursos.html', match:/recursos\.html/, icon:'doc'},
+    {label:'Dashboard Ejecutivo', href:prefix+'dashboard-ejecutivo.html', match:/dashboard-ejecutivo/, icon:'growth'},
     {label:'Noticias', href:prefix+'noticias.html', match:/noticias\.html/, icon:'news'}
   ];
   var NAV_SOON = [];

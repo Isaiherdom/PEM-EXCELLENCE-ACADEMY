@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Ejecutivo · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css">
+<script src="assets/modules.js"></script>
+<style>
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
+    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
+    --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
+    --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
+  .sub{color:var(--muted);font-size:14px;max-width:700px;line-height:1.6;}
+  .refresh-btn{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 16px;font-weight:600;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
+  .refresh-btn:hover{border-color:var(--green);color:var(--green);}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+  .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .state.err{color:var(--red);}
+
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
+  .metric{padding:20px;}
+  .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .metric-value{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;line-height:1;}
+  .metric-sub{font-size:11.5px;color:var(--muted);margin-top:6px;}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px;}
+  .panel{padding:22px;}
+  .panel h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 16px;}
+  .bar-row{margin-bottom:14px;}
+  .bar-row:last-child{margin-bottom:0;}
+  .bar-row .bl{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px;}
+  .bar-row .bl b{font-weight:700;}
+  .bar-row .bl span{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11.5px;}
+  .bar-track{height:9px;border-radius:6px;background:var(--surface-2);overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;background:var(--bc,var(--green));}
+
+  .section-title{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 14px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--line);}
+  tbody td{padding:10px 14px;border-bottom:1px solid var(--line);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--surface-2);}
+  .sc-tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12px;}
+  .sc-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--sc,var(--green));}
+  .score-pill{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:var(--green);}
+  .updated{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:22px;text-align:right;}
+
+  @media(max-width:900px){.summary,.two-col{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.summary,.two-col{grid-template-columns:1fr;} thead{display:none;} table,tbody,tr,td{display:block;} tbody tr{border:1px solid var(--line);border-radius:10px;margin-bottom:8px;padding:8px 10px;} tbody td{border:none;padding:4px 0;} tbody td::before{content:attr(data-label);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;display:block;}}
+</style>
+</head>
+<body>
+<script src="assets/auth-config.js"></script>
+<div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#16C270;text-transform:uppercase;margin-bottom:10px;">PEM Excellence Academy</div>
+    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Acceso restringido — ingresa la contraseña</div>
+    <input type="password" id="pemGatePw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña">
+    <button onclick="pemGateSubmit()" style="width:100%;background:#16C270;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+    <div id="pemGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('pemAuthOK') === '1'){
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  }
+})();
+async function pemGateSubmit(){
+  const pw = document.getElementById('pemGatePw').value;
+  const enc = new TextEncoder().encode(pw);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  if(hash === PEM_AUTH_HASH){
+    sessionStorage.setItem('pemAuthOK','1');
+    document.getElementById('pemGateOverlay').style.display = 'none';
+  } else {
+    document.getElementById('pemGateError').style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.getElementById('pemGatePw');
+  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemGateSubmit(); });
+});
+</script>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">PEM Excellence Academy</div>
+        <h1>Dashboard Ejecutivo</h1>
+        <div class="sub">Avance real de capacitación en toda la empresa — conectado en vivo al registro de certificados de todos los colaboradores.</div>
+      </div>
+      <button class="refresh-btn" id="refreshBtn">⟳ Actualizar</button>
+    </div>
+
+    <div id="loadingState" class="card state">Cargando datos en vivo…</div>
+    <div id="errorState" class="card state err" style="display:none;"></div>
+
+    <div id="content" style="display:none;">
+      <div class="summary" id="summary"></div>
+      <div class="two-col">
+        <div class="card panel">
+          <h2>Certificados por escuela</h2>
+          <div id="bySchool"></div>
+        </div>
+        <div class="card panel">
+          <h2>Certificados por sitio de trabajo</h2>
+          <div id="byBase"></div>
+        </div>
+      </div>
+
+      <div class="section-title">Actividad reciente</div>
+      <div class="card" style="overflow:auto;">
+        <table>
+          <thead><tr><th>Colaborador</th><th>Sitio</th><th>Escuela</th><th>Módulo</th><th>Calificación</th><th>Fecha</th></tr></thead>
+          <tbody id="recentBody"></tbody>
+        </table>
+      </div>
+      <div class="updated" id="updatedNote"></div>
+    </div>
+  </div>
+
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTeHVuVNa4zwklUt6viOMWFc9qsT_aIbwhQRCDYHqfm6iLgxvoyIPVas_G_50aUB-iXroXP7Aiiz7C0/pub?gid=794441169&single=true&output=csv";
+
+const SCHOOL_KEY_MAP = {
+  "CALIDAD": "9001", "AMBIENTAL": "14001", "SEGURIDAD": "45001", "ÉTICA": "37001", "ETICA": "37001"
+};
+
+function parseCSV(text){
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for(let i=0;i<text.length;i++){
+    const c = text[i], next = text[i+1];
+    if(inQuotes){
+      if(c === '"' && next === '"'){ field += '"'; i++; }
+      else if(c === '"'){ inQuotes = false; }
+      else field += c;
+    } else {
+      if(c === '"') inQuotes = true;
+      else if(c === ','){ row.push(field); field=''; }
+      else if(c === '\r'){ /* skip */ }
+      else if(c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+      else field += c;
+    }
+  }
+  if(field.length || row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r => r.length > 1 || r[0] !== '');
+}
+
+function schoolColor(escuela){
+  const key = SCHOOL_KEY_MAP[(escuela||'').toUpperCase()];
+  return (key && PEM_SCHOOLS[key]) ? PEM_SCHOOLS[key].color : '#6B655A';
+}
+function schoolLabel(escuela){
+  const key = SCHOOL_KEY_MAP[(escuela||'').toUpperCase()];
+  return (key && PEM_SCHOOLS[key]) ? PEM_SCHOOLS[key].name : (escuela || '—');
+}
+
+function render(rows){
+  const header = rows[0].map(h => h.trim());
+  const idx = {
+    nombre: header.indexOf('Nombre'), base: header.indexOf('Base'), escuela: header.indexOf('Escuela'),
+    modulo: header.indexOf('Módulo'), norma: header.indexOf('Norma'), calif: header.indexOf('Calificación'),
+    fecha: header.indexOf('Fecha'), certId: header.indexOf('Certificado ID')
+  };
+  const data = rows.slice(1).filter(r => r[idx.nombre]).map(r => ({
+    nombre: r[idx.nombre]||'', base: (r[idx.base]||'').trim(), escuela: (r[idx.escuela]||'').trim(),
+    modulo: r[idx.modulo]||'', norma: r[idx.norma]||'', calif: (r[idx.calif]||'').trim(),
+    fecha: r[idx.fecha]||'', certId: r[idx.certId]||''
+  }));
+
+  // ---- Resumen ----
+  const total = data.length;
+  const colaboradores = new Set(data.map(d => d.nombre.toUpperCase().replace(/\s+/g,' ').trim())).size;
+  const bases = new Set(data.filter(d=>d.base).map(d => d.base.toUpperCase())).size;
+  const validScores = data.map(d => parseFloat(d.calif)).filter(n => !isNaN(n));
+  const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : null;
+
+  document.getElementById('summary').innerHTML = `
+    <div class="card metric"><div class="metric-label">Certificados totales</div><div class="metric-value">${total}</div><div class="metric-sub">Registrados en el sistema</div></div>
+    <div class="card metric"><div class="metric-label">Colaboradores activos</div><div class="metric-value">${colaboradores}</div><div class="metric-sub">Con al menos 1 certificado</div></div>
+    <div class="card metric"><div class="metric-label">Sitios de trabajo</div><div class="metric-value">${bases}</div><div class="metric-sub">Con actividad registrada</div></div>
+    <div class="card metric"><div class="metric-label">Promedio de calificación</div><div class="metric-value">${avg!==null ? avg+'%' : '—'}</div><div class="metric-sub">${validScores.length} calificaciones válidas</div></div>
+  `;
+
+  // ---- Por escuela ----
+  const bySchoolCount = {};
+  data.forEach(d => { const k = d.escuela.toUpperCase(); bySchoolCount[k] = (bySchoolCount[k]||0)+1; });
+  const schoolEntries = Object.entries(bySchoolCount).sort((a,b)=>b[1]-a[1]);
+  const maxSchool = Math.max(1, ...schoolEntries.map(e=>e[1]));
+  document.getElementById('bySchool').innerHTML = schoolEntries.length ? schoolEntries.map(([esc,count])=>{
+    const color = schoolColor(esc);
+    const pct = Math.round(100*count/maxSchool);
+    return `<div class="bar-row"><div class="bl"><b>${schoolLabel(esc)}</b><span>${count}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;--bc:${color}"></div></div></div>`;
+  }).join('') : '<div style="color:var(--muted);font-size:12.5px;">Sin datos aún</div>';
+
+  // ---- Por sitio de trabajo ----
+  const byBaseCount = {};
+  data.forEach(d => { const k = d.base ? d.base.toUpperCase() : 'SIN SITIO'; byBaseCount[k] = (byBaseCount[k]||0)+1; });
+  const baseEntries = Object.entries(byBaseCount).sort((a,b)=>b[1]-a[1]);
+  const maxBase = Math.max(1, ...baseEntries.map(e=>e[1]));
+  document.getElementById('byBase').innerHTML = baseEntries.length ? baseEntries.map(([base,count])=>{
+    const pct = Math.round(100*count/maxBase);
+    return `<div class="bar-row"><div class="bl"><b>${base}</b><span>${count}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div></div>`;
+  }).join('') : '<div style="color:var(--muted);font-size:12.5px;">Sin datos aún</div>';
+
+  // ---- Actividad reciente ----
+  const sorted = data.slice().reverse().slice(0, 15);
+  document.getElementById('recentBody').innerHTML = sorted.map(d => `
+    <tr>
+      <td data-label="Colaborador">${d.nombre}</td>
+      <td data-label="Sitio">${d.base || '—'}</td>
+      <td data-label="Escuela"><span class="sc-tag" style="--sc:${schoolColor(d.escuela)}"><span class="dot"></span>${schoolLabel(d.escuela)}</span></td>
+      <td data-label="Módulo">${d.modulo}</td>
+      <td data-label="Calificación">${!isNaN(parseFloat(d.calif)) ? `<span class="score-pill">${d.calif}%</span>` : '—'}</td>
+      <td data-label="Fecha">${d.fecha}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted);">Sin actividad registrada aún</td></tr>';
+
+  document.getElementById('updatedNote').textContent = 'Actualizado: ' + new Date().toLocaleString('es-MX');
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+}
+
+async function load(){
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('content').style.display = 'none';
+  try{
+    const res = await fetch(CSV_URL + '&_ts=' + Date.now());
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    const rows = parseCSV(text);
+    if(rows.length < 1) throw new Error('La hoja está vacía');
+    render(rows);
+  } catch(err){
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    document.getElementById('errorState').textContent =
+      'No se pudo cargar el registro en vivo (' + err.message + '). Verifica que la hoja siga publicada como CSV en Google Sheets, o vuelve a intentar en unos segundos.';
+  }
+}
+
+document.getElementById('refreshBtn').addEventListener('click', load);
+load();
+</script>
+
+<script src="assets/shell.js" defer></script>
+</body>
+</html>
