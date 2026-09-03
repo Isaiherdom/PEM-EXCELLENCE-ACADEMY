@@ -11,77 +11,113 @@
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/shell.css">
 <script src="assets/roles.js"></script>
+<script src="assets/modules.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
+  /* Misma paleta ejecutiva fija del Dashboard Ejecutivo — consistente entre
+     los dos, sin importar el modo oscuro/claro del resto del sitio. */
   :root{
-    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
-    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
-    --text:#1C1A16; --muted:#6B655A;
-  }
-  html[data-theme="dark"]{
-    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
-    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
-    --text:#FFFFFF; --muted:#AAB5AF;
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --blue:#4D78B8; --blueSoft:#E6EEF9;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
-  .wrap{max-width:1180px;margin:0 auto;}
-  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
-  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
-  .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
 
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 28px 60px;}
+  .header{margin-bottom:22px;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,34px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:680px;line-height:1.6;}
+  .subtitle a{color:var(--green);}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
 
   /* ---- Selector de ruta ---- */
-  .role-picker{padding:24px;margin-bottom:26px;}
-  .role-picker h2{font-family:'Space Grotesk',sans-serif;font-size:17px;margin:0 0 4px;}
-  .role-picker p{color:var(--muted);font-size:13px;margin:0 0 16px;max-width:640px;line-height:1.55;}
+  .role-picker{padding:22px;margin-bottom:20px;}
+  .role-picker h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 4px;}
+  .role-picker p{color:var(--muted);font-size:12.5px;margin:0 0 14px;max-width:640px;line-height:1.55;}
   .role-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-  select{flex:1;min-width:240px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;}
-  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#06140D;border:none;border-radius:10px;padding:12px 20px;font-weight:700;font-size:13.5px;cursor:pointer;font-family:'Inter',sans-serif;}
-  .btn:hover{opacity:.9;}
-  .btn-ghost{background:none;border:1px solid var(--line);color:var(--text);}
-  .role-current{display:none;align-items:center;gap:10px;font-size:13px;color:var(--muted);margin-top:14px;}
-  .role-current b{color:var(--text);}
+  select{flex:1;min-width:240px;padding:11px 13px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;border:none;border-radius:9px;padding:11px 18px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn:hover{opacity:.92;}
+  .btn-ghost{background:none;border:1px solid var(--line);color:var(--ink);}
+  .role-current{display:none;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);margin-top:12px;}
+  .role-current b{color:var(--ink);}
 
-  /* ---- Resumen general ---- */
-  .metrics{display:none;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
-  .metric{padding:20px;}
-  .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-  .metric-value{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;}
+  /* ---- KPIs ---- */
+  .grid4{display:none;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
+  .kpi{padding:17px 18px;position:relative;overflow:hidden;}
+  .kpi .label{font-size:9px;letter-spacing:1.4px;color:var(--muted);font-weight:800;text-transform:uppercase;}
+  .kpi .value{font-family:'Space Grotesk',sans-serif;font-size:27px;font-weight:800;margin:7px 0 2px;letter-spacing:-1px;}
+  .kpi .foot{font-size:11px;color:var(--muted);}
+  .kpi .spark{height:4px;border-radius:5px;background:#EDF0ED;margin-top:14px;overflow:hidden;}
+  .kpi .spark span{display:block;height:100%;background:var(--green2);border-radius:5px;}
 
-  /* ---- Progreso por escuela (según tu ruta) ---- */
+  .section{margin-top:16px;}
   #routeSection{display:none;}
-  .section-title{font-family:'Space Grotesk',sans-serif;font-size:17px;margin:0 0 14px;}
-  .schools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
-  .school-card{padding:18px;}
-  .school-card .name{font-weight:700;font-size:14px;margin-bottom:2px;}
-  .school-card .req{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:10px;}
-  .bar{height:8px;border-radius:6px;background:var(--surface-2);overflow:hidden;}
-  .bar span{display:block;height:100%;border-radius:6px;background:var(--sc,var(--green));transition:width .4s;}
-  .school-card .pct{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;margin-top:8px;}
-  .school-card.done{border-color:var(--green);}
+  .chartGrid{display:grid;grid-template-columns:1fr 1.3fr;gap:14px;}
+  .cardHead{display:flex;justify-content:space-between;align-items:center;padding:16px 18px 6px;}
+  .cardHead h3{margin:0;font-size:14px;font-family:'Space Grotesk',sans-serif;}
+  .cardHead span{font-size:10px;color:var(--muted);}
+  .donutWrap{display:flex;align-items:center;gap:16px;padding:6px 18px 18px;}
+  .donut{width:120px;height:120px;position:relative;flex-shrink:0;}
+  .donut .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .donut .center b{font-family:'Space Grotesk',sans-serif;font-size:19px;}
+  .donut .center span{font-size:8.5px;color:var(--muted);}
+  .legend{display:grid;gap:8px;font-size:11px;flex:1;}
+  .legend div{display:flex;align-items:center;gap:8px;justify-content:space-between;}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+  .legendLabel{display:flex;align-items:center;gap:7px;}
 
-  .next-card{padding:22px;display:flex;align-items:center;gap:18px;margin-bottom:26px;}
-  .next-card .ic{width:44px;height:44px;border-radius:12px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-  .next-card .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
-  .next-card .t{font-weight:700;font-size:15px;margin-top:2px;}
+  .panelPad{padding:16px 18px;}
+  .progressRow{margin:13px 0;}
+  .progressRow:first-child{margin-top:0;}
+  .rowTop{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:6px;}
+  .rowTop strong{font-size:12.5px;}
+  .rowTop span{font-family:'JetBrains Mono',monospace;color:var(--muted);}
+  .bar{height:8px;background:#EDF0ED;border-radius:8px;overflow:hidden;}
+  .bar span{display:block;height:100%;border-radius:8px;background:var(--sc,var(--green));transition:width .4s;}
+
+  .next-card{padding:20px 22px;display:flex;align-items:center;gap:16px;margin-top:14px;}
+  .next-card .ic{width:42px;height:42px;border-radius:11px;background:var(--mint);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+  .next-card .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+  .next-card .t{font-weight:700;font-size:14.5px;margin-top:2px;}
   .next-card a{margin-left:auto;flex-shrink:0;}
 
-  .order-line{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:26px;}
+  .order-line{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);margin-bottom:16px;}
   .order-line b{color:var(--green);}
 
   @media(max-width:900px){
-    .schools-grid,.metrics{grid-template-columns:repeat(2,1fr);}
+    .grid4{grid-template-columns:repeat(2,1fr);}
+    .chartGrid{grid-template-columns:1fr;}
+  }
+  @media(max-width:600px){
+    .wrap{padding:18px 14px 50px;}
+    .grid4{grid-template-columns:1fr;}
+    .donutWrap{display:block;text-align:center;}
+    .donut{margin:0 auto 14px;}
     .next-card{flex-wrap:wrap;}
     .next-card a{margin-left:0;}
   }
-  @media(max-width:600px){
-    .schools-grid,.metrics{grid-template-columns:1fr;}
-  }
 </style>
 </head>
-<body>
+<body data-pem-no-shell-header>
 <script src="assets/auth-config.js"></script>
 <div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
   <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
@@ -116,11 +152,18 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+</div>
+
   <div class="wrap">
-    <div class="head">
-      <div class="eyebrow">PEM Excellence Academy</div>
+    <div class="header">
+      <div class="kicker">Mi desarrollo profesional</div>
       <h1>Mi desarrollo</h1>
-      <div class="sub">Tu progreso real, calculado a partir de los certificados que ya obtuviste, comparado contra lo que tu puesto necesita según la Ruta de Aprendizaje de PEM. ¿Buscas el catálogo completo de las 4 escuelas? Ve a <a href="mis-cursos.html" style="color:var(--green);">Mis cursos</a>.</div>
+      <div class="subtitle">Tu progreso real, calculado a partir de los certificados que ya obtuviste, comparado contra lo que tu puesto necesita según la Ruta de Aprendizaje de PEM. ¿Buscas el catálogo completo de las 4 escuelas? Ve a <a href="mis-cursos.html">Mis cursos</a>.</div>
     </div>
 
     <div class="card role-picker">
@@ -133,19 +176,23 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="role-current" id="roleCurrent">Ruta actual: <b id="roleCurrentName"></b> <button class="btn btn-ghost" id="roleChange" style="margin-left:auto;padding:6px 12px;font-size:12px;">Cambiar</button></div>
     </div>
 
-    <div class="metrics" id="metrics">
-      <div class="card metric"><div class="metric-label">Progreso general</div><div class="metric-value" id="mGeneral">—</div></div>
-      <div class="card metric"><div class="metric-label">Certificados obtenidos</div><div class="metric-value" id="mCerts">—</div></div>
-      <div class="card metric"><div class="metric-label">Última actividad</div><div class="metric-value" id="mLast" style="font-size:15px;">—</div></div>
-      <div class="card metric"><div class="metric-label">Progreso en tu ruta</div><div class="metric-value" id="mRoute">—</div></div>
-    </div>
+    <section class="grid4" id="kpiGrid"></section>
 
     <div id="routeSection">
-      <div class="order-line" id="orderLine"></div>
-      <div class="section-title">Progreso por escuela, según tu ruta</div>
-      <div class="schools-grid" id="schoolsGrid"></div>
+      <section class="section chartGrid">
+        <div class="card">
+          <div class="cardHead"><h3>Tu avance por escuela</h3><span>Según tu ruta</span></div>
+          <div class="donutWrap">
+            <div class="donut"><canvas id="donutChart"></canvas><div class="center"><b id="donutCenter">—</b><span>tu ruta</span></div></div>
+            <div class="legend" id="donutLegend"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="cardHead"><h3>Progreso por escuela, según tu ruta</h3><span id="orderSpan"></span></div>
+          <div class="panelPad" id="schoolsGrid"></div>
+        </div>
+      </section>
 
-      <div class="section-title">Continúa tu ruta</div>
       <div class="card next-card" id="nextCard"></div>
     </div>
 
@@ -156,37 +203,36 @@ const ROLES = window.PEM_ROLES;
 const MOD_BY_LEVEL = window.PEM_MOD_BY_LEVEL;
 const ORDER_KEY_MAP = {"Calidad":"9001","Ambiental":"14001","SST":"45001","Ética":"37001"};
 const SCHOOL_META = {
-  "9001":{label:"Calidad",folder:"",prefix:"",exam:"-iso9001"},
-  "14001":{label:"Ambiental",folder:"escuela-ambiental/",prefix:"escuela-ambiental/",exam:"-iso14001"},
-  "45001":{label:"Seguridad",folder:"escuela-seguridad/",prefix:"escuela-seguridad/",exam:"-iso45001"},
-  "37001":{label:"Ética",folder:"escuela-etica/",prefix:"escuela-etica/",exam:"-iso37001"}
+  "9001":{label:"Calidad",prefix:"",exam:"-iso9001"},
+  "14001":{label:"Ambiental",prefix:"escuela-ambiental/",exam:"-iso14001"},
+  "45001":{label:"Seguridad",prefix:"escuela-seguridad/",exam:"-iso45001"},
+  "37001":{label:"Ética",prefix:"escuela-etica/",exam:"-iso37001"}
 };
+let charts = {donut:null};
 
-// Poblar selector
 const roleSelect = document.getElementById('roleSelect');
 roleSelect.innerHTML = ROLES.map((r,i)=>`<option value="${i}">${r.name}</option>`).join('');
 
-function requiredFor(role, key){
-  const field = 'c'+key;
-  return MOD_BY_LEVEL[role[field]];
-}
+function requiredFor(role, key){ return MOD_BY_LEVEL[role['c'+key]]; }
 
 function render(){
   if(!window.PEM_SHELL){ setTimeout(render, 30); return; }
   const progress = PEM_SHELL.computeProgress();
   const savedIdx = localStorage.getItem('pemRoleIdx');
 
-  // Métricas generales (siempre visibles una vez cargado el shell)
-  document.getElementById('metrics').style.display = 'grid';
+  document.getElementById('kpiGrid').style.display = 'grid';
   const generalPct = Math.round(100*progress.totalCerts/progress.totalModules);
-  document.getElementById('mGeneral').textContent = generalPct + '%';
-  document.getElementById('mCerts').textContent = progress.totalCerts + ' / 48';
-  document.getElementById('mLast').textContent = progress.lastDateStr || 'Sin actividad aún';
+
+  document.getElementById('kpiGrid').innerHTML = `
+    <div class="card kpi"><div class="label">Progreso general</div><div class="value">${generalPct}%</div><div class="foot">Sobre las 4 escuelas completas</div><div class="spark"><span style="width:${generalPct}%"></span></div></div>
+    <div class="card kpi"><div class="label">Certificados obtenidos</div><div class="value">${progress.totalCerts} / 48</div><div class="foot">Total en toda la Academia</div><div class="spark"><span style="width:${Math.round(100*progress.totalCerts/48)}%"></span></div></div>
+    <div class="card kpi" id="kpiRoute"><div class="label">Progreso en tu ruta</div><div class="value">—</div><div class="foot">Elige tu puesto abajo</div><div class="spark"><span style="width:0%"></span></div></div>
+    <div class="card kpi"><div class="label">Última actividad</div><div class="value" style="font-size:15px;">${progress.lastDateStr || 'Sin actividad aún'}</div><div class="foot">Último certificado generado</div></div>
+  `;
 
   if(savedIdx === null || !ROLES[savedIdx]){
     document.getElementById('roleCurrent').style.display = 'none';
     document.getElementById('routeSection').style.display = 'none';
-    document.getElementById('mRoute').textContent = '—';
     return;
   }
 
@@ -199,29 +245,47 @@ function showRoute(idx, progress){
   document.getElementById('roleCurrent').style.display = 'flex';
   document.getElementById('roleCurrentName').textContent = role.name;
   document.getElementById('routeSection').style.display = 'block';
-  document.getElementById('orderLine').innerHTML = 'Orden recomendado para tu puesto: <b>' + role.order + '</b>';
+  document.getElementById('orderSpan').textContent = role.order;
 
   const orderKeys = role.order.split('→').map(s=>ORDER_KEY_MAP[s.trim()]);
   let totalReq = 0, totalDone = 0;
+  const schoolData = [];
 
-  document.getElementById('schoolsGrid').innerHTML = orderKeys.map(key=>{
+  orderKeys.forEach(key=>{
     const meta = SCHOOL_META[key];
+    const color = PEM_SCHOOLS[key].color;
     const req = requiredFor(role, key);
     const done = Math.min(progress.perSchool[key], req);
     totalReq += req; totalDone += done;
-    const pct = Math.round(100*done/req);
-    return `<div class="card school-card ${done>=req?'done':''}">
-      <div class="name">${meta.label}</div>
-      <div class="req">${done} de ${req} módulos requeridos</div>
-      <div class="bar"><span style="width:${pct}%"></span></div>
-      <div class="pct" style="color:${done>=req?'var(--green)':'var(--text)'}">${pct}%${done>=req?' · Completo':''}</div>
-    </div>`;
-  }).join('');
+    schoolData.push({key, label:meta.label, color, req, done, pct: Math.round(100*done/req)});
+  });
+
+  document.getElementById('schoolsGrid').innerHTML = schoolData.map(s => `
+    <div class="progressRow"><div class="rowTop"><strong>${s.label}</strong><span>${s.done} / ${s.req}</span></div>
+      <div class="bar"><span style="width:${s.pct}%;--sc:${s.color}"></span></div></div>
+  `).join('');
 
   const routePct = Math.round(100*totalDone/totalReq);
-  document.getElementById('mRoute').textContent = routePct + '%';
+  const kpiRoute = document.getElementById('kpiRoute');
+  kpiRoute.querySelector('.value').textContent = routePct + '%';
+  kpiRoute.querySelector('.foot').textContent = 'Como ' + role.name;
+  kpiRoute.querySelector('.spark span').style.width = routePct + '%';
 
-  // Próximo módulo pendiente, respetando el orden de la ruta
+  // ---- Donut: tu avance real por escuela, dentro de tu ruta ----
+  document.getElementById('donutCenter').textContent = routePct + '%';
+  if(charts.donut) charts.donut.destroy();
+  charts.donut = new Chart(document.getElementById('donutChart'), {
+    type:'doughnut',
+    data:{ labels: schoolData.map(s=>s.label), datasets:[{
+      data: schoolData.map(s=>s.done), backgroundColor: schoolData.map(s=>s.color), borderWidth:0
+    }]},
+    options:{ cutout:'72%', plugins:{ legend:{display:false} } }
+  });
+  document.getElementById('donutLegend').innerHTML = schoolData.map(s => `
+    <div><span class="legendLabel"><i class="dot" style="background:${s.color}"></i>${s.label}</span><b>${s.done}/${s.req}</b></div>
+  `).join('');
+
+  // ---- Próximo módulo pendiente, respetando el orden de la ruta ----
   let nextKey = null, nextN = null;
   for(const key of orderKeys){
     const req = requiredFor(role, key);
@@ -250,6 +314,16 @@ document.getElementById('roleChange').addEventListener('click', function(){
 });
 
 render();
+
+(function(){
+  function syncNavHeight(){
+    var nav = document.querySelector('.exec-nav');
+    if(nav) document.documentElement.style.setProperty('--home-nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
 </script>
 
 <script src="assets/shell.js" defer></script>

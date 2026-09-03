@@ -5,74 +5,82 @@
 <script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mapa Académico · PEM Excellence Academy</title>
+<title>Escuelas · PEM Excellence Academy</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/shell.css">
+<script src="assets/modules.js"></script>
 <style>
   :root{
-    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
-    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
-    --text:#1C1A16; --muted:#6B655A;
-  }
-  html[data-theme="dark"]{
-    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
-    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
-    --text:#FFFFFF; --muted:#AAB5AF;
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --blue:#4D78B8; --blueSoft:#E6EEF9;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
-  .wrap{max-width:1280px;margin:0 auto;}
-  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
-  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,34px);margin:0 0 8px;}
-  .sub{color:var(--muted);font-size:14.5px;max-width:720px;line-height:1.6;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
 
-  .rail-explainer{
-    display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 40px;
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
   }
-  .rail-card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--surface);}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:26px 28px 60px;}
+  .header{margin-bottom:20px;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,34px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:760px;line-height:1.6;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
+
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
+  .kpi{padding:17px 18px;}
+  .kpi .label{font-size:9px;letter-spacing:1.4px;color:var(--muted);font-weight:800;text-transform:uppercase;}
+  .kpi .value{font-family:'Space Grotesk',sans-serif;font-size:27px;font-weight:800;margin:7px 0 2px;letter-spacing:-1px;}
+  .kpi .foot{font-size:11px;color:var(--muted);}
+
+  .rail-explainer{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+  .rail-card{padding:18px 20px;}
   .rail-card.formal{border-top:3px solid var(--blue);}
   .rail-card.pem{border-top:3px solid var(--green);}
-  .rail-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+  .rail-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:800;}
   .rail-card.formal .rail-tag{color:var(--blue);}
   .rail-card.pem .rail-tag{color:var(--green);}
-  .rail-card p{font-size:13px;color:var(--muted);line-height:1.55;margin:0;}
-  .rail-card b{color:var(--text);}
+  .rail-card p{font-size:12.5px;color:var(--muted);line-height:1.55;margin:0;}
+  .rail-card b{color:var(--ink);}
 
   .schools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-  .school{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;}
+  .school{overflow:hidden;}
   .school-head{padding:16px 16px 14px;border-bottom:1px solid var(--line);}
-  .school-code{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;}
-  .school-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;margin:4px 0 2px;}
-  .school-norm{font-family:'JetBrains Mono',monospace;font-size:11px;}
-  .s-9001 .school-norm{color:var(--green);} .s-9001{border-top:3px solid var(--green);}
-  .s-14001 .school-norm{color:var(--blue);} .s-14001{border-top:3px solid var(--blue);}
-  .s-45001 .school-norm{color:var(--amber);} .s-45001{border-top:3px solid var(--amber);}
-  .s-37001 .school-norm{color:var(--red);} .s-37001{border-top:3px solid var(--red);}
-  .status{display:inline-block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:9.5px;padding:2px 7px;border-radius:20px;letter-spacing:.05em;}
-  .status.live{background:rgba(22,194,112,0.15);color:var(--green);}
-  .status.planned{background:rgba(138,150,142,0.15);color:var(--muted);}
+  .school-code{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.08em;}
+  .school-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;margin:4px 0 2px;}
+  .school-norm{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;}
+  .status{display:inline-block;margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;letter-spacing:.04em;font-weight:800;background:var(--mint);color:var(--green);}
 
-  .mod-list{padding:6px 0;}
-  .mod{
-    display:flex;gap:10px;padding:9px 16px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.4;
-  }
+  .mod-list{padding:4px 0;}
+  .mod{display:flex;gap:9px;padding:8px 16px;border-bottom:1px solid var(--line);font-size:11.5px;line-height:1.4;}
   .mod:last-child{border-bottom:none;}
-  .mod.built{background:rgba(22,194,112,0.06);}
-  .mod-n{font-family:'JetBrains Mono',monospace;color:var(--muted);flex-shrink:0;width:20px;}
+  .mod-n{font-family:'JetBrains Mono',monospace;color:var(--muted);flex-shrink:0;width:18px;}
   .mod-body{flex:1;}
-  .mod-clause{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);display:block;margin-top:2px;}
-  .built-badge{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--green);}
+  .mod-clause{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);display:block;margin-top:2px;}
 
-  .footer-note{margin-top:30px;font-size:12px;color:var(--muted);text-align:center;font-family:'JetBrains Mono',monospace;}
+  .footer-note{margin-top:24px;font-size:11px;color:var(--muted);text-align:center;font-family:'JetBrains Mono',monospace;}
 
-  @media(max-width:1000px){.schools{grid-template-columns:1fr 1fr;}}
-  @media(max-width:620px){.schools{grid-template-columns:1fr;}.rail-explainer{grid-template-columns:1fr;}}
+  @media(max-width:1150px){.grid4{grid-template-columns:repeat(2,1fr);}.schools{grid-template-columns:1fr 1fr;}}
+  @media(max-width:640px){.wrap{padding:18px 14px 50px;}.grid4{grid-template-columns:1fr;}.schools,.rail-explainer{grid-template-columns:1fr;}}
 </style>
 </head>
-<body>
+<body data-pem-no-shell-header>
 <script src="assets/auth-config.js"></script>
 <div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
   <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
@@ -107,122 +115,80 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+</div>
 
 <div class="wrap">
-  <div class="head">
-    <div class="eyebrow">PEM Excellence Academy · Arquitectura Académica</div>
-    <h1>Mapa completo de escuelas y módulos</h1>
-    <div class="sub">4 escuelas normativas exclusivas, una por norma. Cada escuela recorre 12 módulos siguiendo la estructura de cláusulas Anexo SL, adaptados al lenguaje operativo de PEM. El Nivel 1–6 de cada colaborador (Fundamentos → Líder SGI) atraviesa estas escuelas según el perfil.</div>
+  <div class="header">
+    <div class="kicker">Arquitectura académica</div>
+    <h1>Escuelas y módulos</h1>
+    <div class="subtitle">4 escuelas normativas exclusivas, una por norma. Cada escuela recorre 12 módulos siguiendo la estructura de cláusulas Anexo SL, adaptados al lenguaje operativo de PEM.</div>
   </div>
 
-  <div class="rail-explainer">
-    <div class="rail-card formal">
+  <section class="grid4" id="kpiGrid"></section>
+
+  <section class="rail-explainer">
+    <div class="card rail-card formal">
       <div class="rail-tag">Riel normativo</div>
       <p>Cada módulo enseña primero el <b>requisito formal de la cláusula</b> tal como lo pediría un auditor: qué exige la norma, qué evidencia espera. Este riel nunca se diluye ni se reemplaza por el ejemplo — es el estándar que se audita.</p>
     </div>
-    <div class="rail-card pem">
+    <div class="card rail-card pem">
       <div class="rail-tag">Riel operativo PEM</div>
       <p>Inmediatamente después, el mismo requisito se ancla a <b>un escenario real de PEM</b> (compresor, sitio de trabajo específico). El ejemplo no sustituye el requisito — lo hace memorable y aplicable el día siguiente en campo.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="schools" id="schools"></div>
+  <section class="schools" id="schools"></section>
 
   <div class="footer-note">PEM-ACAD-MAP-01 · Doble riel aplicado en video, examen (preguntas de definición + preguntas de escenario) e infografía de cada módulo</div>
 </div>
 
 <script>
-const SCHOOLS = [
-  {
-    code:"ESCUELA 01 · s-9001", cls:"s-9001", title:"Escuela de Calidad", norm:"ISO 9001:2015", status:"live",
-    modules:[
-      ["Fundamentos y contexto de la organización","Cl. 4","built"],
-      ["Liderazgo y compromiso de la dirección","Cl. 5.1","built"],
-      ["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3","built"],
-      ["Riesgos y oportunidades","Cl. 6.1","built"],
-      ["Objetivos de calidad y planificación de cambios","Cl. 6.2–6.3","built"],
-      ["Recursos, competencia y toma de conciencia","Cl. 7.1–7.3","built"],
-      ["Comunicación e información documentada","Cl. 7.4–7.5","built"],
-      ["Planificación y control operacional","Cl. 8.1","built"],
-      ["Requisitos del cliente y diseño del servicio","Cl. 8.2–8.3","built"],
-      ["Control de proveedores externos y compras","Cl. 8.4","built"],
-      ["Provisión del servicio y salidas no conformes","Cl. 8.5–8.7","built"],
-      ["Evaluación del desempeño, auditoría y mejora","Cl. 9–10","built"]
-    ]
-  },
-  {
-    code:"ESCUELA 02 · s-14001", cls:"s-14001", title:"Escuela Ambiental", norm:"ISO 14001:2015", status:"live",
-    modules:[
-      ["Fundamentos y contexto ambiental de PEM","Cl. 4","built"],
-      ["Liderazgo y política ambiental","Cl. 5","built"],
-      ["Partes interesadas y requisitos legales ambientales","Cl. 4.2, 6.1.3","built"],
-      ["Aspectos e impactos ambientales","Cl. 6.1.2","built"],
-      ["Objetivos ambientales y planificación de acciones","Cl. 6.2","built"],
-      ["Recursos, competencia y conciencia ambiental","Cl. 7.1–7.3","built"],
-      ["Comunicación e información documentada","Cl. 7.4–7.5","built"],
-      ["Control operacional ambiental (residuos, derrames, sustancias)","Cl. 8.1","built"],
-      ["Preparación y respuesta ante emergencias ambientales","Cl. 8.2","built"],
-      ["Evaluación del desempeño ambiental","Cl. 9.1","built"],
-      ["Cumplimiento legal ambiental","Cl. 9.1.2","built"],
-      ["Auditoría interna y mejora continua ambiental","Cl. 9.2–10","built"]
-    ]
-  },
-  {
-    code:"ESCUELA 03 · s-45001", cls:"s-45001", title:"Escuela de Seguridad y Salud", norm:"ISO 45001:2018", status:"live",
-    modules:[
-      ["Fundamentos y contexto de SST en PEM","Cl. 4","built"],
-      ["Liderazgo y participación de los trabajadores","Cl. 5.1, 5.4","built"],
-      ["Consulta y participación de los trabajadores","Cl. 5.4","built"],
-      ["Identificación de peligros y evaluación de riesgos","Cl. 6.1.2","built"],
-      ["Requisitos legales en SST","Cl. 6.1.3","built"],
-      ["Objetivos y planificación de SST","Cl. 6.2","built"],
-      ["Recursos, competencia y conciencia en SST","Cl. 7.1–7.3","built"],
-      ["Comunicación y consulta","Cl. 7.4","built"],
-      ["Eliminación de peligros y jerarquía de controles","Cl. 8.1.2","built"],
-      ["Gestión del cambio y contratación externa","Cl. 8.1.3–8.1.4","built"],
-      ["Preparación y respuesta ante emergencias","Cl. 8.2","built"],
-      ["Investigación de incidentes, auditoría y mejora","Cl. 9–10","built"]
-    ]
-  },
-  {
-    code:"ESCUELA 04 · s-37001", cls:"s-37001", title:"Escuela de Ética y Cumplimiento", norm:"ISO 37001:2025", status:"live",
-    modules:[
-      ["Fundamentos y contexto del riesgo de soborno en PEM","Cl. 4","built"],
-      ["Liderazgo, función de cumplimiento y compromiso","Cl. 5","built"],
-      ["Política antisoborno y gobierno","Cl. 5.2–5.3","built"],
-      ["Evaluación de riesgo de soborno","Cl. 6, 8.9","built"],
-      ["Debida diligencia de terceros, socios y clientes","Cl. 8.2","built"],
-      ["Controles financieros y no financieros","Cl. 8.3–8.4","built"],
-      ["Regalos, hospitalidad, donativos y beneficios","Cl. 8.5–8.6","built"],
-      ["Compromisos anti-soborno de terceros","Cl. 8.7","built"],
-      ["Canal de denuncias (whistleblowing)","Cl. 8.9","built"],
-      ["Investigaciones y conflictos de interés","Cl. 8.10, 8.13","built"],
-      ["Comunicación, competencia y conciencia","Cl. 7","built"],
-      ["Evaluación del desempeño, auditoría interna y mejora","Cl. 9–10","built"]
-    ]
-  }
-];
+const totalEscuelas = PEM_SCHOOL_ORDER.length;
+const modulesPerSchool = PEM_SCHOOLS[PEM_SCHOOL_ORDER[0]].modules.length;
+const totalModulos = totalEscuelas * modulesPerSchool;
 
-const el = document.getElementById('schools');
-el.innerHTML = SCHOOLS.map(s=>`
-  <div class="school ${s.cls}">
+document.getElementById('kpiGrid').innerHTML = `
+  <div class="card kpi"><div class="label">Escuelas normativas</div><div class="value">${totalEscuelas}</div><div class="foot">Una por cada norma ISO</div></div>
+  <div class="card kpi"><div class="label">Módulos totales</div><div class="value">${totalModulos}</div><div class="foot">${modulesPerSchool} por escuela</div></div>
+  <div class="card kpi"><div class="label">Módulos entregados</div><div class="value">${totalModulos} / ${totalModulos}</div><div class="foot">100% del contenido construido</div></div>
+  <div class="card kpi"><div class="label">Normas cubiertas</div><div class="value">ISO ×4</div><div class="foot">9001 · 14001 · 45001 · 37001</div></div>
+`;
+
+document.getElementById('schools').innerHTML = PEM_SCHOOL_ORDER.map((key, idx) => {
+  const s = PEM_SCHOOLS[key];
+  return `
+  <div class="card school" style="border-top:3px solid ${s.color};">
     <div class="school-head">
-      <div class="school-code">${s.code.split(' · ')[0]}</div>
-      <div class="school-title">${s.title}</div>
-      <div class="school-norm">${s.norm}</div>
-      <span class="status ${s.status}">${s.status==='live'?'ESCUELA COMPLETA — 12/12 MÓDULOS':'FUTURA'}</span>
+      <div class="school-code">ESCUELA 0${idx+1}</div>
+      <div class="school-title">${s.name}</div>
+      <div class="school-norm" style="color:${s.color};">${s.norm}</div>
+      <span class="status">ESCUELA COMPLETA — ${modulesPerSchool}/${modulesPerSchool} MÓDULOS</span>
     </div>
     <div class="mod-list">
-      ${s.modules.map((m,i)=>`
-        <div class="mod ${m[2]?'built':''}">
+      ${s.modules.map((m,i) => `
+        <div class="mod">
           <div class="mod-n">${String(i+1).padStart(2,'0')}</div>
-          <div class="mod-body">${m[0]}<span class="mod-clause">${m[1]}${m[2]?' · <span class="built-badge">ENTREGADO</span>':''}</span></div>
+          <div class="mod-body">${m[0]}<span class="mod-clause">${m[1]}</span></div>
         </div>
       `).join('')}
     </div>
-  </div>
-`).join('');
+  </div>`;
+}).join('');
+
+(function(){
+  function syncNavHeight(){
+    var nav = document.querySelector('.exec-nav');
+    if(nav) document.documentElement.style.setProperty('--home-nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
 </script>
 <script src="assets/shell.js" defer></script>
 </body>
