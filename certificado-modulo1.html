@@ -300,9 +300,29 @@ function generarCertificado(){
   }catch(e){}
 
   logToSheet(name, base, rol, score, dateStr, id);
+  guardarEnSupabase(name, base, rol, score, id); // Fase 4B (piloto) — no bloquea el flujo si falla
 
   document.getElementById('formBox').style.display='none';
   document.getElementById('certStage').style.display='block';
+}
+
+// ==================== Fase 4B (piloto) — escritura real en Supabase ====================
+// Escuela de Calidad, Módulo 1. Corre en paralelo al Google Sheet de siempre — si algo
+// falla aquí, el certificado y el registro de auditoría existentes NO se ven afectados.
+async function guardarEnSupabase(name, base, rol, score, certId){
+  try{
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session){ console.warn('Supabase: sin sesión activa, se omite el guardado.'); return; }
+    await window.PEM_SB.from('profiles').upsert(
+      { id: session.user.id, nombre: name, base, rol },
+      { onConflict: 'id' }
+    );
+    const { error } = await window.PEM_SB.from('certificados').upsert(
+      { user_id: session.user.id, escuela: '9001', modulo: 1, calificacion: parseInt(score) || null, certificado_id: certId },
+      { onConflict: 'user_id,escuela,modulo' }
+    );
+    if(error) console.warn('Supabase certificados error:', error.message);
+  }catch(e){ console.warn('Supabase: error inesperado al guardar (no afecta tu certificado):', e); }
 }
 function volver(){
   document.getElementById('certStage').style.display='none';
