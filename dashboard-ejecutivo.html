@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="assets/shell.css">
 <script src="assets/modules.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
   /* Paleta ejecutiva fija — este dashboard siempre se ve así, sin importar
      el modo oscuro/claro del resto del sitio (igual que certificados y DC-3). */
@@ -43,10 +44,30 @@
 
   .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
   .crumb{font-size:12px;color:var(--muted);}
-  .actions{display:flex;gap:8px;}
+  .actions{display:flex;gap:8px;position:relative;}
   .actions button{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12.5px;color:#33403B;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;}
   .actions button.primary{background:var(--green);color:#fff;border-color:var(--green);}
   .actions button:hover{border-color:var(--green);}
+
+  .exportWrap{position:relative;}
+  .exportMenu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);min-width:190px;z-index:50;overflow:hidden;}
+  .exportMenu.open{display:block;}
+  .exportMenu button{width:100%;text-align:left;background:none;border:none;border-radius:0;padding:11px 14px;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:9px;}
+  .exportMenu button:hover{background:#F5F6F3;border-color:transparent;}
+  .exportMenu button small{display:block;font-weight:400;color:var(--muted);font-size:10.5px;margin-top:1px;}
+  .exportMenu hr{border:none;border-top:1px solid var(--line);margin:0;}
+
+  /* ---- Modal de drilldown ---- */
+  .modalOverlay{display:none;position:fixed;inset:0;background:rgba(15,20,17,.5);z-index:9800;align-items:flex-start;justify-content:center;padding:5vh 16px;}
+  .modalOverlay.open{display:flex;}
+  .modalBox{background:#fff;border-radius:14px;max-width:880px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+  .modalHead{display:flex;justify-content:space-between;align-items:flex-start;padding:20px 22px 14px;border-bottom:1px solid var(--line);gap:12px;}
+  .modalHead h3{margin:0 0 3px;font-family:'Space Grotesk',sans-serif;font-size:17px;}
+  .modalHead p{margin:0;font-size:12px;color:var(--muted);}
+  .modalHead button{background:#F5F6F3;border:none;border-radius:50%;width:30px;height:30px;font-size:15px;color:var(--muted);cursor:pointer;flex-shrink:0;}
+  .modalBody{padding:16px 22px 22px;overflow-y:auto;}
+  .modalBody table{width:100%;}
+  .modalEmpty{padding:30px;text-align:center;color:var(--muted);font-size:13px;}
 
   .header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:16px;flex-wrap:wrap;}
   .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
@@ -140,7 +161,7 @@
     tbody td::before{content:attr(data-label);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;display:block;}
   }
   @media print{
-    .exec-nav, .pem-sidebar, .pem-header, .actions, .filters{display:none !important;}
+    .exec-nav, .pem-sidebar, .pem-header, .actions, .filters, .modalOverlay{display:none !important;}
     body[data-pem-no-shell-header]{padding:0 !important;}
     .wrap{max-width:100%;padding:10px;}
   }
@@ -228,7 +249,16 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="crumb">PEM Excellence Academy &nbsp;/&nbsp; Inteligencia de capacitación</div>
     <div class="actions">
       <button id="refreshBtn">↻ Actualizar</button>
-      <button class="primary" id="exportBtn">Exportar reporte</button>
+      <div class="exportWrap">
+        <button class="primary" id="exportBtn">Exportar reporte ▾</button>
+        <div class="exportMenu" id="exportMenu">
+          <button id="exportCsvBtn">📄 CSV<small>Datos crudos, para Excel/Sheets</small></button>
+          <hr>
+          <button id="exportXlsxBtn">📊 Excel (.xlsx)<small>Resumen + actividad, con formato</small></button>
+          <hr>
+          <button id="exportPdfBtn">🖨️ PDF<small>Reporte imprimible del dashboard</small></button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -276,11 +306,11 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
 
       <div class="card">
-        <div class="cardHead"><h3>Mapa de madurez por rol</h3><span>Vista de ejemplo</span></div>
+        <div class="cardHead"><h3>Mapa de madurez por rol</h3><span id="heatSpan">Vista de ejemplo</span></div>
         <div class="panelPad">
-          <div class="heat-note">⚠ Esta vista aún no tiene datos reales — la plataforma no captura el puesto/rol de cada colaborador todavía. Se activará automáticamente en cuanto ese dato exista (por ejemplo, al capturarlo en el generador de DC-3).</div>
+          <div class="heat-note" id="heatNote">⚠ Esta vista aún no tiene datos reales — la plataforma no captura el puesto/rol de cada colaborador todavía. Se activará automáticamente en cuanto ese dato exista (por ejemplo, al capturarlo en el generador de DC-3).</div>
           <div class="heat" id="heatGrid"></div>
-          <div class="footerNote">1 = inicial · 5 = dominio avanzado (estructura lista, pendiente de datos reales)</div>
+          <div class="footerNote" id="heatFooter">1 = inicial · 5 = dominio avanzado (estructura lista, pendiente de datos reales)</div>
         </div>
       </div>
 
@@ -302,6 +332,16 @@ document.addEventListener('DOMContentLoaded', function(){
   </div>
 </div>
 
+<div class="modalOverlay" id="modalOverlay">
+  <div class="modalBox">
+    <div class="modalHead">
+      <div><h3 id="modalTitle">—</h3><p id="modalSubtitle">—</p></div>
+      <button id="modalClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="modalBody" id="modalBody"></div>
+  </div>
+</div>
+
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTeHVuVNa4zwklUt6viOMWFc9qsT_aIbwhQRCDYHqfm6iLgxvoyIPVas_G_50aUB-iXroXP7Aiiz7C0/pub?gid=794441169&single=true&output=csv";
 
@@ -312,6 +352,20 @@ const HOURS_PER_MODULE = 0.5; // mismo criterio ya usado en Rutas de Aprendizaje
 const SCHOOL_KEY_MAP = {
   "CALIDAD": "9001", "AMBIENTAL": "14001", "SEGURIDAD": "45001", "ÉTICA": "37001", "ETICA": "37001"
 };
+// Agrupa los 17 puestos de PEM_ROLES (assets/roles.js) en las 5 categorías del mapa de madurez.
+// Se activa solo. cuando la hoja de Google Sheets tenga una columna "Rol" con datos reales
+// (ver nota junto a HEATMAP_ROLE_ENTRY_PENDING más abajo).
+const ROLE_BUCKETS = {
+  'Dirección': ['Director General','Director de Operación','Director/Gerente de Ventas y Desarrollo de Negocio'],
+  'Gerencias': ['Gerentes de área/base'],
+  'Supervisión': ['Supervisores de campo','Calidad (área)','HSE (área)'],
+  'Operación': ['Operadores','Mecánicos','Almacén'],
+  'Administración': ['Compras','Recursos Humanos','Finanzas','Cuentas por Pagar','Cuentas por Cobrar','Tesorería','Administrativos en general']
+};
+function roleBucket(rol){
+  const found = Object.keys(ROLE_BUCKETS).find(b => ROLE_BUCKETS[b].includes(rol));
+  return found || null;
+}
 const MESES = {enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,octubre:9,noviembre:10,diciembre:11};
 const MESES_CORTO = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
@@ -361,14 +415,15 @@ function parseRows(rows){
   const idx = {
     nombre: header.indexOf('Nombre'), base: header.indexOf('Base'), escuela: header.indexOf('Escuela'),
     modulo: header.indexOf('Módulo'), norma: header.indexOf('Norma'), calif: header.indexOf('Calificación'),
-    fecha: header.indexOf('Fecha'), certId: header.indexOf('Certificado ID')
+    fecha: header.indexOf('Fecha'), certId: header.indexOf('Certificado ID'), rol: header.indexOf('Rol')
   };
   return rows.slice(1).filter(r => r[idx.nombre]).map(r => {
     const fecha = r[idx.fecha]||'';
     return {
       nombre: r[idx.nombre]||'', base: (r[idx.base]||'').trim(), escuela: (r[idx.escuela]||'').trim(),
       modulo: r[idx.modulo]||'', norma: r[idx.norma]||'', calif: (r[idx.calif]||'').trim(),
-      fecha, fechaObj: parseFechaToDate(fecha), certId: r[idx.certId]||''
+      fecha, fechaObj: parseFechaToDate(fecha), certId: r[idx.certId]||'',
+      rol: idx.rol > -1 ? (r[idx.rol]||'').trim() : ''
     };
   });
 }
@@ -449,28 +504,28 @@ function render(){
 
   // ==================== KPIs ====================
   document.getElementById('kpiGrid').innerHTML = `
-    <div class="card kpi" data-jump="bySchool">
+    <div class="card kpi" data-kpi="cobertura">
       <div class="label">Cobertura de capacitación</div>
       <div class="value">${cobertura}%</div>
       <div class="foot">${colaboradores} de ${TOTAL_HEADCOUNT} colaboradores con al menos 1 certificado</div>
       <div class="delta">${colaboradores}/${TOTAL_HEADCOUNT}</div>
       <div class="spark"><span style="width:${cobertura}%"></span></div>
     </div>
-    <div class="card kpi" data-jump="recentBody">
+    <div class="card kpi" data-kpi="certs">
       <div class="label">Certificaciones activas</div>
       <div class="value">${total}</div>
       <div class="foot">De 48 módulos disponibles en la Academia</div>
       <div class="delta">${Math.round(100*total/48)}%</div>
       <div class="spark"><span style="width:${Math.min(100,Math.round(100*total/48))}%"></span></div>
     </div>
-    <div class="card kpi">
+    <div class="card kpi" data-kpi="promedio">
       <div class="label">Promedio de evaluación</div>
       <div class="value">${avg!==null ? avg+'%' : '—'}</div>
       <div class="foot">${validScores.length} evaluaciones válidas</div>
       <div class="delta">${bandaCalificacion(avg).label}</div>
       <div class="spark"><span style="width:${avg||0}%"></span></div>
     </div>
-    <div class="card kpi">
+    <div class="card kpi" data-kpi="horas">
       <div class="label">Horas de aprendizaje</div>
       <div class="value">${totalHoras} h</div>
       <div class="foot">${horasEsteMes} h acumuladas este mes</div>
@@ -478,12 +533,10 @@ function render(){
       <div class="spark"><span style="width:${Math.min(100,totalHoras)}%"></span></div>
     </div>
   `;
-  document.querySelectorAll('.kpi[data-jump]').forEach(el=>{
-    el.addEventListener('click', ()=>{
-      const target = document.getElementById(el.dataset.jump);
-      if(target) target.scrollIntoView({behavior:'smooth', block:'center'});
-    });
+  document.querySelectorAll('.kpi[data-kpi]').forEach(el=>{
+    el.addEventListener('click', ()=> openDrilldown(el.dataset.kpi, data));
   });
+
 
   // ==================== Gráfica de evolución (real, Chart.js) ====================
   const series = computeMonthlySeries(data);
@@ -527,13 +580,42 @@ function render(){
       <div class="bar"><span style="width:${s.pct}%;background:${s.color}"></span></div></div>
   `).join('');
 
-  // ==================== Mapa de madurez (estructura, sin datos reales aún) ====================
-  const roles = ['Dirección','Gerencias','Supervisión','Operación','Administración'];
-  let heatHtml = `<div class="head"></div><div class="head">CAL</div><div class="head">AMB</div><div class="head">SST</div><div class="head">ÉTICA</div>`;
-  roles.forEach(r => {
-    heatHtml += `<div class="rlabel">${r}</div>` + '<div class="cell">—</div>'.repeat(4);
-  });
-  document.getElementById('heatGrid').innerHTML = heatHtml;
+  // ==================== Mapa de madurez por rol (real en cuanto la hoja tenga columna "Rol") ====================
+  const hasRoleData = data.some(d => d.rol && roleBucket(d.rol));
+  if(hasRoleData){
+    document.getElementById('heatSpan').textContent = 'Datos reales';
+    document.getElementById('heatNote').style.display = 'none';
+    document.getElementById('heatFooter').textContent = '1 = inicial · 5 = dominio avanzado (promedio de módulos completados por integrante de cada categoría, sobre 12 por escuela)';
+    const bucketNames = Object.keys(ROLE_BUCKETS);
+    let heatHtml = `<div class="head"></div><div class="head">CAL</div><div class="head">AMB</div><div class="head">SST</div><div class="head">ÉTICA</div>`;
+    bucketNames.forEach(bucket => {
+      heatHtml += `<div class="rlabel">${bucket}</div>`;
+      const peopleInBucket = new Set(data.filter(d => roleBucket(d.rol) === bucket).map(d => d.nombre.toUpperCase().trim()));
+      schoolKeys.forEach(key => {
+        if(peopleInBucket.size === 0){ heatHtml += '<div class="cell">—</div>'; return; }
+        let sum = 0;
+        peopleInBucket.forEach(nombre => {
+          sum += data.filter(d => d.nombre.toUpperCase().trim() === nombre && (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === key).length;
+        });
+        const avgModules = sum / peopleInBucket.size;
+        const score = avgModules > 0 ? Math.max(1, Math.min(5, Math.round((avgModules / modulesPerSchool) * 5))) : 0;
+        const bg = score===0 ? '#F1F2EF' : `rgba(8,127,91,${0.12 + score*0.16})`;
+        const fg = score===0 ? '#9AA39D' : (score>=3 ? '#fff' : '#0B4A35');
+        heatHtml += `<div class="cell" style="background:${bg};color:${fg}">${score===0?'—':score}</div>`;
+      });
+    });
+    document.getElementById('heatGrid').innerHTML = heatHtml;
+  } else {
+    document.getElementById('heatSpan').textContent = 'Vista de ejemplo';
+    document.getElementById('heatNote').style.display = 'block';
+    document.getElementById('heatFooter').textContent = '1 = inicial · 5 = dominio avanzado (estructura lista, pendiente de datos reales)';
+    const roles = ['Dirección','Gerencias','Supervisión','Operación','Administración'];
+    let heatHtml = `<div class="head"></div><div class="head">CAL</div><div class="head">AMB</div><div class="head">SST</div><div class="head">ÉTICA</div>`;
+    roles.forEach(r => {
+      heatHtml += `<div class="rlabel">${r}</div>` + '<div class="cell">—</div>'.repeat(4);
+    });
+    document.getElementById('heatGrid').innerHTML = heatHtml;
+  }
 
   // ==================== Insights ejecutivos (calculados en vivo) ====================
   const insights = [];
@@ -607,6 +689,126 @@ function exportCSV(){
   URL.revokeObjectURL(url);
 }
 
+function exportXLSX(){
+  const data = applyFilters(RAW_DATA);
+  const colaboradoresSet = new Set(data.map(d => d.nombre.toUpperCase().replace(/\s+/g,' ').trim()));
+  const validScores = data.map(d => parseFloat(d.calif)).filter(n => !isNaN(n));
+  const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : null;
+  const cobertura = Math.min(100, Math.round(100 * colaboradoresSet.size / TOTAL_HEADCOUNT));
+
+  // Hoja 1 — Resumen ejecutivo
+  const resumen = [
+    ['PEM Excellence Academy — Reporte ejecutivo'],
+    ['Generado', new Date().toLocaleString('es-MX')],
+    [],
+    ['Indicador', 'Valor'],
+    ['Cobertura de capacitación', cobertura + '%'],
+    ['Colaboradores con al menos 1 certificado', colaboradoresSet.size + ' / ' + TOTAL_HEADCOUNT],
+    ['Certificaciones activas', data.length],
+    ['Promedio de evaluación', avg!==null ? avg + '%' : 'Sin datos'],
+    ['Horas de aprendizaje acumuladas', Math.round(data.length * HOURS_PER_MODULE * 10)/10 + ' h'],
+    [],
+    ['Cobertura por escuela', '% del total posible']
+  ];
+  PEM_SCHOOL_ORDER.forEach(key => {
+    const modulesPerSchool = PEM_SCHOOLS[key].modules.length;
+    const count = data.filter(d => (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === key).length;
+    const pct = Math.min(100, Math.round(100 * count / (TOTAL_HEADCOUNT * modulesPerSchool)));
+    resumen.push([PEM_SCHOOLS[key].name, pct + '%']);
+  });
+
+  // Hoja 2 — Actividad completa (mismo detalle que el CSV, con encabezados legibles)
+  const actividad = [['Nombre','Base','Escuela','Módulo','Norma','Calificación','Fecha','Certificado ID']];
+  data.forEach(d => actividad.push([d.nombre, d.base, d.escuela, d.modulo, d.norma, d.calif, d.fecha, d.certId]));
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(resumen), 'Resumen');
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(actividad), 'Actividad');
+  XLSX.writeFile(wb, 'pem-excellence-academy-reporte-' + new Date().toISOString().slice(0,10) + '.xlsx');
+}
+
+function exportPDF(){
+  // El navbar/sidebar/filtros/acciones ya se ocultan en @media print (misma técnica que
+  // certificados y DC-3) — el usuario elige "Guardar como PDF" en el diálogo de impresión.
+  window.print();
+}
+
+document.getElementById('exportBtn').addEventListener('click', (e)=>{
+  e.stopPropagation();
+  document.getElementById('exportMenu').classList.toggle('open');
+});
+document.addEventListener('click', ()=> document.getElementById('exportMenu').classList.remove('open'));
+document.getElementById('exportCsvBtn').addEventListener('click', ()=>{ exportCSV(); document.getElementById('exportMenu').classList.remove('open'); });
+document.getElementById('exportXlsxBtn').addEventListener('click', ()=>{ exportXLSX(); document.getElementById('exportMenu').classList.remove('open'); });
+document.getElementById('exportPdfBtn').addEventListener('click', ()=>{ exportPDF(); document.getElementById('exportMenu').classList.remove('open'); });
+
+// ==================== Drilldowns reales por KPI ====================
+function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function drilldownTable(headers, rows){
+  if(!rows.length) return '<div class="modalEmpty">Sin datos para este filtro todavía.</div>';
+  return '<table><thead><tr>' + headers.map(h=>`<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
+    rows.map(r => '<tr>' + r.map(c=>`<td>${c}</td>`).join('') + '</tr>').join('') + '</tbody></table>';
+}
+
+function openDrilldown(kind, data){
+  const titleEl = document.getElementById('modalTitle');
+  const subEl = document.getElementById('modalSubtitle');
+  const bodyEl = document.getElementById('modalBody');
+  let html = '';
+
+  if(kind === 'cobertura'){
+    const byPerson = {};
+    data.forEach(d => {
+      const key = d.nombre.toUpperCase().replace(/\s+/g,' ').trim();
+      if(!byPerson[key]) byPerson[key] = {nombre:d.nombre, base:d.base, escuelas:new Set(), count:0, last:null};
+      byPerson[key].count++;
+      byPerson[key].escuelas.add(schoolLabel(d.escuela));
+      if(!byPerson[key].last || (d.fechaObj && d.fechaObj > byPerson[key].last)) byPerson[key].last = d.fechaObj;
+    });
+    const people = Object.values(byPerson).sort((a,b)=> b.count - a.count);
+    titleEl.textContent = 'Cobertura de capacitación';
+    subEl.textContent = people.length + ' colaboradores con al menos 1 certificado, de ' + TOTAL_HEADCOUNT + ' en plantilla · ' + Math.max(0, TOTAL_HEADCOUNT - people.length) + ' aún sin certificados (la hoja solo registra a quien ya certificó, no el roster completo)';
+    html = drilldownTable(['Colaborador','Sitio','Escuelas','Módulos certificados','Última actividad'],
+      people.map(p => [escapeHtml(p.nombre), escapeHtml(p.base)||'—', Array.from(p.escuelas).map(escapeHtml).join(', '), p.count, p.last ? p.last.toLocaleDateString('es-MX') : '—']));
+
+  } else if(kind === 'certs'){
+    const sorted = data.slice().sort((a,b)=>(b.fechaObj||0)-(a.fechaObj||0));
+    titleEl.textContent = 'Certificaciones activas';
+    subEl.textContent = sorted.length + ' certificados registrados (con los filtros actuales) de 48 módulos disponibles';
+    html = drilldownTable(['Colaborador','Sitio','Escuela','Módulo','Calificación','Fecha'],
+      sorted.map(d => [escapeHtml(d.nombre), escapeHtml(d.base)||'—', escapeHtml(schoolLabel(d.escuela)), escapeHtml(d.modulo), (!isNaN(parseFloat(d.calif)) ? d.calif+'%' : '—'), escapeHtml(d.fecha)]));
+
+  } else if(kind === 'promedio'){
+    const withScore = data.map(d => ({...d, scoreNum: parseFloat(d.calif)})).filter(d => !isNaN(d.scoreNum)).sort((a,b)=>a.scoreNum-b.scoreNum);
+    titleEl.textContent = 'Promedio de evaluación';
+    subEl.textContent = withScore.length + ' evaluaciones válidas · ordenadas de menor a mayor calificación (prioriza a quién reforzar primero)';
+    html = drilldownTable(['Colaborador','Escuela','Módulo','Calificación','Fecha'],
+      withScore.map(d => [escapeHtml(d.nombre), escapeHtml(schoolLabel(d.escuela)), escapeHtml(d.modulo), `<span style="font-weight:800;color:${d.scoreNum<75?'var(--red)':'var(--green)'}">${d.calif}%</span>`, escapeHtml(d.fecha)]));
+
+  } else if(kind === 'horas'){
+    const byPerson = {};
+    data.forEach(d => {
+      const key = d.nombre.toUpperCase().replace(/\s+/g,' ').trim();
+      if(!byPerson[key]) byPerson[key] = {nombre:d.nombre, base:d.base, count:0};
+      byPerson[key].count++;
+    });
+    const people = Object.values(byPerson).sort((a,b)=> b.count - a.count);
+    const totalHoras = Math.round(data.length * HOURS_PER_MODULE * 10)/10;
+    titleEl.textContent = 'Horas de aprendizaje';
+    subEl.textContent = totalHoras + ' h acumuladas en total · ' + HOURS_PER_MODULE + ' h por módulo certificado';
+    html = drilldownTable(['Colaborador','Sitio','Certificados','Horas'],
+      people.map(p => [escapeHtml(p.nombre), escapeHtml(p.base)||'—', p.count, Math.round(p.count*HOURS_PER_MODULE*10)/10 + ' h']));
+  }
+
+  bodyEl.innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeDrilldown(){ document.getElementById('modalOverlay').classList.remove('open'); }
+document.getElementById('modalClose').addEventListener('click', closeDrilldown);
+document.getElementById('modalOverlay').addEventListener('click', (e)=>{ if(e.target.id === 'modalOverlay') closeDrilldown(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeDrilldown(); });
+
 async function load(){
   document.getElementById('loadingState').style.display = 'block';
   document.getElementById('errorState').style.display = 'none';
@@ -628,7 +830,6 @@ async function load(){
 }
 
 document.getElementById('refreshBtn').addEventListener('click', load);
-document.getElementById('exportBtn').addEventListener('click', exportCSV);
 document.getElementById('fPeriodo').addEventListener('change', render);
 document.getElementById('fSitio').addEventListener('change', render);
 load();

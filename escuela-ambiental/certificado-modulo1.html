@@ -146,6 +146,27 @@ document.addEventListener('DOMContentLoaded', function(){
     <input id="inpName" type="text" placeholder="Ej. Juan Pérez López">
     <label>Sitio de trabajo</label>
     <input id="inpBase" type="text" placeholder="Ej. Reynosa" value="Reynosa">
+    <label>Rol / puesto</label>
+    <select id="inpRol">
+      <option value="">Selecciona tu rol...</option>
+      <option>Director General</option>
+      <option>Director de Operación</option>
+      <option>Director/Gerente de Ventas y Desarrollo de Negocio</option>
+      <option>Gerentes de área/base</option>
+      <option>Supervisores de campo</option>
+      <option>Calidad (área)</option>
+      <option>HSE (área)</option>
+      <option>Operadores</option>
+      <option>Mecánicos</option>
+      <option>Almacén</option>
+      <option>Compras</option>
+      <option>Recursos Humanos</option>
+      <option>Finanzas</option>
+      <option>Cuentas por Pagar</option>
+      <option>Cuentas por Cobrar</option>
+      <option>Tesorería</option>
+      <option>Administrativos en general</option>
+    </select>
     <label>Calificación obtenida</label>
     <div id="scoreLocked" style="padding:11px 12px;background:#0B0E0C;border:1px solid #26302A;border-radius:8px;color:var(--green);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:14.5px;">—%</div>
     <div class="hint" style="margin-top:4px;">Calificación tomada automáticamente de tu examen — no editable.</div>
@@ -216,7 +237,7 @@ function getSchoolInfo(){
   return SCHOOL_MAP[folder] || SCHOOL_MAP[''];
 }
 
-function logToSheet(name, base, score, dateStr, certId){
+function logToSheet(name, base, rol, score, dateStr, certId){
   try{
     const info = getSchoolInfo();
     const modTitleEl = document.querySelector('.cert-body b:not([id])');
@@ -224,6 +245,10 @@ function logToSheet(name, base, score, dateStr, certId){
     const params = new URLSearchParams();
     params.append('entry.114712706', name);
     params.append('entry.309227604', base);
+    // PENDIENTE: reemplazar 'entry.PENDIENTE_ROL' por el entry ID real una vez que
+    // Isaí cree la pregunta "Rol" en el Google Form (Google ignora entry IDs que no existen,
+    // así que esto no rompe nada mientras tanto).
+    params.append('entry.PENDIENTE_ROL', rol);
     params.append('entry.649515577', info.name);
     params.append('entry.1061226268', modTitle);
     params.append('entry.700850895', info.norma);
@@ -264,6 +289,7 @@ function getSavedCert(){
     if(saved){
       document.getElementById('inpName').value = saved.name;
       document.getElementById('inpBase').value = saved.base;
+      if(saved.rol) document.getElementById('inpRol').value = saved.rol;
     }
     return;
   }
@@ -285,6 +311,7 @@ function generarCertificado(){
   const params = new URLSearchParams(window.location.search);
   const name = document.getElementById('inpName').value.trim() || '—';
   const base = document.getElementById('inpBase').value.trim() || '—';
+  const rol = document.getElementById('inpRol').value || '—';
   const score = params.get('score') || '—';
   const today = new Date();
   const dateStr = today.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
@@ -297,10 +324,10 @@ function generarCertificado(){
   document.getElementById('certId').textContent = id;
 
   try{
-    localStorage.setItem(STORE_KEY, JSON.stringify({name, base, score, date: dateStr, certId: id}));
+    localStorage.setItem(STORE_KEY, JSON.stringify({name, base, rol, score, date: dateStr, certId: id}));
   }catch(e){}
 
-  logToSheet(name, base, score, dateStr, id);
+  logToSheet(name, base, rol, score, dateStr, id);
 
   document.getElementById('formBox').style.display='none';
   document.getElementById('certStage').style.display='block';
