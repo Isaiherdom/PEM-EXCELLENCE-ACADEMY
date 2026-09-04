@@ -13,62 +13,77 @@
 <script src="assets/roles.js"></script>
 <style>
   :root{
-    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
-    --green:#0B7A4B; --amber:#A9720F; --blue:#1B5FA8; --red:#932A2A;
-    --text:#1C1A16; --muted:#6B655A;
-  }
-  html[data-theme="dark"]{
-    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
-    --green:#22E88A; --amber:#FF7A1A; --blue:#4C9AFF; --red:#E8603D;
-    --text:#FFFFFF; --muted:#AAB5AF;
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --blue:#4D78B8; --blueSoft:#E6EEF9;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:32px 16px 70px;}
-  .wrap{max-width:1180px;margin:0 auto;}
-  .head{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px;}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
-  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,32px);margin:0 0 8px;}
-  .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
 
-  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 30px;}
-  .legend-item{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 28px 60px;}
+  .header{margin-bottom:20px;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,34px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:760px;line-height:1.6;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
+
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
+  .kpi{padding:17px 18px;}
+  .kpi .label{font-size:9px;letter-spacing:1.4px;color:var(--muted);font-weight:800;text-transform:uppercase;}
+  .kpi .value{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;margin:7px 0 2px;letter-spacing:-.5px;}
+  .kpi .foot{font-size:11px;color:var(--muted);}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:16px 20px;margin-bottom:18px;}
+  .legend-item{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:7px;}
   .legend-dot{width:9px;height:9px;border-radius:50%;}
 
-  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:14px;}
-  thead th{
-    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--muted);text-align:center;padding:10px 6px;border-bottom:1px solid var(--line);
-  }
+  table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  thead th{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding:12px 8px;border-top:1px solid var(--line);}
   thead th.role-col{text-align:left;}
-  tbody td{padding:11px 6px;text-align:center;border-bottom:1px solid var(--line);}
+  tbody td{padding:11px 8px;text-align:center;border-top:1px solid var(--line);}
+  tbody tr:hover{background:#FAFBF9;}
   tbody td.role-col{text-align:left;}
-  .role-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;}
+  .role-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;}
   .role-order{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:2px;}
-  .lvl{
-    display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;
-    font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12px;
-  }
-  .l-9001{background:rgba(22,194,112,.14);color:var(--green);}
-  .l-14001{background:rgba(76,154,255,.14);color:var(--blue);}
-  .l-45001{background:rgba(232,163,61,.14);color:var(--amber);}
-  .l-37001{background:rgba(232,96,61,.14);color:var(--red);}
-  .hours{font-family:'JetBrains Mono',monospace;color:var(--muted);}
+  .lvl{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:11.5px;}
+  .hours{font-family:'JetBrains Mono',monospace;color:var(--muted);font-weight:700;}
 
-  .footer-note{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7;}
-  .footer-note b{color:var(--text);}
+  .footer-note{margin-top:20px;font-size:12px;color:var(--muted);line-height:1.7;padding:16px 20px;}
+  .footer-note b{color:var(--ink);}
 
-  .level-key{margin-top:34px;border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--surface);}
-  .level-key-title{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--green);text-transform:uppercase;margin-bottom:10px;}
-  .level-row{display:flex;gap:10px;font-size:12px;color:var(--muted);padding:4px 0;}
-  .level-row b{color:var(--text);width:150px;flex-shrink:0;}
+  .level-key{margin-top:16px;padding:18px 20px;}
+  .level-key-title{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--green);text-transform:uppercase;margin-bottom:12px;font-weight:800;}
+  .level-row{display:flex;gap:12px;font-size:12px;color:var(--muted);padding:5px 0;line-height:1.5;}
+  .level-row b{color:var(--ink);width:170px;flex-shrink:0;}
 
+  @media(max-width:900px){.grid4{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:720px){
+    .wrap{padding:18px 14px 50px;}
+    .grid4{grid-template-columns:1fr;}
     table{font-size:11px;}
     .role-order{display:none;}
+    .level-row{flex-direction:column;gap:2px;}
+    .level-row b{width:auto;}
   }
 </style>
 </head>
-<body>
+<body data-pem-no-shell-header>
 <script src="assets/auth-config.js"></script>
 <div id="pemGateOverlay" style="position:fixed;inset:0;z-index:2147483647;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
   <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
@@ -103,41 +118,50 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+</div>
 
 <div class="wrap">
-  <div class="head">
-    <div class="eyebrow">PEM Excellence Academy · Entregable 2</div>
+  <div class="header">
+    <div class="kicker">Desarrollo de talento</div>
     <h1>Rutas de aprendizaje por perfil</h1>
-    <div class="sub">17 perfiles de PEM, nivel objetivo (1–6) en cada una de las 4 escuelas normativas. El número dentro de cada celda es el nivel objetivo; las horas son el tiempo total estimado para completar los módulos de ese nivel en las 4 escuelas, a razón de 30 min por módulo (regla 3-8-30).</div>
+    <div class="subtitle">17 perfiles de PEM, con el nivel objetivo (1–6) que le corresponde a cada uno en las 4 escuelas normativas, ya completas. El número dentro de cada celda es el nivel objetivo; las horas son el tiempo total estimado para completar los módulos de ese nivel, a razón de 30 min por módulo.</div>
   </div>
 
-  <div class="legend">
-    <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>Calidad · ISO 9001 (única escuela activa)</div>
-    <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Ambiental · ISO 14001 (futura)</div>
-    <div class="legend-item"><span class="legend-dot" style="background:var(--amber)"></span>SST · ISO 45001 (futura)</div>
-    <div class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>Ética y Cumplimiento · ISO 37001 (futura)</div>
+  <section class="grid4" id="kpiGrid"></section>
+
+  <div class="card legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#22E88A"></span>Calidad · ISO 9001</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#4C9AFF"></span>Ambiental · ISO 14001</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#FF7A1A"></span>SST · ISO 45001</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#E8603D"></span>Ética y Cumplimiento · ISO 37001</div>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th class="role-col">Perfil</th>
-        <th>Calidad</th>
-        <th>Ambiental</th>
-        <th>SST</th>
-        <th>Ética</th>
-        <th>Horas totales</th>
-      </tr>
-    </thead>
-    <tbody id="tbody"></tbody>
-  </table>
-
-  <div class="footer-note">
-    <b>Orden de escuela</b> bajo cada perfil = secuencia recomendada de cursado cuando las 4 escuelas estén activas. Hoy, con solo la Escuela de Calidad en operación, todos los perfiles inician ahí sin excepción — el orden se aplica a partir de la liberación de Ambiental, SST y Ética.
+  <div class="card" style="overflow:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th class="role-col">Perfil</th>
+          <th>Calidad</th>
+          <th>Ambiental</th>
+          <th>SST</th>
+          <th>Ética</th>
+          <th>Horas totales</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
   </div>
 
-  <div class="level-key">
+  <div class="card footer-note">
+    <b>Orden de escuela</b> bajo cada perfil = secuencia recomendada de cursado según el riesgo real de cada puesto — no es el mismo orden para todos, porque no todos los roles se exponen igual a cada norma.
+  </div>
+
+  <div class="card level-key">
     <div class="level-key-title">Qué implica cada nivel (aplica igual en las 4 escuelas — 12 módulos por escuela)</div>
     <div class="level-row"><b>Nivel 1 · Fundamentos</b> Módulos 1–2 · contexto y liderazgo</div>
     <div class="level-row"><b>Nivel 2 · Intermedio</b> Módulos 1–5 · + política, roles, riesgos y objetivos</div>
@@ -151,23 +175,45 @@ document.addEventListener('DOMContentLoaded', function(){
 <script>
 const ROLES = window.PEM_ROLES;
 const MOD_BY_LEVEL = window.PEM_MOD_BY_LEVEL;
+const LVL_COLOR = {"9001":{bg:"#DFF3EA",fg:"#087F5B"}, "14001":{bg:"#E6EEF9",fg:"#4D78B8"}, "45001":{bg:"#F8EDD9",fg:"#C7923E"}, "37001":{bg:"#F7E5E0",fg:"#C76A58"}};
+
+const hoursPerRole = ROLES.map(r => {
+  const totalMods = MOD_BY_LEVEL[r.c9001]+MOD_BY_LEVEL[r.c14001]+MOD_BY_LEVEL[r.c45001]+MOD_BY_LEVEL[r.c37001];
+  return Math.round(totalMods*0.5*10)/10;
+});
+const avgHours = Math.round(10*hoursPerRole.reduce((a,h)=>a+h,0)/hoursPerRole.length)/10;
+const maxIdx = hoursPerRole.indexOf(Math.max(...hoursPerRole));
+const minIdx = hoursPerRole.indexOf(Math.min(...hoursPerRole));
+
+document.getElementById('kpiGrid').innerHTML = `
+  <div class="card kpi"><div class="label">Perfiles definidos</div><div class="value">${ROLES.length}</div><div class="foot">Roles de PEM con ruta propia</div></div>
+  <div class="card kpi"><div class="label">Promedio de horas</div><div class="value">${avgHours} h</div><div class="foot">Por ruta completa</div></div>
+  <div class="card kpi"><div class="label">Ruta más extensa</div><div class="value" style="font-size:16px;">${ROLES[maxIdx].name}</div><div class="foot">${hoursPerRole[maxIdx]} h</div></div>
+  <div class="card kpi"><div class="label">Ruta más breve</div><div class="value" style="font-size:16px;">${ROLES[minIdx].name}</div><div class="foot">${hoursPerRole[minIdx]} h</div></div>
+`;
 
 const tbody = document.getElementById('tbody');
-tbody.innerHTML = ROLES.map(r=>{
-  const totalMods = MOD_BY_LEVEL[r.c9001]+MOD_BY_LEVEL[r.c14001]+MOD_BY_LEVEL[r.c45001]+MOD_BY_LEVEL[r.c37001];
-  const hours = Math.round(totalMods*0.5*10)/10;
-  return `<tr>
-    <td class="role-col">
-      <div class="role-name">${r.name}</div>
-      <div class="role-order">${r.order}</div>
-    </td>
-    <td><span class="lvl l-9001">${r.c9001}</span></td>
-    <td><span class="lvl l-14001">${r.c14001}</span></td>
-    <td><span class="lvl l-45001">${r.c45001}</span></td>
-    <td><span class="lvl l-37001">${r.c37001}</span></td>
-    <td class="hours">${hours} h</td>
-  </tr>`;
-}).join('');
+tbody.innerHTML = ROLES.map((r,i)=>`<tr>
+  <td class="role-col">
+    <div class="role-name">${r.name}</div>
+    <div class="role-order">${r.order}</div>
+  </td>
+  <td><span class="lvl" style="background:${LVL_COLOR['9001'].bg};color:${LVL_COLOR['9001'].fg};">${r.c9001}</span></td>
+  <td><span class="lvl" style="background:${LVL_COLOR['14001'].bg};color:${LVL_COLOR['14001'].fg};">${r.c14001}</span></td>
+  <td><span class="lvl" style="background:${LVL_COLOR['45001'].bg};color:${LVL_COLOR['45001'].fg};">${r.c45001}</span></td>
+  <td><span class="lvl" style="background:${LVL_COLOR['37001'].bg};color:${LVL_COLOR['37001'].fg};">${r.c37001}</span></td>
+  <td class="hours">${hoursPerRole[i]} h</td>
+</tr>`).join('');
+
+(function(){
+  function syncNavHeight(){
+    var nav = document.querySelector('.exec-nav');
+    if(nav) document.documentElement.style.setProperty('--home-nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
 </script>
 <script src="assets/shell.js" defer></script>
 </body>
