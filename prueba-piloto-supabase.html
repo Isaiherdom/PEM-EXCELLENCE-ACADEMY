@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piloto Supabase · PEM Excellence Academy</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{ --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3; --green:#087F5B; --mint:#DFF3EA; --red:#E8603D; --redSoft:#FBE6E0; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;padding:30px 16px 60px;}
+  .wrap{max-width:640px;margin:0 auto;}
+  h1{font-size:22px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:24px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+  .card h2{font-size:14px;margin:0 0 12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  button{background:var(--green);color:#fff;border:none;border-radius:8px;padding:11px 18px;font-weight:700;font-size:13.5px;cursor:pointer;}
+  button.secondary{background:#fff;color:var(--ink);border:1px solid var(--line);}
+  button:disabled{opacity:.5;cursor:not-allowed;}
+  .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;}
+  .row:last-child{border-bottom:none;}
+  .row b{color:var(--muted);font-weight:600;}
+  .status{padding:10px 12px;border-radius:8px;font-size:12.5px;margin-bottom:12px;}
+  .status.ok{background:var(--mint);color:#0B4A35;}
+  .status.err{background:var(--redSoft);color:var(--red);}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px;}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);}
+  th{color:var(--muted);font-weight:700;font-size:10.5px;text-transform:uppercase;}
+  pre{background:#0B1220;color:#AAB6CE;padding:12px;border-radius:8px;font-size:11px;overflow-x:auto;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧪 Piloto — Login Microsoft + Supabase</h1>
+  <div class="sub">Página de prueba, no forma parte del sitio en vivo. Verifica el circuito completo: login con Entra ID → perfil real en <code>profiles</code> → certificado de prueba en <code>certificados</code>.</div>
+
+  <div id="loginCard" class="card">
+    <h2>1 · Iniciar sesión</h2>
+    <div id="loginStatus"></div>
+    <button id="btnLogin">Iniciar sesión con Microsoft</button>
+  </div>
+
+  <div id="profileCard" class="card" style="display:none;">
+    <h2>2 · Tu perfil (tabla profiles)</h2>
+    <div id="profileStatus"></div>
+    <div id="profileRows"></div>
+    <button id="btnLogout" class="secondary" style="margin-top:12px;">Cerrar sesión</button>
+  </div>
+
+  <div id="certCard" class="card" style="display:none;">
+    <h2>3 · Certificado de prueba (tabla certificados)</h2>
+    <div id="certStatus"></div>
+    <button id="btnCert">Generar certificado de prueba</button>
+    <table id="certTable" style="display:none;">
+      <thead><tr><th>Escuela</th><th>Módulo</th><th>Calificación</th><th>Folio</th><th>Fecha</th></tr></thead>
+      <tbody id="certBody"></tbody>
+    </table>
+  </div>
+
+  <div id="debugCard" class="card">
+    <h2>Detalle técnico (para diagnosticar si algo falla)</h2>
+    <pre id="debugLog">Esperando acción...</pre>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://hdvqxjgittoaloutxzma.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkdnF4amdpdHRvYWxvdXR4em1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg1MjkxNzgsImV4cCI6MjEwNDEwNTE3OH0.8Dn953sFMg-eDov4b_DvwXMIohNmXt5mWRgRE7ljdQE';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const log = (label, data) => {
+  const el = document.getElementById('debugLog');
+  const line = '[' + new Date().toLocaleTimeString() + '] ' + label + '\n' + (data !== undefined ? JSON.stringify(data, null, 2) + '\n\n' : '\n');
+  el.textContent = line + el.textContent;
+};
+
+function showStatus(elId, msg, ok){
+  document.getElementById(elId).innerHTML = `<div class="status ${ok?'ok':'err'}">${msg}</div>`;
+}
+
+async function ensureProfile(user){
+  // El trigger de la Fase 1 ya debería haber creado la fila sola.
+  // Este SELECT confirma que existe y que RLS te deja verla.
+  const { data, error } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+  log('SELECT profiles', { data, error });
+  if(error){
+    showStatus('profileStatus', '❌ No se pudo leer tu perfil: ' + error.message, false);
+    return;
+  }
+  if(!data){
+    showStatus('profileStatus', '⚠️ Tu perfil aún no existe en la tabla — el trigger de auto-creación no corrió. Revisa la Fase 1.', false);
+    return;
+  }
+  showStatus('profileStatus', '✅ Perfil encontrado — el trigger y RLS funcionan.', true);
+  document.getElementById('profileRows').innerHTML = `
+    <div class="row"><b>ID</b><span>${data.id}</span></div>
+    <div class="row"><b>Nombre</b><span>${data.nombre || '(vacío — normal, aún no lo capturas en el flujo real)'}</span></div>
+    <div class="row"><b>Base</b><span>${data.base || '—'}</span></div>
+    <div class="row"><b>Rol</b><span>${data.rol || '—'}</span></div>
+    <div class="row"><b>Admin</b><span>${data.is_admin ? 'Sí' : 'No'}</span></div>
+    <div class="row"><b>Creado</b><span>${new Date(data.created_at).toLocaleString('es-MX')}</span></div>
+  `;
+}
+
+async function loadCerts(userId){
+  const { data, error } = await sb.from('certificados').select('*').eq('user_id', userId).order('fecha', {ascending:false});
+  log('SELECT certificados', { data, error });
+  const tbl = document.getElementById('certTable');
+  if(error || !data || !data.length){
+    tbl.style.display = 'none';
+    return;
+  }
+  tbl.style.display = 'table';
+  document.getElementById('certBody').innerHTML = data.map(c => `
+    <tr><td>${c.escuela}</td><td>${c.modulo}</td><td>${c.calificacion ?? '—'}</td><td>${c.certificado_id}</td><td>${new Date(c.fecha).toLocaleString('es-MX')}</td></tr>
+  `).join('');
+}
+
+async function refreshUI(){
+  const { data: { session } } = await sb.auth.getSession();
+  log('getSession', session ? {user: session.user.email} : null);
+
+  if(!session){
+    document.getElementById('loginCard').style.display = 'block';
+    document.getElementById('profileCard').style.display = 'none';
+    document.getElementById('certCard').style.display = 'none';
+    showStatus('loginStatus', 'Sin sesión activa.', false);
+    return;
+  }
+
+  const user = session.user;
+  showStatus('loginStatus', '✅ Sesión activa como ' + (user.email || user.id), true);
+  document.getElementById('profileCard').style.display = 'block';
+  document.getElementById('certCard').style.display = 'block';
+
+  await ensureProfile(user);
+  await loadCerts(user.id);
+}
+
+document.getElementById('btnLogin').addEventListener('click', async () => {
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'azure',
+    options: { redirectTo: window.location.href, scopes: 'email' }
+  });
+  if(error){ log('signInWithOAuth ERROR', error); showStatus('loginStatus', '❌ ' + error.message, false); }
+});
+
+document.getElementById('btnLogout').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  refreshUI();
+});
+
+document.getElementById('btnCert').addEventListener('click', async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if(!session) return;
+  const folio = 'PEM-PRUEBA-' + Math.random().toString(36).slice(2,7).toUpperCase();
+  const { data, error } = await sb.from('certificados').insert({
+    user_id: session.user.id,
+    escuela: 'PRUEBA',
+    modulo: 0,
+    calificacion: 100,
+    certificado_id: folio
+  }).select();
+  log('INSERT certificados', { data, error });
+  if(error){
+    showStatus('certStatus', '❌ No se pudo guardar: ' + error.message, false);
+    return;
+  }
+  showStatus('certStatus', '✅ Certificado de prueba guardado correctamente (folio ' + folio + ').', true);
+  await loadCerts(session.user.id);
+});
+
+sb.auth.onAuthStateChange((event) => { log('onAuthStateChange', event); refreshUI(); });
+refreshUI();
+</script>
+</body>
+</html>
