@@ -34,6 +34,10 @@
     var ov = document.getElementById('pemGateOverlay');
     if(session){
       if(ov) ov.remove();
+      // Limpia el "#" residual que deja el regreso del login de Microsoft.
+      if(window.location.hash){
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
     } else {
       buildOverlay();
     }
