@@ -172,42 +172,6 @@
 <script src="assets/supabase-config.js"></script>
 <script src="assets/pem-gate.js"></script>
 
-
-<!-- Segunda contraseña, exclusiva de este dashboard -->
-<script>const PEM_ADMIN_HASH = "d6d516b23c6bd63fb299b27b0b4f702e847c07e3f912f84c00166d0137c2b43c";</script>
-<div id="pemAdminGateOverlay" style="position:fixed;inset:0;z-index:2147483646;background:#0B0E0C;display:flex;align-items:center;justify-content:center;padding:20px;">
-  <div style="max-width:340px;width:100%;background:#141815;border:1px solid #26302A;border-radius:14px;padding:28px 24px;text-align:center;font-family:'Inter',sans-serif;">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:#FF7A1A;text-transform:uppercase;margin-bottom:10px;">Acceso exclusivo</div>
-    <div style="color:#F1F3F0;font-size:14px;margin-bottom:16px;">Este dashboard requiere una contraseña adicional.</div>
-    <input type="password" id="pemAdminPw" style="width:100%;box-sizing:border-box;padding:11px;font-size:15px;background:#0B0E0C;border:1px solid #26302A;color:#F1F3F0;border-radius:8px;margin-bottom:10px;" placeholder="Contraseña de administrador">
-    <button onclick="pemAdminGateSubmit()" style="width:100%;background:#FF7A1A;color:#06140D;border:none;padding:11px;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
-    <div id="pemAdminGateError" style="color:#E8603D;font-size:12px;margin-top:10px;display:none;">Contraseña incorrecta</div>
-  </div>
-</div>
-<script>
-(function(){
-  if(sessionStorage.getItem('pemAdminOK') === '1'){
-    document.getElementById('pemAdminGateOverlay').style.display = 'none';
-  }
-})();
-async function pemAdminGateSubmit(){
-  const pw = document.getElementById('pemAdminPw').value;
-  const enc = new TextEncoder().encode(pw);
-  const buf = await crypto.subtle.digest('SHA-256', enc);
-  const hash = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-  if(hash === PEM_ADMIN_HASH){
-    sessionStorage.setItem('pemAdminOK','1');
-    document.getElementById('pemAdminGateOverlay').style.display = 'none';
-  } else {
-    document.getElementById('pemAdminGateError').style.display = 'block';
-  }
-}
-document.addEventListener('DOMContentLoaded', function(){
-  var el = document.getElementById('pemAdminPw');
-  if(el) el.addEventListener('keydown', function(e){ if(e.key==='Enter') pemAdminGateSubmit(); });
-});
-</script>
-
 <div class="exec-nav">
   <button class="burger" id="pemBurger" aria-label="Abrir menú">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
@@ -314,7 +278,10 @@ document.addEventListener('DOMContentLoaded', function(){
 </div>
 
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTeHVuVNa4zwklUt6viOMWFc9qsT_aIbwhQRCDYHqfm6iLgxvoyIPVas_G_50aUB-iXroXP7Aiiz7C0/pub?gid=794441169&single=true&output=csv";
+// Fase 4E — Dashboard Ejecutivo conectado a Supabase (antes leía un CSV publicado de Google Sheets).
+// Solo colaboradores con profiles.is_admin = true pueden ver los datos de todos; el resto
+// de las políticas RLS ya se encargan de que, si alguien más sin ese permiso llegara a
+// intentar esta consulta, Supabase solo le devuelva su propia información — nunca la ajena.
 
 // Dato real de la empresa, mantenido a mano — actualízalo si cambia la plantilla de PEM.
 const TOTAL_HEADCOUNT = 67;
@@ -323,9 +290,9 @@ const HOURS_PER_MODULE = 0.5; // mismo criterio ya usado en Rutas de Aprendizaje
 const SCHOOL_KEY_MAP = {
   "CALIDAD": "9001", "AMBIENTAL": "14001", "SEGURIDAD": "45001", "ÉTICA": "37001", "ETICA": "37001"
 };
+const SCHOOL_SHORT = {"9001":"Calidad", "14001":"Ambiental", "45001":"Seguridad", "37001":"Ética"};
 // Agrupa los 17 puestos de PEM_ROLES (assets/roles.js) en las 5 categorías del mapa de madurez.
-// Se activa solo. cuando la hoja de Google Sheets tenga una columna "Rol" con datos reales
-// (ver nota junto a HEATMAP_ROLE_ENTRY_PENDING más abajo).
+// Se activa solo cuando algún certificado real trae un Rol de perfil asociado.
 const ROLE_BUCKETS = {
   'Dirección': ['Director General','Director de Operación','Director/Gerente de Ventas y Desarrollo de Negocio'],
   'Gerencias': ['Gerentes de área/base'],
@@ -337,32 +304,10 @@ function roleBucket(rol){
   const found = Object.keys(ROLE_BUCKETS).find(b => ROLE_BUCKETS[b].includes(rol));
   return found || null;
 }
-const MESES = {enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,octubre:9,noviembre:10,diciembre:11};
 const MESES_CORTO = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 
 let RAW_DATA = [];
 let charts = {trend:null, donut:null};
-
-function parseCSV(text){
-  const rows = [];
-  let row = [], field = '', inQuotes = false;
-  for(let i=0;i<text.length;i++){
-    const c = text[i], next = text[i+1];
-    if(inQuotes){
-      if(c === '"' && next === '"'){ field += '"'; i++; }
-      else if(c === '"'){ inQuotes = false; }
-      else field += c;
-    } else {
-      if(c === '"') inQuotes = true;
-      else if(c === ','){ row.push(field); field=''; }
-      else if(c === '\r'){ /* skip */ }
-      else if(c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
-      else field += c;
-    }
-  }
-  if(field.length || row.length){ row.push(field); rows.push(row); }
-  return rows.filter(r => r.length > 1 || r[0] !== '');
-}
 
 function schoolColor(escuela){
   const key = SCHOOL_KEY_MAP[(escuela||'').toUpperCase()];
@@ -372,31 +317,49 @@ function schoolLabel(escuela){
   const key = SCHOOL_KEY_MAP[(escuela||'').toUpperCase()];
   return (key && PEM_SCHOOLS[key]) ? PEM_SCHOOLS[key].name : (escuela || '—');
 }
-function parseFechaToDate(str){
-  if(!str) return null;
-  const parts = str.toLowerCase().trim().split(' de ');
-  if(parts.length < 3) return null;
-  const d = parseInt(parts[0],10), m = MESES[parts[1].trim()], y = parseInt(parts[2],10);
-  if(isNaN(d) || m===undefined || isNaN(y)) return null;
-  return new Date(y, m, d);
-}
 
-function parseRows(rows){
-  const header = rows[0].map(h => h.trim());
-  const idx = {
-    nombre: header.indexOf('Nombre'), base: header.indexOf('Base'), escuela: header.indexOf('Escuela'),
-    modulo: header.indexOf('Módulo'), norma: header.indexOf('Norma'), calif: header.indexOf('Calificación'),
-    fecha: header.indexOf('Fecha'), certId: header.indexOf('Certificado ID'), rol: header.indexOf('Rol')
-  };
-  return rows.slice(1).filter(r => r[idx.nombre]).map(r => {
-    const fecha = r[idx.fecha]||'';
-    return {
-      nombre: r[idx.nombre]||'', base: (r[idx.base]||'').trim(), escuela: (r[idx.escuela]||'').trim(),
-      modulo: r[idx.modulo]||'', norma: r[idx.norma]||'', calif: (r[idx.calif]||'').trim(),
-      fecha, fechaObj: parseFechaToDate(fecha), certId: r[idx.certId]||'',
-      rol: idx.rol > -1 ? (r[idx.rol]||'').trim() : ''
-    };
-  });
+// Convierte las filas reales de Supabase (certificados + profiles) al mismo formato
+// que ya usa el resto de este archivo (render, exportXLSX, drilldowns, heatmap) —
+// así ninguna otra función de aquí para abajo tuvo que cambiar.
+async function fetchFromSupabase(){
+  const { data: { session } } = await window.PEM_SB.auth.getSession();
+  if(!session) throw new Error('Sin sesión activa.');
+
+  const { data: myProfile, error: profErr } = await window.PEM_SB
+    .from('profiles').select('is_admin').eq('id', session.user.id).maybeSingle();
+  if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
+  if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
+
+  const [certsRes, profilesRes] = await Promise.all([
+    window.PEM_SB.from('certificados').select('*'),
+    window.PEM_SB.from('profiles').select('*')
+  ]);
+  if(certsRes.error) throw new Error('No se pudieron leer los certificados (' + certsRes.error.message + ')');
+  if(profilesRes.error) throw new Error('No se pudieron leer los perfiles (' + profilesRes.error.message + ')');
+
+  const profileById = {};
+  (profilesRes.data||[]).forEach(p => { profileById[p.id] = p; });
+
+  return (certsRes.data||[])
+    .filter(row => row.escuela !== 'PRUEBA') // descarta el certificado de prueba del piloto (Fase 3)
+    .map(row => {
+      const p = profileById[row.user_id] || {};
+      const school = PEM_SCHOOLS[row.escuela];
+      const moduleInfo = school && school.modules[row.modulo - 1];
+      const fechaObj = row.fecha ? new Date(row.fecha) : null;
+      const fecha = fechaObj ? fechaObj.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'}) : '';
+      return {
+        nombre: p.nombre || '(sin nombre en perfil)',
+        base: p.base || '',
+        escuela: SCHOOL_SHORT[row.escuela] || row.escuela || '',
+        modulo: moduleInfo ? moduleInfo[0] : ('Módulo ' + row.modulo),
+        norma: school ? school.norm : '',
+        calif: (row.calificacion === null || row.calificacion === undefined) ? '' : String(row.calificacion),
+        fecha, fechaObj,
+        certId: row.certificado_id || '',
+        rol: p.rol || ''
+      };
+    });
 }
 
 function applyFilters(data){
@@ -785,18 +748,19 @@ async function load(){
   document.getElementById('errorState').style.display = 'none';
   document.getElementById('content').style.display = 'none';
   try{
-    const res = await fetch(CSV_URL + '&_ts=' + Date.now());
-    if(!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    const rows = parseCSV(text);
-    if(rows.length < 1) throw new Error('La hoja está vacía');
-    RAW_DATA = parseRows(rows);
+    if(!window.PEM_SB) throw new Error('Supabase aún no ha cargado, reintenta en un momento.');
+    RAW_DATA = await fetchFromSupabase();
     render();
   } catch(err){
     document.getElementById('loadingState').style.display = 'none';
     document.getElementById('errorState').style.display = 'block';
-    document.getElementById('errorState').textContent =
-      'No se pudo cargar el registro en vivo (' + err.message + '). Verifica que la hoja siga publicada como CSV en Google Sheets, o vuelve a intentar en unos segundos.';
+    if(err.message === 'ACCESO_RESTRINGIDO'){
+      document.getElementById('errorState').textContent =
+        '🔒 Este dashboard es solo para administradores. Tu cuenta todavía no tiene ese permiso activado en Supabase (profiles.is_admin) — pídele a quien administre la base de datos que te lo active.';
+    } else {
+      document.getElementById('errorState').textContent =
+        'No se pudo cargar el registro en vivo (' + err.message + '). Vuelve a intentar en unos segundos.';
+    }
   }
 }
 
