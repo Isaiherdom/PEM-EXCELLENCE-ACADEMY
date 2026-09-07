@@ -300,6 +300,7 @@ function generarCertificado(){
   }catch(e){}
 
   logToSheet(name, base, rol, score, dateStr, id);
+  pemGuardarCertificado('37001', 2, name, base, rol, score, id); // Fase 4C — no bloquea el flujo si falla
 
   document.getElementById('formBox').style.display='none';
   document.getElementById('certStage').style.display='block';
@@ -309,6 +310,7 @@ function volver(){
   document.getElementById('formBox').style.display='block';
 }
 </script>
+<script src="../assets/pem-supabase-write.js"></script>
 <script src="../assets/shell.js" defer></script>
 </body>
 </html>
