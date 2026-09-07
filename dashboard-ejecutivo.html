@@ -24,6 +24,14 @@
     --red:#C76A58; --redSoft:#F7E5E0;
     --shadow:0 8px 24px rgba(24,39,33,.07);
   }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --panel:#0D1311; --ink:#FFFFFF; --muted:#AAB5AF; --line:#24302B;
+    --green:#22E88A; --green2:#3FF29B; --mint:#0F3324;
+    --blue:#4C9AFF; --blueSoft:#132335;
+    --gold:#FFB84D; --goldSoft:#332711;
+    --red:#E8603D; --redSoft:#331813;
+    --shadow:0 8px 24px rgba(0,0,0,.4);
+  }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
 
@@ -31,10 +39,12 @@
   body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
   body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
   body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
-  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
   .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
   .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
   .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
   @media(max-width:900px){
     .exec-nav{margin-left:0;width:100%;}
     .exec-nav .burger{display:inline-flex;}
@@ -45,7 +55,7 @@
   .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
   .crumb{font-size:12px;color:var(--muted);}
   .actions{display:flex;gap:8px;position:relative;}
-  .actions button{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12.5px;color:#33403B;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;}
+  .actions button{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-size:12.5px;color:var(--ink);cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;}
   .actions button.primary{background:var(--green);color:#fff;border-color:var(--green);}
   .actions button:hover{border-color:var(--green);}
 
@@ -74,7 +84,7 @@
   h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,34px);margin:6px 0 5px;letter-spacing:-.5px;}
   .subtitle{font-size:13.5px;color:var(--muted);max-width:520px;line-height:1.5;}
   .filters{display:flex;gap:8px;flex-wrap:wrap;}
-  .filters select{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 12px;color:#4B5551;font-size:12.5px;font-family:'Inter',sans-serif;}
+  .filters select{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:9px 12px;color:var(--ink);font-size:12.5px;font-family:'Inter',sans-serif;}
 
   .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
   .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
@@ -117,12 +127,12 @@
   .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
   .legendLabel{display:flex;align-items:center;gap:7px;}
 
-  .heat-note{background:var(--goldSoft);color:#7A5A20;font-size:10.5px;border-radius:8px;padding:8px 10px;margin-bottom:10px;line-height:1.4;}
+  .heat-note{background:var(--goldSoft);color:var(--gold);font-size:10.5px;border-radius:8px;padding:8px 10px;margin-bottom:10px;line-height:1.4;}
   .heat{display:grid;grid-template-columns:96px repeat(4,1fr);gap:4px;font-size:9px;text-align:center;}
   .heat .rlabel{text-align:left;font-weight:700;font-size:10px;display:flex;align-items:center;}
   .heat .head{color:var(--muted);font-weight:800;padding:4px 2px;}
-  .heat .cell{padding:8px 2px;border-radius:5px;background:#F1F2EF;color:#9AA39D;font-weight:700;display:flex;align-items:center;justify-content:center;}
-  .footerNote{font-size:10px;color:#8A9490;margin-top:12px;}
+  .heat .cell{padding:8px 2px;border-radius:5px;background:var(--line);color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .footerNote{font-size:10px;color:var(--muted);margin-top:12px;}
 
   .insight{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line);}
   .insight:last-child{border-bottom:0;padding-bottom:0;}
@@ -177,6 +187,7 @@
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
   </button>
   <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
 </div>
 
 <div class="wrap">
@@ -521,6 +532,8 @@ function render(){
     document.getElementById('heatNote').style.display = 'none';
     document.getElementById('heatFooter').textContent = '1 = inicial · 5 = dominio avanzado (promedio de módulos completados por integrante de cada categoría, sobre 12 por escuela)';
     const bucketNames = Object.keys(ROLE_BUCKETS);
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const DARK_SCALE = ['#16241D','#1B3227','#204030','#25603E','#2AA06B'];
     let heatHtml = `<div class="head"></div><div class="head">CAL</div><div class="head">AMB</div><div class="head">SST</div><div class="head">ÉTICA</div>`;
     bucketNames.forEach(bucket => {
       heatHtml += `<div class="rlabel">${bucket}</div>`;
@@ -533,9 +546,10 @@ function render(){
         });
         const avgModules = sum / peopleInBucket.size;
         const score = avgModules > 0 ? Math.max(1, Math.min(5, Math.round((avgModules / modulesPerSchool) * 5))) : 0;
-        const bg = score===0 ? '#F1F2EF' : `rgba(8,127,91,${0.12 + score*0.16})`;
-        const fg = score===0 ? '#9AA39D' : (score>=3 ? '#fff' : '#0B4A35');
-        heatHtml += `<div class="cell" style="background:${bg};color:${fg}">${score===0?'—':score}</div>`;
+        if(score===0){ heatHtml += '<div class="cell">—</div>'; return; }
+        const bg = isDark ? DARK_SCALE[score-1] : `rgba(8,127,91,${0.12 + score*0.16})`;
+        const fg = isDark ? '#FFFFFF' : (score>=3 ? '#fff' : '#0B4A35');
+        heatHtml += `<div class="cell" style="background:${bg};color:${fg}">${score}</div>`;
       });
     });
     document.getElementById('heatGrid').innerHTML = heatHtml;
@@ -781,6 +795,35 @@ load();
 })();
 </script>
 
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
+})();
+</script>
 <script src="assets/shell.js" defer></script>
 </body>
 </html>

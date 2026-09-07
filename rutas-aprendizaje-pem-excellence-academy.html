@@ -20,16 +20,26 @@
     --red:#C76A58; --redSoft:#F7E5E0;
     --shadow:0 8px 24px rgba(24,39,33,.07);
   }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --panel:#0D1311; --ink:#FFFFFF; --muted:#AAB5AF; --line:#24302B;
+    --green:#22E88A; --green2:#3FF29B; --mint:#0F3324;
+    --blue:#4C9AFF; --blueSoft:#132335;
+    --gold:#FFB84D; --goldSoft:#332711;
+    --red:#E8603D; --redSoft:#331813;
+    --shadow:0 8px 24px rgba(0,0,0,.4);
+  }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
 
   body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
   body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
   body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
-  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
   .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
   .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
   .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
   @media(max-width:900px){
     .exec-nav{margin-left:0;width:100%;}
     .exec-nav .burger{display:inline-flex;}
@@ -57,7 +67,7 @@
   thead th{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding:12px 8px;border-top:1px solid var(--line);}
   thead th.role-col{text-align:left;}
   tbody td{padding:11px 8px;text-align:center;border-top:1px solid var(--line);}
-  tbody tr:hover{background:#FAFBF9;}
+  tbody tr:hover{background:var(--line);}
   tbody td.role-col{text-align:left;}
   .role-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;}
   .role-order{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);margin-top:2px;}
@@ -94,6 +104,7 @@
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
   </button>
   <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
 </div>
 
 <div class="wrap">
@@ -184,6 +195,35 @@ tbody.innerHTML = ROLES.map((r,i)=>`<tr>
   syncNavHeight();
   window.addEventListener('resize', syncNavHeight);
   window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
 })();
 </script>
 <script src="assets/shell.js" defer></script>

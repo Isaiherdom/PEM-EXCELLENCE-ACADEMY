@@ -1,7 +1,8 @@
 /* PEM Excellence Academy — Shell compartido (sidebar + header)
-   El sidebar y el header usan la MISMA paleta ejecutiva fija que Dashboard Ejecutivo
-   y Mi Desarrollo (--pem-x-*), independiente del toggle claro/oscuro del sitio —
-   así el "menú" luce visualmente idéntico en las 200 páginas, premium o no.
+   El sidebar y el header usan la paleta ejecutiva (--pem-x-*), la MISMA que usan
+   Dashboard Ejecutivo y las demás páginas "premium" — y, como esas páginas, ahora
+   SÍ responde al toggle claro/oscuro del sitio (html[data-theme="dark"] abajo),
+   para que todo el sitio sea consistente en cualquiera de los dos modos.
    El resto del chrome (.pem-card/.pem-progress/.pem-btn) sigue usando la paleta
    de cada página (--bg/--surface/--surface-2/--line/--text/--muted/--green/etc). */
 
@@ -14,6 +15,13 @@
   --pem-x-green:#087F5B; --pem-x-green2:#19A974; --pem-x-mint:#DFF3EA;
   --pem-x-hover:#EEF0EE;
   --pem-x-shadow:2px 0 16px rgba(24,39,33,.05);
+}
+html[data-theme="dark"]{
+  --pem-x-bg:#070B0A; --pem-x-panel:#0D1311; --pem-x-ink:#FFFFFF;
+  --pem-x-muted:#AAB5AF; --pem-x-line:#24302B;
+  --pem-x-green:#22E88A; --pem-x-green2:#3FF29B; --pem-x-mint:#0F3324;
+  --pem-x-hover:#141B18;
+  --pem-x-shadow:2px 0 16px rgba(0,0,0,.4);
 }
 
 .pem-sidebar{
