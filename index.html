@@ -583,7 +583,12 @@ window.addEventListener('DOMContentLoaded', function(){
     };
     document.getElementById('continuePhoto').style.backgroundImage = "url('" + photoMap[next.school.key] + "')";
   }
-  setTimeout(fillDashboard, 0);
+  setTimeout(function(){
+    // window.PEM_SHELL ya existe aquí (shell.js corre antes de DOMContentLoaded);
+    // solo falta esperar a que su lectura desde Supabase termine.
+    if(window.PEM_SHELL && window.PEM_SHELL.ready){ PEM_SHELL.ready.then(fillDashboard); }
+    else { fillDashboard(); }
+  }, 0);
 });
 </script>
 </body>

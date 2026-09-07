@@ -150,11 +150,13 @@ function renderSummary(progress){
 }
 
 function init(){
-  if(!window.PEM_SHELL){ setTimeout(init, 30); return; }
-  const progress = PEM_SHELL.computeProgress();
-  renderSummary(progress);
-  renderTabs(progress);
-  renderModules(progress);
+  if(!window.PEM_SHELL || !window.PEM_SHELL.ready){ setTimeout(init, 30); return; }
+  PEM_SHELL.ready.then(function(){
+    const progress = PEM_SHELL.computeProgress();
+    renderSummary(progress);
+    renderTabs(progress);
+    renderModules(progress);
+  });
 }
 init();
 </script>

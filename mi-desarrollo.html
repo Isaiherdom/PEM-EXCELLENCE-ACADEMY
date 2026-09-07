@@ -187,7 +187,10 @@ roleSelect.innerHTML = ROLES.map((r,i)=>`<option value="${i}">${r.name}</option>
 function requiredFor(role, key){ return MOD_BY_LEVEL[role['c'+key]]; }
 
 function render(){
-  if(!window.PEM_SHELL){ setTimeout(render, 30); return; }
+  if(!window.PEM_SHELL || !window.PEM_SHELL.ready){ setTimeout(render, 30); return; }
+  PEM_SHELL.ready.then(renderAfterReady);
+}
+function renderAfterReady(){
   const progress = PEM_SHELL.computeProgress();
   const savedIdx = localStorage.getItem('pemRoleIdx');
 

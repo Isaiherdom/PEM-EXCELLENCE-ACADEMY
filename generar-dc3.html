@@ -433,10 +433,12 @@ document.getElementById('genBtn').addEventListener('click', function(){
 });
 
 function init(){
-  if(!window.PEM_SHELL){ setTimeout(init, 30); return; }
-  loadSaved();
-  buildPicker();
-  updateBtn();
+  if(!window.PEM_SHELL || !window.PEM_SHELL.ready){ setTimeout(init, 30); return; }
+  PEM_SHELL.ready.then(function(){
+    loadSaved();
+    buildPicker();
+    updateBtn();
+  });
 }
 init();
 </script>

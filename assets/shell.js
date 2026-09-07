@@ -1,7 +1,8 @@
 /* PEM Excellence Academy — Shell compartido
    Construye sidebar + header en tiempo de ejecución en las 200 páginas,
-   y calcula progreso real a partir de los certificados guardados en localStorage
-   (clave 'pemCert::' + ruta completa, generada por cada certificado-moduloN.html). */
+   y calcula progreso real a partir de los certificados guardados en Supabase
+   (Fase 4D — antes vivía en localStorage; PEM_SHELL.ready se resuelve cuando
+   la lectura desde Supabase para la sesión activa ya está en caché). */
 (function(){
   var path = window.location.pathname;
   var siteRoot = path.replace(/(escuela-(ambiental|etica|seguridad)\/)?[^\/]*$/, '');
@@ -16,14 +17,12 @@
   ];
   var MODULES_PER_SCHOOL = 12;
 
-  function certKey(schoolFolder, n){
-    return 'pemCert::' + siteRoot + schoolFolder + 'certificado-modulo' + n + '.html';
-  }
+  // Caché en memoria, poblada una vez por carga de página desde Supabase (ver PEM_SHELL.ready).
+  var _certCache = {};
   function readCert(schoolFolder, n){
-    try{
-      var raw = localStorage.getItem(certKey(schoolFolder, n));
-      return raw ? JSON.parse(raw) : null;
-    }catch(e){ return null; }
+    var school = SCHOOLS.filter(function(s){ return s.folder === schoolFolder; })[0];
+    var key = (school ? school.key : schoolFolder) + '::' + n;
+    return _certCache[key] || null;
   }
 
   // Progreso real por escuela + agregados
@@ -82,6 +81,32 @@
   }
 
   window.PEM_SHELL = { SCHOOLS: SCHOOLS, MODULES_PER_SCHOOL: MODULES_PER_SCHOOL, computeProgress: computeProgress, nextStep: nextStep, prefix: prefix, readCert: readCert, scoreNum: scoreNum, scoreLabel: scoreLabel };
+
+  // Fase 4D — llena _certCache desde Supabase para la sesión activa.
+  // Todas las páginas que consultan progreso deben esperar esta promesa antes de leerlo
+  // (computeProgress/readCert siguen siendo síncronas, pero solo tienen datos reales
+  // una vez que PEM_SHELL.ready se resuelve).
+  window.PEM_SHELL.ready = (async function(){
+    try{
+      if(!window.PEM_SB) return;
+      var sessionRes = await window.PEM_SB.auth.getSession();
+      var session = sessionRes && sessionRes.data && sessionRes.data.session;
+      if(!session) return;
+      var res = await window.PEM_SB.from('certificados').select('*').eq('user_id', session.user.id);
+      if(res.error || !res.data) { console.warn('PEM_SHELL: no se pudo leer certificados de Supabase', res.error); return; }
+      res.data.forEach(function(row){
+        var dateStr = '';
+        if(row.fecha){
+          try{ dateStr = new Date(row.fecha).toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'}); }catch(e){}
+        }
+        _certCache[row.escuela + '::' + row.modulo] = {
+          score: (row.calificacion === null || row.calificacion === undefined) ? '—' : row.calificacion,
+          date: dateStr,
+          certId: row.certificado_id
+        };
+      });
+    }catch(e){ console.warn('PEM_SHELL: error inesperado leyendo progreso de Supabase', e); }
+  })();
 
   // ---------- Enlace "Volver al módulo" (hacia Inicio, con la escuela correcta preseleccionada) ----------
   function backToModuleUrl(){

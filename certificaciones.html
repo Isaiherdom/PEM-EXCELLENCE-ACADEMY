@@ -97,8 +97,10 @@
 
 <script>
 function render(){
-  if(!window.PEM_SHELL){ setTimeout(render, 30); return; }
-
+  if(!window.PEM_SHELL || !window.PEM_SHELL.ready){ setTimeout(render, 30); return; }
+  PEM_SHELL.ready.then(renderAfterReady);
+}
+function renderAfterReady(){
   let allCerts = [];
   let schoolsWithCerts = [];
   let contentHtml = '';

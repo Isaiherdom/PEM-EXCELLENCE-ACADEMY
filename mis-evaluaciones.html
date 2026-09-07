@@ -166,10 +166,12 @@ function renderSummary(){
 }
 
 function init(){
-  if(!window.PEM_SHELL){ setTimeout(init, 30); return; }
-  renderSummary();
-  buildFilters();
-  renderTable();
+  if(!window.PEM_SHELL || !window.PEM_SHELL.ready){ setTimeout(init, 30); return; }
+  PEM_SHELL.ready.then(function(){
+    renderSummary();
+    buildFilters();
+    renderTable();
+  });
 }
 init();
 </script>
