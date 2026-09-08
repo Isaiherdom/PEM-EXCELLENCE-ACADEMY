@@ -1,9 +1,16 @@
 /* PEM Excellence Academy — Datos de las 4 escuelas y sus 12 módulos cada una
    Fuente única: agregar/editar un módulo aquí lo refleja automáticamente en
-   index.html (Explora todos los módulos) y en mis-cursos.html. */
+   index.html (Explora todos los módulos) y en mis-cursos.html.
+
+   "version" = la versión vigente de la norma (ej. "2015"). Cuando una norma se
+   actualice, sube este valor — automáticamente todos los certificados emitidos
+   bajo la versión anterior se marcan como vencidos en todo el sitio (Mis cursos,
+   Certificaciones, Mi desarrollo, Dashboard Ejecutivo), sin tocar la base de datos:
+   cada certificado ya guarda con qué versión de la norma se emitió (Fase de
+   vencimiento/recertificación), y el sitio compara esa versión contra esta. */
 window.PEM_SCHOOLS = {
   "9001": {
-    name:"Escuela de Calidad", norm:"ISO 9001:2015", color:"#22E88A", active:true, progress:"12/12",
+    name:"Escuela de Calidad", norm:"ISO 9001:2015", version:"2015", color:"#22E88A", active:true, progress:"12/12",
     prefix:"", examSuffix:"-iso9001",
     modules:[
       ["Fundamentos y contexto de la organización","Cl. 4", true],
@@ -21,7 +28,7 @@ window.PEM_SCHOOLS = {
     ]
   },
   "14001": {
-    name:"Escuela Ambiental", norm:"ISO 14001:2015", color:"#4C9AFF", active:true, progress:"12/12",
+    name:"Escuela Ambiental", norm:"ISO 14001:2015", version:"2015", color:"#4C9AFF", active:true, progress:"12/12",
     prefix:"escuela-ambiental/", examSuffix:"-iso14001",
     modules:[
       ["Fundamentos y contexto ambiental","Cl. 4"],
@@ -39,7 +46,7 @@ window.PEM_SCHOOLS = {
     ]
   },
   "45001": {
-    name:"Escuela de Seguridad", norm:"ISO 45001:2018", color:"#FF7A1A", active:true, progress:"12/12",
+    name:"Escuela de Seguridad", norm:"ISO 45001:2018", version:"2018", color:"#FF7A1A", active:true, progress:"12/12",
     prefix:"escuela-seguridad/", examSuffix:"-iso45001",
     modules:[
       ["Fundamentos y contexto de SST","Cl. 4"],
@@ -57,7 +64,7 @@ window.PEM_SCHOOLS = {
     ]
   },
   "37001": {
-    name:"Escuela de Ética", norm:"ISO 37001:2025", color:"#E8603D", active:true, progress:"12/12",
+    name:"Escuela de Ética", norm:"ISO 37001:2025", version:"2025", color:"#E8603D", active:true, progress:"12/12",
     prefix:"escuela-etica/", examSuffix:"-iso37001",
     modules:[
       ["Fundamentos y contexto del riesgo de soborno","Cl. 4"],

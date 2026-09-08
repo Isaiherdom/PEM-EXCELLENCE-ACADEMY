@@ -25,14 +25,17 @@
     return _certCache[key] || null;
   }
 
-  // Progreso real por escuela + agregados
+  // Progreso real por escuela + agregados. Solo cuenta certificados vigentes —
+  // uno vencido (norma actualizada de versión) no cuenta como completo aquí,
+  // aunque readCert() lo siga devolviendo para que la página lo muestre como
+  // "vencido" en vez de borrarlo sin explicación.
   function computeProgress(){
     var perSchool = {}, totalCerts = 0, lastDate = null, lastDateStr = '';
     SCHOOLS.forEach(function(s){
       var count = 0;
       for(var n=1;n<=MODULES_PER_SCHOOL;n++){
         var c = readCert(s.folder, n);
-        if(c){
+        if(c && c.vigente !== false){
           count++;
           totalCerts++;
           if(c.date){
@@ -99,10 +102,17 @@
         if(row.fecha){
           try{ dateStr = new Date(row.fecha).toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'}); }catch(e){}
         }
+        // Vigente/vencido: solo lo sabemos si esta página cargó modules.js (PEM_SCHOOLS)
+        // Y el certificado trae su versión guardada — si falta cualquiera de las dos,
+        // se asume vigente (nunca lo marcamos vencido por falta de datos).
+        var currentVersion = (window.PEM_SCHOOLS && PEM_SCHOOLS[row.escuela]) ? PEM_SCHOOLS[row.escuela].version : null;
+        var vigente = (row.norma_version == null || currentVersion == null) ? true : (row.norma_version === currentVersion);
         _certCache[row.escuela + '::' + row.modulo] = {
           score: (row.calificacion === null || row.calificacion === undefined) ? '—' : row.calificacion,
           date: dateStr,
-          certId: row.certificado_id
+          certId: row.certificado_id,
+          normaVersion: row.norma_version || null,
+          vigente: vigente
         };
       });
     }catch(e){ console.warn('PEM_SHELL: error inesperado leyendo progreso de Supabase', e); }

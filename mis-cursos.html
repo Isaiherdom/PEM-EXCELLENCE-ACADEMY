@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/shell.css">
 <script src="assets/modules.js"></script>
+<script src="assets/roles.js"></script>
 <style>
   :root{
     --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
@@ -31,7 +32,7 @@
   .sub{color:var(--muted);font-size:14px;max-width:760px;line-height:1.6;}
 
   .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05); transition:.2s;}
-  html[data-theme="dark"] .card:hover{border-color:var(--green);transform:translateY(-3px);box-shadow:0 14px 32px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.18),0 0 24px rgba(34,232,138,.14);}
+  html[data-theme="dark"] .card:hover{border-color:var(--green);transform:scale(1.035);box-shadow:0 14px 32px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.18),0 0 24px rgba(34,232,138,.14);}
 
   .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
   .metric{padding:18px;}
@@ -50,13 +51,14 @@
 
   .modgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .modcard{padding:16px;transition:.2s;}
-  .modcard:hover{transform:translateY(-3px);}
+  .modcard:hover{transform:scale(1.035);}
   html[data-theme="dark"] .modcard:hover{border-color:var(--green);box-shadow:0 14px 32px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.18),0 0 24px rgba(34,232,138,.14);}
   .modcard.done{border-color:var(--green);}
   .modcard-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
   .modcard-n{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:13px;color:var(--sc,var(--green));}
   .modcard-clause{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
   .modcard-title{font-weight:700;font-size:14px;line-height:1.35;margin-bottom:10px;min-height:38px;}
+  .modcard-req{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--sc,var(--green));background:color-mix(in srgb, var(--sc,var(--green)) 14%, transparent);border-radius:20px;padding:3px 9px;margin-bottom:9px;}
   .status{display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:12px;padding:7px 10px;border-radius:8px;}
   .status.ok{background:color-mix(in srgb, var(--green) 14%, var(--surface));color:var(--green);}
   .status.pending{background:var(--surface-2);color:var(--muted);}
@@ -94,6 +96,16 @@
 
 <script>
 let current = "9001";
+let REQUIRED = null; // se llena con computeRequired() si el perfil tiene un rol guardado
+
+function computeRequired(rolNombre){
+  if(!window.PEM_ROLES || !rolNombre) return null;
+  const role = PEM_ROLES.find(r => r.name === rolNombre);
+  if(!role) return null;
+  const req = {};
+  PEM_SCHOOL_ORDER.forEach(key => { req[key] = PEM_MOD_BY_LEVEL[role['c'+key]]; });
+  return req;
+}
 
 function renderTabs(progress){
   const el = document.getElementById('tabs');
@@ -125,13 +137,16 @@ function renderModules(progress){
     const n = i+1;
     const cert = PEM_SHELL.readCert(s.prefix, n);
     const statusHtml = cert
-      ? `<div class="status ok">✅ Certificado · ${PEM_SHELL.scoreLabel(cert)} · ${cert.date}</div>`
+      ? (cert.vigente === false
+          ? `<div class="status" style="color:var(--amber);">⚠️ Vencido — norma actualizada, recertificar</div>`
+          : `<div class="status ok">✅ Certificado · ${PEM_SHELL.scoreLabel(cert)} · ${cert.date}</div>`)
       : `<div class="status pending">⏳ Pendiente</div>`;
-    return `<div class="card modcard ${cert?'done':''}" style="--sc:${s.color}">
+    return `<div class="card modcard ${cert && cert.vigente !== false ? 'done':''}" style="--sc:${s.color}">
       <div class="modcard-head">
         <span class="modcard-n">M${n}</span>
         <span class="modcard-clause">${m[1]}</span>
       </div>
+      ${REQUIRED && REQUIRED[current] && n <= REQUIRED[current] ? '<div class="modcard-req">★ Obligatorio para tu puesto</div>' : ''}
       <div class="modcard-title">${m[0]}</div>
       ${statusHtml}
       <div class="assets">
@@ -154,7 +169,14 @@ function renderSummary(progress){
 
 function init(){
   if(!window.PEM_SHELL || !window.PEM_SHELL.ready){ setTimeout(init, 30); return; }
-  PEM_SHELL.ready.then(function(){
+  PEM_SHELL.ready.then(async function(){
+    try{
+      const { data: { session } } = await window.PEM_SB.auth.getSession();
+      if(session){
+        const { data: profile } = await window.PEM_SB.from('profiles').select('rol').eq('id', session.user.id).maybeSingle();
+        if(profile && profile.rol) REQUIRED = computeRequired(profile.rol);
+      }
+    }catch(e){ console.warn('No se pudo leer el puesto del perfil (se omiten las insignias de obligatorio):', e); }
     const progress = PEM_SHELL.computeProgress();
     renderSummary(progress);
     renderTabs(progress);
