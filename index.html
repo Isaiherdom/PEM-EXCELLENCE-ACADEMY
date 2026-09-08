@@ -26,17 +26,24 @@
   html[data-theme="dark"]{
     --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
     --green:#22E88A; --blue:#4C9AFF; --amber:#FF7A1A; --red:#E8603D;
-    --text:#FFFFFF; --muted:#AAB5AF;
+    --text:#FFFFFF; --muted:#AAB5AF; --cyan:#3FE0E8;
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
-  .wrap{max-width:1680px;margin:0 auto;padding:0 40px;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;position:relative;}
+  html[data-theme="dark"] body::before{
+    content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(650px 420px at 8% -8%, rgba(34,232,138,.10), transparent 60%),
+      radial-gradient(550px 380px at 96% 6%, rgba(63,224,232,.07), transparent 60%),
+      radial-gradient(500px 500px at 50% 110%, rgba(255,122,26,.05), transparent 60%);
+  }
+  .wrap{max-width:1680px;margin:0 auto;padding:0 40px;position:relative;z-index:1;}
 
   /* ---- NAVBAR clásico (sin sidebar en el Home) ---- */
   .navbar{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;justify-content:space-between;padding:26px 40px;border-bottom:1px solid var(--line);background:var(--bg);}
   .brand{display:flex;flex-direction:column;gap:4px;}
   .brand-kicker{font-family:'JetBrains Mono',monospace;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-fixed);font-weight:800;}
-  html[data-theme="dark"] .brand-kicker{color:#FFFFFF;}
+  html[data-theme="dark"] .brand-kicker{color:var(--cyan);}
   .brand-title{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:var(--text);letter-spacing:-.005em;}
   .navlinks{display:flex;align-items:center;gap:26px;font-size:12px;font-weight:700;}
   .navlinks a:not(.nav-cta){color:var(--text);text-decoration:none;text-transform:uppercase;}

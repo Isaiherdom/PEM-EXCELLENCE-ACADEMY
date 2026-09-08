@@ -17,11 +17,12 @@
   --pem-x-shadow:2px 0 16px rgba(24,39,33,.05);
 }
 html[data-theme="dark"]{
-  --pem-x-bg:#070B0A; --pem-x-panel:#0D1311; --pem-x-ink:#FFFFFF;
-  --pem-x-muted:#AAB5AF; --pem-x-line:#24302B;
-  --pem-x-green:#22E88A; --pem-x-green2:#3FF29B; --pem-x-mint:#0F3324;
+  --pem-x-bg:#040807; --pem-x-panel:#0D1311; --pem-x-ink:#FFFFFF;
+  --pem-x-muted:#8A9690; --pem-x-nav-ink:#D7DEDB; --pem-x-line:#1D2622;
+  --pem-x-green:#22E88A; --pem-x-green2:#5CFFB0; --pem-x-mint:rgba(34,232,138,.14);
+  --pem-x-cyan:#3FE0E8;
   --pem-x-hover:#141B18;
-  --pem-x-shadow:2px 0 16px rgba(0,0,0,.4);
+  --pem-x-shadow:2px 0 20px rgba(0,0,0,.5);
 }
 
 .pem-sidebar{
@@ -38,7 +39,7 @@ html[data-theme="dark"]{
 .pem-nav{flex:1; overflow-y:auto; padding:14px 10px;}
 .pem-nav a{
   display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:8px;
-  color:var(--pem-x-muted); text-decoration:none; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600;
+  color:var(--pem-x-nav-ink, var(--pem-x-muted)); text-decoration:none; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600;
   margin-bottom:2px; transition:.12s;
 }
 .pem-nav a svg{flex-shrink:0; opacity:.85;}

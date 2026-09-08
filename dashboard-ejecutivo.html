@@ -25,12 +25,13 @@
     --shadow:0 8px 24px rgba(24,39,33,.07);
   }
   html[data-theme="dark"]{
-    --bg:#070B0A; --panel:#0D1311; --ink:#FFFFFF; --muted:#AAB5AF; --line:#24302B;
-    --green:#22E88A; --green2:#3FF29B; --mint:#0F3324;
-    --blue:#4C9AFF; --blueSoft:#132335;
-    --gold:#FFB84D; --goldSoft:#332711;
-    --red:#E8603D; --redSoft:#331813;
-    --shadow:0 8px 24px rgba(0,0,0,.4);
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14);
+    --cyan:#3FE0E8;
+    --blue:#4C9AFF; --blueSoft:rgba(76,154,255,.14);
+    --gold:#FFB84D; --goldSoft:rgba(255,184,77,.14);
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
@@ -50,7 +51,7 @@
     .exec-nav .burger{display:inline-flex;}
   }
 
-  .wrap{max-width:1320px;margin:0 auto;padding:26px 28px 60px;}
+  .wrap{max-width:1320px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
 
   .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
   .crumb{font-size:12px;color:var(--muted);}
@@ -79,9 +80,33 @@
   .modalBody table{width:100%;}
   .modalEmpty{padding:30px;text-align:center;color:var(--muted);font-size:13px;}
 
+  /* ---- Franja de normas/escuelas en movimiento (inspirada en la fila de logos de AMD) ---- */
+  .marquee-wrap{overflow:hidden;margin-bottom:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+  .marquee-row{display:flex;gap:40px;white-space:nowrap;width:max-content;padding:6px 0;}
+  .marquee-row span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--muted);opacity:.5;letter-spacing:.2px;flex-shrink:0;}
+  .marquee-row.right{animation:marqueeRight 34s linear infinite;}
+  .marquee-row.left{animation:marqueeLeft 38s linear infinite;margin-top:4px;}
+  .marquee-wrap:hover .marquee-row{animation-play-state:paused;}
+  @keyframes marqueeRight{from{transform:translateX(-50%);}to{transform:translateX(0);}}
+  @keyframes marqueeLeft{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.marquee-row{animation:none;}}
+
+  /* ---- Destellos de fondo muy sutiles, solo en modo oscuro (inspirado en amd.com) ---- */
+  html[data-theme="dark"] body::before{
+    content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(650px 420px at 8% -8%, rgba(34,232,138,.10), transparent 60%),
+      radial-gradient(550px 380px at 96% 6%, rgba(63,224,232,.07), transparent 60%),
+      radial-gradient(500px 500px at 50% 110%, rgba(255,184,77,.05), transparent 60%);
+  }
+
   .header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;gap:16px;flex-wrap:wrap;}
-  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .kicker::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);}
+  html[data-theme="dark"] .kicker{color:var(--cyan);}
+  html[data-theme="dark"] .kicker::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
   h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,34px);margin:6px 0 5px;letter-spacing:-.5px;}
+  html[data-theme="dark"] h1{background:linear-gradient(180deg,#fff 0%,#C9D6D0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
   .subtitle{font-size:13.5px;color:var(--muted);max-width:520px;line-height:1.5;}
   .filters{display:flex;gap:8px;flex-wrap:wrap;}
   .filters select{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:9px 12px;color:var(--ink);font-size:12.5px;font-family:'Inter',sans-serif;}
@@ -94,13 +119,15 @@
   .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
   .kpi{padding:17px 18px;position:relative;overflow:hidden;cursor:pointer;transition:.15s;}
   .kpi:hover{box-shadow:0 10px 26px rgba(24,39,33,.11);}
+  html[data-theme="dark"] .kpi:hover{border-color:var(--green);box-shadow:0 10px 30px rgba(0,0,0,.5);transform:translateY(-2px);}
   .kpi .label{font-size:9px;letter-spacing:1.4px;color:var(--muted);font-weight:800;text-transform:uppercase;}
   .kpi .value{font-family:'Space Grotesk',sans-serif;font-size:29px;font-weight:800;margin:7px 0 2px;letter-spacing:-1px;}
   .kpi .foot{font-size:11px;color:var(--muted);}
   .kpi .delta{position:absolute;right:15px;top:17px;font-size:10px;font-weight:800;padding:5px 8px;border-radius:20px;background:var(--mint);color:var(--green);}
-  .kpi .delta.flat{background:#EEF0EE;color:var(--muted);}
-  .kpi .spark{height:4px;border-radius:5px;background:#EDF0ED;margin-top:14px;overflow:hidden;}
+  .kpi .delta.flat{background:var(--line);color:var(--muted);}
+  .kpi .spark{height:4px;border-radius:5px;background:var(--line);margin-top:14px;overflow:hidden;}
   .kpi .spark span{display:block;height:100%;background:var(--green2);border-radius:5px;}
+  html[data-theme="dark"] .kpi .spark span{box-shadow:0 0 8px var(--green2);}
 
   .section{margin-top:16px;}
   .chartGrid{display:grid;grid-template-columns:1.45fr 1fr;gap:14px;}
@@ -221,6 +248,31 @@
         <option value="30">Últimos 30 días</option>
       </select>
       <select id="fSitio"><option value="all">Todos los sitios</option></select>
+    </div>
+  </div>
+
+  <div class="marquee-wrap">
+    <div class="marquee-row right">
+      <span>ISO 9001:2015 — Sistema de Gestión de Calidad</span>
+      <span>ISO 14001:2015 — Sistema de Gestión Ambiental</span>
+      <span>ISO 45001:2018 — Sistema de Gestión de SST</span>
+      <span>ISO 37001:2025 — Sistema de Gestión Antisoborno</span>
+      <span>ISO 9001:2015 — Sistema de Gestión de Calidad</span>
+      <span>ISO 14001:2015 — Sistema de Gestión Ambiental</span>
+      <span>ISO 45001:2018 — Sistema de Gestión de SST</span>
+      <span>ISO 37001:2025 — Sistema de Gestión Antisoborno</span>
+    </div>
+    <div class="marquee-row left">
+      <span>Escuela de Calidad</span>
+      <span>Escuela Ambiental</span>
+      <span>Escuela de Seguridad</span>
+      <span>Escuela de Ética</span>
+      <span>Próxima escuela — por confirmar</span>
+      <span>Escuela de Calidad</span>
+      <span>Escuela Ambiental</span>
+      <span>Escuela de Seguridad</span>
+      <span>Escuela de Ética</span>
+      <span>Próxima escuela — por confirmar</span>
     </div>
   </div>
 
