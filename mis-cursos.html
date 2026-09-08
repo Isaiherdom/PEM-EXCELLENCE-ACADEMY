@@ -49,7 +49,9 @@
   .bar span{display:block;height:100%;background:var(--sc,var(--green));border-radius:5px;}
 
   .modgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-  .modcard{padding:16px;}
+  .modcard{padding:16px;transition:.2s;}
+  .modcard:hover{transform:translateY(-3px);}
+  html[data-theme="dark"] .modcard:hover{border-color:var(--green);box-shadow:0 14px 32px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.18),0 0 24px rgba(34,232,138,.14);}
   .modcard.done{border-color:var(--green);}
   .modcard-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
   .modcard-n{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:13px;color:var(--sc,var(--green));}

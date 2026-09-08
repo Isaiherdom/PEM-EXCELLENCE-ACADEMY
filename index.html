@@ -31,12 +31,8 @@
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;position:relative;}
   html[data-theme="dark"] .pem-glow-bg{display:block;}
-  .pem-glow-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;display:none;}
-  .pem-glow-bg .beam{position:absolute;border-radius:50%;filter:blur(55px);}
-  .pem-glow-bg .b1{width:1000px;height:150px;top:-40px;right:-260px;background:linear-gradient(90deg,transparent,rgba(63,224,232,.55),transparent);transform:rotate(-16deg);}
-  .pem-glow-bg .b2{width:1100px;height:120px;top:160px;right:-320px;background:linear-gradient(90deg,transparent,rgba(34,232,138,.45),transparent);transform:rotate(-12deg);}
-  .pem-glow-bg .b3{width:800px;height:90px;top:340px;right:-220px;background:linear-gradient(90deg,transparent,rgba(63,224,232,.30),transparent);transform:rotate(-20deg);}
-  .pem-glow-bg .b4{width:700px;height:500px;bottom:-220px;left:-200px;background:radial-gradient(circle,rgba(34,232,138,.22),transparent 70%);filter:blur(70px);}
+  .pem-glow-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .pem-glow-bg svg{position:absolute;top:0;right:0;width:1100px;height:auto;opacity:.85;}
   .wrap{max-width:1680px;margin:0 auto;padding:0 40px;position:relative;z-index:1;}
 
   /* ---- Franja de normas/escuelas en movimiento (inspirada en la fila de logos de AMD) ---- */
@@ -209,7 +205,7 @@
 <script src="assets/supabase-config.js"></script>
 <script src="assets/pem-gate.js"></script>
 
-<div class="pem-glow-bg"><span class="beam b1"></span><span class="beam b2"></span><span class="beam b3"></span><span class="beam b4"></span></div>
+<div class="pem-glow-bg"><svg viewBox="0 0 1100 700" xmlns="http://www.w3.org/2000/svg"> <defs> <linearGradient id="rayBlue" x1="0%" y1="0%" x2="100%" y2="100%"> <stop offset="0%" stop-color="#2FD3FF" stop-opacity="0"/> <stop offset="35%" stop-color="#2FD3FF" stop-opacity=".9"/> <stop offset="70%" stop-color="#2FD3FF" stop-opacity=".5"/> <stop offset="100%" stop-color="#2FD3FF" stop-opacity="0"/> </linearGradient> <linearGradient id="rayGold" x1="0%" y1="0%" x2="100%" y2="100%"> <stop offset="0%" stop-color="#F2C94C" stop-opacity="0"/> <stop offset="40%" stop-color="#F2C94C" stop-opacity=".7"/> <stop offset="100%" stop-color="#F2C94C" stop-opacity="0"/> </linearGradient> <filter id="rayBlur" x="-50%" y="-50%" width="200%" height="200%"> <feGaussianBlur stdDeviation="3"/> </filter> <filter id="rayBlurSoft" x="-50%" y="-50%" width="200%" height="200%"> <feGaussianBlur stdDeviation="7"/> </filter> </defs> <g fill="none" stroke-linecap="round"> <path d="M -60,120 C 220,40 380,180 560,140 S 900,260 1180,60" stroke="url(#rayBlue)" stroke-width="10" filter="url(#rayBlurSoft)" opacity=".55"/> <path d="M -60,160 C 200,90 360,220 540,180 S 880,300 1180,110" stroke="url(#rayBlue)" stroke-width="3.5" filter="url(#rayBlur)"/> <path d="M -60,200 C 180,130 340,260 520,220 S 860,330 1180,150" stroke="url(#rayBlue)" stroke-width="2.5" filter="url(#rayBlur)" opacity=".85"/> <path d="M -60,80 C 240,10 400,140 580,100 S 920,220 1180,30" stroke="url(#rayBlue)" stroke-width="2" filter="url(#rayBlur)" opacity=".7"/> <path d="M -60,260 C 160,190 320,300 500,270 S 840,370 1180,210" stroke="url(#rayGold)" stroke-width="2" filter="url(#rayBlur)" opacity=".65"/> <path d="M -60,320 C 140,250 300,350 480,330 S 820,410 1180,270" stroke="url(#rayGold)" stroke-width="1.5" filter="url(#rayBlur)" opacity=".5"/> <path d="M -60,20 C 260,-40 420,90 600,50 S 940,170 1180,-10" stroke="url(#rayBlue)" stroke-width="1.5" filter="url(#rayBlur)" opacity=".55"/> <path d="M -60,380 C 120,320 280,400 460,390 S 800,450 1180,330" stroke="url(#rayGold)" stroke-width="1.5" filter="url(#rayBlur)" opacity=".4"/> </g> <g fill="#2FD3FF"> <circle cx="180" cy="70" r="2" opacity=".8"/><circle cx="340" cy="150" r="1.4" opacity=".6"/> <circle cx="520" cy="90" r="1.8" opacity=".7"/><circle cx="700" cy="200" r="1.4" opacity=".5"/> <circle cx="860" cy="120" r="2" opacity=".8"/><circle cx="980" cy="60" r="1.4" opacity=".6"/> </g> <g fill="#F2C94C"> <circle cx="260" cy="260" r="1.6" opacity=".6"/><circle cx="460" cy="320" r="1.4" opacity=".5"/> <circle cx="640" cy="270" r="1.8" opacity=".6"/><circle cx="820" cy="350" r="1.4" opacity=".5"/> </g> </svg></div>
 
   <div class="navbar">
     <button class="burger" id="pemBurger" aria-label="Abrir menú">
