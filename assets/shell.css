@@ -45,6 +45,8 @@ html[data-theme="dark"]{
 .pem-nav a svg{flex-shrink:0; opacity:.85;}
 .pem-nav a:hover{background:var(--pem-x-hover); color:var(--pem-x-ink);}
 .pem-nav a.active{background:var(--pem-x-mint); color:var(--pem-x-green); box-shadow:inset 3px 0 0 var(--pem-x-green);}
+html[data-theme="dark"] .pem-nav a:hover{box-shadow:0 0 16px rgba(34,232,138,.10);}
+html[data-theme="dark"] .pem-nav a.active{box-shadow:inset 3px 0 0 var(--pem-x-green), 0 0 18px rgba(34,232,138,.16);}
 .pem-nav a.soon{cursor:pointer;}
 .pem-nav a.soon .badge{
   margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:.04em;
@@ -92,7 +94,8 @@ body{padding-left:var(--pem-sb-w) !important; padding-top:var(--pem-hd-h) !impor
 }
 
 /* ---- Componentes reutilizables para el nuevo Home y futuras páginas ---- */
-.pem-card{background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+.pem-card{background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05); transition:.2s;}
+html[data-theme="dark"] .pem-card:hover{border-color:var(--green); box-shadow:0 10px 26px rgba(0,0,0,.5), 0 0 0 1px rgba(34,232,138,.14);}
 .pem-progress{height:6px; border-radius:4px; background:var(--surface-2); overflow:hidden;}
 .pem-progress > span{display:block; height:100%; border-radius:4px; background:var(--green);}
 .pem-btn{
