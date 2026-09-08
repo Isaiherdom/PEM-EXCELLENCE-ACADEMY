@@ -17,11 +17,11 @@
   --pem-x-shadow:2px 0 16px rgba(24,39,33,.05);
 }
 html[data-theme="dark"]{
-  --pem-x-bg:#040807; --pem-x-panel:#0D1311; --pem-x-ink:#FFFFFF;
+  --pem-x-bg:#040807; --pem-x-panel:#040807; --pem-x-ink:#FFFFFF;
   --pem-x-muted:#8A9690; --pem-x-nav-ink:#D7DEDB; --pem-x-line:#1D2622;
   --pem-x-green:#22E88A; --pem-x-green2:#5CFFB0; --pem-x-mint:rgba(34,232,138,.14);
   --pem-x-cyan:#3FE0E8;
-  --pem-x-hover:#141B18;
+  --pem-x-hover:#0F1512;
   --pem-x-shadow:2px 0 20px rgba(0,0,0,.5);
 }
 
@@ -95,7 +95,7 @@ body{padding-left:var(--pem-sb-w) !important; padding-top:var(--pem-hd-h) !impor
 
 /* ---- Componentes reutilizables para el nuevo Home y futuras páginas ---- */
 .pem-card{background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05); transition:.2s;}
-html[data-theme="dark"] .pem-card:hover{border-color:var(--green); box-shadow:0 10px 26px rgba(0,0,0,.5), 0 0 0 1px rgba(34,232,138,.14);}
+html[data-theme="dark"] .pem-card:hover{border-color:var(--green); transform:translateY(-3px); box-shadow:0 14px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(34,232,138,.18), 0 0 24px rgba(34,232,138,.14);}
 .pem-progress{height:6px; border-radius:4px; background:var(--surface-2); overflow:hidden;}
 .pem-progress > span{display:block; height:100%; border-radius:4px; background:var(--green);}
 .pem-btn{
