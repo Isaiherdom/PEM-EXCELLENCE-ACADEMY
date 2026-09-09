@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrar usuarios · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css">
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14);
+    --cyan:#3FE0E8;
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
+
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:1200px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .kicker::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);}
+  html[data-theme="dark"] .kicker{color:var(--cyan);}
+  html[data-theme="dark"] .kicker::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,32px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:560px;line-height:1.5;margin-bottom:22px;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);transition:.2s;}
+  .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .state.err{color:var(--red);}
+
+  .toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+  .toolbar input{flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+  .toolbar .count{font-size:12px;color:var(--muted);white-space:nowrap;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:12px 14px;border-bottom:1px solid var(--line);}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tbody tr:hover{background:var(--mint);}
+  tbody tr:last-child td{border-bottom:none;}
+  .name-cell b{display:block;font-size:13.5px;}
+  .name-cell span{font-size:11px;color:var(--muted);}
+  select.rol-select{width:100%;max-width:230px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:12.5px;}
+  .switch{position:relative;display:inline-block;width:40px;height:23px;flex-shrink:0;}
+  .switch input{opacity:0;width:0;height:0;}
+  .switch .slider{position:absolute;cursor:pointer;inset:0;background:var(--line);border-radius:20px;transition:.2s;}
+  .switch .slider::before{content:'';position:absolute;height:17px;width:17px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s;}
+  .switch input:checked + .slider{background:var(--green);}
+  .switch input:checked + .slider::before{transform:translateX(17px);}
+  .switch input:disabled + .slider{opacity:.5;cursor:not-allowed;}
+  .certs-pill{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:var(--mint);color:var(--green);border-radius:20px;padding:3px 9px;}
+  .save-note{font-size:10.5px;color:var(--green);margin-left:8px;opacity:0;transition:.3s;}
+  .save-note.show{opacity:1;}
+  .save-note.err{color:var(--red);}
+</style>
+</head>
+<body data-pem-no-shell-header>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js"></script>
+
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
+</div>
+
+<div class="wrap">
+  <div class="kicker">Gobernanza de la plataforma</div>
+  <h1>Administrar usuarios</h1>
+  <div class="subtitle">Marca administradores y corrige el puesto de cualquier colaborador — sin escribir SQL. Los cambios se guardan al instante.</div>
+
+  <div id="loadingState" class="card state">Cargando usuarios…</div>
+  <div id="errorState" class="card state err" style="display:none;"></div>
+
+  <div id="content" style="display:none;">
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="Buscar por nombre o sitio...">
+      <span class="count" id="countLabel"></span>
+    </div>
+    <div class="card" style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Colaborador</th><th>Rol / puesto</th><th>Certificados</th><th>Administrador</th></tr>
+        </thead>
+        <tbody id="usersBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const ROLES = [
+  "Director General","Gerentes de área/base","Supervisores de campo","Calidad (área)",
+  "HSE (área)","Operadores","Mecánicos","Compras","Recursos Humanos","Finanzas",
+  "Director de Operación","Director/Gerente de Ventas y Desarrollo de Negocio",
+  "Cuentas por Pagar","Cuentas por Cobrar","Almacén","Tesorería","Administrativos en general"
+];
+
+let USERS = [];
+let MY_ID = null;
+
+function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function rolOptions(current){
+  return '<option value="">— sin rol —</option>' +
+    ROLES.map(r => `<option ${r===current?'selected':''}>${r}</option>`).join('');
+}
+
+function renderRows(){
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const filtered = USERS.filter(u =>
+    !q || (u.nombre||'').toLowerCase().includes(q) || (u.base||'').toLowerCase().includes(q)
+  );
+  document.getElementById('countLabel').textContent = filtered.length + ' de ' + USERS.length + ' colaboradores';
+  document.getElementById('usersBody').innerHTML = filtered.map(u => `
+    <tr data-id="${u.id}">
+      <td class="name-cell">
+        <b>${escapeHtml(u.nombre) || '(sin nombre)'}</b>
+        <span>${escapeHtml(u.base) || 'Sin sitio registrado'}</span>
+      </td>
+      <td>
+        <select class="rol-select" data-field="rol">${rolOptions(u.rol)}</select>
+        <span class="save-note"></span>
+      </td>
+      <td><span class="certs-pill">${u.certCount}</span></td>
+      <td>
+        <label class="switch">
+          <input type="checkbox" data-field="is_admin" ${u.is_admin ? 'checked' : ''} ${u.id === MY_ID ? 'disabled title="No puedes quitarte tu propio acceso desde aquí"' : ''}>
+          <span class="slider"></span>
+        </label>
+        <span class="save-note"></span>
+      </td>
+    </tr>
+  `).join('');
+
+  document.querySelectorAll('#usersBody select[data-field="rol"]').forEach(el => {
+    el.addEventListener('change', () => saveField(el));
+  });
+  document.querySelectorAll('#usersBody input[data-field="is_admin"]').forEach(el => {
+    el.addEventListener('change', () => saveField(el));
+  });
+}
+
+async function saveField(el){
+  const tr = el.closest('tr');
+  const id = tr.dataset.id;
+  const field = el.dataset.field;
+  const value = field === 'is_admin' ? el.checked : (el.value || null);
+  const note = el.parentElement.querySelector('.save-note') || el.nextElementSibling;
+
+  const { error } = await window.PEM_SB.from('profiles').update({ [field]: value }).eq('id', id);
+  const u = USERS.find(u => u.id === id);
+  if(error){
+    note.textContent = '✕ ' + error.message;
+    note.className = 'save-note err show';
+  } else {
+    if(u) u[field] = value;
+    note.textContent = '✓ Guardado';
+    note.className = 'save-note show';
+    setTimeout(() => { note.classList.remove('show'); }, 2000);
+  }
+}
+
+async function load(){
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('content').style.display = 'none';
+  try{
+    if(!window.PEM_SB) throw new Error('Supabase aún no ha cargado, reintenta en un momento.');
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session) throw new Error('Sin sesión activa.');
+    MY_ID = session.user.id;
+
+    const { data: myProfile, error: profErr } = await window.PEM_SB
+      .from('profiles').select('is_admin').eq('id', MY_ID).maybeSingle();
+    if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
+    if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
+
+    const [profilesRes, certsRes] = await Promise.all([
+      window.PEM_SB.from('profiles').select('*').order('nombre'),
+      window.PEM_SB.from('certificados').select('user_id').neq('escuela', 'PRUEBA')
+    ]);
+    if(profilesRes.error) throw new Error('No se pudieron leer los perfiles (' + profilesRes.error.message + ')');
+
+    const certCountByUser = {};
+    (certsRes.data||[]).forEach(c => { certCountByUser[c.user_id] = (certCountByUser[c.user_id]||0) + 1; });
+
+    USERS = (profilesRes.data||[]).map(p => ({...p, certCount: certCountByUser[p.id] || 0}));
+
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    renderRows();
+  } catch(err){
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    if(err.message === 'ACCESO_RESTRINGIDO'){
+      document.getElementById('errorState').textContent =
+        '🔒 Este panel es solo para administradores. Tu cuenta todavía no tiene ese permiso activado en Supabase (profiles.is_admin).';
+    } else {
+      document.getElementById('errorState').textContent =
+        'No se pudo cargar (' + err.message + '). Vuelve a intentar en unos segundos.';
+    }
+  }
+}
+
+document.getElementById('search').addEventListener('input', renderRows);
+load();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
+})();
+</script>
+<script src="assets/shell.js" defer></script>
+</body>
+</html>

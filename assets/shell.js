@@ -172,6 +172,7 @@
     {label:'Generar DC-3', href:prefix+'generar-dc3.html', match:/generar-dc3/, icon:'doc'},
     {label:'Recursos', href:prefix+'recursos.html', match:/recursos\.html/, icon:'doc'},
     {label:'Dashboard Ejecutivo', href:prefix+'dashboard-ejecutivo.html', match:/dashboard-ejecutivo/, icon:'growth'},
+    {label:'Administrar usuarios', href:prefix+'admin-usuarios.html', match:/admin-usuarios/, icon:'users'},
     {label:'Noticias', href:prefix+'noticias.html', match:/noticias\.html/, icon:'news'}
   ];
   var NAV_SOON = [];
@@ -187,6 +188,7 @@
     badge:'<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5 7 20l5-2.5 5 2.5-1.5-6.5" stroke-linecap="round" stroke-linejoin="round"/>',
     news:'<path d="M4 6.5A1.5 1.5 0 0 1 5.5 5H15v14H5.5A1.5 1.5 0 0 1 4 17.5v-11Z"/><path d="M15 8h3.5A1.5 1.5 0 0 1 20 9.5v9a1.5 1.5 0 0 1-1.5 1.5H15"/><path d="M7 9h5M7 12h5M7 15h3" stroke-linecap="round"/>',
     doc:'<path d="M7 3.5h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M14 3.5v4h4"/><path d="M9 13h6M9 16h6M9 10h2" stroke-linecap="round"/>',
+    users:'<circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke-linecap="round"/><circle cx="17" cy="9" r="2.3"/><path d="M15.5 13.2c2.3.3 4 2 4 4.3" stroke-linecap="round"/>',
     back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }

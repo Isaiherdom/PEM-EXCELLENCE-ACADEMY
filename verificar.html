@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificar certificado · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14);
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .wrap{max-width:480px;width:100%;}
+  .brand{text-align:center;margin-bottom:26px;}
+  .brand .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:800;}
+  .brand .t{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;margin-top:4px;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px 24px;box-shadow:var(--shadow);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;text-align:center;}
+  .sub{font-size:13px;color:var(--muted);text-align:center;margin-bottom:20px;line-height:1.5;}
+  .searchRow{display:flex;gap:8px;}
+  input{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:13px;text-transform:uppercase;}
+  button{background:var(--green);color:#fff;border:none;border-radius:9px;padding:12px 18px;font-weight:700;cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;}
+  button:hover{opacity:.92;}
+
+  .result{margin-top:22px;border-radius:12px;padding:20px;display:none;}
+  .result.ok{background:var(--mint);border:1px solid var(--green);}
+  .result.bad{background:var(--redSoft);border:1px solid var(--red);}
+  .result .status{display:flex;align-items:center;gap:9px;font-weight:800;font-size:14.5px;margin-bottom:12px;}
+  .result.ok .status{color:var(--green);}
+  .result.bad .status{color:var(--red);}
+  .row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);}
+  .row:last-child{border-bottom:none;}
+  .row b{font-weight:700;text-align:right;}
+  .loading{text-align:center;color:var(--muted);font-size:13px;margin-top:16px;display:none;}
+  .footNote{text-align:center;font-size:11px;color:var(--muted);margin-top:20px;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="brand">
+    <div class="k">Production Enhancement México</div>
+    <div class="t">PEM Excellence Academy</div>
+  </div>
+
+  <div class="card">
+    <h1>Verificar un certificado</h1>
+    <div class="sub">Escribe el folio que aparece en el certificado (ej. <code>PEM-2026-AB12C</code>) para confirmar que es real.</div>
+    <div class="searchRow">
+      <input type="text" id="folioInput" placeholder="PEM-2026-XXXXX">
+      <button id="verifyBtn">Verificar</button>
+    </div>
+    <div class="loading" id="loading">Verificando…</div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <div class="footNote">Esta página no requiere iniciar sesión — es de acceso público para cualquiera que necesite validar un certificado emitido por PEM Excellence Academy.</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script>
+function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+const ESCUELA_LABEL = {'9001':'Escuela de Calidad (ISO 9001)','14001':'Escuela Ambiental (ISO 14001)','45001':'Escuela de Seguridad (ISO 45001)','37001':'Escuela de Ética (ISO 37001)'};
+
+async function verificar(){
+  const folio = document.getElementById('folioInput').value.trim().toUpperCase();
+  const result = document.getElementById('result');
+  const loading = document.getElementById('loading');
+  result.style.display = 'none';
+  result.className = 'result';
+  if(!folio){ return; }
+
+  loading.style.display = 'block';
+  try{
+    const { data, error } = await window.PEM_SB.rpc('verificar_certificado', { p_certificado_id: folio });
+    loading.style.display = 'none';
+    if(error){
+      result.className = 'result bad';
+      result.innerHTML = `<div class="status">⚠️ Error al verificar</div><div class="row">${escapeHtml(error.message)}</div>`;
+      result.style.display = 'block';
+      return;
+    }
+    const row = (data && data[0]) || null;
+    if(!row){
+      result.className = 'result bad';
+      result.innerHTML = `<div class="status">✕ No encontrado</div><div class="row">Este folio no corresponde a ningún certificado emitido por PEM Excellence Academy.</div>`;
+      result.style.display = 'block';
+      return;
+    }
+    const fecha = row.fecha ? new Date(row.fecha).toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'}) : '—';
+    result.className = 'result ok';
+    result.innerHTML = `
+      <div class="status">✓ Certificado válido</div>
+      <div class="row"><span>Nombre</span><b>${escapeHtml(row.nombre) || '—'}</b></div>
+      <div class="row"><span>Escuela</span><b>${ESCUELA_LABEL[row.escuela] || escapeHtml(row.escuela)}</b></div>
+      <div class="row"><span>Módulo</span><b>${row.modulo}</b></div>
+      <div class="row"><span>Calificación</span><b>${row.calificacion != null ? row.calificacion + '%' : '—'}</b></div>
+      <div class="row"><span>Fecha de emisión</span><b>${fecha}</b></div>
+      <div class="row"><span>Folio</span><b>${escapeHtml(row.certificado_id)}</b></div>
+    `;
+    result.style.display = 'block';
+  } catch(e){
+    loading.style.display = 'none';
+    result.className = 'result bad';
+    result.innerHTML = `<div class="status">⚠️ Error inesperado</div><div class="row">${escapeHtml(e.message)}</div>`;
+    result.style.display = 'block';
+  }
+}
+
+document.getElementById('verifyBtn').addEventListener('click', verificar);
+document.getElementById('folioInput').addEventListener('keydown', function(e){ if(e.key === 'Enter') verificar(); });
+
+// Si llegan con ?id=PEM-2026-XXXXX en la URL (por ejemplo desde un QR), verifica solo.
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if(id){
+    document.getElementById('folioInput').value = id.toUpperCase();
+    verificar();
+  }
+})();
+</script>
+</body>
+</html>
