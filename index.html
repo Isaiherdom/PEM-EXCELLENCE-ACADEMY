@@ -33,13 +33,13 @@
   .wrap{max-width:1680px;margin:0 auto;padding:0 40px;position:relative;z-index:1;}
 
   /* ---- Franja de normas/escuelas en movimiento (inspirada en la fila de logos de AMD) ---- */
-  .marquee-wrap{overflow:hidden;margin:0 40px 8px;position:relative;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+  .marquee-wrap{overflow:hidden;margin:52px 40px 46px;position:relative;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
   .marquee-row{display:flex;gap:40px;white-space:nowrap;width:max-content;padding:6px 0;}
   .marquee-row span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--muted);opacity:.55;letter-spacing:.2px;flex-shrink:0;}
-  .marquee-row.logos{gap:56px;align-items:center;}
-  .marquee-row.logos img{height:56px;width:auto;flex-shrink:0;opacity:.92;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
-  .marquee-row.right{animation:marqueeRight 90s linear infinite;}
-  .marquee-row.left{animation:marqueeLeft 100s linear infinite;margin-top:4px;}
+  .marquee-row.logos{gap:170px;align-items:center;}
+  .marquee-row.logos img{height:150px;width:auto;flex-shrink:0;opacity:.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
+  .marquee-row.right{animation:marqueeRight 16s linear infinite;}
+  .marquee-row.left{animation:marqueeLeft 14s linear infinite;margin-top:4px;}
   .marquee-wrap:hover .marquee-row{animation-play-state:paused;}
   @keyframes marqueeRight{from{transform:translateX(-50%);}to{transform:translateX(0);}}
   @keyframes marqueeLeft{from{transform:translateX(0);}to{transform:translateX(-50%);}}
@@ -69,7 +69,7 @@
   @media(max-width:900px){.navbar .burger{display:inline-flex;}}
 
   /* ---- HERO: carrusel a todo lo ancho, crossfade, 5 fotos reales ---- */
-  .hero{height:640px;position:relative;z-index:1;overflow:hidden;background:#040605;border-bottom:1px solid var(--line);}
+  .hero{height:640px;position:relative;z-index:1;overflow:hidden;background:#040605;}
   .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center 40%;opacity:0;transform:scale(1);transition:opacity 1.4s ease,transform 7s ease;}
   .hero-slide.active{opacity:1;z-index:1;transform:scale(1.06);}
   .hero-slide:before{content:"";position:absolute;inset:0;background:
@@ -89,7 +89,7 @@
   .pause{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.3);color:#fff;cursor:pointer;font-size:13px;line-height:1;}
 
   /* ---- MÉTRICAS (datos reales, calculados desde localStorage) ---- */
-  .metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);position:relative;z-index:1;}
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);position:relative;z-index:1;margin-top:52px;}
   .metric{padding:26px 40px;border-right:1px solid var(--line);}
   .metric:last-child{border-right:none;}
   .metric-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
@@ -334,12 +334,20 @@
     <div class="marquee-row right logos">
       <img src="assets/img/badges/iso-9001-badge.png" alt="ISO 9001:2015 — Gestión de la Calidad">
       <img src="assets/img/badges/iso-14001-badge.png" alt="ISO 14001:2015 — Gestión Ambiental">
-      <img src="assets/img/badges/iso-45001-badge.png" alt="ISO 45001:2018 — Salud y Seguridad en el Trabajo">
+      <img src="assets/img/badges/iso-45001-badge.png" alt="ISO 45001:2018 — Seguridad y Salud en el Trabajo">
       <img src="assets/img/badges/iso-37001-badge.png" alt="ISO 37001:2025 — Sistema de Gestión Antisoborno">
+      <img src="assets/img/badges/iso-31000-badge.png" alt="ISO 31000 — Gestión de Riesgos">
+      <img src="assets/img/badges/iso-50001-badge.png" alt="ISO 50001 — Gestión de la Energía">
+      <img src="assets/img/badges/iso-22301-badge.png" alt="ISO 22301 — Continuidad del Negocio">
+      <img src="assets/img/badges/iso-27001-badge.png" alt="ISO/IEC 27001 — Seguridad de la Información">
       <img src="assets/img/badges/iso-9001-badge.png" alt="" aria-hidden="true">
       <img src="assets/img/badges/iso-14001-badge.png" alt="" aria-hidden="true">
       <img src="assets/img/badges/iso-45001-badge.png" alt="" aria-hidden="true">
       <img src="assets/img/badges/iso-37001-badge.png" alt="" aria-hidden="true">
+      <img src="assets/img/badges/iso-31000-badge.png" alt="" aria-hidden="true">
+      <img src="assets/img/badges/iso-50001-badge.png" alt="" aria-hidden="true">
+      <img src="assets/img/badges/iso-22301-badge.png" alt="" aria-hidden="true">
+      <img src="assets/img/badges/iso-27001-badge.png" alt="" aria-hidden="true">
     </div>
     <div class="marquee-row left">
       <span>Escuela de Calidad</span>
