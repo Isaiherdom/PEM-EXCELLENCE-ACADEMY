@@ -37,7 +37,7 @@
   .marquee-row{display:flex;gap:40px;white-space:nowrap;width:max-content;padding:6px 0;}
   .marquee-row span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--muted);opacity:.55;letter-spacing:.2px;flex-shrink:0;}
   .marquee-row.logos{gap:170px;align-items:center;}
-  .marquee-row.logos img{height:150px;width:auto;flex-shrink:0;opacity:.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
+  .marquee-row.logos img{height:128px;width:auto;flex-shrink:0;opacity:.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
   .marquee-row.right{animation:marqueeRight 55s linear infinite;}
   .marquee-row.left{animation:marqueeLeft 50s linear infinite;margin-top:22px;}
   .marquee-wrap:hover .marquee-row{animation-play-state:paused;}
@@ -108,7 +108,7 @@
   /* ---- Escuelas de Excelencia ---- */
   .schools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
   .school-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);text-decoration:none;color:var(--text);display:block;transition:.2s;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
-  html[data-theme="dark"] .school-card:hover{border-color:var(--green);transform:scale(1.045);box-shadow:0 16px 36px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.2),0 0 26px rgba(34,232,138,.16);}
+  .school-card:hover{border-color:var(--green);transform:scale(1.045);box-shadow:0 16px 36px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.2),0 0 26px rgba(34,232,138,.16);}
   .school-card:hover{border-color:var(--green);}
   .school-photo{height:150px;background-size:cover;background-position:center 35%;position:relative;}
   .school-photo.ph{background:var(--surface-2);}
