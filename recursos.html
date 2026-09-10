@@ -10,7 +10,6 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/shell.css">
-<script src="assets/recursos.js"></script>
 <style>
   :root{
     --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
@@ -47,7 +46,7 @@
   }
 
   .wrap{max-width:920px;margin:0 auto;padding:26px 28px 60px;}
-  .header{margin-bottom:20px;}
+  .header{margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;}
   .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
   h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,34px);margin:6px 0 5px;letter-spacing:-.5px;}
   .subtitle{font-size:13.5px;color:var(--muted);max-width:700px;line-height:1.6;}
@@ -66,7 +65,7 @@
   .cat-head .ic{width:32px;height:32px;border-radius:9px;background:var(--cc-bg,var(--mint));color:var(--cc,var(--green));display:flex;align-items:center;justify-content:center;font-size:15px;}
   .cat-head h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0;}
 
-  .doc-row{display:flex;align-items:center;gap:14px;padding:15px 18px;margin-bottom:10px;text-decoration:none;color:var(--ink);}
+  .doc-row{display:flex;align-items:center;gap:14px;padding:15px 18px;margin-bottom:10px;text-decoration:none;color:var(--ink);position:relative;}
   .doc-row .ic{width:36px;height:36px;border-radius:9px;background:var(--goldSoft);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
   .doc-body{flex:1;min-width:0;}
   .doc-title{font-weight:700;font-size:14px;margin-bottom:3px;}
@@ -82,6 +81,31 @@
   .contact-item .l{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;}
   .contact-item .v{font-weight:700;}
 
+  /* ---- Panel de administración ---- */
+  .admin-toggle{background:var(--green);color:#fff;border:none;border-radius:9px;padding:11px 16px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
+  .admin-panel{display:none;padding:20px 22px;margin-bottom:22px;}
+  .admin-panel.open{display:block;}
+  .admin-panel h2{font-family:'Space Grotesk',sans-serif;font-size:14.5px;margin:0 0 14px;}
+  .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .admin-grid label{grid-column:span 2;font-size:11.5px;color:var(--muted);margin-bottom:-4px;}
+  .admin-grid label.half{grid-column:span 1;}
+  .admin-grid input, .admin-grid textarea, .admin-grid select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+  .admin-grid input[type=color]{padding:3px;height:38px;}
+  .admin-grid textarea{grid-column:span 2;min-height:60px;resize:vertical;}
+  .admin-actions-row{grid-column:span 2;display:flex;gap:8px;margin-top:4px;}
+  .admin-actions-row button{border:none;border-radius:8px;padding:10px 16px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn-save{background:var(--green);color:#fff;}
+  .btn-cancel{background:var(--bg);color:var(--ink);border:1px solid var(--line) !important;}
+  .admin-msg{grid-column:span 2;font-size:11.5px;}
+  .admin-msg.err{color:var(--red);}
+  .admin-msg.ok{color:var(--green);}
+
+  .doc-admin-icons{display:flex;gap:6px;flex-shrink:0;}
+  .doc-admin-icons button{width:28px;height:28px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;}
+  .doc-admin-icons button:hover{border-color:var(--green);color:var(--green);}
+  .doc-admin-icons button.del:hover{border-color:var(--red);color:var(--red);}
+  .doc-edit-form{padding:15px 18px;margin-bottom:10px;}
+
   @media(max-width:900px){.grid3{grid-template-columns:1fr 1fr 1fr;}}
   @media(max-width:700px){
     .wrap{padding:18px 14px 50px;}
@@ -89,6 +113,9 @@
     .doc-row{flex-wrap:wrap;}
     .doc-action{margin-left:50px;}
     .contact-grid{grid-template-columns:1fr;}
+    .admin-grid{grid-template-columns:1fr;}
+    .admin-grid label{grid-column:span 1;}
+    .admin-grid textarea, .admin-actions-row, .admin-msg{grid-column:span 1;}
   }
 </style>
 </head>
@@ -96,7 +123,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/supabase-config.js"></script>
 <script src="assets/pem-gate.js"></script>
-
 
 <div class="exec-nav">
   <button class="burger" id="pemBurger" aria-label="Abrir menú">
@@ -108,9 +134,31 @@
 
   <div class="wrap">
     <div class="header">
-      <div class="kicker">Documentación oficial</div>
-      <h1>Recursos</h1>
-      <div class="subtitle">Documentos oficiales de apoyo — políticas, pósters y material de referencia de PEM.</div>
+      <div>
+        <div class="kicker">Documentación oficial</div>
+        <h1>Recursos</h1>
+        <div class="subtitle">Documentos oficiales de apoyo — políticas, pósters y material de referencia de PEM.</div>
+      </div>
+      <button class="admin-toggle" id="adminToggle" style="display:none;">+ Administrar recursos</button>
+    </div>
+
+    <div class="card admin-panel" id="adminPanel">
+      <h2>Agregar documento nuevo</h2>
+      <div class="admin-grid">
+        <label class="half">Categoría <input id="fCategoria" list="catList" placeholder="Ej. Ética y cumplimiento"></label>
+        <datalist id="catList"></datalist>
+        <label class="half">Ícono (un emoji) <input id="fIcono" placeholder="📄" value="📄"></label>
+        <label class="half">Color de la categoría <input type="color" id="fColor" value="#087F5B"></label>
+        <label class="half">Archivo (PDF, imagen…) <input type="file" id="fArchivo"></label>
+        <label>Título <input id="fTitulo" placeholder="Nombre del documento"></label>
+        <label>Descripción <textarea id="fDescripcion" placeholder="De qué trata este documento"></textarea></label>
+        <label>Meta (opcional) <input id="fMeta" placeholder="Ej. PDF · Aprobado por..."></label>
+        <div class="admin-actions-row">
+          <button class="btn-save" id="btnSubir">Subir documento</button>
+          <button class="btn-cancel" id="btnCancelarAlta" type="button">Cancelar</button>
+        </div>
+        <div class="admin-msg" id="adminMsg"></div>
+      </div>
     </div>
 
     <section class="grid3" id="kpiGrid"></section>
@@ -124,9 +172,46 @@
   </div>
 
 <script>
+const CONTACTO = { correo: "denuncias@pemoilgas.com", telefono: "55-5543-3148", web: "www.pemoilgas.com" };
+let RECURSOS = [];
+let IS_ADMIN = false;
+
+function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function groupByCategoria(rows){
+  const map = new Map();
+  rows.forEach(r => {
+    if(!map.has(r.categoria)) map.set(r.categoria, { categoria: r.categoria, icono: r.categoria_icono, color: r.categoria_color, docs: [] });
+    map.get(r.categoria).docs.push(r);
+  });
+  return Array.from(map.values());
+}
+
+function docRowHtml(d, cat){
+  const adminIcons = IS_ADMIN ? `
+    <div class="doc-admin-icons" onclick="event.preventDefault()">
+      <button title="Editar" onclick="editRecurso('${d.id}')">✎</button>
+      <button class="del" title="Eliminar" onclick="deleteRecurso('${d.id}')">🗑</button>
+    </div>` : '';
+  return `
+    <div class="doc-row-wrap" id="row-${d.id}">
+      <a class="card doc-row" style="--cc:${cat.color}" href="${d.file_url}" target="_blank" rel="noopener">
+        <div class="ic">📄</div>
+        <div class="doc-body">
+          <div class="doc-title">${escapeHtml(d.titulo)}</div>
+          <div class="doc-desc">${escapeHtml(d.descripcion)}</div>
+          <div class="doc-meta">${escapeHtml(d.meta)}</div>
+        </div>
+        <span class="doc-action">Ver / Descargar</span>
+        ${adminIcons}
+      </a>
+    </div>`;
+}
+
 function render(){
-  const totalDocs = PEM_RECURSOS.reduce((a,cat)=>a+cat.docs.length, 0);
-  const totalCats = PEM_RECURSOS.length;
+  const totalDocs = RECURSOS.length;
+  const cats = groupByCategoria(RECURSOS);
+  const totalCats = cats.length;
 
   document.getElementById('kpiGrid').innerHTML = `
     <div class="card kpi"><div class="label">Documentos disponibles</div><div class="value">${totalDocs}</div><div class="foot">Listos para ver o descargar</div></div>
@@ -135,34 +220,131 @@ function render(){
   `;
 
   const el = document.getElementById('categories');
-  el.innerHTML = PEM_RECURSOS.map(cat => `
-    <div class="category">
-      <div class="cat-head">
-        <div class="ic" style="--cc:${cat.color};--cc-bg:color-mix(in srgb, ${cat.color} 16%, var(--panel))">${cat.icon}</div>
-        <h2>${cat.category}</h2>
+  if(!totalDocs){
+    el.innerHTML = `<div class="card" style="padding:40px;text-align:center;color:var(--muted);">Todavía no hay documentos publicados.</div>`;
+  } else {
+    el.innerHTML = cats.map(cat => `
+      <div class="category">
+        <div class="cat-head">
+          <div class="ic" style="--cc:${cat.color};--cc-bg:color-mix(in srgb, ${cat.color} 16%, var(--panel))">${cat.icono}</div>
+          <h2>${escapeHtml(cat.categoria)}</h2>
+        </div>
+        ${cat.docs.map(d => docRowHtml(d, cat)).join('')}
       </div>
-      ${cat.docs.map(d => `
-        <a class="card doc-row" style="--cc:${cat.color}" href="${d.file}" target="_blank" rel="noopener">
-          <div class="ic">📄</div>
-          <div class="doc-body">
-            <div class="doc-title">${d.title}</div>
-            <div class="doc-desc">${d.desc}</div>
-            <div class="doc-meta">${d.meta}</div>
-          </div>
-          <span class="doc-action">Ver / Descargar</span>
-        </a>
-      `).join('')}
-    </div>
-  `).join('');
+    `).join('');
+  }
 
-  const c = PEM_RECURSOS_CONTACTO;
+  document.getElementById('catList').innerHTML = cats.map(c => `<option value="${escapeHtml(c.categoria)}">`).join('');
+
   document.getElementById('contactGrid').innerHTML = `
-    <div class="contact-item"><div class="l">Correo</div><div class="v">${c.correo}</div></div>
-    <div class="contact-item"><div class="l">Teléfono</div><div class="v">${c.telefono}</div></div>
-    <div class="contact-item"><div class="l">Web</div><div class="v">${c.web}</div></div>
+    <div class="contact-item"><div class="l">Correo</div><div class="v">${CONTACTO.correo}</div></div>
+    <div class="contact-item"><div class="l">Teléfono</div><div class="v">${CONTACTO.telefono}</div></div>
+    <div class="contact-item"><div class="l">Web</div><div class="v">${CONTACTO.web}</div></div>
   `;
 }
-render();
+
+async function loadRecursos(){
+  const { data, error } = await window.PEM_SB.from('recursos').select('*').order('orden').order('created_at');
+  if(error){ console.warn('No se pudieron cargar los recursos:', error.message); return; }
+  RECURSOS = data || [];
+  render();
+}
+
+async function checkAdmin(){
+  try{
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session) return;
+    const { data: profile } = await window.PEM_SB.from('profiles').select('is_admin').eq('id', session.user.id).maybeSingle();
+    IS_ADMIN = !!(profile && profile.is_admin);
+    if(IS_ADMIN) document.getElementById('adminToggle').style.display = 'inline-block';
+  }catch(e){ console.warn('No se pudo verificar admin:', e); }
+}
+
+// ==================== Alta de documento ====================
+document.getElementById('adminToggle').addEventListener('click', () => {
+  document.getElementById('adminPanel').classList.toggle('open');
+});
+document.getElementById('btnCancelarAlta').addEventListener('click', () => {
+  document.getElementById('adminPanel').classList.remove('open');
+});
+
+document.getElementById('btnSubir').addEventListener('click', async () => {
+  const msg = document.getElementById('adminMsg');
+  const categoria = document.getElementById('fCategoria').value.trim();
+  const titulo = document.getElementById('fTitulo').value.trim();
+  const fileEl = document.getElementById('fArchivo');
+  const file = fileEl.files[0];
+  if(!categoria || !titulo || !file){
+    msg.textContent = 'Categoría, título y archivo son obligatorios.';
+    msg.className = 'admin-msg err';
+    return;
+  }
+  msg.textContent = 'Subiendo…'; msg.className = 'admin-msg';
+
+  const path = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+  const { error: upErr } = await window.PEM_SB.storage.from('recursos-docs').upload(path, file);
+  if(upErr){ msg.textContent = 'Error al subir el archivo: ' + upErr.message; msg.className = 'admin-msg err'; return; }
+  const { data: pub } = window.PEM_SB.storage.from('recursos-docs').getPublicUrl(path);
+
+  const existing = RECURSOS.find(r => r.categoria === categoria);
+  const icono = existing ? existing.categoria_icono : (document.getElementById('fIcono').value.trim() || '📄');
+  const color = existing ? existing.categoria_color : document.getElementById('fColor').value;
+
+  const { error: insErr } = await window.PEM_SB.from('recursos').insert({
+    categoria, categoria_icono: icono, categoria_color: color,
+    titulo, descripcion: document.getElementById('fDescripcion').value.trim(),
+    meta: document.getElementById('fMeta').value.trim(),
+    file_url: pub.publicUrl
+  });
+  if(insErr){ msg.textContent = 'Error al guardar: ' + insErr.message; msg.className = 'admin-msg err'; return; }
+
+  msg.textContent = '✓ Documento publicado.'; msg.className = 'admin-msg ok';
+  ['fCategoria','fTitulo','fDescripcion','fMeta'].forEach(id => document.getElementById(id).value = '');
+  fileEl.value = '';
+  await loadRecursos();
+});
+
+// ==================== Editar / eliminar ====================
+function editRecurso(id){
+  const d = RECURSOS.find(r => r.id === id);
+  if(!d) return;
+  const wrap = document.getElementById('row-' + id);
+  wrap.innerHTML = `
+    <div class="card doc-edit-form">
+      <div class="admin-grid">
+        <label>Título <input id="e-titulo-${id}" value="${escapeHtml(d.titulo)}"></label>
+        <label>Descripción <textarea id="e-desc-${id}">${escapeHtml(d.descripcion)}</textarea></label>
+        <label>Meta <input id="e-meta-${id}" value="${escapeHtml(d.meta)}"></label>
+        <div class="admin-actions-row">
+          <button class="btn-save" onclick="saveRecurso('${id}')">Guardar</button>
+          <button class="btn-cancel" onclick="render()">Cancelar</button>
+        </div>
+        <div class="admin-msg" id="e-msg-${id}"></div>
+      </div>
+    </div>`;
+}
+
+async function saveRecurso(id){
+  const titulo = document.getElementById('e-titulo-'+id).value.trim();
+  const descripcion = document.getElementById('e-desc-'+id).value.trim();
+  const meta = document.getElementById('e-meta-'+id).value.trim();
+  const { error } = await window.PEM_SB.from('recursos').update({ titulo, descripcion, meta }).eq('id', id);
+  const msg = document.getElementById('e-msg-'+id);
+  if(error){ msg.textContent = error.message; msg.className = 'admin-msg err'; return; }
+  await loadRecursos();
+}
+
+async function deleteRecurso(id){
+  if(!confirm('¿Eliminar este documento? No se puede deshacer.')) return;
+  const { error } = await window.PEM_SB.from('recursos').delete().eq('id', id);
+  if(error){ alert('No se pudo eliminar: ' + error.message); return; }
+  await loadRecursos();
+}
+
+(async function(){
+  await checkAdmin();
+  await loadRecursos();
+})();
 
 (function(){
   function syncNavHeight(){
