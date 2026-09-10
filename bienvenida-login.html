@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bienvenido · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);font-family:'Inter',sans-serif;color:var(--ink);}
+
+  .screen{min-height:100vh;display:flex;}
+  .panel-form{width:38%;min-width:340px;display:flex;flex-direction:column;justify-content:center;padding:60px 60px;position:relative;}
+  .panel-photo{flex:1;position:relative;overflow:hidden;background:#040605;}
+  .panel-photo img{width:100%;height:100%;object-fit:cover;object-position:22% center;opacity:.96;}
+  .panel-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg, rgba(4,8,6,.72) 0%, rgba(4,8,6,.05) 45%, transparent 70%);}
+  .photo-caption{position:absolute;left:36px;bottom:32px;right:36px;z-index:1;color:#fff;}
+  .photo-caption .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#5CFFB0;font-weight:800;margin-bottom:6px;}
+  .photo-caption .t{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;line-height:1.35;max-width:420px;}
+
+  .brandmark{display:flex;align-items:center;gap:10px;margin-bottom:44px;}
+  .brandmark .sq{width:34px;height:34px;border-radius:9px;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .brandmark .sq svg{width:18px;height:18px;}
+  .brandmark .txt{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:15px;line-height:1.2;}
+  .brandmark .txt small{display:block;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3vw,32px);margin:0 0 10px;letter-spacing:-.5px;line-height:1.15;}
+  h1 span{color:var(--green);}
+  .subtitle{color:var(--muted);font-size:14px;line-height:1.6;max-width:380px;margin-bottom:34px;}
+
+  #loginBtn{width:100%;max-width:340px;background:var(--green);color:#fff;border:none;border-radius:10px;padding:14px;font-weight:700;font-size:14.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Inter',sans-serif;transition:.15s;}
+  #loginBtn:hover{opacity:.92;}
+  #loginErr{color:#E8603D;font-size:12.5px;margin-top:12px;display:none;max-width:340px;}
+  #checkingMsg{color:var(--muted);font-size:13px;}
+
+  .theme-toggle{position:absolute;top:28px;right:28px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+  .theme-toggle:hover{border-color:var(--green);}
+
+  .foot{position:absolute;bottom:28px;left:64px;right:64px;font-size:11px;color:var(--muted);}
+  .foot a{color:var(--green);text-decoration:none;}
+
+  @media(max-width:860px){
+    .panel-photo{display:none;}
+    .panel-form{width:100%;padding:50px 28px;}
+    .foot{left:28px;right:28px;}
+  }
+</style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+
+<div class="screen">
+  <div class="panel-form">
+    <button class="theme-toggle" id="themeToggle" title="Cambiar tema">🌙</button>
+
+    <div class="brandmark">
+      <div class="sq"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V6l7-3 7 3v13"/><path d="M9 19v-6h6v6"/></svg></div>
+      <div class="txt">PEM Excellence Academy<small>Production Enhancement México</small></div>
+    </div>
+
+    <h1>Bienvenido a <span>PEM Excellence Academy</span></h1>
+    <div class="subtitle">La plataforma de capacitación normativa de PEM — Calidad, Ambiental, Seguridad y Ética, en un solo lugar. Inicia sesión con tu cuenta de Microsoft de PEM para continuar.</div>
+
+    <button id="loginBtn">
+      <svg width="16" height="16" viewBox="0 0 23 23"><rect width="10" height="10" fill="#F25022"/><rect x="12" width="10" height="10" fill="#7FBA00"/><rect y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
+      Iniciar sesión con Microsoft
+    </button>
+    <div id="checkingMsg" style="display:none;">Verificando tu sesión…</div>
+    <div id="loginErr"></div>
+
+    <div class="foot">© 2026 Production Enhancement México · <a href="mailto:denuncias@pemoilgas.com">Contacto</a></div>
+  </div>
+
+  <div class="panel-photo">
+    <img src="assets/img/seguridad-compresor.jpg" alt="">
+    <div class="photo-caption">
+      <div class="k">Excelencia operativa</div>
+      <div class="t">Formamos a cada colaborador de PEM bajo las normas ISO que sostienen nuestra operación.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+async function checkExistingSession(){
+  const { data: { session } } = await window.PEM_SB.auth.getSession();
+  if(session){
+    document.getElementById('loginBtn').style.display = 'none';
+    document.getElementById('checkingMsg').style.display = 'block';
+    window.location.href = 'index.html';
+  }
+}
+checkExistingSession();
+window.PEM_SB.auth.onAuthStateChange((event, session) => {
+  if(session) window.location.href = 'index.html';
+});
+
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  const { error } = await window.PEM_SB.auth.signInWithOAuth({
+    provider: 'azure',
+    options: { redirectTo: window.location.origin + '/index.html', scopes: 'email' }
+  });
+  if(error){
+    const el = document.getElementById('loginErr');
+    el.textContent = error.message;
+    el.style.display = 'block';
+  }
+});
+
+(function(){
+  var btn = document.getElementById('themeToggle');
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){ btn.textContent = isDark() ? '☀️' : '🌙'; }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){ document.documentElement.removeAttribute('data-theme'); localStorage.setItem('pemTheme','light'); }
+    else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('pemTheme','dark'); }
+    updateBtn();
+  });
+})();
+</script>
+</body>
+</html>

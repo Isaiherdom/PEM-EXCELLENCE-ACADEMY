@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css">
+<script src="assets/modules.js"></script>
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14);
+    --cyan:#3FE0E8;
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
+
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:760px;margin:0 auto;padding:26px 28px 60px;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,32px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:560px;line-height:1.5;margin-bottom:22px;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
+
+  .profile-head{display:flex;align-items:center;gap:16px;padding:24px;margin-bottom:16px;}
+  .avatar{width:58px;height:58px;border-radius:50%;background:var(--mint);color:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:20px;flex-shrink:0;}
+  .profile-head .name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;}
+  .profile-head .email{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .admin-badge{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:var(--mint);color:var(--green);border-radius:20px;padding:5px 12px;text-transform:uppercase;white-space:nowrap;}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+  .kpi{padding:17px 18px;}
+  .kpi .label{font-size:9px;letter-spacing:1.4px;color:var(--muted);font-weight:800;text-transform:uppercase;}
+  .kpi .value{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;margin:7px 0 2px;letter-spacing:-.5px;}
+  .kpi .foot{font-size:11px;color:var(--muted);}
+
+  .edit-card{padding:22px 24px;}
+  .edit-card h2{font-family:'Space Grotesk',sans-serif;font-size:14.5px;margin:0 0 16px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:6px;}
+  .field input, .field select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:13.5px;}
+  .field input:disabled{opacity:.6;}
+  #btnGuardar{background:var(--green);color:#fff;border:none;border-radius:9px;padding:11px 20px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;}
+  #saveMsg{font-size:12px;margin-top:10px;display:inline-block;margin-left:10px;}
+  #saveMsg.err{color:var(--red);}
+  #saveMsg.ok{color:var(--green);}
+
+  @media(max-width:700px){
+    .wrap{padding:18px 14px 50px;}
+    .grid3{grid-template-columns:1fr;}
+    .profile-head{flex-wrap:wrap;}
+  }
+</style>
+</head>
+<body data-pem-no-shell-header>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js"></script>
+
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
+</div>
+
+<div class="wrap">
+  <div class="kicker">Tu cuenta</div>
+  <h1>Mi perfil</h1>
+  <div class="subtitle">Tus datos, tu progreso y tu acceso a la plataforma.</div>
+
+  <div class="card profile-head">
+    <div class="avatar" id="avatarInit">—</div>
+    <div>
+      <div class="name" id="pName">Cargando…</div>
+      <div class="email" id="pEmail"></div>
+    </div>
+    <div class="admin-badge" id="adminBadge" style="display:none;">Administrador</div>
+  </div>
+
+  <div class="grid3">
+    <div class="card kpi"><div class="label">Certificados</div><div class="value" id="kCerts">—</div><div class="foot">Obtenidos de 48</div></div>
+    <div class="card kpi"><div class="label">Progreso general</div><div class="value" id="kProgress">—</div><div class="foot">Sobre las 4 escuelas</div></div>
+    <div class="card kpi"><div class="label">Miembro desde</div><div class="value" id="kSince" style="font-size:15px;">—</div><div class="foot">Primer inicio de sesión</div></div>
+  </div>
+
+  <div class="card edit-card">
+    <h2>Editar mis datos</h2>
+    <div class="field"><label>Correo</label><input id="fCorreo" disabled></div>
+    <div class="field"><label>Nombre completo</label><input id="fNombre"></div>
+    <div class="field"><label>Sitio de trabajo</label><input id="fBase" placeholder="Ej. Reynosa"></div>
+    <div class="field"><label>Rol / puesto</label><select id="fRol"></select></div>
+    <button id="btnGuardar">Guardar cambios</button>
+    <span id="saveMsg"></span>
+  </div>
+</div>
+
+<script>
+const ROLES = [
+  "Director General","Gerentes de área/base","Supervisores de campo","Calidad (área)",
+  "HSE (área)","Operadores","Mecánicos","Compras","Recursos Humanos","Finanzas",
+  "Director de Operación","Director/Gerente de Ventas y Desarrollo de Negocio",
+  "Cuentas por Pagar","Cuentas por Cobrar","Almacén","Tesorería","Administrativos en general"
+];
+document.getElementById('fRol').innerHTML = '<option value="">— sin rol —</option>' +
+  ROLES.map(r => `<option>${r}</option>`).join('');
+
+let MY_ID = null;
+
+function initials(name){
+  if(!name) return '—';
+  const parts = name.trim().split(/\s+/);
+  return ((parts[0]||'')[0] || '') + ((parts[1]||'')[0] || '');
+}
+
+async function load(){
+  const { data: { session } } = await window.PEM_SB.auth.getSession();
+  if(!session) return;
+  MY_ID = session.user.id;
+  document.getElementById('pEmail').textContent = session.user.email || '';
+  document.getElementById('fCorreo').value = session.user.email || '';
+
+  const { data: profile, error } = await window.PEM_SB.from('profiles').select('*').eq('id', MY_ID).maybeSingle();
+  if(error || !profile){ console.warn('No se pudo cargar el perfil', error); return; }
+
+  document.getElementById('pName').textContent = profile.nombre || '(sin nombre)';
+  document.getElementById('avatarInit').textContent = initials(profile.nombre).toUpperCase() || '—';
+  document.getElementById('fNombre').value = profile.nombre || '';
+  document.getElementById('fBase').value = profile.base || '';
+  document.getElementById('fRol').value = profile.rol || '';
+  if(profile.is_admin) document.getElementById('adminBadge').style.display = 'inline-block';
+  if(profile.created_at){
+    document.getElementById('kSince').textContent = new Date(profile.created_at).toLocaleDateString('es-MX',{year:'numeric',month:'short',day:'numeric'});
+  }
+
+  const { data: certs } = await window.PEM_SB.from('certificados').select('escuela,modulo').eq('user_id', MY_ID).neq('escuela','PRUEBA');
+  const total = (certs||[]).length;
+  document.getElementById('kCerts').textContent = total + ' / 48';
+  document.getElementById('kProgress').textContent = Math.round(100*total/48) + '%';
+}
+
+document.getElementById('btnGuardar').addEventListener('click', async () => {
+  const msg = document.getElementById('saveMsg');
+  const nombre = document.getElementById('fNombre').value.trim();
+  const base = document.getElementById('fBase').value.trim();
+  const rol = document.getElementById('fRol').value || null;
+  const { error } = await window.PEM_SB.from('profiles').update({ nombre, base, rol }).eq('id', MY_ID);
+  if(error){ msg.textContent = '✕ ' + error.message; msg.className = 'err'; return; }
+  msg.textContent = '✓ Guardado'; msg.className = 'ok';
+  document.getElementById('pName').textContent = nombre || '(sin nombre)';
+  document.getElementById('avatarInit').textContent = initials(nombre).toUpperCase() || '—';
+  setTimeout(() => { msg.textContent = ''; }, 2500);
+});
+
+load();
+
+(function(){
+  function syncNavHeight(){
+    var nav = document.querySelector('.exec-nav');
+    if(nav) document.documentElement.style.setProperty('--home-nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
+})();
+</script>
+<script src="assets/shell.js" defer></script>
+</body>
+</html>
