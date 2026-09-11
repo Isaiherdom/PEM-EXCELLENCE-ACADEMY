@@ -14,35 +14,35 @@ window.PEM_SCHOOLS = {
     prefix:"", examSuffix:"-iso9001",
     modules:[
       ["Fundamentos y contexto de la organización","Cl. 4", true],
-      ["Liderazgo y compromiso de la dirección","Cl. 5.1"],
-      ["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3"],
-      ["Riesgos y oportunidades","Cl. 6.1"],
-      ["Objetivos de calidad y planificación de cambios","Cl. 6.2–6.3"],
-      ["Recursos, competencia y toma de conciencia","Cl. 7.1–7.3"],
-      ["Comunicación e información documentada","Cl. 7.4–7.5"],
-      ["Planificación y control operacional","Cl. 8.1"],
-      ["Requisitos del cliente y diseño del servicio","Cl. 8.2–8.3"],
-      ["Control de proveedores externos y compras","Cl. 8.4"],
-      ["Provisión del servicio y salidas no conformes","Cl. 8.5–8.7"],
-      ["Evaluación del desempeño, auditoría y mejora","Cl. 9–10"]
+      ["Liderazgo y compromiso de la dirección","Cl. 5.1", true],
+      ["Política de calidad, roles y responsabilidades","Cl. 5.2–5.3", true],
+      ["Riesgos y oportunidades","Cl. 6.1", true],
+      ["Objetivos de calidad y planificación de cambios","Cl. 6.2–6.3", true],
+      ["Recursos, competencia y toma de conciencia","Cl. 7.1–7.3", true],
+      ["Comunicación e información documentada","Cl. 7.4–7.5", true],
+      ["Planificación y control operacional","Cl. 8.1", true],
+      ["Requisitos del cliente y diseño del servicio","Cl. 8.2–8.3", true],
+      ["Control de proveedores externos y compras","Cl. 8.4", true],
+      ["Provisión del servicio y salidas no conformes","Cl. 8.5–8.7", true],
+      ["Evaluación del desempeño, auditoría y mejora","Cl. 9–10", true]
     ]
   },
   "14001": {
     name:"Escuela Ambiental", norm:"ISO 14001:2015", version:"2015", color:"#4C9AFF", active:true, progress:"12/12",
     prefix:"escuela-ambiental/", examSuffix:"-iso14001",
     modules:[
-      ["Fundamentos y contexto ambiental","Cl. 4"],
-      ["Liderazgo y política ambiental","Cl. 5"],
-      ["Partes interesadas y requisitos legales","Cl. 4.2 / 6.1.3"],
-      ["Aspectos e impactos ambientales","Cl. 6.1.2"],
-      ["Objetivos ambientales y planificación de acciones","Cl. 6.2"],
-      ["Recursos, competencia y toma de conciencia ambiental","Cl. 7.1–7.3"],
-      ["Comunicación e información documentada ambiental","Cl. 7.4–7.5"],
-      ["Control operacional ambiental","Cl. 8.1"],
-      ["Preparación y respuesta ante emergencias","Cl. 8.2"],
-      ["Evaluación del desempeño ambiental","Cl. 9.1"],
-      ["Cumplimiento legal ambiental","Cl. 9.1.2"],
-      ["Auditoría interna y mejora continua ambiental","Cl. 9.2–10"]
+      ["Fundamentos y contexto ambiental","Cl. 4", true],
+      ["Liderazgo y política ambiental","Cl. 5", true],
+      ["Partes interesadas y requisitos legales","Cl. 4.2 / 6.1.3", true],
+      ["Aspectos e impactos ambientales","Cl. 6.1.2", true],
+      ["Objetivos ambientales y planificación de acciones","Cl. 6.2", true],
+      ["Recursos, competencia y toma de conciencia ambiental","Cl. 7.1–7.3", true],
+      ["Comunicación e información documentada ambiental","Cl. 7.4–7.5", true],
+      ["Control operacional ambiental","Cl. 8.1", true],
+      ["Preparación y respuesta ante emergencias","Cl. 8.2", true],
+      ["Evaluación del desempeño ambiental","Cl. 9.1", true],
+      ["Cumplimiento legal ambiental","Cl. 9.1.2", true],
+      ["Auditoría interna y mejora continua ambiental","Cl. 9.2–10", true]
     ]
   },
   "45001": {

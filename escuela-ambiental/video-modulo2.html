@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video · Módulo 2 · ISO 14001:2015</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/shell.css">
+<style>
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --line:#E4DFD4;
+    --green:#0B7A4B; --amber:#A9720F; --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --line:#24302B;
+    --green:#22E88A; --amber:#FF7A1A; --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px 60px;
+  }
+  .wrap{width:100%;max-width:800px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,28px);margin:0 0 6px;line-height:1.2;}
+  .sub{color:var(--muted);font-size:13.5px;margin-bottom:24px;}
+
+  .video-frame{
+    position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;
+    border:1px solid var(--line);background:var(--surface);box-shadow:0 8px 30px rgba(0,0,0,.4);
+  }
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  .gamma-box{
+    margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;
+    flex-wrap:wrap;
+  }
+  .gamma-box .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+  .gamma-box .title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;}
+  .gamma-btn{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;color:var(--green);
+    border:1px solid var(--green);border-radius:9px;padding:11px 18px;text-decoration:none;
+    white-space:nowrap;transition:.15s;
+  }
+  .gamma-btn:hover{background:var(--green);color:#06140D;}
+
+  footer{text-align:center;color:var(--muted);font-size:11.5px;margin-top:36px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/supabase-config.js"></script>
+<script src="../assets/pem-gate.js"></script>
+
+
+
+
+<div class="wrap">
+  <div class="eyebrow">PEM Excellence Academy · Escuela Ambiental</div>
+  <h1>Video — Módulo 2: Liderazgo y política ambiental</h1>
+  <div class="sub">Duración aprox. 4 min · Con subtítulos en español</div>
+
+  <div class="video-frame">
+    <iframe src="https://www.youtube.com/embed/osAtpyvavfA" title="PEM Excellence Academy — Módulo 2: Liderazgo y política ambiental" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <div class="gamma-box">
+    <div>
+      <div class="label">Material de apoyo</div>
+      <div class="title">Presentación completa en Gamma</div>
+    </div>
+    <a class="gamma-btn" href="https://gamma.app/docs/9124epk58ecit8o" target="_blank" rel="noopener">Ver presentación completa →</a>
+  </div>
+
+</div>
+
+<footer>PEM-VIDEO-14001-M2 · Production Enhancement México</footer>
+<script src="../assets/shell.js" defer></script>
+</body>
+</html>
