@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/fonts.css">
-<link rel="stylesheet" href="assets/shell.css">
+<link rel="stylesheet" href="assets/shell.css?v=2">
 <script src="assets/modules.js"></script>
 <style>
   :root{
@@ -33,11 +33,13 @@
   .wrap{max-width:1680px;margin:0 auto;padding:0 40px;position:relative;z-index:1;}
 
   /* ---- Franja de normas/escuelas en movimiento (inspirada en la fila de logos de AMD) ---- */
-  .marquee-wrap{overflow:hidden;margin:44px -40px 46px;padding:28px 40px;position:relative;z-index:1;background:#0B0E0C;border-radius:18px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+  .marquee-wrap{overflow:hidden;margin:44px -40px 46px;padding:28px 40px;position:relative;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
   .marquee-row{display:flex;gap:40px;white-space:nowrap;width:max-content;padding:6px 0;}
-  .marquee-row span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#8A9690;letter-spacing:.2px;flex-shrink:0;}
+  .marquee-row span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--muted);opacity:.7;letter-spacing:.2px;flex-shrink:0;}
   .marquee-row.logos{gap:170px;align-items:center;}
   .marquee-row.logos img{height:128px;width:auto;flex-shrink:0;opacity:.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
+  .marquee-row.logos img{filter:brightness(.4) contrast(1.25) drop-shadow(0 2px 4px rgba(0,0,0,.1));}
+  html[data-theme="dark"] .marquee-row.logos img{filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
   .marquee-row.right{animation:marqueeRight 55s linear infinite;}
   .marquee-row.left{animation:marqueeLeft 50s linear infinite;margin-top:22px;}
   .marquee-wrap:hover .marquee-row{animation-play-state:paused;}
@@ -464,7 +466,6 @@
     </div>
   </div>
 
-  <footer>PEM-ACAD-HUB-01 · Production Enhancement México</footer>
 
 <script>
 const SCHOOLS = window.PEM_SCHOOLS;
@@ -588,7 +589,7 @@ document.querySelectorAll('.school-card').forEach(function(card){
   });
 })();
 </script>
-<script src="assets/shell.js" defer></script>
+<script src="assets/shell.js?v=2" defer></script>
 <script defer>
 window.addEventListener('DOMContentLoaded', function(){
   function fillDashboard(){
