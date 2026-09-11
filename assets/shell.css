@@ -10,14 +10,14 @@
   --pem-sb-w: 248px;
   --pem-hd-h: 60px;
 
-  --pem-x-bg:#F5F6F3; --pem-x-panel:#FFFFFF; --pem-x-ink:#15201D;
+  --pem-x-bg:#F5F6F3; --pem-x-panel:#FFFFFF; --pem-x-sidebar-bg:#F5F6F3; --pem-x-ink:#15201D;
   --pem-x-muted:#68736F; --pem-x-line:#E3E7E3;
   --pem-x-green:#087F5B; --pem-x-green2:#19A974; --pem-x-mint:#DFF3EA;
   --pem-x-hover:#EEF0EE;
   --pem-x-shadow:2px 0 16px rgba(24,39,33,.05);
 }
 html[data-theme="dark"]{
-  --pem-x-bg:#040807; --pem-x-panel:#040807; --pem-x-ink:#FFFFFF;
+  --pem-x-bg:#040807; --pem-x-panel:#040807; --pem-x-sidebar-bg:#040807; --pem-x-ink:#FFFFFF;
   --pem-x-muted:#8A9690; --pem-x-nav-ink:#D7DEDB; --pem-x-line:#1D2622;
   --pem-x-green:#22E88A; --pem-x-green2:#5CFFB0; --pem-x-mint:rgba(34,232,138,.14);
   --pem-x-cyan:#3FE0E8;
@@ -27,7 +27,7 @@ html[data-theme="dark"]{
 
 .pem-sidebar{
   position:fixed; top:0; left:0; height:100vh; width:var(--pem-sb-w);
-  background:var(--pem-x-panel); border-right:1px solid var(--pem-x-line);
+  background:var(--pem-x-sidebar-bg); border-right:1px solid var(--pem-x-line);
   box-shadow:var(--pem-x-shadow);
   display:flex; flex-direction:column; z-index:9000;
   transition:transform .25s ease;

@@ -33,9 +33,9 @@
   .wrap{max-width:1680px;margin:0 auto;padding:0 40px;position:relative;z-index:1;}
 
   /* ---- Franja de normas/escuelas en movimiento (inspirada en la fila de logos de AMD) ---- */
-  .marquee-wrap{overflow:hidden;margin:44px -40px 46px;padding:0 40px;position:relative;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+  .marquee-wrap{overflow:hidden;margin:44px -40px 46px;padding:28px 40px;position:relative;z-index:1;background:#0B0E0C;border-radius:18px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
   .marquee-row{display:flex;gap:40px;white-space:nowrap;width:max-content;padding:6px 0;}
-  .marquee-row span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--muted);opacity:.55;letter-spacing:.2px;flex-shrink:0;}
+  .marquee-row span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#8A9690;letter-spacing:.2px;flex-shrink:0;}
   .marquee-row.logos{gap:170px;align-items:center;}
   .marquee-row.logos img{height:128px;width:auto;flex-shrink:0;opacity:.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
   .marquee-row.right{animation:marqueeRight 55s linear infinite;}
@@ -99,7 +99,7 @@
   .metric .pem-progress{margin-top:2px;}
 
   /* ---- Secciones genéricas ---- */
-  .section-block{padding:40px 0 8px;}
+  .section-block{padding:56px 0 8px;}
   #explorar{scroll-margin-top:var(--home-nav-h,100px);}
   .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;}
   .section-head h2{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:800;margin:0;}
@@ -186,7 +186,7 @@
   }
   @media(max-width:600px){
     .wrap{padding:0 18px;}
-    .marquee-wrap{margin:36px -18px 34px;padding:0 18px;}
+    .marquee-wrap{margin:36px -18px 34px;padding:22px 18px;}
     .hero{height:520px;}
     .hero-content{left:20px;top:auto;bottom:60px;transform:none;width:calc(100% - 40px);}
     h1{font-size:27px;}
@@ -464,7 +464,7 @@
     </div>
   </div>
 
-  <footer>PEM-ACAD-HUB-01 · Production Enhancement México · Prototipo funcional</footer>
+  <footer>PEM-ACAD-HUB-01 · Production Enhancement México</footer>
 
 <script>
 const SCHOOLS = window.PEM_SCHOOLS;

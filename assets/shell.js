@@ -207,7 +207,6 @@
       '<nav class="pem-sidebar" id="pemSidebar">'+
         '<div class="pem-sidebar-brand"><div class="k">Production Enhancement México</div><div class="t">PEM Excellence Academy</div></div>'+
         '<div class="pem-nav">'+items+soon+'</div>'+
-        '<div class="pem-sidebar-foot"><div class="doc">PEM-ACAD-HUB-01<br>Production Enhancement México</div></div>'+
       '</nav>'
     );
   }
