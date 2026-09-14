@@ -53,8 +53,11 @@ html[data-theme="dark"] .pem-nav a.active{box-shadow:inset 3px 0 0 var(--pem-x-g
   color:var(--pem-x-muted); border:1px solid var(--pem-x-line); border-radius:20px; padding:2px 7px; text-transform:uppercase;
 }
 
-.pem-sidebar-foot{padding:14px 20px 18px; border-top:1px solid var(--pem-x-line);}
+.pem-sidebar-foot{padding:10px; border-top:1px solid var(--pem-x-line);}
 .pem-sidebar-foot .doc{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--pem-x-muted); line-height:1.6;}
+.pem-sidebar-foot a{display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:8px; color:var(--pem-x-muted); text-decoration:none; font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; transition:.12s;}
+.pem-sidebar-foot a:hover{background:var(--pem-x-hover); color:var(--pem-x-ink);}
+.pem-sidebar-foot a svg{flex-shrink:0; opacity:.85;}
 
 .pem-header{
   position:fixed; top:0; left:var(--pem-sb-w); right:0; height:var(--pem-hd-h);

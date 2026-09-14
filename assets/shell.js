@@ -191,7 +191,8 @@
     doc:'<path d="M7 3.5h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1Z"/><path d="M14 3.5v4h4"/><path d="M9 13h6M9 16h6M9 10h2" stroke-linecap="round"/>',
     users:'<circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke-linecap="round"/><circle cx="17" cy="9" r="2.3"/><path d="M15.5 13.2c2.3.3 4 2 4 4.3" stroke-linecap="round"/>',
     user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M4.5 19.5c0-3.6 3.4-6.5 7.5-6.5s7.5 2.9 7.5 6.5" stroke-linecap="round"/>',
-    back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>'
+    back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>',
+    logout:'<path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-linecap="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }
 
@@ -207,8 +208,18 @@
       '<nav class="pem-sidebar" id="pemSidebar">'+
         '<div class="pem-sidebar-brand"><div class="k">Production Enhancement México</div><div class="t">PEM Excellence Academy</div></div>'+
         '<div class="pem-nav">'+items+soon+'</div>'+
+        '<div class="pem-sidebar-foot"><a href="#" id="pemLogoutBtn">'+svg('logout')+'<span>Cerrar sesión</span></a></div>'+
       '</nav>'
     );
+  }
+  function wireLogout(){
+    var btn = document.getElementById('pemLogoutBtn');
+    if(!btn) return;
+    btn.addEventListener('click', async function(e){
+      e.preventDefault();
+      try{ await window.PEM_SB.auth.signOut(); }catch(err){ console.warn('Error al cerrar sesión:', err); }
+      window.location.href = prefix + 'bienvenida-login.html';
+    });
   }
   function buildHeader(){
     var backUrl = backToModuleUrl();
@@ -257,6 +268,7 @@
     if(document.body.hasAttribute('data-pem-no-shell-nav')) return;
     var skipHeader = document.body.hasAttribute('data-pem-no-shell-header');
     document.body.insertAdjacentHTML('afterbegin', (skipHeader ? '' : buildHeader()) + buildSidebar() + buildOverlay());
+    wireLogout();
     var sidebar = document.getElementById('pemSidebar');
     var overlay = document.getElementById('pemOverlay');
     var burger = document.getElementById('pemBurger'); // shell's own, or a page-provided one with the same id
