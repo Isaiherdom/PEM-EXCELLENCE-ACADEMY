@@ -76,7 +76,7 @@
   .cert-body b{color:#FFFFFF;font-weight:600;}
   .cert-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:clamp(16px,3vw,28px);}
   .seal{display:flex;align-items:center;gap:12px;}
-  .seal img{width:clamp(68px,8.5vw,92px);height:clamp(68px,8.5vw,92px);object-fit:cover;border-radius:50%;flex-shrink:0;}
+  .seal-badge{width:clamp(68px,8.5vw,92px);height:clamp(68px,8.5vw,92px);object-fit:cover;border-radius:50%;flex-shrink:0;}
   .seal-ring{position:relative;width:clamp(52px,6vw,72px);height:clamp(52px,6vw,72px);}
   .meta{font-family:'JetBrains Mono',monospace;font-size:clamp(9px,1vw,11px);color:#DCEAE2;line-height:1.7;}
   .meta b{color:#D4AF37;}
@@ -89,14 +89,14 @@
   .actions button{margin-top:0;}
   .btn-secondary{background:transparent;border:1px solid var(--line);color:var(--text);}
 
-    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;color-adjust:exact;}
+      *{-webkit-print-color-adjust:exact;print-color-adjust:exact;color-adjust:exact;}
   @media print{
     @page{size:landscape;margin:0;}
     html,body{padding:0;margin:0;background:#022E23 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    body{display:block !important;min-height:0 !important;}
+    body{display:flex !important;align-items:center;justify-content:center;min-height:100vh;}
     .form-box,.actions,.pem-home-btn,.pem-sidebar,.pem-header{display:none !important;}
-    #certStage{display:block !important;position:fixed;inset:0;width:100vw;height:100vh;margin:0;padding:0;}
-    .cert{max-width:none;width:100vw;height:100vh;aspect-ratio:auto;border-radius:0;box-shadow:none;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    #certStage{display:block !important;margin:0;padding:0;}
+    .cert{width:100%;max-width:100%;aspect-ratio:1.55/1;border-radius:0;box-shadow:none;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     .cert *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   }
   .brand-block{display:flex;flex-direction:column;gap:6px;}
@@ -170,7 +170,7 @@
     </div>
     <div class="cert-bottom">
       <div class="seal">
-        <img src="../assets/img/badges/seal-hologram.jpg" alt="Sello de autenticidad">
+        <img class="seal-badge" src="../assets/img/badges/seal-hologram.png" alt="Sello de autenticidad">
         <div class="meta">
           Emitido: <b id="outDate"></b><br>
           Norma ref.: <b>ISO 37001:2025</b><br>
