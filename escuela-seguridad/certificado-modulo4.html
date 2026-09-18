@@ -59,23 +59,23 @@
   }
   .brandmark{position:absolute;left:7.8%;top:7%;}
   .brandmark .l1{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(15px,2.15vw,26px);color:#FFFFFF;letter-spacing:.01em;}
-  .brandmark .l1 span{color:#D8B858;}
-  .brandmark .tag{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(7px,.85vw,10.5px);letter-spacing:.22em;color:#D8B858;margin-top:.3em;}
+  .brandmark .l1 span{color:#F5C542;}
+  .brandmark .tag{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(7px,.85vw,10.5px);letter-spacing:.22em;color:#F5C542;margin-top:.3em;}
   .doccode{position:absolute;left:8.2%;top:19.5%;font-family:'JetBrains Mono',monospace;font-size:clamp(7px,.85vw,10px);color:#BFE3D2;letter-spacing:.05em;line-height:1.5;}
 
   .cert-content-band{position:absolute;left:9%;right:9%;top:19%;height:53%;display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;text-align:center;}
   .cert-eyebrow{display:flex;align-items:center;gap:clamp(8px,1.6vw,20px);width:100%;justify-content:center;}
-  .cert-eyebrow .line{flex:0 1 clamp(30px,7vw,90px);height:1px;background:linear-gradient(90deg,transparent,#C6A44E);}
-  .cert-eyebrow .line.r{background:linear-gradient(90deg,#C6A44E,transparent);}
-  .cert-eyebrow span.t{font-family:'Georgia',serif;font-style:italic;font-weight:700;font-size:clamp(13px,1.85vw,22px);color:#D8B858;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
+  .cert-eyebrow .line{flex:0 1 clamp(30px,7vw,90px);height:1px;background:linear-gradient(90deg,transparent,#F5C542);}
+  .cert-eyebrow .line.r{background:linear-gradient(90deg,#F5C542,transparent);}
+  .cert-eyebrow span.t{font-family:'Georgia',serif;font-style:italic;font-weight:700;font-size:clamp(13px,1.85vw,22px);color:#F5C542;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
   .cert-name{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(22px,4.4vw,48px);color:#fff;letter-spacing:.005em;line-height:1.05;}
   .cert-body{font-size:clamp(10px,1.28vw,15px);color:#D8E0DA;max-width:88%;line-height:1.55;}
   .cert-body b{color:#FFFFFF;font-weight:700;}
-  .normRow .k{font-family:'Georgia',serif;font-style:italic;font-weight:700;font-size:clamp(13px,1.9vw,22px);color:#D8B858;}
-  .normRow .n{font-weight:800;font-size:clamp(18px,3vw,32px);color:#D8B858;margin-top:.15em;letter-spacing:.01em;}
+  .normRow .k{font-family:'Georgia',serif;font-style:italic;font-weight:700;font-size:clamp(13px,1.9vw,22px);color:#F5C542;}
+  .normRow .n{font-weight:800;font-size:clamp(18px,3vw,32px);color:#F5C542;margin-top:.15em;letter-spacing:.01em;}
 
   .meta{position:absolute;left:23.5%;top:81%;font-family:'JetBrains Mono',monospace;font-size:clamp(7.5px,.92vw,11px);color:#D8E0DA;line-height:1.75;}
-  .meta b{color:#D8B858;}
+  .meta b{color:#F5C542;}
   .verify{position:absolute;left:46.6%;top:79.5%;width:7%;aspect-ratio:1/1;}
   .verify img{width:100%;height:100%;display:block;background:#fff;border-radius:2px;padding:3%;box-sizing:border-box;}
   .verify-txt{position:absolute;left:55%;top:80.5%;width:20%;font-size:clamp(7px,.82vw,10px);color:#AAB5AF;line-height:1.55;}
@@ -172,7 +172,7 @@
     <div class="meta">
       Emitido: <b id="outDate"></b><br>
       Norma ref.: <b>ISO 45001:2018</b><br>
-      Vigencia: <span id="vigenciaText">—</span>
+      Vigencia: <b><span id="vigenciaText">—</span></b>
     </div>
     <div class="verify"><img id="qrCode" alt="Código QR de verificación"></div>
     <div class="verify-txt">Verifica este certificado en<br><b>academia.pemoilgas.com/verificar.html</b></div>
@@ -255,7 +255,7 @@ function setVigencia(fechaEmision){
   if(!el || !d) return;
   d.setFullYear(d.getFullYear() + 1);
   var texto = d.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
-  el.textContent = '1 año — válido hasta ' + texto;
+  el.innerHTML = '1 año<br>válido hasta ' + texto;
 }
 
 function renderSavedCert(data){
