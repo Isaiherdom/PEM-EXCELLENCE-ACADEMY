@@ -48,7 +48,7 @@
   button:hover{filter:brightness(1.08);}
   .hint{font-size:11px;color:var(--muted);margin-top:6px;font-family:'JetBrains Mono',monospace;}
 
-  #certStage{display:none;}
+  #certStage{display:none;width:100%;max-width:1100px;}
 
   /* ===== Certificado PRO — plantilla de fondo real (assets/img/cert-bg-pro.jpg), overlay de datos dinámicos ===== */
   .cert{
@@ -72,12 +72,13 @@
 
   .meta{position:absolute;left:23.5%;top:76.5%;font-family:'JetBrains Mono',monospace;font-size:clamp(7.5px,.92vw,11px);color:#D8E0DA;line-height:1.75;}
   .meta b{color:#D8B858;}
-  .verify{position:absolute;left:46.6%;top:76.3%;width:7%;aspect-ratio:1/1;}
+  .verify{position:absolute;left:46.6%;top:79.5%;width:7%;aspect-ratio:1/1;}
   .verify img{width:100%;height:100%;display:block;background:#fff;border-radius:2px;padding:3%;box-sizing:border-box;}
-  .verify-txt{position:absolute;left:55%;top:76.8%;width:20%;font-size:clamp(7px,.82vw,10px);color:#AAB5AF;line-height:1.55;}
+  .verify-txt{position:absolute;left:55%;top:80.5%;width:20%;font-size:clamp(7px,.82vw,10px);color:#AAB5AF;line-height:1.55;}
   .verify-txt b{color:#E7EDE9;}
 
-  .sign{position:absolute;right:8%;top:83%;width:20%;text-align:center;}
+  .sign-img{position:absolute;left:75.1%;top:73.5%;width:12.6%;height:auto;}
+  .sign{position:absolute;right:8%;top:87.5%;width:20%;text-align:center;}
   .sign-name{font-size:clamp(8.5px,1.02vw,12px);font-weight:700;color:#FFFFFF;}
   .sign-role{font-family:'JetBrains Mono',monospace;font-size:clamp(7px,.82vw,10px);color:#AAB5AF;margin-top:2px;}
 
@@ -168,6 +169,7 @@
     <div class="verify"><img id="qrCode" alt="Código QR de verificación"></div>
     <div class="verify-txt">Verifica este certificado en<br><b>academia.pemoilgas.com/verificar.html</b></div>
 
+    <img class="sign-img" src="../assets/img/badges/firma-isai.png" alt="Firma">
     <div class="sign">
       <div class="sign-name">Isaí Hernández Domínguez</div>
       <div class="sign-role">Responsable del SGI · PEM</div>
