@@ -175,7 +175,7 @@
 </div>
 
 <script>
-const QUESTIONS = [
+const ALL_QUESTIONS = [
   {
     q: "Un compresor presenta la misma falla tres veces en el mismo trimestre, en tres bases distintas. Según el enfoque a procesos de ISO 9001, ¿cuál es la causa más probable?",
     options: [
@@ -275,8 +275,68 @@ const QUESTIONS = [
       "Es responsabilidad exclusiva de la Dirección General mantenerlo vigente"
     ],
     correct: 1
+  },
+  {
+    q: "¿Qué elementos debe considerar PEM al determinar el alcance de su Sistema de Gestión de Calidad (cláusula 4.3)?",
+    options: [
+      "Únicamente los servicios que factura directamente a PEMEX",
+      "Los productos y servicios que ofrece, las partes interesadas relevantes, y los requisitos aplicables a su operación",
+      "Solo las bases donde ya se realizó una auditoría externa",
+      "Exclusivamente los procesos que involucran documentación física"
+    ],
+    correct: 1
+  },
+  {
+    q: "Según la cláusula 4.4 de ISO 9001, un 'proceso' dentro del SGC de PEM se entiende como:",
+    options: [
+      "Cualquier actividad que quede registrada en un formato oficial",
+      "Un conjunto de actividades relacionadas que transforman entradas en salidas, con secuencia e interacción definidas con otros procesos",
+      "Una tarea que solo existe si está descrita en el manual de calidad",
+      "Un trámite administrativo que no afecta directamente a la operación de campo"
+    ],
+    correct: 1
+  },
+  {
+    q: "Un cliente exige evidencia de que PEM identifica y gestiona los riesgos de cada proceso operativo. Esto corresponde a:",
+    options: [
+      "Un requisito exclusivo de ISO 45001, no de ISO 9001",
+      "Una práctica opcional que solo aplica si el cliente lo pide por escrito",
+      "El enfoque basado en riesgos que exige la cláusula 4.4, integrado al Sistema de Gestión de Calidad",
+      "Un proceso independiente que no forma parte del SGC"
+    ],
+    correct: 2
+  },
+  {
+    q: "¿Cuál de las siguientes describe mejor una 'parte interesada' según la cláusula 4.2?",
+    options: [
+      "Únicamente quien firma el contrato de servicios con PEM",
+      "Solamente el personal que trabaja directamente en la base de operación",
+      "Cualquier institución gubernamental, sin importar si tiene relación con PEM",
+      "Cualquier persona u organización que puede afectar, verse afectada, o percibirse afectada por una decisión o actividad de PEM"
+    ],
+    correct: 3
+  },
+  {
+    q: "PEM presta servicios a PEMEX, CFE y operadoras privadas en distintas condiciones de campo. Bajo la cláusula 4.1, esto significa que PEM debe:",
+    options: [
+      "Aplicar exactamente el mismo procedimiento operativo sin ajustes, sin importar el cliente",
+      "Identificar y dar seguimiento a los factores internos y externos que cambian según el cliente y el sitio, ya que afectan su capacidad de cumplir el servicio",
+      "Delegar por completo esa evaluación al cliente, ya que es su responsabilidad",
+      "Actualizar el contexto de la organización solo cuando se renueva la certificación"
+    ],
+    correct: 1
   }
 ];
+
+function pickQuestions(pool, n){
+  var idx = pool.map(function(_,i){ return i; });
+  for(var i=idx.length-1; i>0; i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t=idx[i]; idx[i]=idx[j]; idx[j]=t;
+  }
+  return idx.slice(0, n).map(function(i){ return pool[i]; });
+}
+const QUESTIONS = pickQuestions(ALL_QUESTIONS, 10);
 
 (function shuffleOptions(){
   QUESTIONS.forEach(function(q){
@@ -338,18 +398,19 @@ function finish(){
   document.getElementById('progressFill').style.width='100%';
 
   let correct = 0;
+  QUESTIONS.forEach((q,i)=>{ if(answers[i]===q.correct) correct++; });
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
+
   const reviewHtml = QUESTIONS.map((q,i)=>{
     const ok = answers[i]===q.correct;
-    if(ok) correct++;
     return `<div class="review-item ${ok?'correct':'incorrect'}">
       <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
       <div>${q.q}</div>
-      ${!ok?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+      ${!ok && pass?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+      ${!ok && !pass?`<div style="margin-top:8px;color:var(--muted);font-style:italic;">Revisa el video y las flashcards de este módulo antes de reintentar.</div>`:''}
     </div>`;
   }).join('');
-
-  const pct = Math.round(correct/QUESTIONS.length*100);
-  const pass = pct>=80;
 
   document.getElementById('result').style.display='block';
   document.getElementById('scoreNum').textContent = pct+'%';

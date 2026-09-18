@@ -252,17 +252,18 @@ function finish(){
   document.getElementById('navrow').style.display='none';
   document.getElementById('progressFill').style.width='100%';
   let correct = 0;
+  QUESTIONS.forEach((q,i)=>{ if(answers[i]===q.correct) correct++; });
+  const pct = Math.round(correct/QUESTIONS.length*100);
+  const pass = pct>=80;
   const reviewHtml = QUESTIONS.map((q,i)=>{
     const ok = answers[i]===q.correct;
-    if(ok) correct++;
     return `<div class="review-item ${ok?'correct':'incorrect'}">
       <div class="review-q">PREGUNTA ${i+1} — ${ok?'CORRECTA':'INCORRECTA'}</div>
       <div>${q.q}</div>
-      ${!ok?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+      ${!ok && pass?`<div style="margin-top:8px;color:#16C270;">Respuesta correcta: ${q.options[q.correct]}</div>`:''}
+      ${!ok && !pass?`<div style="margin-top:8px;color:var(--muted);font-style:italic;">Revisa el video y las flashcards de este módulo antes de reintentar.</div>`:''}
     </div>`;
   }).join('');
-  const pct = Math.round(correct/QUESTIONS.length*100);
-  const pass = pct>=80;
   document.getElementById('result').style.display='block';
   document.getElementById('scoreNum').textContent = pct+'%';
   document.getElementById('scoreOf').textContent = correct+' / '+QUESTIONS.length+' correctas';
