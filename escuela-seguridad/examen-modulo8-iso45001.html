@@ -207,6 +207,18 @@ const QUESTIONS = [
     correct: 1
   }
 ];
+(function shuffleOptions(){
+  QUESTIONS.forEach(function(q){
+    var idx = q.options.map(function(_,i){ return i; });
+    for(var i=idx.length-1; i>0; i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var t=idx[i]; idx[i]=idx[j]; idx[j]=t;
+    }
+    q.options = idx.map(function(i){ return q.options[i]; });
+    q.correct = idx.indexOf(q.correct);
+  });
+})();
+
 let current = 0;
 let answers = new Array(QUESTIONS.length).fill(null);
 function renderQ(){

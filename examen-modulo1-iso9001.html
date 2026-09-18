@@ -179,20 +179,20 @@ const QUESTIONS = [
   {
     q: "Un compresor presenta la misma falla tres veces en el mismo trimestre, en tres bases distintas. Según el enfoque a procesos de ISO 9001, ¿cuál es la causa más probable?",
     options: [
-      "El operador de turno no siguió el procedimiento",
+      "El mismo operador cometió el mismo error en las tres bases",
       "Un problema del sistema (diseño del proceso, mantenimiento o control), no un error aislado de una persona",
-      "Mala suerte, es normal en operación de campo",
-      "El cliente no dio mantenimiento correcto"
+      "Es una coincidencia estadística sin relevancia para el sistema de gestión",
+      "Corresponde investigarlo solo si el cliente lo solicita expresamente"
     ],
     correct: 1
   },
   {
     q: "En PEM, la calidad según ISO 9001 se entiende principalmente como:",
     options: [
-      "Llenar la mayor cantidad de formatos posible",
-      "Cumplir el reglamento aunque la operación falle",
+      "Cumplir el mayor número de requisitos documentales posible",
+      "Lograr cero quejas del cliente en el reporte mensual",
       "Que la operación sea predecible y confiable, no accidental",
-      "Una responsabilidad exclusiva del área de Calidad"
+      "Una responsabilidad exclusiva del área de Calidad, no de cada colaborador"
     ],
     correct: 2
   },
@@ -200,83 +200,95 @@ const QUESTIONS = [
     q: "El ciclo PHVA (Planificar-Hacer-Verificar-Actuar) aplicado a la operación de un compresor reciprocante significa:",
     options: [
       "Planificar el mantenimiento, operar, verificar parámetros contra especificación, y actuar corrigiendo desviaciones",
-      "Solo se aplica a documentos de calidad, no a operación de campo",
-      "Es un trámite que hace únicamente el gerente de planta",
-      "Reemplaza las bitácoras de operación"
+      "Aplica solo a la documentación del sistema de gestión, no a la operación diaria en campo",
+      "Es responsabilidad exclusiva del gerente de planta, no del operador de campo",
+      "Sustituye a las bitácoras de operación una vez implementado"
     ],
     correct: 0
   },
   {
     q: "¿Qué significa 'contexto de la organización' en ISO 9001 para PEM?",
     options: [
-      "El organigrama de la empresa",
+      "La estructura jerárquica y el organigrama vigente de la empresa",
       "Los factores internos y externos (clientes como PEMEX/CFE, normativa, condiciones de campo, capacidades técnicas) que afectan la capacidad de PEM para entregar el servicio",
-      "El historial de auditorías pasadas",
-      "El presupuesto anual de operaciones"
+      "El resumen de auditorías y hallazgos de los últimos tres años",
+      "El presupuesto anual asignado a cada base de operación"
     ],
     correct: 1
   },
   {
     q: "¿Cuál de las siguientes es una parte interesada (stakeholder) relevante para el Sistema de Gestión de Calidad de PEM?",
     options: [
-      "Solo PEMEX, porque es el cliente principal",
-      "Solo el Director General",
+      "Únicamente PEMEX, por ser el cliente con mayor volumen de contratos",
+      "Solamente las autoridades regulatorias que auditan a PEM",
       "Clientes (PEMEX, CFE, Operadoras), autoridades regulatorias, empleados y proveedores críticos",
-      "Únicamente las empresas certificadoras"
+      "Exclusivamente los organismos certificadores que emiten el certificado ISO"
     ],
     correct: 2
   },
   {
     q: "Un operador detecta que la presión de descarga de un compresor está fuera de rango y lo reporta de inmediato siguiendo el procedimiento, aunque eso implique detener el equipo. Esto es un ejemplo de:",
     options: [
-      "Pérdida de producción injustificada",
+      "Una decisión que debió consultarse primero con el supervisor antes de actuar",
       "Aplicación correcta del enfoque a procesos y control operacional",
-      "Un error que debe sancionarse",
-      "Una decisión que no le corresponde al operador"
+      "Pérdida de producción que debe evitarse a toda costa",
+      "Un procedimiento que solo aplica a equipos críticos, no a todos los compresores"
     ],
     correct: 1
   },
   {
     q: "¿Por qué ISO 9001 le importa a un mecánico o técnico de campo, y no solo a Calidad?",
     options: [
-      "No le importa, es responsabilidad exclusiva de Calidad",
+      "Porque debe firmar los documentos del sistema de gestión cada mes",
       "Porque cada tarea de campo (torque correcto, registro de mantenimiento, reporte de anomalías) es parte del proceso que sostiene la certificación y la confiabilidad ante el cliente",
-      "Porque debe memorizar la norma completa",
-      "Porque así lo exige un auditor externo una vez al año"
+      "Porque el auditor externo entrevista directamente a los técnicos una vez al año",
+      "Porque su desempeño se evalúa exclusivamente con base en el cumplimiento documental"
     ],
     correct: 1
   },
   {
     q: "Una 'no conformidad' en el SGC de PEM es:",
     options: [
-      "Un castigo administrativo",
+      "Un reporte que solo se genera cuando lo detecta un auditor externo",
       "Un desvío respecto a un requisito (procedimiento, especificación del cliente o norma) que debe identificarse y corregirse",
-      "Solo aplica a documentos, no a operación",
-      "Un término exclusivo de auditorías externas"
+      "Una sanción que se aplica al responsable del área involucrada",
+      "Un registro que aplica únicamente a procesos documentales, no operativos"
     ],
     correct: 1
   },
   {
     q: "PEM opera en Reynosa, Villahermosa, Poza Rica, CDMX y Monterrey. ¿Por qué esto es relevante para el SGC?",
     options: [
-      "No es relevante, la norma es igual en todos lados",
-      "Solo importa para logística de nómina",
+      "Cada base puede definir sus propios criterios de calidad según su experiencia local",
+      "Es relevante únicamente para la logística de traslado de personal",
       "El sistema debe garantizar que el mismo estándar de calidad y control operacional se aplique de forma consistente en los sitios de trabajo",
-      "Cada base debe tener su propia norma distinta"
+      "El sistema de gestión solo aplica a la base con mayor volumen de operación"
     ],
     correct: 2
   },
   {
     q: "El objetivo final de este Módulo 1 es que el colaborador de PEM entienda que ISO 9001:",
     options: [
-      "Es un trámite de la oficina de Calidad",
+      "Es un conjunto de lineamientos que aplica principalmente al personal administrativo",
       "Es una herramienta operativa que hace que el trabajo diario en campo sea más confiable, seguro y predecible para el cliente y para PEM",
-      "Solo aplica al personal administrativo",
-      "Se resume en pasar la auditoría anual"
+      "Es un requisito que se cumple una vez al año durante la auditoría de certificación",
+      "Es responsabilidad exclusiva de la Dirección General mantenerlo vigente"
     ],
     correct: 1
   }
 ];
+
+(function shuffleOptions(){
+  QUESTIONS.forEach(function(q){
+    var idx = q.options.map(function(_,i){ return i; });
+    for(var i=idx.length-1; i>0; i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var t=idx[i]; idx[i]=idx[j]; idx[j]=t;
+    }
+    q.options = idx.map(function(i){ return q.options[i]; });
+    q.correct = idx.indexOf(q.correct);
+  });
+})();
 
 let current = 0;
 let answers = new Array(QUESTIONS.length).fill(null);
