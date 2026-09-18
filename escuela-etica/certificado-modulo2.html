@@ -238,11 +238,21 @@ function setVerifyQR(certId){
   img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=116x116&margin=0&data=' + encodeURIComponent(url);
 }
 
+var MESES_ES = {enero:0,febrero:1,marzo:2,abril:3,mayo:4,junio:5,julio:6,agosto:7,septiembre:8,octubre:9,noviembre:10,diciembre:11};
+function parseFechaFlexible(str){
+  if(!str) return null;
+  var m = String(str).match(/(\d{1,2}) de (\w+) de (\d{4})/i);
+  if(m){
+    var mes = MESES_ES[m[2].toLowerCase()];
+    if(mes !== undefined) return new Date(parseInt(m[3],10), mes, parseInt(m[1],10));
+  }
+  var d = new Date(str);
+  return isNaN(d.getTime()) ? null : d;
+}
 function setVigencia(fechaEmision){
   var el = document.getElementById('vigenciaText');
-  if(!el || !fechaEmision) return;
-  var d = new Date(fechaEmision);
-  if(isNaN(d.getTime())) return;
+  var d = parseFechaFlexible(fechaEmision);
+  if(!el || !d) return;
   d.setFullYear(d.getFullYear() + 1);
   var texto = d.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
   el.textContent = '1 año — válido hasta ' + texto;
