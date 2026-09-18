@@ -57,11 +57,11 @@
     background-image:url(../assets/img/cert-bg-pro.jpg);background-size:cover;background-position:center;
     font-family:'Inter',sans-serif;
   }
-  .doccode{position:absolute;left:8.2%;top:19.5%;font-family:'JetBrains Mono',monospace;font-size:clamp(7px,.85vw,10px);color:#BFE3D2;letter-spacing:.05em;line-height:1.5;}
   .brandmark{position:absolute;left:7.8%;top:7%;}
   .brandmark .l1{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(15px,2.15vw,26px);color:#FFFFFF;letter-spacing:.01em;}
   .brandmark .l1 span{color:#D8B858;}
   .brandmark .tag{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(7px,.85vw,10.5px);letter-spacing:.22em;color:#D8B858;margin-top:.3em;}
+  .doccode{position:absolute;left:8.2%;top:19.5%;font-family:'JetBrains Mono',monospace;font-size:clamp(7px,.85vw,10px);color:#BFE3D2;letter-spacing:.05em;line-height:1.5;}
 
   .cert-content-band{position:absolute;left:9%;right:9%;top:19%;height:53%;display:flex;flex-direction:column;justify-content:space-evenly;align-items:center;text-align:center;}
   .cert-eyebrow{display:flex;align-items:center;gap:clamp(8px,1.6vw,20px);width:100%;justify-content:center;}
@@ -245,7 +245,7 @@ function setVigencia(fechaEmision){
   if(isNaN(d.getTime())) return;
   d.setFullYear(d.getFullYear() + 2);
   var texto = d.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'});
-  el.textContent = '2 años — válido hasta ' + texto;
+  el.textContent = '2 añoes — válido hasta ' + texto;
 }
 
 function renderSavedCert(data){
