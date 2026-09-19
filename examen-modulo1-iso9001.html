@@ -179,59 +179,59 @@ const ALL_QUESTIONS = [
   {
     q: "Un compresor presenta la misma falla tres veces en el mismo trimestre, en tres bases distintas. Según el enfoque a procesos de ISO 9001, ¿cuál es la causa más probable?",
     options: [
-      "El mismo operador cometió el mismo error en las tres bases",
+      "El mismo operador cometió el mismo error en las tres ocasiones, sin relación entre las bases",
       "Un problema del sistema (diseño del proceso, mantenimiento o control), no un error aislado de una persona",
-      "Es una coincidencia estadística sin relevancia para el sistema de gestión",
-      "Corresponde investigarlo solo si el cliente lo solicita expresamente"
+      "Es una coincidencia estadística normal que no amerita revisión del sistema de gestión ni de sus procedimientos",
+      "Corresponde investigarlo únicamente si el cliente lo solicita por escrito de forma expresa"
     ],
     correct: 1
   },
   {
     q: "En PEM, la calidad según ISO 9001 se entiende principalmente como:",
     options: [
-      "Cumplir el mayor número de requisitos documentales posible",
-      "Lograr cero quejas del cliente en el reporte mensual",
-      "Que la operación sea predecible y confiable, no accidental",
-      "Una responsabilidad exclusiva del área de Calidad, no de cada colaborador"
+      "Cumplir el mayor número de requisitos documentales posible en cada auditoría interna",
+      "Lograr cero quejas registradas por el cliente en el reporte mensual de desempeño",
+      "Que la operación sea predecible y confiable de manera consistente, no accidental",
+      "Una responsabilidad exclusiva del área de Calidad, no de cada colaborador en campo"
     ],
     correct: 2
   },
   {
     q: "El ciclo PHVA (Planificar-Hacer-Verificar-Actuar) aplicado a la operación de un compresor reciprocante significa:",
     options: [
-      "Planificar el mantenimiento, operar, verificar parámetros contra especificación, y actuar corrigiendo desviaciones",
-      "Aplica solo a la documentación del sistema de gestión, no a la operación diaria en campo",
-      "Es responsabilidad exclusiva del gerente de planta, no del operador de campo",
-      "Sustituye a las bitácoras de operación una vez implementado"
+      "Planificar el mantenimiento, operar, verificar parámetros contra especificación y actuar corrigiendo desviaciones",
+      "Aplica únicamente a la documentación formal del sistema de gestión, y no a la operación diaria realizada en campo",
+      "Es responsabilidad exclusiva del gerente de planta de la base, y no involucra en ningún caso al operador de campo",
+      "Sustituye por completo a las bitácoras de operación una vez que se implementa formalmente"
     ],
     correct: 0
   },
   {
     q: "¿Qué significa 'contexto de la organización' en ISO 9001 para PEM?",
     options: [
-      "La estructura jerárquica y el organigrama vigente de la empresa",
-      "Los factores internos y externos (clientes como PEMEX/CFE, normativa, condiciones de campo, capacidades técnicas) que afectan la capacidad de PEM para entregar el servicio",
-      "El resumen de auditorías y hallazgos de los últimos tres años",
-      "El presupuesto anual asignado a cada base de operación"
+      "La estructura jerárquica, el organigrama vigente y los puestos formales asignados en cada base",
+      "Los factores internos y externos (clientes, normativa, condiciones de campo) que afectan la capacidad de PEM",
+      "El resumen de auditorías, hallazgos y observaciones registradas en los últimos tres años",
+      "El presupuesto anual asignado a cada base de operación y sus gastos de mantenimiento"
     ],
     correct: 1
   },
   {
     q: "¿Cuál de las siguientes es una parte interesada (stakeholder) relevante para el Sistema de Gestión de Calidad de PEM?",
     options: [
-      "Únicamente PEMEX, por ser el cliente con mayor volumen de contratos",
-      "Solamente las autoridades regulatorias que auditan a PEM",
-      "Clientes (PEMEX, CFE, Operadoras), autoridades regulatorias, empleados y proveedores críticos",
-      "Exclusivamente los organismos certificadores que emiten el certificado ISO"
+      "Únicamente PEMEX, por ser el cliente con el mayor volumen de contratos vigentes",
+      "Solamente las autoridades regulatorias que realizan auditorías periódicas de cumplimiento a PEM",
+      "Clientes (PEMEX, CFE, operadoras), autoridades regulatorias, empleados y proveedores críticos",
+      "Exclusivamente los organismos certificadores que emiten el certificado ISO 9001"
     ],
     correct: 2
   },
   {
     q: "Un operador detecta que la presión de descarga de un compresor está fuera de rango y lo reporta de inmediato siguiendo el procedimiento, aunque eso implique detener el equipo. Esto es un ejemplo de:",
     options: [
-      "Una decisión que debió consultarse primero con el supervisor antes de actuar",
-      "Aplicación correcta del enfoque a procesos y control operacional",
-      "Pérdida de producción que debe evitarse a toda costa",
+      "Una decisión que debió consultarse primero con el supervisor de turno antes de actuar",
+      "Aplicación correcta del enfoque a procesos y del control operacional definido por PEM",
+      "Pérdida de producción injustificada que debe evitarse a toda costa en campo",
       "Un procedimiento que solo aplica a equipos críticos, no a todos los compresores"
     ],
     correct: 1
@@ -239,8 +239,8 @@ const ALL_QUESTIONS = [
   {
     q: "¿Por qué ISO 9001 le importa a un mecánico o técnico de campo, y no solo a Calidad?",
     options: [
-      "Porque debe firmar los documentos del sistema de gestión cada mes",
-      "Porque cada tarea de campo (torque correcto, registro de mantenimiento, reporte de anomalías) es parte del proceso que sostiene la certificación y la confiabilidad ante el cliente",
+      "Porque debe firmar y archivar los documentos del sistema de gestión una vez al mes, sin excepción",
+      "Porque cada tarea de campo sostiene la certificación y la confiabilidad ante el cliente",
       "Porque el auditor externo entrevista directamente a los técnicos una vez al año",
       "Porque su desempeño se evalúa exclusivamente con base en el cumplimiento documental"
     ],
@@ -249,19 +249,19 @@ const ALL_QUESTIONS = [
   {
     q: "Una 'no conformidad' en el SGC de PEM es:",
     options: [
-      "Un reporte que solo se genera cuando lo detecta un auditor externo",
-      "Un desvío respecto a un requisito (procedimiento, especificación del cliente o norma) que debe identificarse y corregirse",
-      "Una sanción que se aplica al responsable del área involucrada",
-      "Un registro que aplica únicamente a procesos documentales, no operativos"
+      "Un reporte que solo se genera cuando lo detecta un auditor externo en sitio",
+      "Un desvío respecto a un requisito (procedimiento, especificación o norma) que debe identificarse y corregirse",
+      "Una sanción administrativa formal que se aplica directamente al responsable del área involucrada, sin excepción",
+      "Un registro que aplica únicamente a procesos documentales, no a la operación"
     ],
     correct: 1
   },
   {
     q: "PEM opera en Reynosa, Villahermosa, Poza Rica, CDMX y Monterrey. ¿Por qué esto es relevante para el SGC?",
     options: [
-      "Cada base puede definir sus propios criterios de calidad según su experiencia local",
-      "Es relevante únicamente para la logística de traslado de personal",
-      "El sistema debe garantizar que el mismo estándar de calidad y control operacional se aplique de forma consistente en los sitios de trabajo",
+      "Cada base puede definir y ajustar sus propios criterios de calidad conforme a su experiencia operativa acumulada",
+      "Es relevante únicamente para la logística de traslado de personal entre bases",
+      "El sistema debe garantizar que el mismo estándar de calidad se aplique de forma consistente en todos los sitios",
       "El sistema de gestión solo aplica a la base con mayor volumen de operación"
     ],
     correct: 2
@@ -270,59 +270,59 @@ const ALL_QUESTIONS = [
     q: "El objetivo final de este Módulo 1 es que el colaborador de PEM entienda que ISO 9001:",
     options: [
       "Es un conjunto de lineamientos que aplica principalmente al personal administrativo",
-      "Es una herramienta operativa que hace que el trabajo diario en campo sea más confiable, seguro y predecible para el cliente y para PEM",
-      "Es un requisito que se cumple una vez al año durante la auditoría de certificación",
-      "Es responsabilidad exclusiva de la Dirección General mantenerlo vigente"
+      "Es una herramienta operativa que hace el trabajo diario más confiable, seguro y predecible para el cliente y PEM",
+      "Es un requisito que únicamente se cumple una vez al año, durante la auditoría formal de certificación del sistema completo",
+      "Es responsabilidad exclusiva de la Dirección General mantenerlo vigente y actualizado"
     ],
     correct: 1
   },
   {
     q: "¿Qué elementos debe considerar PEM al determinar el alcance de su Sistema de Gestión de Calidad (cláusula 4.3)?",
     options: [
-      "Únicamente los servicios que factura directamente a PEMEX",
-      "Los productos y servicios que ofrece, las partes interesadas relevantes, y los requisitos aplicables a su operación",
-      "Solo las bases donde ya se realizó una auditoría externa",
-      "Exclusivamente los procesos que involucran documentación física"
+      "Únicamente los servicios que PEM factura de forma directa a PEMEX en cada periodo trimestral",
+      "Los productos y servicios que ofrece, las partes interesadas relevantes y los requisitos aplicables a su operación",
+      "Solo las bases donde ya se realizó previamente una auditoría externa completa de certificación",
+      "Exclusivamente los procesos que involucran documentación física archivada en cada base operativa"
     ],
     correct: 1
   },
   {
     q: "Según la cláusula 4.4 de ISO 9001, un 'proceso' dentro del SGC de PEM se entiende como:",
     options: [
-      "Cualquier actividad que quede registrada en un formato oficial",
-      "Un conjunto de actividades relacionadas que transforman entradas en salidas, con secuencia e interacción definidas con otros procesos",
-      "Una tarea que solo existe si está descrita en el manual de calidad",
-      "Un trámite administrativo que no afecta directamente a la operación de campo"
+      "Cualquier actividad que quede registrada por escrito en un formato oficial de la empresa",
+      "Un conjunto de actividades relacionadas que transforman entradas en salidas, con secuencia e interacción definidas",
+      "Una tarea que solo existe formalmente si está descrita en el manual de calidad",
+      "Un trámite administrativo que no afecta de forma directa a la operación en campo"
     ],
     correct: 1
   },
   {
     q: "Un cliente exige evidencia de que PEM identifica y gestiona los riesgos de cada proceso operativo. Esto corresponde a:",
     options: [
-      "Un requisito exclusivo de ISO 45001, no de ISO 9001",
-      "Una práctica opcional que solo aplica si el cliente lo pide por escrito",
-      "El enfoque basado en riesgos que exige la cláusula 4.4, integrado al Sistema de Gestión de Calidad",
-      "Un proceso independiente que no forma parte del SGC"
+      "Un requisito exclusivo de ISO 45001, que no aplica al Sistema de Gestión de Calidad",
+      "Una práctica opcional que solo se activa si el cliente lo solicita por escrito",
+      "El enfoque basado en riesgos que exige la cláusula 4.4, integrado al Sistema de Gestión de Calidad de PEM",
+      "Un proceso independiente que no forma parte del alcance del SGC de PEM"
     ],
     correct: 2
   },
   {
     q: "¿Cuál de las siguientes describe mejor una 'parte interesada' según la cláusula 4.2?",
     options: [
-      "Únicamente quien firma el contrato de servicios con PEM",
-      "Solamente el personal que trabaja directamente en la base de operación",
-      "Cualquier institución gubernamental, sin importar si tiene relación con PEM",
-      "Cualquier persona u organización que puede afectar, verse afectada, o percibirse afectada por una decisión o actividad de PEM"
+      "Únicamente la persona u organización que firma el contrato de servicios con PEM",
+      "Solamente el personal que trabaja de forma directa en la base de operación",
+      "Cualquier institución gubernamental, sin importar si tiene relación directa con PEM",
+      "Cualquier persona u organización que puede afectar o verse afectada por una decisión de PEM"
     ],
     correct: 3
   },
   {
     q: "PEM presta servicios a PEMEX, CFE y operadoras privadas en distintas condiciones de campo. Bajo la cláusula 4.1, esto significa que PEM debe:",
     options: [
-      "Aplicar exactamente el mismo procedimiento operativo sin ajustes, sin importar el cliente",
-      "Identificar y dar seguimiento a los factores internos y externos que cambian según el cliente y el sitio, ya que afectan su capacidad de cumplir el servicio",
-      "Delegar por completo esa evaluación al cliente, ya que es su responsabilidad",
-      "Actualizar el contexto de la organización solo cuando se renueva la certificación"
+      "Aplicar exactamente el mismo procedimiento operativo sin ajustes, sin importar el cliente atendido",
+      "Identificar y dar seguimiento a los factores internos y externos que cambian según el cliente y el sitio",
+      "Delegar por completo esa evaluación al cliente, ya que es responsabilidad suya",
+      "Actualizar el contexto de la organización únicamente cuando se renueva la certificación"
     ],
     correct: 1
   }
