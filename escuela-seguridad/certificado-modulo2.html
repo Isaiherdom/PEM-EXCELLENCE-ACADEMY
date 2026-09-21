@@ -268,6 +268,12 @@ function renderSavedCert(data){
   setVerifyQR(data.certId);
   document.getElementById('formBox').style.display = 'none';
   document.getElementById('certStage').style.display = 'block';
+  // Reintento silencioso de guardado en Supabase (Fase 4E): si el guardado original
+  // falló (red, sesión expirada, etc.), esto lo corrige solo en la próxima visita,
+  // sin afectar lo que la persona ve — upsert es seguro de repetir cuantas veces sea.
+  try{
+    pemGuardarCertificado('45001', 2, data.name, data.base, data.rol || '—', data.score, data.certId);
+  }catch(e){}
 }
 
 function getSavedCert(){
@@ -337,7 +343,7 @@ function volver(){
   document.getElementById('formBox').style.display='block';
 }
 </script>
-<script src="../assets/pem-supabase-write.js"></script>
+<script src="../assets/pem-supabase-write.js?v=2"></script>
 <script src="../assets/modules.js"></script>
 <script src="../assets/shell.js?v=3" defer></script>
 </body>
