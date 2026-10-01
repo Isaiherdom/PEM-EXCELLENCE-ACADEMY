@@ -138,14 +138,49 @@
 
   footer{max-width:900px;margin:56px auto 0;padding:20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);border-top:1px solid var(--line);}
 
-  /* ---- Mapa de procesos oficial (imagen real del documento controlado) ---- */
+  /* ---- Mapa de procesos oficial — diagrama vectorial (mismo contenido, diseño propio) ---- */
   .map-wrap{max-width:1180px;margin:0 auto;padding:0 20px;}
-  .map-card{border:1px solid var(--line);border-radius:14px;background:#FFFFFF;padding:10px;overflow:hidden;}
-  .map-card img{display:block;width:100%;height:auto;border-radius:8px;cursor:zoom-in;}
-  .map-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:center;margin-top:10px;}
-  .map-lightbox{display:none;position:fixed;inset:0;background:rgba(5,8,7,.88);z-index:200;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
-  .map-lightbox.open{display:flex;}
-  .map-lightbox img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  .mp-frame{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:28px 24px 24px;}
+  .mp-eyebrow2{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;text-align:center;margin-bottom:16px;}
+  .mp-title-block{text-align:center;margin-bottom:30px;}
+  .mp-title-block .org{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;letter-spacing:.01em;color:var(--text);}
+  .mp-title-block .sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--green);text-transform:uppercase;margin-top:7px;}
+
+  .mp-scroll{overflow-x:auto;padding-bottom:6px;}
+  .mp-grid-outer{display:grid;grid-template-columns:48px 1fr 48px;gap:12px;align-items:stretch;min-width:900px;}
+
+  .mp-cliente-rail{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:18px 0;color:var(--muted);}
+  .mp-cliente-rail span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;}
+
+  .mp-center-stack{display:flex;flex-direction:column;}
+
+  .mp-section-label{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:12px;}
+  .mp-section-label .dot{width:7px;height:7px;border-radius:50%;}
+  .mp-section-label.estr{color:var(--green);} .mp-section-label.estr .dot{background:var(--green);}
+  .mp-section-label.oper{color:var(--amber);} .mp-section-label.oper .dot{background:var(--amber);}
+  .mp-section-label.sop{color:var(--blue);} .mp-section-label.sop .dot{background:var(--blue);}
+
+  .mp-row3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .mp-row6{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+
+  .mp-oper-panel{border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb, var(--amber) 6%, transparent);padding:14px;}
+  .mp-oper-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+  .mp-oper-grid-row + .mp-oper-grid-row{margin-top:10px;}
+
+  .mp-card{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:11px 11px 10px;border-top-width:3px;border-top-style:solid;min-height:100%;}
+  .mp-card.estr{border-top-color:var(--green);}
+  .mp-card.oper{border-top-color:var(--amber);}
+  .mp-card.sop{border-top-color:var(--blue);}
+  .mp-card .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11.8px;line-height:1.32;color:var(--text);}
+  .mp-card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+  .mp-card .tag{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.02em;padding:2px 6px;border-radius:999px;white-space:nowrap;}
+  .mp-card.estr .tag{background:color-mix(in srgb, var(--green) 14%, transparent);color:var(--green);}
+  .mp-card.oper .tag{background:color-mix(in srgb, var(--amber) 14%, transparent);color:var(--amber);}
+  .mp-card.sop .tag{background:color-mix(in srgb, var(--blue) 14%, transparent);color:var(--blue);}
+
+  .mp-connector{display:flex;justify-content:center;color:var(--line);margin:4px 0;}
+
+  .map-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:center;margin-top:14px;}
 
   .proc-legend{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:6px;}
   .pl-col{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface);}
@@ -171,25 +206,77 @@
   </div>
 
   <div class="map-wrap" style="margin-top:40px;">
-    <div class="map-card">
-      <img src="assets/img/mapa-procesos-pem-2026.jpg" alt="Mapa de Interrelación de Procesos — Production Enhancement México, S. de R.L. de C.V., Rev. 3 2026" id="mapaProcesosImg">
-    </div>
-    <div class="map-cap">Mapa de Interrelación de Procesos · Production Enhancement México, S. de R.L. de C.V. · Rev. 3 2026 — toca la imagen para ampliarla</div>
-  </div>
+    <div class="mp-frame">
+      <div class="mp-eyebrow2">Sistema de Gestión Organizacional · Documento controlado</div>
+      <div class="mp-title-block">
+        <div class="org">PRODUCTION ENHANCEMENT MÉXICO, S. DE R.L. DE C.V.</div>
+        <div class="sub">Mapa de Interrelación de Procesos</div>
+      </div>
 
-  <div class="map-lightbox" id="mapaLightbox">
-    <img src="assets/img/mapa-procesos-pem-2026.jpg" alt="Mapa de procesos ampliado">
+      <div class="mp-scroll">
+        <div class="mp-grid-outer">
+
+          <div class="mp-cliente-rail">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>CLIENTE</span>
+          </div>
+
+          <div class="mp-center-stack">
+
+            <div class="mp-section-label estr"><span class="dot"></span>Procesos estratégicos</div>
+            <div class="mp-row3">
+              <div class="mp-card estr"><div class="t">Dirección General</div></div>
+              <div class="mp-card estr"><div class="t">Gerencia de Sistemas de Gestión</div></div>
+              <div class="mp-card estr"><div class="t">Desarrollo Estratégico</div></div>
+            </div>
+
+            <div class="mp-connector" aria-hidden="true"><svg width="24" height="26" viewBox="0 0 24 26"><path d="M12 0V16M4 11L12 19L20 11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+            <div class="mp-section-label oper"><span class="dot"></span>Procesos operativos</div>
+            <div class="mp-oper-panel">
+              <div class="mp-oper-grid mp-oper-grid-row">
+                <div class="mp-card oper"><div class="t">Compresión Reciprocantes</div><div class="tags"><span class="tag">Venta</span><span class="tag">Servicio</span><span class="tag">Renta</span></div></div>
+                <div class="mp-card oper"><div class="t">Compresión Gas Jack</div><div class="tags"><span class="tag">Venta</span><span class="tag">Servicio</span><span class="tag">Renta</span></div></div>
+                <div class="mp-card oper"><div class="t">Generación de Energía</div><div class="tags"><span class="tag">Venta</span><span class="tag">Servicio</span><span class="tag">Renta</span></div></div>
+                <div class="mp-card oper"><div class="t">Desarenamiento de pozos</div><div class="tags"><span class="tag">Venta</span><span class="tag">Servicio</span><span class="tag">Renta</span></div></div>
+                <div class="mp-card oper"><div class="t">Pruebas de pozo (Well Testing)</div><div class="tags"><span class="tag">Venta</span><span class="tag">Servicio</span><span class="tag">Renta</span></div></div>
+                <div class="mp-card oper"><div class="t">Tratamiento de gas con Planta de Aminas</div><div class="tags"><span class="tag">Venta</span><span class="tag">Servicio</span><span class="tag">Renta</span></div></div>
+              </div>
+              <div class="mp-oper-grid mp-oper-grid-row">
+                <div class="mp-card oper"><div class="t">Optimización de Pozos</div><div class="tags"><span class="tag">Servicios</span></div></div>
+                <div class="mp-card oper"><div class="t">After Market Services (AMS)</div><div class="tags"><span class="tag">Overhauls</span><span class="tag">Comisionamiento</span><span class="tag">Operación y mantenimiento</span></div></div>
+                <div class="mp-card oper"><div class="t">Original Equipment Manufactured (OEM)</div><div class="tags"><span class="tag">Venta de partes</span></div></div>
+                <div class="mp-card oper"><div class="t">Cursos Especializados</div><div class="tags"><span class="tag">Impartición</span></div></div>
+                <div class="mp-card oper"><div class="t">Presas Metálicas</div><div class="tags"><span class="tag">Venta</span><span class="tag">Servicio</span><span class="tag">Renta</span></div></div>
+                <div class="mp-card oper"><div class="t">Ventas y Desarrollo de Negocios</div></div>
+              </div>
+            </div>
+
+            <div class="mp-connector" aria-hidden="true"><svg width="24" height="26" viewBox="0 0 24 26"><path d="M12 26V10M4 15L12 7L20 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+            <div class="mp-section-label sop"><span class="dot"></span>Procesos de soporte</div>
+            <div class="mp-row6">
+              <div class="mp-card sop"><div class="t">Recursos Humanos</div></div>
+              <div class="mp-card sop"><div class="t">Compras y Almacén</div></div>
+              <div class="mp-card sop"><div class="t">HSE</div></div>
+              <div class="mp-card sop"><div class="t">IT</div></div>
+              <div class="mp-card sop"><div class="t">Mantenimiento e Infraestructura</div></div>
+              <div class="mp-card sop"><div class="t">Finanzas y Contabilidad</div></div>
+            </div>
+
+          </div>
+
+          <div class="mp-cliente-rail">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8 3M13 8L8 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>CLIENTE</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="map-cap">Mapa de Interrelación de Procesos · Production Enhancement México, S. de R.L. de C.V. · Rev. 3 2026</div>
+    </div>
   </div>
-  <script>
-    (function(){
-      var img = document.getElementById('mapaProcesosImg');
-      var box = document.getElementById('mapaLightbox');
-      if(img && box){
-        img.addEventListener('click', function(){ box.classList.add('open'); });
-        box.addEventListener('click', function(){ box.classList.remove('open'); });
-      }
-    })();
-  </script>
 
   <div class="wrap">
 
