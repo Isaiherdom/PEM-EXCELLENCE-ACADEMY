@@ -138,6 +138,22 @@
 
   footer{max-width:900px;margin:56px auto 0;padding:20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);border-top:1px solid var(--line);}
 
+  /* ---- Bloque de marca "Quiénes somos" (formato corporativo fijo, no sigue el tema claro/oscuro) ---- */
+  .qs-block{background:#12543F;padding:60px 20px;}
+  .qs-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr;gap:52px;align-items:center;}
+  .qs-inner h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,30px);color:#FFFFFF;margin:0 0 18px;}
+  .qs-inner p{font-size:14px;line-height:1.75;color:rgba(255,255,255,.92);margin:0 0 14px;}
+  .qs-inner p:last-child{margin-bottom:0;}
+  .qs-logo{display:flex;align-items:center;justify-content:center;}
+  .qs-logo img{width:100%;max-width:230px;height:auto;}
+  @media(max-width:860px){.qs-inner{grid-template-columns:1fr;gap:28px;}.qs-logo{max-width:150px;margin:0 auto;order:-1;}.qs-logo img{max-width:150px;}}
+
+  .mv-block{background:#FFFFFF;padding:52px 20px 60px;}
+  .mv-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  .mv-col h3{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:22px;color:#55637A;margin:0 0 14px;}
+  .mv-col p{font-size:14px;line-height:1.75;color:#36406B;margin:0;}
+  @media(max-width:700px){.mv-inner{grid-template-columns:1fr;gap:30px;}}
+
 </style>
 </head>
 <body>
@@ -151,20 +167,27 @@
     <div id="induccionCTA"></div>
   </div>
 
-  <div class="wrap">
-
-    <section>
-      <div class="sec-label">01</div>
-      <div class="sec-title">Quiénes somos</div>
-      <div class="sec-text"><b>PEM Oil &amp; Gas</b> somos una empresa mexicana con más de 25 años de experiencia en la industria energética, especializada en soluciones integrales de compresión y tratamiento de gas natural, optimización de producción y operación de equipos críticos en campo.</div>
-      <div class="sec-text">Nuestra fortaleza radica en una sólida capacidad operativa, una flota robusta de equipos y cobertura en múltiples regiones del país, lo que nos permite atender proyectos de alta complejidad bajo los más altos estándares de seguridad, confiabilidad y desempeño.</div>
-      <div class="sec-text">Operamos con personal técnico local altamente especializado, respaldado por el conocimiento, la tecnología y las mejores prácticas de casas matrices y socios internacionales, asegurando soluciones eficientes, seguras y alineadas a las exigencias de cada operación.</div>
-      <div class="sec-text">Nuestra oferta integral abarca desde compresión en cabeza de pozo, plantas de aminas, mantenimiento especializado, venta de refacciones y operación de equipos de terceros, hasta capacitación técnica a través de nuestro Taller Escuela.</div>
-      <div class="org-grid" style="margin-top:22px;">
-        <div class="org-card"><div class="role">Misión</div><div class="desc" style="margin-top:6px;">Brindar soluciones integrales para la industria petrolera y de energía, garantizando la continuidad operativa, la eficiencia energética y el cumplimiento de los más altos estándares de calidad, seguridad, salud y medio ambiente.</div></div>
-        <div class="org-card"><div class="role">Visión</div><div class="desc" style="margin-top:6px;">Ser una empresa líder en proveer soluciones integrales para la industria petrolera y de energía en México y el mundo, reconocida por su excelencia operativa y su cultura de seguridad.</div></div>
+  <div class="qs-block">
+    <div class="qs-inner">
+      <div>
+        <h2>Quiénes somos</h2>
+        <p><b style="color:#fff">PEM Oil &amp; Gas</b> somos una empresa mexicana con más de 25 años de experiencia en la industria energética, especializada en soluciones integrales de compresión y tratamiento de gas natural, optimización de producción y operación de equipos críticos en campo.</p>
+        <p>Nuestra fortaleza radica en una sólida capacidad operativa, una flota robusta de equipos y cobertura en múltiples regiones del país, lo que nos permite atender proyectos de alta complejidad bajo los más altos estándares de seguridad, confiabilidad y desempeño.</p>
+        <p>Operamos con personal técnico local altamente especializado, respaldado por el conocimiento, la tecnología y las mejores prácticas de casas matrices y socios internacionales, asegurando soluciones eficientes, seguras y alineadas a las exigencias de cada operación.</p>
+        <p>Nuestra oferta integral abarca desde compresión en cabeza de pozo, plantas de aminas, mantenimiento especializado, venta de refacciones y operación de equipos de terceros, hasta capacitación técnica a través de nuestro Taller Escuela.</p>
       </div>
-    </section>
+      <div class="qs-logo"><img src="assets/pem-logo.png" alt="PEM Oil & Gas"></div>
+    </div>
+  </div>
+
+  <div class="mv-block">
+    <div class="mv-inner">
+      <div class="mv-col"><h3>Misión</h3><p>Brindar soluciones integrales para la industria petrolera y de energía, garantizando la continuidad operativa, la eficiencia energética y el cumplimiento de los más altos estándares de calidad, seguridad, salud y medio ambiente.</p></div>
+      <div class="mv-col"><h3>Visión</h3><p>Ser una empresa líder en proveer soluciones integrales para la industria petrolera y de energía en México y el mundo, reconocida por su excelencia operativa y su cultura de seguridad.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap">
 
     <section>
       <div class="sec-label">02</div>

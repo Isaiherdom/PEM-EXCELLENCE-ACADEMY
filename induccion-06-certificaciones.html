@@ -142,6 +142,17 @@
 
   footer{max-width:900px;margin:56px auto 0;padding:20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);border-top:1px solid var(--line);}
 
+  /* ---- Bloque de marca "Certificaciones" (formato fijo, no sigue el tema claro/oscuro) ---- */
+  .cert-hero{background:#12543F;padding:64px 20px 76px;overflow:hidden;}
+  .cert-hero-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1.25fr;gap:40px;align-items:center;}
+  .cert-hero h2{color:#FFFFFF;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(22px,2.6vw,28px);line-height:1.35;margin:0;max-width:360px;}
+  .cert-stack{position:relative;height:300px;}
+  .cert-stack img{position:absolute;width:280px;border-radius:4px;box-shadow:0 20px 45px rgba(0,0,0,.4);border:5px solid #fff;}
+  .cert-stack .c1{top:6px;left:150px;transform:rotate(4deg);z-index:1;}
+  .cert-stack .c2{top:46px;left:290px;transform:rotate(-3deg);z-index:2;}
+  .cert-stack .c3{top:92px;left:10px;transform:rotate(-5deg);z-index:3;}
+  @media(max-width:860px){.cert-hero-inner{grid-template-columns:1fr;}.cert-hero h2{max-width:none;text-align:center;}.cert-stack{height:230px;margin-top:10px;}.cert-stack img{width:210px;}.cert-stack .c1{left:60px;top:0;}.cert-stack .c2{left:160px;top:26px;}.cert-stack .c3{left:10px;top:70px;}}
+
 </style>
 </head>
 <body>
@@ -153,6 +164,17 @@
     <h1>Certificaciones de PEM</h1>
     <p>Las normas que respaldan al Sistema de Gestión Integral frente a clientes y auditores.</p>
     <div id="induccionCTA"></div>
+  </div>
+
+  <div class="cert-hero">
+    <div class="cert-hero-inner">
+      <h2>Trabajamos con estándares globales que garantizan confianza</h2>
+      <div class="cert-stack">
+        <img class="c1" src="assets/img/certs/iso-45001-web.jpg" alt="Certificado ISO 45001:2018">
+        <img class="c2" src="assets/img/certs/iso-9001-web.jpg" alt="Certificado ISO 9001:2015">
+        <img class="c3" src="assets/img/certs/iso-14001-web.jpg" alt="Certificado ISO 14001:2015">
+      </div>
+    </div>
   </div>
 
   <div class="wrap">

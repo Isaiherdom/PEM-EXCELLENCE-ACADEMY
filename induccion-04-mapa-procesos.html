@@ -138,6 +138,25 @@
 
   footer{max-width:900px;margin:56px auto 0;padding:20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);border-top:1px solid var(--line);}
 
+  /* ---- Mapa de procesos oficial (imagen real del documento controlado) ---- */
+  .map-wrap{max-width:1180px;margin:0 auto;padding:0 20px;}
+  .map-card{border:1px solid var(--line);border-radius:14px;background:#FFFFFF;padding:10px;overflow:hidden;}
+  .map-card img{display:block;width:100%;height:auto;border-radius:8px;cursor:zoom-in;}
+  .map-cap{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:center;margin-top:10px;}
+  .map-lightbox{display:none;position:fixed;inset:0;background:rgba(5,8,7,.88);z-index:200;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+  .map-lightbox.open{display:flex;}
+  .map-lightbox img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+
+  .proc-legend{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:6px;}
+  .pl-col{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface);}
+  .pl-col.estr{border-top:3px solid #0B7A4B;}
+  .pl-col.oper{border-top:3px solid #C99A1E;}
+  .pl-col.sop{border-top:3px solid #1B5FA8;}
+  .pl-col .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+  .pl-col ul{margin:0;padding-left:18px;font-size:12.5px;color:var(--text);line-height:1.85;}
+  .pl-col li b{font-weight:600;}
+  @media(max-width:900px){.proc-legend{grid-template-columns:1fr;}}
+
 </style>
 </head>
 <body>
@@ -151,27 +170,60 @@
     <div id="induccionCTA"></div>
   </div>
 
+  <div class="map-wrap" style="margin-top:40px;">
+    <div class="map-card">
+      <img src="assets/img/mapa-procesos-pem-2026.jpg" alt="Mapa de Interrelación de Procesos — Production Enhancement México, S. de R.L. de C.V., Rev. 3 2026" id="mapaProcesosImg">
+    </div>
+    <div class="map-cap">Mapa de Interrelación de Procesos · Production Enhancement México, S. de R.L. de C.V. · Rev. 3 2026 — toca la imagen para ampliarla</div>
+  </div>
+
+  <div class="map-lightbox" id="mapaLightbox">
+    <img src="assets/img/mapa-procesos-pem-2026.jpg" alt="Mapa de procesos ampliado">
+  </div>
+  <script>
+    (function(){
+      var img = document.getElementById('mapaProcesosImg');
+      var box = document.getElementById('mapaLightbox');
+      if(img && box){
+        img.addEventListener('click', function(){ box.classList.add('open'); });
+        box.addEventListener('click', function(){ box.classList.remove('open'); });
+      }
+    })();
+  </script>
+
   <div class="wrap">
 
     <section>
       <div class="sec-label">01</div>
       <div class="sec-title">Cómo fluye el trabajo en PEM</div>
-      <div class="sec-text">Todo Sistema de Gestión Integral agrupa sus procesos en tres capas. Así se ven en PEM:</div>
-      <div class="proc-row">
-        <div class="proc-col estr">
+      <div class="sec-text">Este es el mapa de procesos oficial del Sistema de Gestión Integral — documento controlado, agrupado en las tres capas que todo SGI maneja: estratégicos, operativos y de soporte, con el cliente como punto de entrada y salida en ambos extremos.</div>
+      <div class="proc-legend">
+        <div class="pl-col estr">
           <div class="k">Procesos estratégicos</div>
-          <ul><li>Dirección y planeación</li><li>Gestión del SGI (Calidad, Ambiental, Seguridad, Ética)</li><li>Relación con clientes clave</li></ul>
+          <ul><li>Dirección General</li><li>Gerencia de Sistemas de Gestión</li><li>Desarrollo Estratégico</li></ul>
         </div>
-        <div class="proc-col oper">
+        <div class="pl-col oper">
           <div class="k">Procesos operativos</div>
-          <ul><li>Cotización y contratación de servicio</li><li>Ejecución en campo (la operación)</li><li>Entrega y cierre de servicio</li></ul>
+          <ul>
+            <li><b>Compresión Reciprocantes</b> — venta, servicio, renta</li>
+            <li><b>Compresión Gas Jack</b> — venta, servicio, renta</li>
+            <li><b>Generación de Energía</b> — venta, servicio, renta</li>
+            <li><b>Desarenamiento de pozos</b> — venta, servicio, renta</li>
+            <li><b>Pruebas de pozo (Well Testing)</b> — venta, servicio, renta</li>
+            <li><b>Tratamiento de gas con Planta de Aminas</b> — venta, servicio, renta</li>
+            <li><b>Optimización de Pozos</b> — servicios</li>
+            <li><b>After Market Services (AMS)</b> — overhauls, comisionamiento, operación y mantenimiento</li>
+            <li><b>Original Equipment Manufactured (OEM)</b> — venta de partes</li>
+            <li><b>Cursos Especializados</b> — impartición</li>
+            <li><b>Presas Metálicas</b> — venta, servicio, renta</li>
+            <li><b>Ventas y Desarrollo de Negocios</b></li>
+          </ul>
         </div>
-        <div class="proc-col apoyo">
-          <div class="k">Procesos de apoyo</div>
-          <ul><li>Recursos humanos</li><li>Compras y proveedores</li><li>Control documental y auditorías</li></ul>
+        <div class="pl-col sop">
+          <div class="k">Procesos de soporte</div>
+          <ul><li>Recursos Humanos</li><li>Compras y Almacén</li><li>HSE</li><li>IT</li><li>Mantenimiento e Infraestructura</li><li>Finanzas y Contabilidad</li></ul>
         </div>
       </div>
-      <div class="callout"><b>Reemplaza este mapa:</b> ajusta los procesos listados a los que realmente tiene documentados el SGI, y agrega aquí el enlace o PDF descargable del mapa de procesos oficial si ya existe uno aprobado.</div>
     </section>
 
     <section>
