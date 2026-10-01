@@ -141,6 +141,9 @@
 </style>
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js"></script>
   <div class="hero">
     <div class="eyebrow">INDUCCIÓN · TEMA 3 DE 8</div>
     <h1>Organigrama y quién es quién</h1>
@@ -153,32 +156,35 @@
     <section>
       <div class="sec-label">01</div>
       <div class="sec-title">Dirección y liderazgo</div>
-      <div class="callout"><b>Reemplaza esta sección:</b> confirma nombres, puestos y fotos reales antes de publicar. Estructura de ejemplo tomada de los roles ya conocidos del SGI.</div>
       <div class="org-grid">
-        <div class="org-card"><div class="role">Director General</div><div class="who">Juan Ignacio Romo Herrera</div><div class="desc">Autoridad máxima de PEM; firma los documentos rectores del Sistema de Gestión Integral.</div></div>
+        <div class="org-card"><div class="role">Director General</div><div class="who">Juan Ignacio Romo Herrera</div><div class="desc">Autoridad máxima de PEM; firma los documentos rectores del Sistema de Gestión Integral. Toma todas las decisiones estratégicas de la empresa.</div></div>
         <div class="org-card"><div class="role">Director de Operaciones</div><div class="who">José Martínez Gago</div><div class="desc">Responsable de la operación de campo en los 5 sitios de trabajo.</div></div>
-        <div class="org-card"><div class="role">Responsable del SGI</div><div class="who">Isaí Hernández Domínguez</div><div class="desc">Administra el Sistema de Gestión Integral (Calidad, Ambiental, Seguridad, Ética) y esta plataforma de capacitación.</div></div>
+        <div class="org-card"><div class="role">Gerente Sistemas de Gestión</div><div class="who">Isaí Hernández Domínguez</div><div class="desc">Administra el Sistema de Gestión Integral (Calidad, Ambiental, Seguridad, Ética) y esta plataforma de capacitación.</div></div>
         <div class="org-card"><div class="role">Contralor</div><div class="who">Adalberto Martínez Romero</div><div class="desc">Integrante del Comité de Integridad Antisoborno del SGAS.</div></div>
-        <div class="org-card"><div class="role">Gerente de HSE</div><div class="who">Jesús Eymard Gómez Hernández</div><div class="desc">Lidera Seguridad y Salud en el Trabajo; integrante del Comité de Integridad Antisoborno.</div></div>
-        <div class="org-card"><div class="role">Responsable de Recursos Humanos</div><div class="who">Enedina Guerrero Delgado</div><div class="desc">Integrante del Comité de Integridad Antisoborno del SGAS — tu primer punto de contacto en temas de RH.</div></div>
+        <div class="org-card"><div class="role">Dirección / Gerencia de Ventas</div><div class="who">Gerardo E. Mellado Noriega</div><div class="desc">Lidera todas las ventas y nuevos negocios.</div></div>
+        <div class="org-card"><div class="role">VP Internacional / Desarrollo Estratégico</div><div class="who">Jorge Rolando Abreu Blanco</div><div class="desc">Lidera la estrategia para nuevos negocios.</div></div>
+        <div class="org-card"><div class="role">Áreas Legales y Fiscales</div><div class="desc" style="margin-top:4px;">Enrique Ramírez — Corporativo<br>Raúl Romero Trejo — Laboral<br>José Pastor Suárez Turnbull — Litigios<br>Briseida Meléndez — Asesoría Fiscal</div></div>
       </div>
     </section>
 
     <section>
       <div class="sec-label">02</div>
-      <div class="sec-title">Liderazgo por sitio de trabajo</div>
+      <div class="sec-title">Liderazgo por área de trabajo</div>
       <div class="org-grid">
-        <div class="org-card"><div class="role">Base Reynosa</div><div class="who">Luis Burgos · Otoniel García</div><div class="desc">Liderazgo de operación en la base de Reynosa.</div></div>
-        <div class="org-card"><div class="role">Base Villahermosa</div><div class="who">David Bermúdez</div><div class="desc">Liderazgo de operación en la base de Villahermosa.</div></div>
-        <div class="org-card"><div class="role">Base Poza Rica</div><div class="who">Rosendo Martínez</div><div class="desc">Liderazgo de operación en la base de Poza Rica.</div></div>
-        <div class="org-card"><div class="role">CDMX / Monterrey</div><div class="who">[Nombre del responsable]</div><div class="desc">[Completar con el liderazgo real de cada base.]</div></div>
+        <div class="org-card"><div class="role">Base Reynosa</div><div class="who">Luis Felipe Burgos Morales</div><div class="desc">Liderazgo de operación en la base de Reynosa.</div></div>
+        <div class="org-card"><div class="role">Base Villahermosa</div><div class="who">Alejandro Olvera Rodríguez</div><div class="desc">Liderazgo de operación en la base de Villahermosa.</div></div>
+        <div class="org-card"><div class="role">Base Poza Rica</div><div class="who">Rosendo Ruiz Martínez</div><div class="desc">Liderazgo de operación en la base de Poza Rica.</div></div>
+        <div class="org-card"><div class="role">Guadalajara</div><div class="who">Luis Felipe Burgos Morales</div><div class="desc">Liderazgo de operación en la base de Guadalajara.</div></div>
+        <div class="org-card"><div class="role">Gerente de HSE</div><div class="who">Jesús Eymard Gómez Hernández</div><div class="desc">Lidera Seguridad y Salud en el Trabajo; integrante del Comité de Integridad Antisoborno.</div></div>
+        <div class="org-card"><div class="role">Responsable de Recursos Humanos</div><div class="who">Enedina Guerrero Delgado</div><div class="desc">Integrante del Comité de Integridad Antisoborno del SGAS — tu primer punto de contacto en temas de RH.</div></div>
+        <div class="org-card"><div class="role">Gerente de Compras</div><div class="who">Gustavo Abizai López Moncada</div><div class="desc">Lidera compras y abastecimiento para la operación.</div></div>
       </div>
     </section>
 
     <section>
       <div class="sec-label">03</div>
       <div class="sec-title">¿A quién le pregunto qué?</div>
-      <div class="sec-text">Como regla general: dudas de tu operación diaria → tu líder de base. Dudas de calidad, ambiental, seguridad o ética del SGI → Responsable del SGI. Dudas de contrato, nómina o prestaciones → Recursos Humanos.</div>
+      <div class="sec-text">Como regla general: dudas de tu operación diaria → tu líder de base. Dudas de calidad, ambiental, seguridad o ética del SGI → Gerente Sistemas de Gestión. Dudas de contrato, nómina o prestaciones → Recursos Humanos.</div>
     </section>
 
   <div class="pager">

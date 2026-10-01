@@ -109,6 +109,10 @@
   .cert-card .norm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;}
   .cert-card .title{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:8px;}
   .cert-card .scope{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);}
+  .cert-card .meta{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);line-height:1.7;margin-top:10px;border-top:1px solid var(--line);padding-top:10px;}
+  .cert-card .dl{display:inline-block;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--green);text-decoration:none;border:1px solid var(--green);border-radius:7px;padding:6px 12px;}
+  .cert-card .dl:hover{background:var(--green);color:#04140C;}
+  .cert-card.pending{opacity:.65;}
   @media(max-width:1150px){.cert-grid{grid-template-columns:1fr 1fr;}}
   @media(max-width:640px){.cert-grid{grid-template-columns:1fr;}}
 
@@ -141,6 +145,9 @@
 </style>
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js"></script>
   <div class="hero">
     <div class="eyebrow">INDUCCIÓN · TEMA 6 DE 8</div>
     <h1>Certificaciones de PEM</h1>
@@ -153,20 +160,35 @@
     <section>
       <div class="sec-label">01</div>
       <div class="sec-title">Certificaciones vigentes de PEM</div>
-      <div class="sec-text">Estas son las certificaciones con las que PEM respalda su Sistema de Gestión Integral frente a clientes y auditores externos.</div>
+      <div class="sec-text">Estas son las certificaciones con las que PEM respalda su Sistema de Gestión Integral frente a clientes y auditores externos — emitidas por <b>American Registrar of Management Systems LLC (ARMS)</b>, acreditado para los tres sistemas.</div>
       <div class="cert-grid">
-        <div class="cert-card"><div class="norm">ISO 9001</div><div class="title">Sistema de Gestión de Calidad</div><div class="scope">:2015</div></div>
-        <div class="cert-card"><div class="norm">ISO 14001</div><div class="title">Sistema de Gestión Ambiental</div><div class="scope">:2015</div></div>
-        <div class="cert-card"><div class="norm">ISO 45001</div><div class="title">Seguridad y Salud en el Trabajo</div><div class="scope">:2018</div></div>
-        <div class="cert-card"><div class="norm">ISO 37001</div><div class="title">Sistema de Gestión Antisoborno</div><div class="scope">:2025</div></div>
+        <div class="cert-card">
+          <div class="norm">ISO 9001</div><div class="title">Sistema de Gestión de Calidad</div><div class="scope">:2015</div>
+          <div class="meta">Registro PEM260714.QMS<br>Vigente hasta 05/may/2029</div>
+          <a class="dl" href="assets/docs/certificado-iso-9001.pdf" target="_blank" rel="noopener">Ver PDF ↗</a>
+        </div>
+        <div class="cert-card">
+          <div class="norm">ISO 14001</div><div class="title">Sistema de Gestión Ambiental</div><div class="scope">:2015</div>
+          <div class="meta">Registro PEM260714.EMS<br>Vigente hasta 05/may/2029</div>
+          <a class="dl" href="assets/docs/certificado-iso-14001.pdf" target="_blank" rel="noopener">Ver PDF ↗</a>
+        </div>
+        <div class="cert-card">
+          <div class="norm">ISO 45001</div><div class="title">Seguridad y Salud en el Trabajo</div><div class="scope">:2018</div>
+          <div class="meta">Registro PEM260714.OHMS<br>Vigente hasta 05/may/2029</div>
+          <a class="dl" href="assets/docs/certificado-iso-45001.pdf" target="_blank" rel="noopener">Ver PDF ↗</a>
+        </div>
+        <div class="cert-card pending">
+          <div class="norm">ISO 37001</div><div class="title">Sistema de Gestión Antisoborno</div><div class="scope">:2025</div>
+          <div class="meta">Certificado pendiente de cargar</div>
+        </div>
       </div>
-      <div class="callout"><b>Reemplaza/confirma:</b> organismo certificador, número de certificado, fecha de emisión/vigencia de cada norma, y agrega aquí el PDF descargable si lo publicas.</div>
+      <div class="callout"><b>Dato técnico:</b> los 3 certificados cargados fueron emitidos el 14/jul/2026 (primera emisión 05/may/2018), con alcance: "Sistemas e Instalación de equipos para Medición, Compresión y Desarenamiento de Hidrocarburos, fluidos de Terminación y Químicos." Falta el PDF de ISO 37001 — en cuanto lo tengas, lo agrego igual que los otros tres.</div>
     </section>
 
     <section>
       <div class="sec-label">02</div>
       <div class="sec-title">Por qué le importan a nuestros clientes</div>
-      <div class="sec-text">Clientes como PEMEX, PERENCO México y Kodiak Gas Services exigen evidencia objetiva de que un proveedor gestiona el riesgo de forma sistemática. Una certificación ISO vigente es esa evidencia — y se sostiene con auditorías periódicas que revisan justamente lo que tú haces día a día.</div>
+      <div class="sec-text">Clientes como PEMEX, CFE y operadoras privadas (PERENCO, DIAVAZ, GEOLIS, IHSA, entre otras) exigen evidencia objetiva de que un proveedor gestiona el riesgo de forma sistemática. Una certificación ISO vigente es esa evidencia — y se sostiene con auditorías periódicas que revisan justamente lo que tú haces día a día.</div>
     </section>
 
     <section>
