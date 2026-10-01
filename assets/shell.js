@@ -17,6 +17,12 @@
   ];
   var MODULES_PER_SCHOOL = 12;
 
+  var INDUC_TITLES = {
+    1:'Qué es PEM', 2:'Historia', 3:'Organigrama y quién es quién', 4:'Mapa de procesos',
+    5:'Panorama de Calidad, Ambiental, Seguridad y Ética', 6:'Certificaciones de PEM',
+    7:'La operación en campo', 8:'Primeros pasos prácticos'
+  };
+
   // Caché en memoria, poblada una vez por carga de página desde Supabase (ver PEM_SHELL.ready).
   var _certCache = {};
   function readCert(schoolFolder, n){
@@ -138,6 +144,8 @@
     var m;
     if(base === '' || base === 'index.html') return 'Inicio';
     if(base === 'bienvenida-orientacion.html') return 'Bienvenida y orientación';
+    if(base === 'induccion.html') return 'Inducción a PEM';
+    if((m = base.match(/^induccion-0(\d)-/))) return 'Inducción · ' + INDUC_TITLES[Number(m[1])];
     if(base === 'rutas-aprendizaje-pem-excellence-academy.html') return 'Rutas de aprendizaje';
     if(base === 'mapa-academico-pem-excellence-academy.html') return 'Escuelas';
     if(base.indexOf('mapa-escuela-') === 0) return 'Mapa de escuela';
@@ -165,6 +173,7 @@
     {label:'Inicio', href:prefix+'index.html', match:/(^|\/)index\.html$|\/$/, icon:'home'},
     {label:'Mi perfil', href:prefix+'mi-perfil.html', match:/mi-perfil/, icon:'user'},
     {label:'Escuelas', href:prefix+'mapa-academico-pem-excellence-academy.html', match:/mapa-academico/, icon:'grid'},
+    {label:'Inducción', href:prefix+'induccion.html', match:/(^|\/)induccion(-|\.html)/, icon:'induc'},
     {label:'Rutas de aprendizaje', href:prefix+'rutas-aprendizaje-pem-excellence-academy.html', match:/rutas-aprendizaje/, icon:'route'},
     {label:'Mi desarrollo', href:prefix+'mi-desarrollo.html', match:/mi-desarrollo/, icon:'growth'},
     {label:'Mis cursos', href:prefix+'mis-cursos.html', match:/mis-cursos/, icon:'book'},
@@ -192,6 +201,7 @@
     users:'<circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke-linecap="round"/><circle cx="17" cy="9" r="2.3"/><path d="M15.5 13.2c2.3.3 4 2 4 4.3" stroke-linecap="round"/>',
     user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M4.5 19.5c0-3.6 3.4-6.5 7.5-6.5s7.5 2.9 7.5 6.5" stroke-linecap="round"/>',
     back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>',
+    induc:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke-linecap="round"/><circle cx="12" cy="12" r="6"/><path d="m12 9 1.8 3.8L18 14l-4.2 1.2L12 19l-1.8-3.8L6 14l4.2-1.2Z"/>',
     logout:'<path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-linecap="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inducción a PEM · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css?v=3">
+<link rel="stylesheet" href="assets/pem-induc-cta.css">
+<style>
+
+  :root{
+    --bg:#F3F1EC; --surface:#FFFFFF; --surface-2:#ECE8E0; --line:#E4DFD4;
+    --green:#0B7A4B; --blue:#1B5FA8; --amber:#A9720F; --red:#932A2A;
+    --text:#1C1A16; --muted:#6B655A;
+  }
+  html[data-theme="dark"]{
+    --bg:#070B0A; --surface:#0D1311; --surface-2:#141B18; --line:#24302B;
+    --green:#22E88A; --blue:#4C9AFF; --amber:#FF7A1A; --red:#E8603D;
+    --text:#FFFFFF; --muted:#AAB5AF;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding:0 0 80px;}
+  .hero{
+    padding:52px 20px 36px;text-align:center;border-bottom:1px solid var(--line);
+    background:radial-gradient(900px 400px at 50% -20%, rgba(22,194,112,0.10), transparent 60%);
+  }
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--green);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4.2vw,36px);margin:0 0 14px;line-height:1.18;}
+  .hero p{color:var(--muted);max-width:640px;margin:0 auto;font-size:14.5px;line-height:1.65;}
+
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px;}
+  section{margin-top:48px;}
+  .sec-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin-bottom:10px;}
+  .sec-title{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:0 0 16px;}
+  .sec-text{color:var(--muted);font-size:14.5px;line-height:1.7;max-width:720px;}
+  .sec-text b{color:var(--text);}
+  .sec-text + .sec-text{margin-top:10px;}
+
+  .callout{
+    margin-top:18px;border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;
+    background:var(--surface);padding:14px 18px;font-size:13px;color:var(--muted);line-height:1.6;max-width:720px;
+  }
+  .callout b{color:var(--text);}
+
+  /* Tiles del hub de Inducción */
+  .induc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .induc-tile{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:18px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:8px;transition:border-color .15s, transform .15s;}
+  .induc-tile:hover{border-color:var(--green);transform:translateY(-2px);}
+  .induc-tile .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);letter-spacing:.08em;}
+  .induc-tile .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;line-height:1.3;}
+  .induc-tile .d{font-size:12px;color:var(--muted);line-height:1.55;flex:1;}
+  .induc-tile .fmt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:2px;}
+  @media(max-width:1150px){.induc-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.induc-grid{grid-template-columns:1fr;}}
+
+  /* Timeline (Historia) */
+  .timeline{border-left:2px solid var(--line);margin-top:6px;padding-left:22px;display:flex;flex-direction:column;gap:22px;max-width:720px;}
+  .tl-item{position:relative;}
+  .tl-item::before{content:"";position:absolute;left:-28px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--bg);}
+  .tl-item .y{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);}
+  .tl-item .h{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;margin:2px 0 4px;}
+  .tl-item .p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+  /* Organigrama */
+  .org-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px;}
+  .org-card{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 16px;}
+  .org-card .role{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;}
+  .org-card .who{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);margin:2px 0 6px;}
+  .org-card .desc{font-size:12px;color:var(--muted);line-height:1.55;}
+  @media(max-width:640px){.org-grid{grid-template-columns:1fr;}}
+
+  /* Escuelas (panorama SGI) */
+  .schools{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+  .school{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px;}
+  .school .dot{width:12px;height:12px;border-radius:50%;margin-bottom:10px;}
+  .school .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;}
+  .school .norm{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin:2px 0 8px;}
+  .school .risk{font-size:11.5px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+  .school a{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--green);text-decoration:none;}
+  .school a:hover{text-decoration:underline;}
+  @media(max-width:1150px){.schools{grid-template-columns:1fr 1fr;}}
+  @media(max-width:640px){.schools{grid-template-columns:1fr;}}
+
+  /* Pasos numerados (Cómo funciona / Primeros pasos) */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px;}
+  .step{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px;}
+  .step .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);margin-bottom:6px;}
+  .step .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;margin-bottom:4px;}
+  .step .d{font-size:11.5px;color:var(--muted);line-height:1.5;}
+  @media(max-width:1150px){.steps{grid-template-columns:1fr 1fr;}}
+  @media(max-width:640px){.steps{grid-template-columns:1fr;}}
+
+  /* Checklist (Primeros pasos) */
+  .checklist{display:flex;flex-direction:column;gap:10px;margin-top:6px;max-width:720px;}
+  .chk{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:12px 14px;}
+  .chk .box{width:18px;height:18px;border-radius:5px;border:2px solid var(--green);flex-shrink:0;margin-top:1px;}
+  .chk .tx b{font-family:'Space Grotesk',sans-serif;font-size:13.5px;}
+  .chk .tx p{margin:3px 0 0;font-size:12px;color:var(--muted);line-height:1.5;}
+
+  /* Badges de certificación */
+  .cert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px;}
+  .cert-card{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px;text-align:center;}
+  .cert-card .norm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px;}
+  .cert-card .title{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:8px;}
+  .cert-card .scope{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);}
+  @media(max-width:1150px){.cert-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:640px){.cert-grid{grid-template-columns:1fr;}}
+
+  /* Proceso (mapa de procesos) */
+  .proc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+  .proc-col{border:1px solid var(--line);border-radius:12px;padding:16px;}
+  .proc-col.estr{border-top:3px solid var(--blue);}
+  .proc-col.oper{border-top:3px solid var(--green);}
+  .proc-col.apoyo{border-top:3px solid var(--amber);}
+  .proc-col .k{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+  .proc-col ul{margin:0;padding-left:18px;font-size:12.5px;color:var(--text);line-height:1.9;}
+  @media(max-width:900px){.proc-row{grid-template-columns:1fr;}}
+
+  .cta{
+    margin-top:56px;border:1px solid var(--green);border-radius:16px;background:rgba(22,194,112,.06);
+    padding:28px;text-align:center;
+  }
+  .cta h3{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;}
+  .cta p{color:var(--muted);font-size:13.5px;margin:0 0 16px;}
+  .cta a{display:inline-block;background:var(--green);color:#04140C;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;padding:12px 22px;border-radius:9px;text-decoration:none;}
+
+  .pager{display:flex;justify-content:space-between;gap:12px;margin-top:40px;flex-wrap:wrap;}
+  .pager a{flex:1;min-width:220px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 16px;text-decoration:none;color:var(--text);font-size:12.5px;}
+  .pager a .k{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+  .pager a .t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;}
+  .pager a.next{text-align:right;}
+
+  footer{max-width:900px;margin:56px auto 0;padding:20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);border-top:1px solid var(--line);}
+
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="eyebrow">BIENVENIDA A PEM · NUEVOS INGRESOS</div>
+    <h1>Inducción a PEM</h1>
+    <p>Antes de tus 4 escuelas ISO, este es tu punto de partida: 8 temas para conocer a PEM y una sesión de bienvenida en vivo donde se registra tu asistencia.</p>
+    <div id="induccionCTA"></div>
+  </div>
+
+  <div class="wrap">
+
+    <section style="margin-top:8px;">
+      <div class="sec-label">SOBRE ESTA SECCIÓN</div>
+      <div class="sec-text">Estos 8 temas son <b>contenido de consulta</b> — sin examen ni certificado. Puedes leerlos en el orden que quieras, a tu ritmo. Lo que sí se registra formalmente para auditoría es tu asistencia a la <b>sesión de bienvenida en vivo</b> (arriba) — ahí se toma firma y foto.</div>
+    </section>
+
+    <section>
+      <div class="sec-label">LOS 8 TEMAS</div>
+      <div class="sec-title">Elige por dónde empezar</div>
+      <div class="induc-grid">
+        <a class="induc-tile" href="induccion-01-que-es-pem.html"><div class="n">TEMA 1</div><div class="t">¿Qué es PEM?</div><div class="d">Quiénes somos, a quién servimos y por qué existe un Sistema de Gestión Integral.</div><div class="fmt">Formato: narrativa + fotos</div></a>
+        <a class="induc-tile" href="induccion-02-historia.html"><div class="n">TEMA 2</div><div class="t">Historia</div><div class="d">De dónde viene PEM y cómo llegó a ser lo que es hoy.</div><div class="fmt">Formato: línea de tiempo</div></a>
+        <a class="induc-tile" href="induccion-03-organigrama.html"><div class="n">TEMA 3</div><div class="t">Organigrama y quién es quién</div><div class="d">Liderazgo de PEM y a quién acudir según tu duda.</div><div class="fmt">Formato: tarjetas + organigrama descargable</div></a>
+        <a class="induc-tile" href="induccion-04-mapa-procesos.html"><div class="n">TEMA 4</div><div class="t">Mapa de procesos</div><div class="d">Cómo fluye el trabajo en PEM, de la estrategia a la operación.</div><div class="fmt">Formato: infografía + PDF descargable</div></a>
+        <a class="induc-tile" href="induccion-05-panorama-sgi.html"><div class="n">TEMA 5</div><div class="t">Panorama Calidad · Ambiental · Seguridad · Ética</div><div class="d">Las 4 escuelas ISO en una página, con enlace al recorrido completo.</div><div class="fmt">Formato: resumen + enlaces a escuelas</div></a>
+        <a class="induc-tile" href="induccion-06-certificaciones.html"><div class="n">TEMA 6</div><div class="t">Certificaciones de PEM</div><div class="d">Las normas que respaldan al SGI frente a clientes y auditores.</div><div class="fmt">Formato: infografía + PDF descargable</div></a>
+        <a class="induc-tile" href="induccion-07-operacion.html"><div class="n">TEMA 7</div><div class="t">La operación en campo</div><div class="d">Cómo se ve un servicio de PEM de principio a fin.</div><div class="fmt">Formato: video corto o galería de fotos</div></a>
+        <a class="induc-tile" href="induccion-08-primeros-pasos.html"><div class="n">TEMA 8</div><div class="t">Primeros pasos prácticos</div><div class="d">Tu checklist de primera semana en PEM.</div><div class="fmt">Formato: checklist interactivo</div></a>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-label">EVIDENCIA DE ASISTENCIA</div>
+      <div class="sec-title">¿Por qué el registro no está aquí?</div>
+      <div class="sec-text">La firma y foto de asistencia para auditorías se capturan en el sistema de <b>Evidencias Dinámicas</b> de PEM, durante la sesión de bienvenida en vivo — el botón de arriba te lleva directo a registrarte cuando haya una sesión abierta. Esta página de la Academia solo enlaza a ese registro; no lo duplica.</div>
+    </section>
+
+  <div class="pager">
+    <a class="prev" href="mapa-academico-pem-excellence-academy.html"><span class="k">← Escuelas</span><span class="t">Ver las 4 escuelas ISO</span></a>
+    <a class="next" href="induccion-01-que-es-pem.html"><span class="k">Siguiente →</span><span class="t">Empezar: ¿Qué es PEM?</span></a>
+  </div>
+  </div>
+
+  <footer>PEM-INDUC-HUB-01 · Contenido de consulta — sin examen ni certificado · La asistencia se registra en la sesión de bienvenida en vivo</footer>
+<script src="assets/shell.js?v=3" defer></script>
+<script src="assets/pem-induc-cta.js" defer></script>
+</body>
+</html>

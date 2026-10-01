@@ -49,18 +49,18 @@ window.PEM_SCHOOLS = {
     name:"Escuela de Seguridad", norm:"ISO 45001:2018", version:"2018", color:"#FF7A1A", active:true, progress:"12/12",
     prefix:"escuela-seguridad/", examSuffix:"-iso45001",
     modules:[
-      ["Fundamentos y contexto de SST","Cl. 4"],
-      ["Liderazgo y participación de los trabajadores","Cl. 5.1, 5.4"],
-      ["Consulta y participación de los trabajadores","Cl. 5.4"],
-      ["Identificación de peligros y evaluación de riesgos","Cl. 6.1.2"],
-      ["Requisitos legales en SST","Cl. 6.1.3"],
-      ["Objetivos y planificación de SST","Cl. 6.2"],
-      ["Recursos, competencia y toma de conciencia en SST","Cl. 7.1–7.3"],
-      ["Comunicación y consulta","Cl. 7.4"],
+      ["Fundamentos y contexto de SST","Cl. 4", true],
+      ["Liderazgo y participación de los trabajadores","Cl. 5.1, 5.4", true],
+      ["Consulta y participación de los trabajadores","Cl. 5.4", true],
+      ["Identificación de peligros y evaluación de riesgos","Cl. 6.1.2", true],
+      ["Requisitos legales en SST","Cl. 6.1.3", true],
+      ["Objetivos y planificación de SST","Cl. 6.2", true],
+      ["Recursos, competencia y toma de conciencia en SST","Cl. 7.1–7.3", true],
+      ["Comunicación y consulta","Cl. 7.4", true],
       ["Eliminación de peligros y jerarquía de controles","Cl. 8.1.2"],
       ["Gestión del cambio y contratación externa","Cl. 8.1.3–8.1.4"],
       ["Preparación y respuesta ante emergencias","Cl. 8.2"],
-      ["Investigación de incidentes, auditoría y mejora","Cl. 9–10"]
+      ["Investigación de incidentes, auditoría y mejora","Cl. 9–10", true]
     ]
   },
   "37001": {

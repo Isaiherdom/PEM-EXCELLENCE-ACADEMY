@@ -1,0 +1,22 @@
+/* PEM Excellence Academy — Banner de sesión de bienvenida en vivo (Inducción)
+   Usado en induccion.html y en las 8 páginas induccion-0N-*.html.
+   Lee la sesión activa desde el proyecto Supabase de "Evidencias Dinámicas"
+   vía assets/pem-induc-cta.js — nunca hardcodea el enlace de registro. */
+#induccionCTA{
+  margin:22px 0 0;border:1px solid var(--green);border-radius:14px;
+  background:linear-gradient(135deg, rgba(22,194,112,.10), rgba(22,194,112,.03));
+  padding:2px;
+}
+#induccionCTA .induc-cta-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:16px 20px;
+}
+#induccionCTA .induc-cta-txt{display:flex;flex-direction:column;gap:3px;}
+#induccionCTA .induc-cta-txt b{font-family:'Space Grotesk',sans-serif;font-size:15px;}
+#induccionCTA .induc-cta-txt span{font-size:12.5px;color:var(--muted);line-height:1.5;}
+#induccionCTA .induc-cta-btn{
+  font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.02em;
+  background:var(--green);color:#04140C;border:none;border-radius:9px;padding:11px 18px;
+  text-decoration:none;white-space:nowrap;flex-shrink:0;
+}
+#induccionCTA .induc-cta-btn:hover{filter:brightness(1.08);}
