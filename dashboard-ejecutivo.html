@@ -92,6 +92,8 @@
   .filters{display:flex;gap:8px;flex-wrap:wrap;}
   .filters select{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:9px 12px;color:var(--ink);font-size:12.5px;font-family:'Inter',sans-serif;}
 
+  .headcountWarn{display:flex;align-items:center;gap:8px;background:var(--goldSoft);color:var(--gold);border-radius:10px;padding:12px 16px;font-size:12.5px;margin-bottom:18px;}
+  .headcountWarn a{color:inherit;font-weight:700;}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);transition:.2s;}
   .card:hover{border-color:var(--green);transform:scale(1.035);box-shadow:0 14px 32px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.18),0 0 24px rgba(34,232,138,.14);}
   .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
@@ -237,6 +239,10 @@
   <div id="loadingState" class="card state">Cargando datos en vivo…</div>
   <div id="errorState" class="card state err" style="display:none;"></div>
 
+  <div id="headcountWarn" class="headcountWarn" style="display:none;">
+    ⚠️ <span>Plantilla sin configurar.</span>&nbsp;Configúrala en <a href="admin-plantilla.html">Administrar plantilla</a> para que este porcentaje se calcule.
+  </div>
+
   <div id="content" style="display:none;">
 
     <section class="grid4" id="kpiGrid"></section>
@@ -304,9 +310,22 @@
 // de las políticas RLS ya se encargan de que, si alguien más sin ese permiso llegara a
 // intentar esta consulta, Supabase solo le devuelva su propia información — nunca la ajena.
 
-// Dato real de la empresa, mantenido a mano — actualízalo si cambia la plantilla de PEM.
-const TOTAL_HEADCOUNT = 67;
 const HOURS_PER_MODULE = 0.5; // mismo criterio ya usado en Rutas de Aprendizaje y el generador de DC-3
+
+// Plantilla por sitio — ya no es una constante fija: se lee en vivo de la tabla
+// `headcount` en Supabase, editable desde "Administrar plantilla" (sin tocar código).
+// HEADCOUNT_BY_SITE usa la clave en MAYÚSCULAS (igual que el resto del archivo compara
+// `base.toUpperCase()`), y HEADCOUNT_TOTAL es la suma de todos los sitios configurados.
+let HEADCOUNT_BY_SITE = {};
+let HEADCOUNT_TOTAL = 0;
+
+// Plantilla efectiva según el filtro de sitio activo: "all" suma todos los sitios
+// configurados; un sitio específico usa solo el número de ese sitio (0 si aún no
+// se ha configurado — ver banner de aviso en render()).
+function effectiveHeadcount(sitioValue){
+  if(sitioValue === 'all') return HEADCOUNT_TOTAL;
+  return HEADCOUNT_BY_SITE[sitioValue] || 0;
+}
 
 const SCHOOL_KEY_MAP = {
   "CALIDAD": "9001", "AMBIENTAL": "14001", "SEGURIDAD": "45001", "ÉTICA": "37001", "ETICA": "37001"
@@ -351,12 +370,21 @@ async function fetchFromSupabase(){
   if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
   if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
 
-  const [certsRes, profilesRes] = await Promise.all([
+  const [certsRes, profilesRes, headcountRes] = await Promise.all([
     window.PEM_SB.from('certificados').select('*'),
-    window.PEM_SB.from('profiles').select('*')
+    window.PEM_SB.from('profiles').select('*'),
+    window.PEM_SB.from('headcount').select('*')
   ]);
   if(certsRes.error) throw new Error('No se pudieron leer los certificados (' + certsRes.error.message + ')');
   if(profilesRes.error) throw new Error('No se pudieron leer los perfiles (' + profilesRes.error.message + ')');
+  if(headcountRes.error) throw new Error('No se pudo leer la plantilla por sitio (' + headcountRes.error.message + ')');
+
+  HEADCOUNT_BY_SITE = {};
+  HEADCOUNT_TOTAL = 0;
+  (headcountRes.data||[]).forEach(h => {
+    HEADCOUNT_BY_SITE[(h.site||'').toUpperCase()] = h.total || 0;
+    HEADCOUNT_TOTAL += h.total || 0;
+  });
 
   const profileById = {};
   (profilesRes.data||[]).forEach(p => { profileById[p.id] = p; });
@@ -430,6 +458,12 @@ function computeMonthlySeries(data){
 function render(){
   const data = applyFilters(RAW_DATA);
 
+  // Plantilla efectiva del filtro de sitio actual — "all" suma todos los sitios
+  // configurados en "Administrar plantilla"; un sitio concreto usa solo el suyo.
+  const sitio = document.getElementById('fSitio').value;
+  const TOTAL_HEADCOUNT = effectiveHeadcount(sitio);
+  const headcountSinConfigurar = TOTAL_HEADCOUNT === 0;
+
   const total = data.length;
   const colaboradoresSet = new Set(data.map(d => d.nombre.toUpperCase().replace(/\s+/g,' ').trim()));
   const colaboradores = colaboradoresSet.size;
@@ -438,7 +472,7 @@ function render(){
   const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : null;
   const totalHoras = Math.round(total * HOURS_PER_MODULE * 10) / 10;
 
-  const cobertura = Math.min(100, Math.round(100 * colaboradores / TOTAL_HEADCOUNT));
+  const cobertura = headcountSinConfigurar ? 0 : Math.min(100, Math.round(100 * colaboradores / TOTAL_HEADCOUNT));
 
   // ---- Delta real: mes actual vs mes anterior (horas) ----
   const now = new Date();
@@ -457,18 +491,31 @@ function render(){
     const color = PEM_SCHOOLS[key].color;
     const count = data.filter(d => (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === key).length;
     const potential = TOTAL_HEADCOUNT * modulesPerSchool;
-    const pct = Math.min(100, Math.round(100 * count / potential));
+    const pct = potential > 0 ? Math.min(100, Math.round(100 * count / potential)) : 0;
     return {key, label, color, count, pct};
   });
   const minSchool = schoolCoverage.slice().sort((a,b)=>a.pct-b.pct)[0];
 
+  // ==================== Aviso de plantilla sin configurar ====================
+  const headcountWarnEl = document.getElementById('headcountWarn');
+  if(headcountWarnEl){
+    if(headcountSinConfigurar){
+      headcountWarnEl.style.display = 'flex';
+      headcountWarnEl.querySelector('span').textContent = sitio === 'all'
+        ? 'Todavía no has cargado la plantilla de ningún sitio, así que la cobertura no se puede calcular.'
+        : `Todavía no has cargado cuántos colaboradores tiene "${sitio}", así que su cobertura no se puede calcular.`;
+    } else {
+      headcountWarnEl.style.display = 'none';
+    }
+  }
+
   // ==================== KPIs ====================
   document.getElementById('kpiGrid').innerHTML = `
     <div class="card kpi" data-kpi="cobertura">
-      <div class="label">Cobertura de capacitación</div>
-      <div class="value">${cobertura}%</div>
-      <div class="foot">${colaboradores} de ${TOTAL_HEADCOUNT} colaboradores con al menos 1 certificado</div>
-      <div class="delta">${colaboradores}/${TOTAL_HEADCOUNT}</div>
+      <div class="label">Cobertura de capacitación${sitio!=='all' ? ' · '+sitio : ''}</div>
+      <div class="value">${headcountSinConfigurar ? '—' : cobertura+'%'}</div>
+      <div class="foot">${headcountSinConfigurar ? 'Plantilla sin configurar para este sitio' : colaboradores + ' de ' + TOTAL_HEADCOUNT + ' colaboradores con al menos 1 certificado'}</div>
+      <div class="delta">${headcountSinConfigurar ? '⚠️' : colaboradores+'/'+TOTAL_HEADCOUNT}</div>
       <div class="spark"><span style="width:${cobertura}%"></span></div>
     </div>
     <div class="card kpi" data-kpi="certs">
@@ -599,7 +646,7 @@ function render(){
   if(sinCert > 0){
     insights.push({ icon:'○', cls:'warn',
       title: `${sinCert} colaboradores sin ningún certificado registrado.`,
-      body: `Sobre una plantilla estimada de ${TOTAL_HEADCOUNT}.` });
+      body: `Sobre una plantilla de ${TOTAL_HEADCOUNT}${sitio!=='all' ? ' en '+sitio : ''}.` });
   }
   document.getElementById('insightsBox').innerHTML = insights.map(i => `
     <div class="insight ${i.cls}"><div class="icon">${i.icon}</div><div><strong>${i.title}</strong><p>${i.body}</p></div></div>
@@ -654,19 +701,22 @@ function exportCSV(){
 
 function exportXLSX(){
   const data = applyFilters(RAW_DATA);
+  const sitio = document.getElementById('fSitio').value;
+  const TOTAL_HEADCOUNT = effectiveHeadcount(sitio);
   const colaboradoresSet = new Set(data.map(d => d.nombre.toUpperCase().replace(/\s+/g,' ').trim()));
   const validScores = data.map(d => parseFloat(d.calif)).filter(n => !isNaN(n));
   const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : null;
-  const cobertura = Math.min(100, Math.round(100 * colaboradoresSet.size / TOTAL_HEADCOUNT));
+  const cobertura = TOTAL_HEADCOUNT > 0 ? Math.min(100, Math.round(100 * colaboradoresSet.size / TOTAL_HEADCOUNT)) : 0;
 
   // Hoja 1 — Resumen ejecutivo
   const resumen = [
     ['PEM Excellence Academy — Reporte ejecutivo'],
     ['Generado', new Date().toLocaleString('es-MX')],
+    ['Sitio', sitio === 'all' ? 'Todos los sitios' : sitio],
     [],
     ['Indicador', 'Valor'],
-    ['Cobertura de capacitación', cobertura + '%'],
-    ['Colaboradores con al menos 1 certificado', colaboradoresSet.size + ' / ' + TOTAL_HEADCOUNT],
+    ['Cobertura de capacitación', TOTAL_HEADCOUNT > 0 ? cobertura + '%' : 'Plantilla sin configurar'],
+    ['Colaboradores con al menos 1 certificado', colaboradoresSet.size + ' / ' + (TOTAL_HEADCOUNT || '?')],
     ['Certificaciones activas', data.length],
     ['Promedio de evaluación', avg!==null ? avg + '%' : 'Sin datos'],
     ['Horas de aprendizaje acumuladas', Math.round(data.length * HOURS_PER_MODULE * 10)/10 + ' h'],
@@ -676,7 +726,8 @@ function exportXLSX(){
   PEM_SCHOOL_ORDER.forEach(key => {
     const modulesPerSchool = PEM_SCHOOLS[key].modules.length;
     const count = data.filter(d => (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === key).length;
-    const pct = Math.min(100, Math.round(100 * count / (TOTAL_HEADCOUNT * modulesPerSchool)));
+    const potential = TOTAL_HEADCOUNT * modulesPerSchool;
+    const pct = potential > 0 ? Math.min(100, Math.round(100 * count / potential)) : 0;
     resumen.push([PEM_SCHOOLS[key].name, pct + '%']);
   });
 
@@ -718,6 +769,8 @@ function openDrilldown(kind, data){
   const titleEl = document.getElementById('modalTitle');
   const subEl = document.getElementById('modalSubtitle');
   const bodyEl = document.getElementById('modalBody');
+  const sitio = document.getElementById('fSitio').value;
+  const TOTAL_HEADCOUNT = effectiveHeadcount(sitio);
   let html = '';
 
   if(kind === 'cobertura'){

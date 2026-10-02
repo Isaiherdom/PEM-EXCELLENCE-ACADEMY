@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrar plantilla · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css?v=3">
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14);
+    --cyan:#3FE0E8;
+    --gold:#FFB84D; --goldSoft:rgba(255,184,77,.14);
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
+
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .kicker::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);}
+  html[data-theme="dark"] .kicker{color:var(--cyan);}
+  html[data-theme="dark"] .kicker::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,32px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:620px;line-height:1.5;margin-bottom:22px;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);transition:.2s;}
+  .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .state.err{color:var(--red);}
+
+  .hint{display:flex;gap:10px;background:var(--goldSoft);color:var(--gold);border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.55;margin-bottom:16px;}
+  .hint b{color:inherit;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:12px 14px;border-bottom:1px solid var(--line);}
+  tbody td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tbody tr:hover{background:var(--mint);}
+  tfoot td{padding:12px 14px;font-weight:800;}
+  .site-name{font-weight:700;font-size:13.5px;}
+  .total-input{width:100px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:13px;text-align:right;}
+  .updated-cell{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+  .del-btn{background:none;border:1px solid var(--line);border-radius:7px;width:30px;height:30px;color:var(--red);cursor:pointer;font-size:14px;}
+  .del-btn:hover{background:var(--redSoft);border-color:var(--red);}
+  .save-note{font-size:10.5px;color:var(--green);margin-left:8px;opacity:0;transition:.3s;white-space:nowrap;}
+  .save-note.show{opacity:1;}
+  .save-note.err{color:var(--red);}
+
+  .addRow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center;}
+  .addRow input[type="text"]{flex:1;min-width:180px;padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
+  .addRow input[type="number"]{width:110px;padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:13px;}
+  .addRow button{background:var(--green);color:#fff;border:none;border-radius:9px;padding:10px 18px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
+  .addRow button:hover{opacity:.9;}
+  .addNote{font-size:11px;color:var(--muted);margin-top:8px;}
+</style>
+</head>
+<body data-pem-no-shell-header>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js"></script>
+
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
+</div>
+
+<div class="wrap">
+  <div class="kicker">Gobernanza de la plataforma</div>
+  <h1>Administrar plantilla</h1>
+  <div class="subtitle">El número de colaboradores por sitio que usa el Dashboard Ejecutivo para calcular el % de cobertura de capacitación — actualízalo tú mismo cuando cambie el headcount, sin escribir SQL ni pedírmelo a mí.</div>
+
+  <div id="loadingState" class="card state">Cargando plantilla…</div>
+  <div id="errorState" class="card state err" style="display:none;"></div>
+
+  <div id="content" style="display:none;">
+    <div class="hint">⚠️ <div>El nombre de cada sitio debe escribirse <b>exactamente igual</b> a como aparece en el campo "Sitio" de cada colaborador en <a href="admin-usuarios.html" style="color:inherit;">Administrar usuarios</a> (mayúsculas/minúsculas no importan, pero sí los acentos y espacios) — si no coincide, el Dashboard Ejecutivo no podrá emparejar ese sitio con su plantilla.</div></div>
+
+    <div class="card" style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr><th>Sitio</th><th>Colaboradores en plantilla</th><th>Actualizado</th><th></th></tr>
+        </thead>
+        <tbody id="rowsBody"></tbody>
+        <tfoot>
+          <tr><td>Total</td><td id="totalCell">—</td><td></td><td></td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="addRow">
+      <input type="text" id="newSite" placeholder="Nombre del sitio (ej. Monterrey)">
+      <input type="number" id="newTotal" placeholder="Colaboradores" min="0" step="1">
+      <button id="addBtn">+ Agregar sitio</button>
+    </div>
+    <div class="addNote">Agrega aquí cualquier sitio nuevo que aún no tenga colaboradores registrados en la plataforma — así el Dashboard Ejecutivo ya sabrá su tamaño de plantilla en cuanto empiecen a certificarse.</div>
+  </div>
+</div>
+
+<script>
+let ROWS = [];
+
+function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtDate(iso){
+  if(!iso) return '—';
+  return new Date(iso).toLocaleDateString('es-MX', {year:'numeric', month:'short', day:'numeric'});
+}
+
+function renderRows(){
+  document.getElementById('rowsBody').innerHTML = ROWS.map(r => `
+    <tr data-site="${escapeHtml(r.site)}">
+      <td class="site-name">${escapeHtml(r.site)}</td>
+      <td>
+        <input type="number" class="total-input" min="0" step="1" value="${r.total}" data-field="total">
+        <span class="save-note"></span>
+      </td>
+      <td class="updated-cell">${fmtDate(r.updated_at)}</td>
+      <td><button class="del-btn" title="Eliminar este sitio" data-action="delete">✕</button></td>
+    </tr>
+  `).join('');
+
+  const total = ROWS.reduce((a,r) => a + (r.total||0), 0);
+  document.getElementById('totalCell').textContent = total.toLocaleString('es-MX');
+
+  document.querySelectorAll('#rowsBody input[data-field="total"]').forEach(el => {
+    el.addEventListener('change', () => saveTotal(el));
+  });
+  document.querySelectorAll('#rowsBody button[data-action="delete"]').forEach(el => {
+    el.addEventListener('click', () => deleteSite(el));
+  });
+}
+
+async function saveTotal(el){
+  const tr = el.closest('tr');
+  const site = tr.dataset.site;
+  const value = Math.max(0, parseInt(el.value, 10) || 0);
+  const note = tr.querySelector('.save-note');
+
+  const { data: { session } } = await window.PEM_SB.auth.getSession();
+  const { error } = await window.PEM_SB.from('headcount')
+    .update({ total: value, updated_at: new Date().toISOString(), updated_by: session.user.id })
+    .eq('site', site);
+
+  if(error){
+    note.textContent = '✕ ' + error.message;
+    note.className = 'save-note err show';
+  } else {
+    const r = ROWS.find(r => r.site === site);
+    if(r){ r.total = value; r.updated_at = new Date().toISOString(); }
+    note.textContent = '✓ Guardado';
+    note.className = 'save-note show';
+    setTimeout(() => note.classList.remove('show'), 2000);
+    const total = ROWS.reduce((a,r) => a + (r.total||0), 0);
+    document.getElementById('totalCell').textContent = total.toLocaleString('es-MX');
+  }
+}
+
+async function deleteSite(el){
+  const tr = el.closest('tr');
+  const site = tr.dataset.site;
+  if(!confirm(`¿Quitar "${site}" de la plantilla? Esto no afecta a los colaboradores ya registrados con ese sitio — solo deja de contarse en el Dashboard Ejecutivo.`)) return;
+
+  const { error } = await window.PEM_SB.from('headcount').delete().eq('site', site);
+  if(error){ alert('No se pudo eliminar: ' + error.message); return; }
+  ROWS = ROWS.filter(r => r.site !== site);
+  renderRows();
+}
+
+async function addSite(){
+  const siteInput = document.getElementById('newSite');
+  const totalInput = document.getElementById('newTotal');
+  const site = siteInput.value.trim();
+  const total = Math.max(0, parseInt(totalInput.value, 10) || 0);
+  if(!site){ siteInput.focus(); return; }
+  if(ROWS.some(r => r.site.toLowerCase() === site.toLowerCase())){
+    alert('Ese sitio ya está en la lista — edita su número directamente en la tabla.');
+    return;
+  }
+
+  const { data: { session } } = await window.PEM_SB.auth.getSession();
+  const { data, error } = await window.PEM_SB.from('headcount')
+    .insert({ site, total, updated_by: session.user.id })
+    .select().single();
+
+  if(error){ alert('No se pudo agregar: ' + error.message); return; }
+  ROWS.push(data);
+  ROWS.sort((a,b) => a.site.localeCompare(b.site, 'es'));
+  siteInput.value = ''; totalInput.value = '';
+  renderRows();
+}
+
+async function load(){
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('content').style.display = 'none';
+  try{
+    if(!window.PEM_SB) throw new Error('Supabase aún no ha cargado, reintenta en un momento.');
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session) throw new Error('Sin sesión activa.');
+
+    const { data: myProfile, error: profErr } = await window.PEM_SB
+      .from('profiles').select('is_admin').eq('id', session.user.id).maybeSingle();
+    if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
+    if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
+
+    const { data, error } = await window.PEM_SB.from('headcount').select('*').order('site');
+    if(error) throw new Error('No se pudo leer la plantilla (' + error.message + ')');
+
+    ROWS = data || [];
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    renderRows();
+  } catch(err){
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    if(err.message === 'ACCESO_RESTRINGIDO'){
+      document.getElementById('errorState').textContent =
+        '🔒 Este panel es solo para administradores. Tu cuenta todavía no tiene ese permiso activado en Supabase (profiles.is_admin).';
+    } else {
+      document.getElementById('errorState').textContent =
+        'No se pudo cargar (' + err.message + '). Vuelve a intentar en unos segundos.';
+    }
+  }
+}
+
+document.getElementById('addBtn').addEventListener('click', addSite);
+load();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
+})();
+</script>
+<script src="assets/shell.js?v=3" defer></script>
+</body>
+</html>
