@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrar requisitos por puesto · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css?v=3">
+<script src="assets/modules.js"></script>
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14);
+    --cyan:#3FE0E8;
+    --gold:#FFB84D; --goldSoft:rgba(255,184,77,.14);
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
+
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:1060px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .kicker::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);}
+  html[data-theme="dark"] .kicker{color:var(--cyan);}
+  html[data-theme="dark"] .kicker::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,32px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:680px;line-height:1.5;margin-bottom:22px;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);transition:.2s;}
+  .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .state.err{color:var(--red);}
+
+  .hint{display:flex;gap:10px;background:var(--goldSoft);color:var(--gold);border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.55;margin-bottom:16px;}
+  .hint b{color:inherit;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 10px;border-bottom:1px solid var(--line);}
+  thead th.escCol{text-align:center;}
+  tbody td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tbody tr:hover{background:var(--mint);}
+  tbody tr:last-child td{border-bottom:none;}
+  .puesto-cell{font-weight:700;font-size:12.5px;}
+  td.escCell{text-align:center;}
+  .reqbox{width:18px;height:18px;cursor:pointer;accent-color:var(--green);}
+  .save-note{display:block;font-size:9.5px;color:var(--green);margin-top:2px;opacity:0;transition:.3s;white-space:nowrap;}
+  .save-note.show{opacity:1;}
+  .save-note.err{color:var(--red);}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--muted);}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend b{color:var(--ink);}
+</style>
+</head>
+<body data-pem-no-shell-header>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js"></script>
+
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
+</div>
+
+<div class="wrap">
+  <div class="kicker">Gobernanza de la plataforma</div>
+  <h1>Administrar requisitos por puesto</h1>
+  <div class="subtitle">Define qué escuelas (normas) debe cursar cada puesto. El Dashboard Ejecutivo usa esto para calcular el % de avance real de cada colaborador y de cada sitio — contra lo que les corresponde, no contra las 4 escuelas completas para todos.</div>
+
+  <div id="loadingState" class="card state">Cargando requisitos…</div>
+  <div id="errorState" class="card state err" style="display:none;"></div>
+
+  <div id="content" style="display:none;">
+    <div class="hint">⚠️ <div>Por default, <b>todos los puestos requieren las 4 escuelas</b> (así se comportaba el Dashboard antes de este panel, para no cambiarte ningún número sin que tú lo decidas). Destilda las escuelas que <b>no</b> le correspondan a cada puesto — por ejemplo, si "Cuentas por Pagar" no necesita Escuela de Seguridad, destíldala en esa fila.</div></div>
+
+    <div class="card" style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Puesto</th>
+            <th class="escCol" id="th9001">Calidad</th>
+            <th class="escCol" id="th14001">Ambiental</th>
+            <th class="escCol" id="th45001">Seguridad</th>
+            <th class="escCol" id="th37001">Ética</th>
+          </tr>
+        </thead>
+        <tbody id="rowsBody"></tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span>☑ <b>Marcada</b> = este puesto debe cursar esa escuela</span>
+      <span>☐ <b>Vacía</b> = no le aplica, no cuenta en su % de avance</span>
+    </div>
+  </div>
+</div>
+
+<script>
+let PUESTOS = [];
+let EXCEPCIONES = new Set(); // "puesto||escuela" = NO requerida
+let MY_ID = null;
+const ESCUELAS = window.PEM_SCHOOL_ORDER || ['9001','14001','45001','37001'];
+
+function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function key(puesto, escuela){ return puesto + '||' + escuela; }
+
+function renderRows(){
+  document.getElementById('rowsBody').innerHTML = PUESTOS.map(p => `
+    <tr data-puesto="${escapeHtml(p)}">
+      <td class="puesto-cell">${escapeHtml(p)}</td>
+      ${ESCUELAS.map(e => `
+        <td class="escCell" data-escuela="${e}">
+          <input type="checkbox" class="reqbox" ${EXCEPCIONES.has(key(p,e)) ? '' : 'checked'} data-puesto="${escapeHtml(p)}" data-escuela="${e}">
+          <span class="save-note"></span>
+        </td>
+      `).join('')}
+    </tr>
+  `).join('');
+
+  document.querySelectorAll('.reqbox').forEach(el => {
+    el.addEventListener('change', () => toggleRequisito(el));
+  });
+}
+
+async function toggleRequisito(el){
+  const puesto = el.dataset.puesto;
+  const escuela = el.dataset.escuela;
+  const note = el.nextElementSibling;
+  const k = key(puesto, escuela);
+
+  if(el.checked){
+    // Vuelve a ser requerida → se borra la excepción
+    const { error } = await window.PEM_SB.from('puesto_excepciones').delete().eq('puesto', puesto).eq('escuela', escuela);
+    if(error){ note.textContent='✕ '+error.message; note.className='save-note err show'; el.checked=false; return; }
+    EXCEPCIONES.delete(k);
+  } else {
+    // Deja de ser requerida → se crea la excepción
+    const { error } = await window.PEM_SB.from('puesto_excepciones').insert({ puesto, escuela, updated_by: MY_ID });
+    if(error){ note.textContent='✕ '+error.message; note.className='save-note err show'; el.checked=true; return; }
+    EXCEPCIONES.add(k);
+  }
+  note.textContent = '✓';
+  note.className = 'save-note show';
+  setTimeout(() => note.classList.remove('show'), 1500);
+}
+
+async function load(){
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('errorState').style.display = 'none';
+  document.getElementById('content').style.display = 'none';
+  try{
+    if(!window.PEM_SB) throw new Error('Supabase aún no ha cargado, reintenta en un momento.');
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session) throw new Error('Sin sesión activa.');
+    MY_ID = session.user.id;
+
+    const { data: myProfile, error: profErr } = await window.PEM_SB
+      .from('profiles').select('is_admin').eq('id', MY_ID).maybeSingle();
+    if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
+    if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
+
+    const [puestosRes, excepcionesRes] = await Promise.all([
+      window.PEM_SB.from('puestos').select('nombre').order('orden'),
+      window.PEM_SB.from('puesto_excepciones').select('*')
+    ]);
+    if(puestosRes.error) throw new Error('No se pudo leer el catálogo de puestos (' + puestosRes.error.message + ')');
+    if(excepcionesRes.error) throw new Error('No se pudieron leer los requisitos (' + excepcionesRes.error.message + ')');
+
+    PUESTOS = (puestosRes.data || []).map(p => p.nombre);
+    EXCEPCIONES = new Set((excepcionesRes.data || []).map(e => key(e.puesto, e.escuela)));
+
+    if(window.PEM_SCHOOLS){
+      ESCUELAS.forEach(e => {
+        const th = document.getElementById('th'+e);
+        if(th && window.PEM_SCHOOLS[e]) th.textContent = window.PEM_SCHOOLS[e].name.replace('Escuela de ','').replace('Escuela ','');
+      });
+    }
+
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    renderRows();
+  } catch(err){
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    if(err.message === 'ACCESO_RESTRINGIDO'){
+      document.getElementById('errorState').textContent =
+        '🔒 Este panel es solo para administradores. Tu cuenta todavía no tiene ese permiso activado en Supabase (profiles.is_admin).';
+    } else {
+      document.getElementById('errorState').textContent =
+        'No se pudo cargar (' + err.message + '). Vuelve a intentar en unos segundos.';
+    }
+  }
+}
+
+load();
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
+})();
+</script>
+<script src="assets/shell.js?v=3" defer></script>
+</body>
+</html>

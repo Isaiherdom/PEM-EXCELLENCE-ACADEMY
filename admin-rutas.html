@@ -5,7 +5,7 @@
 <script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Administrar puestos · PEM Excellence Academy</title>
+<title>Administrar rutas · PEM Excellence Academy</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/fonts.css">
@@ -43,13 +43,13 @@
     .exec-nav .burger{display:inline-flex;}
   }
 
-  .wrap{max-width:900px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
   .kicker{font-size:10.5px;letter-spacing:2px;color:var(--green);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
   .kicker::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);}
   html[data-theme="dark"] .kicker{color:var(--cyan);}
   html[data-theme="dark"] .kicker::before{background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
   h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,32px);margin:6px 0 5px;letter-spacing:-.5px;}
-  .subtitle{font-size:13.5px;color:var(--muted);max-width:620px;line-height:1.5;margin-bottom:22px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:720px;line-height:1.5;margin-bottom:22px;}
 
   .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);transition:.2s;}
   .state{padding:60px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
@@ -59,26 +59,19 @@
   .hint b{color:inherit;}
 
   table{width:100%;border-collapse:collapse;font-size:13px;}
-  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:12px 14px;border-bottom:1px solid var(--line);}
-  tbody td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  thead th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px;border-bottom:1px solid var(--line);}
+  thead th.lvlCol{text-align:center;}
+  tbody td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle;}
   tbody tr:hover{background:var(--mint);}
   tbody tr:last-child td{border-bottom:none;}
-  .orden-cell{font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:12px;white-space:nowrap;}
-  .move-btn{background:none;border:1px solid var(--line);border-radius:6px;width:24px;height:24px;color:var(--ink);cursor:pointer;font-size:11px;line-height:1;margin-right:3px;}
-  .move-btn:hover{border-color:var(--green);color:var(--green);}
-  .move-btn:disabled{opacity:.3;cursor:not-allowed;}
-  .name-input{width:100%;min-width:220px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
-  .del-btn{background:none;border:1px solid var(--line);border-radius:7px;width:30px;height:30px;color:var(--red);cursor:pointer;font-size:14px;}
-  .del-btn:hover{background:var(--redSoft);border-color:var(--red);}
-  .save-note{font-size:10.5px;color:var(--green);margin-left:8px;opacity:0;transition:.3s;white-space:nowrap;}
+  .puesto-cell{font-weight:700;font-size:12.5px;}
+  td.lvlCell{text-align:center;}
+  .lvlSelect{width:52px;padding:5px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:12px;text-align:center;}
+  .ordenInput{width:100%;min-width:200px;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:12px;}
+  .save-note{display:block;font-size:9.5px;color:var(--green);margin-top:2px;opacity:0;transition:.3s;white-space:nowrap;}
   .save-note.show{opacity:1;}
   .save-note.err{color:var(--red);}
-
-  .addRow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center;}
-  .addRow input[type="text"]{flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;}
-  .addRow button{background:var(--green);color:#fff;border:none;border-radius:9px;padding:10px 18px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
-  .addRow button:hover{opacity:.9;}
-  .addNote{font-size:11px;color:var(--muted);margin-top:8px;}
+  .sinConfig{background:var(--goldSoft);}
 </style>
 </head>
 <body data-pem-no-shell-header>
@@ -96,149 +89,92 @@
 
 <div class="wrap">
   <div class="kicker">Gobernanza de la plataforma</div>
-  <h1>Administrar puestos</h1>
-  <div class="subtitle">El catálogo de roles/puestos que aparece en el menú desplegable de <a href="admin-usuarios.html" style="color:inherit;">Administrar usuarios</a> — agrega, renombra, reordena o elimina puestos tú mismo, sin pedírmelo a mí. Después, ve a <a href="admin-requisitos.html" style="color:inherit;">Administrar requisitos</a> para decir qué escuelas le corresponden a cada puesto.</div>
+  <h1>Administrar rutas</h1>
+  <div class="subtitle">El nivel objetivo (1–6) de cada puesto en las 4 escuelas normativas, y el orden recomendado de cursado — esto alimenta <a href="rutas-aprendizaje-pem-excellence-academy.html" style="color:inherit;">Rutas de aprendizaje</a> y el selector de puesto en Mi desarrollo / Mis cursos. Se guarda al instante, sin botón de "guardar".</div>
 
-  <div id="loadingState" class="card state">Cargando puestos…</div>
+  <div id="loadingState" class="card state">Cargando rutas…</div>
   <div id="errorState" class="card state err" style="display:none;"></div>
 
   <div id="content" style="display:none;">
-    <div class="hint">⚠️ <div>Si <b>renombras</b> un puesto que ya está asignado a colaboradores, ellos seguirán mostrando el nombre anterior en Administrar usuarios hasta que vuelvas a seleccionárselo — el renombrado aquí no actualiza automáticamente a quien ya lo tenía asignado. Si <b>eliminas</b> un puesto, no borra a nadie, solo deja de aparecer en la lista para asignarlo a futuro.</div></div>
+    <div class="hint">⚠️ <div>Las filas resaltadas son puestos de tu catálogo (<a href="admin-puestos.html" style="color:inherit;">Administrar puestos</a>) que <b>todavía no tienen ruta configurada</b> — se están mostrando con nivel 3 genérico en las 4 escuelas mientras tanto. Ajusta el orden y los niveles (1 = fundamentos, 6 = líder SGI) según el riesgo real de cada puesto.</div></div>
 
     <div class="card" style="overflow-x:auto;">
       <table>
         <thead>
-          <tr><th style="width:70px;">Orden</th><th>Puesto</th><th></th></tr>
+          <tr>
+            <th>Puesto</th>
+            <th>Orden de escuelas</th>
+            <th class="lvlCol">Calidad</th>
+            <th class="lvlCol">Ambiental</th>
+            <th class="lvlCol">SST</th>
+            <th class="lvlCol">Ética</th>
+          </tr>
         </thead>
         <tbody id="rowsBody"></tbody>
       </table>
     </div>
-
-    <div class="addRow">
-      <input type="text" id="newPuesto" placeholder="Nombre del nuevo puesto (ej. Logística)">
-      <button id="addBtn">+ Agregar puesto</button>
-    </div>
-    <div class="addNote">El puesto nuevo aparece al final de la lista en Administrar usuarios; usa las flechas para moverlo si quieres otro orden.</div>
   </div>
 </div>
 
 <script>
 let ROWS = [];
 let MY_ID = null;
+const LVLS = [1,2,3,4,5,6];
 
 function escapeHtml(s){ return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+function lvlOptions(current){
+  return LVLS.map(l => `<option value="${l}" ${l===current?'selected':''}>${l}</option>`).join('');
+}
+
 function renderRows(){
-  document.getElementById('rowsBody').innerHTML = ROWS.map((r, i) => `
-    <tr data-nombre="${escapeHtml(r.nombre)}">
-      <td class="orden-cell">
-        <button class="move-btn" data-action="up" ${i===0?'disabled':''} title="Subir">▲</button>
-        <button class="move-btn" data-action="down" ${i===ROWS.length-1?'disabled':''} title="Bajar">▼</button>
-      </td>
+  document.getElementById('rowsBody').innerHTML = ROWS.map(r => `
+    <tr data-puesto="${escapeHtml(r.puesto)}" class="${r.sinConfigurar ? 'sinConfig' : ''}">
+      <td class="puesto-cell">${escapeHtml(r.puesto)}</td>
       <td>
-        <input type="text" class="name-input" value="${escapeHtml(r.nombre)}" data-field="nombre">
+        <input type="text" class="ordenInput" value="${escapeHtml(r.orden)}" data-field="orden">
         <span class="save-note"></span>
       </td>
-      <td><button class="del-btn" title="Eliminar este puesto" data-action="delete">✕</button></td>
+      <td class="lvlCell"><select class="lvlSelect" data-field="c9001">${lvlOptions(r.c9001)}</select></td>
+      <td class="lvlCell"><select class="lvlSelect" data-field="c14001">${lvlOptions(r.c14001)}</select></td>
+      <td class="lvlCell"><select class="lvlSelect" data-field="c45001">${lvlOptions(r.c45001)}</select></td>
+      <td class="lvlCell"><select class="lvlSelect" data-field="c37001">${lvlOptions(r.c37001)}</select></td>
     </tr>
   `).join('');
 
-  document.querySelectorAll('#rowsBody input[data-field="nombre"]').forEach(el => {
-    el.addEventListener('change', () => renamePuesto(el));
-  });
-  document.querySelectorAll('#rowsBody button[data-action="delete"]').forEach(el => {
-    el.addEventListener('click', () => deletePuesto(el));
-  });
-  document.querySelectorAll('#rowsBody button[data-action="up"]').forEach(el => {
-    el.addEventListener('click', () => movePuesto(el, -1));
-  });
-  document.querySelectorAll('#rowsBody button[data-action="down"]').forEach(el => {
-    el.addEventListener('click', () => movePuesto(el, 1));
+  document.querySelectorAll('#rowsBody input[data-field="orden"], #rowsBody select').forEach(el => {
+    el.addEventListener('change', () => saveField(el));
   });
 }
 
-async function renamePuesto(el){
+async function saveField(el){
   const tr = el.closest('tr');
-  const oldNombre = tr.dataset.nombre;
-  const newNombre = el.value.trim();
+  const puesto = tr.dataset.puesto;
+  const field = el.dataset.field;
+  const value = field === 'orden' ? el.value.trim() : parseInt(el.value, 10);
   const note = tr.querySelector('.save-note');
-  if(!newNombre){ el.value = oldNombre; return; }
-  if(newNombre === oldNombre) return;
-  if(ROWS.some(r => r.nombre !== oldNombre && r.nombre.toLowerCase() === newNombre.toLowerCase())){
-    note.textContent = '✕ Ya existe ese puesto';
-    note.className = 'save-note err show';
-    el.value = oldNombre;
+  const r = ROWS.find(r => r.puesto === puesto);
+
+  const payload = {
+    puesto,
+    orden: field==='orden' ? value : r.orden,
+    c9001: field==='c9001' ? value : r.c9001,
+    c14001: field==='c14001' ? value : r.c14001,
+    c45001: field==='c45001' ? value : r.c45001,
+    c37001: field==='c37001' ? value : r.c37001,
+    updated_by: MY_ID
+  };
+
+  const { error } = await window.PEM_SB.from('rutas_puesto').upsert(payload);
+  if(error){
+    if(note){ note.textContent='✕ '+error.message; note.className='save-note err show'; }
+    else alert('No se pudo guardar: ' + error.message);
     return;
   }
-
-  // La tabla usa el nombre como llave primaria: se borra el viejo y se crea el nuevo con el mismo orden.
-  const r = ROWS.find(r => r.nombre === oldNombre);
-  const { error: insErr } = await window.PEM_SB.from('puestos')
-    .insert({ nombre: newNombre, orden: r.orden, updated_by: MY_ID });
-  if(insErr){
-    note.textContent = '✕ ' + insErr.message;
-    note.className = 'save-note err show';
-    el.value = oldNombre;
-    return;
-  }
-  await window.PEM_SB.from('puestos').delete().eq('nombre', oldNombre);
-
-  r.nombre = newNombre;
-  tr.dataset.nombre = newNombre;
-  note.textContent = '✓ Guardado';
-  note.className = 'save-note show';
-  setTimeout(() => note.classList.remove('show'), 2000);
-}
-
-async function deletePuesto(el){
-  const tr = el.closest('tr');
-  const nombre = tr.dataset.nombre;
-  if(!confirm(`¿Quitar "${nombre}" del catálogo de puestos? Esto no afecta a quien ya lo tenga asignado, solo deja de aparecer para asignarlo a futuro.`)) return;
-
-  const { error } = await window.PEM_SB.from('puestos').delete().eq('nombre', nombre);
-  if(error){ alert('No se pudo eliminar: ' + error.message); return; }
-  ROWS = ROWS.filter(r => r.nombre !== nombre);
-  renderRows();
-}
-
-async function movePuesto(el, dir){
-  const tr = el.closest('tr');
-  const nombre = tr.dataset.nombre;
-  const i = ROWS.findIndex(r => r.nombre === nombre);
-  const j = i + dir;
-  if(j < 0 || j >= ROWS.length) return;
-
-  [ROWS[i], ROWS[j]] = [ROWS[j], ROWS[i]];
-  const a = ROWS[i], b = ROWS[j];
-  const ordA = a.orden, ordB = b.orden;
-  a.orden = ordB; b.orden = ordA;
-
-  renderRows();
-  const { error } = await window.PEM_SB.from('puestos').upsert([
-    { nombre: a.nombre, orden: a.orden, updated_by: MY_ID },
-    { nombre: b.nombre, orden: b.orden, updated_by: MY_ID }
-  ]);
-  if(error) alert('No se pudo guardar el nuevo orden: ' + error.message);
-}
-
-async function addPuesto(){
-  const input = document.getElementById('newPuesto');
-  const nombre = input.value.trim();
-  if(!nombre){ input.focus(); return; }
-  if(ROWS.some(r => r.nombre.toLowerCase() === nombre.toLowerCase())){
-    alert('Ese puesto ya está en la lista.');
-    return;
-  }
-  const maxOrden = ROWS.reduce((m,r) => Math.max(m, r.orden||0), 0);
-
-  const { data, error } = await window.PEM_SB.from('puestos')
-    .insert({ nombre, orden: maxOrden + 1, updated_by: MY_ID })
-    .select().single();
-
-  if(error){ alert('No se pudo agregar: ' + error.message); return; }
-  ROWS.push(data);
-  input.value = '';
-  renderRows();
+  r[field] = value;
+  r.sinConfigurar = false;
+  tr.classList.remove('sinConfig');
+  if(note){ note.textContent='✓ Guardado'; note.className='save-note show'; setTimeout(()=>note.classList.remove('show'),2000); }
 }
 
 async function load(){
@@ -256,10 +192,23 @@ async function load(){
     if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
     if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
 
-    const { data, error } = await window.PEM_SB.from('puestos').select('*').order('orden');
-    if(error) throw new Error('No se pudo leer el catálogo de puestos (' + error.message + ')');
+    const [puestosRes, rutasRes] = await Promise.all([
+      window.PEM_SB.from('puestos').select('nombre').order('orden'),
+      window.PEM_SB.from('rutas_puesto').select('*')
+    ]);
+    if(puestosRes.error) throw new Error('No se pudo leer el catálogo de puestos (' + puestosRes.error.message + ')');
+    if(rutasRes.error) throw new Error('No se pudieron leer las rutas (' + rutasRes.error.message + ')');
 
-    ROWS = data || [];
+    const rutaByPuesto = {};
+    (rutasRes.data||[]).forEach(r => { rutaByPuesto[r.puesto] = r; });
+
+    ROWS = (puestosRes.data||[]).map(p => {
+      const r = rutaByPuesto[p.nombre];
+      return r
+        ? { puesto:p.nombre, orden:r.orden, c9001:r.c9001, c14001:r.c14001, c45001:r.c45001, c37001:r.c37001, sinConfigurar:false }
+        : { puesto:p.nombre, orden:'Calidad → Ambiental → SST → Ética', c9001:3, c14001:3, c45001:3, c37001:3, sinConfigurar:true };
+    });
+
     document.getElementById('loadingState').style.display = 'none';
     document.getElementById('content').style.display = 'block';
     renderRows();
@@ -276,7 +225,6 @@ async function load(){
   }
 }
 
-document.getElementById('addBtn').addEventListener('click', addPuesto);
 load();
 </script>
 

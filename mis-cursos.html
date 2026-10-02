@@ -98,8 +98,21 @@
 let current = "9001";
 let REQUIRED = null; // se llena con computeRequired() si el perfil tiene un rol guardado
 
-function computeRequired(rolNombre){
-  if(!window.PEM_ROLES || !rolNombre) return null;
+// Lee la ruta del puesto en vivo de Supabase (tabla rutas_puesto, editable en
+// "Administrar rutas") — así un puesto agregado después de assets/roles.js también
+// funciona aquí. Si la consulta falla o el puesto no está configurado todavía en la
+// tabla, cae al catálogo estático como respaldo.
+async function computeRequired(rolNombre){
+  if(!rolNombre) return null;
+  try{
+    const { data, error } = await window.PEM_SB.from('rutas_puesto').select('*').eq('puesto', rolNombre).maybeSingle();
+    if(!error && data){
+      const req = {};
+      PEM_SCHOOL_ORDER.forEach(key => { req[key] = PEM_MOD_BY_LEVEL[data['c'+key]]; });
+      return req;
+    }
+  }catch(e){ console.warn('No se pudo leer la ruta del puesto desde Supabase, usando respaldo:', e); }
+  if(!window.PEM_ROLES) return null;
   const role = PEM_ROLES.find(r => r.name === rolNombre);
   if(!role) return null;
   const req = {};
@@ -174,7 +187,7 @@ function init(){
       const { data: { session } } = await window.PEM_SB.auth.getSession();
       if(session){
         const { data: profile } = await window.PEM_SB.from('profiles').select('rol').eq('id', session.user.id).maybeSingle();
-        if(profile && profile.rol) REQUIRED = computeRequired(profile.rol);
+        if(profile && profile.rol) REQUIRED = await computeRequired(profile.rol);
       }
     }catch(e){ console.warn('No se pudo leer el puesto del perfil (se omiten las insignias de obligatorio):', e); }
     const progress = PEM_SHELL.computeProgress();

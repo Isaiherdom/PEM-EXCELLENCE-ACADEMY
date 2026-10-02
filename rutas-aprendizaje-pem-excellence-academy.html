@@ -113,9 +113,12 @@
   <div class="header">
     <div class="kicker">Desarrollo de talento</div>
     <h1>Rutas de aprendizaje por perfil</h1>
-    <div class="subtitle">17 perfiles de PEM, con el nivel objetivo (1–6) que le corresponde a cada uno en las 4 escuelas normativas, ya completas. El número dentro de cada celda es el nivel objetivo; las horas son el tiempo total estimado para completar los módulos de ese nivel, a razón de 30 min por módulo.</div>
+    <div class="subtitle">Perfiles de PEM (según tu catálogo en <a href="admin-puestos.html">Administrar puestos</a>), con el nivel objetivo (1–6) que le corresponde a cada uno en las 4 escuelas normativas. El número dentro de cada celda es el nivel objetivo; las horas son el tiempo total estimado para completar los módulos de ese nivel, a razón de 30 min por módulo. Edítalo en <a href="admin-rutas.html">Administrar rutas</a>.</div>
   </div>
 
+  <div id="loadingState" class="card" style="padding:40px 24px;text-align:center;color:var(--muted);font-size:13.5px;">Cargando rutas…</div>
+  <div id="rutasContent" style="display:none;">
+  <div id="rutasWarn" class="card footer-note" style="display:none;background:var(--goldSoft);color:var(--gold);margin-bottom:18px;"></div>
   <section class="grid4" id="kpiGrid"></section>
 
   <div class="card legend">
@@ -154,40 +157,83 @@
     <div class="level-row"><b>Nivel 5 · Auditor Interno</b> Módulos 1–11 · + provisión del servicio, salidas no conformes, criterio de auditor</div>
     <div class="level-row"><b>Nivel 6 · Líder SGI</b> Módulos 1–12 · malla completa + evaluación del desempeño y mejora, con responsabilidad de sostener el sistema</div>
   </div>
+  </div>
 </div>
 
 <script>
-const ROLES = window.PEM_ROLES;
 const MOD_BY_LEVEL = window.PEM_MOD_BY_LEVEL;
 const LVL_COLOR = {"9001":{bg:"#DFF3EA",fg:"#087F5B"}, "14001":{bg:"#E6EEF9",fg:"#4D78B8"}, "45001":{bg:"#F8EDD9",fg:"#C7923E"}, "37001":{bg:"#F7E5E0",fg:"#C76A58"}};
 
-const hoursPerRole = ROLES.map(r => {
-  const totalMods = MOD_BY_LEVEL[r.c9001]+MOD_BY_LEVEL[r.c14001]+MOD_BY_LEVEL[r.c45001]+MOD_BY_LEVEL[r.c37001];
-  return Math.round(totalMods*0.5*10)/10;
-});
-const avgHours = Math.round(10*hoursPerRole.reduce((a,h)=>a+h,0)/hoursPerRole.length)/10;
-const maxIdx = hoursPerRole.indexOf(Math.max(...hoursPerRole));
-const minIdx = hoursPerRole.indexOf(Math.min(...hoursPerRole));
+async function load(){
+  try{
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session) throw new Error('Sin sesión activa.');
 
-document.getElementById('kpiGrid').innerHTML = `
-  <div class="card kpi"><div class="label">Perfiles definidos</div><div class="value">${ROLES.length}</div><div class="foot">Roles de PEM con ruta propia</div></div>
-  <div class="card kpi"><div class="label">Promedio de horas</div><div class="value">${avgHours} h</div><div class="foot">Por ruta completa</div></div>
-  <div class="card kpi"><div class="label">Ruta más extensa</div><div class="value" style="font-size:16px;">${ROLES[maxIdx].name}</div><div class="foot">${hoursPerRole[maxIdx]} h</div></div>
-  <div class="card kpi"><div class="label">Ruta más breve</div><div class="value" style="font-size:16px;">${ROLES[minIdx].name}</div><div class="foot">${hoursPerRole[minIdx]} h</div></div>
-`;
+    const [puestosRes, rutasRes] = await Promise.all([
+      window.PEM_SB.from('puestos').select('nombre').order('orden'),
+      window.PEM_SB.from('rutas_puesto').select('*')
+    ]);
+    if(puestosRes.error) throw puestosRes.error;
+    if(rutasRes.error) throw rutasRes.error;
 
-const tbody = document.getElementById('tbody');
-tbody.innerHTML = ROLES.map((r,i)=>`<tr>
-  <td class="role-col">
-    <div class="role-name">${r.name}</div>
-    <div class="role-order">${r.order}</div>
-  </td>
-  <td><span class="lvl" style="background:${LVL_COLOR['9001'].bg};color:${LVL_COLOR['9001'].fg};">${r.c9001}</span></td>
-  <td><span class="lvl" style="background:${LVL_COLOR['14001'].bg};color:${LVL_COLOR['14001'].fg};">${r.c14001}</span></td>
-  <td><span class="lvl" style="background:${LVL_COLOR['45001'].bg};color:${LVL_COLOR['45001'].fg};">${r.c45001}</span></td>
-  <td><span class="lvl" style="background:${LVL_COLOR['37001'].bg};color:${LVL_COLOR['37001'].fg};">${r.c37001}</span></td>
-  <td class="hours">${hoursPerRole[i]} h</td>
-</tr>`).join('');
+    const rutaByPuesto = {};
+    (rutasRes.data||[]).forEach(r => { rutaByPuesto[r.puesto] = r; });
+
+    // Cada puesto de tu catálogo (Administrar puestos) aparece aquí. Si todavía no tiene
+    // su ruta configurada en "Administrar rutas", se le pone un valor por default
+    // (nivel 3 en las 4 escuelas) y se avisa, para no dejarlo fuera de la tabla.
+    const sinConfigurar = [];
+    const ROLES = (puestosRes.data||[]).map(p => {
+      const r = rutaByPuesto[p.nombre];
+      if(!r) sinConfigurar.push(p.nombre);
+      return r
+        ? { name:p.nombre, order:r.orden, c9001:r.c9001, c14001:r.c14001, c45001:r.c45001, c37001:r.c37001 }
+        : { name:p.nombre, order:'Calidad → Ambiental → SST → Ética', c9001:3, c14001:3, c45001:3, c37001:3 };
+    });
+
+    const warnEl = document.getElementById('rutasWarn');
+    if(sinConfigurar.length){
+      warnEl.style.display = 'block';
+      warnEl.innerHTML = `⚠️ ${sinConfigurar.length} puesto${sinConfigurar.length===1?'':'s'} sin ruta configurada todavía (<b>${sinConfigurar.join(', ')}</b>) — se ${sinConfigurar.length===1?'le':'les'} está mostrando un nivel genérico (3 en las 4 escuelas). Ve a <a href="admin-rutas.html" style="color:inherit;">Administrar rutas</a> para definir${sinConfigurar.length===1?'la':'las'}.`;
+    } else {
+      warnEl.style.display = 'none';
+    }
+
+    const hoursPerRole = ROLES.map(r => {
+      const totalMods = MOD_BY_LEVEL[r.c9001]+MOD_BY_LEVEL[r.c14001]+MOD_BY_LEVEL[r.c45001]+MOD_BY_LEVEL[r.c37001];
+      return Math.round(totalMods*0.5*10)/10;
+    });
+    const avgHours = hoursPerRole.length ? Math.round(10*hoursPerRole.reduce((a,h)=>a+h,0)/hoursPerRole.length)/10 : 0;
+    const maxIdx = hoursPerRole.indexOf(Math.max(...hoursPerRole));
+    const minIdx = hoursPerRole.indexOf(Math.min(...hoursPerRole));
+
+    document.getElementById('kpiGrid').innerHTML = `
+      <div class="card kpi"><div class="label">Perfiles definidos</div><div class="value">${ROLES.length}</div><div class="foot">Puestos de PEM con ruta propia</div></div>
+      <div class="card kpi"><div class="label">Promedio de horas</div><div class="value">${avgHours} h</div><div class="foot">Por ruta completa</div></div>
+      <div class="card kpi"><div class="label">Ruta más extensa</div><div class="value" style="font-size:16px;">${ROLES[maxIdx]?.name||'—'}</div><div class="foot">${hoursPerRole[maxIdx]||0} h</div></div>
+      <div class="card kpi"><div class="label">Ruta más breve</div><div class="value" style="font-size:16px;">${ROLES[minIdx]?.name||'—'}</div><div class="foot">${hoursPerRole[minIdx]||0} h</div></div>
+    `;
+
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = ROLES.map((r,i)=>`<tr>
+      <td class="role-col">
+        <div class="role-name">${r.name}</div>
+        <div class="role-order">${r.order}</div>
+      </td>
+      <td><span class="lvl" style="background:${LVL_COLOR['9001'].bg};color:${LVL_COLOR['9001'].fg};">${r.c9001}</span></td>
+      <td><span class="lvl" style="background:${LVL_COLOR['14001'].bg};color:${LVL_COLOR['14001'].fg};">${r.c14001}</span></td>
+      <td><span class="lvl" style="background:${LVL_COLOR['45001'].bg};color:${LVL_COLOR['45001'].fg};">${r.c45001}</span></td>
+      <td><span class="lvl" style="background:${LVL_COLOR['37001'].bg};color:${LVL_COLOR['37001'].fg};">${r.c37001}</span></td>
+      <td class="hours">${hoursPerRole[i]} h</td>
+    </tr>`).join('');
+
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('rutasContent').style.display = 'block';
+  } catch(err){
+    document.getElementById('loadingState').textContent = 'No se pudo cargar (' + err.message + '). Vuelve a intentar en unos segundos.';
+  }
+}
+load();
 
 (function(){
   function syncNavHeight(){

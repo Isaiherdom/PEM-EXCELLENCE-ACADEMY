@@ -183,7 +183,11 @@
   </div>
 
 <script>
-const ROLES = window.PEM_ROLES;
+// ROLES se carga en vivo desde Supabase (catálogo de "Administrar puestos" + niveles de
+// "Administrar rutas"), con assets/roles.js como respaldo si la consulta falla — así,
+// en cuanto agregas un puesto nuevo en la plataforma, aparece aquí sin tocar código.
+let ROLES = [];
+let rolesLoaded = false;
 const MOD_BY_LEVEL = window.PEM_MOD_BY_LEVEL;
 const ORDER_KEY_MAP = {"Calidad":"9001","Ambiental":"14001","SST":"45001","Ética":"37001"};
 const SCHOOL_META = {
@@ -195,13 +199,36 @@ const SCHOOL_META = {
 let charts = {donut:null};
 
 const roleSelect = document.getElementById('roleSelect');
-roleSelect.innerHTML = ROLES.map((r,i)=>`<option value="${i}">${r.name}</option>`).join('');
 
 function requiredFor(role, key){ return MOD_BY_LEVEL[role['c'+key]]; }
 
+async function loadRoles(){
+  if(rolesLoaded) return;
+  try{
+    const [puestosRes, rutasRes] = await Promise.all([
+      window.PEM_SB.from('puestos').select('nombre').order('orden'),
+      window.PEM_SB.from('rutas_puesto').select('*')
+    ]);
+    if(puestosRes.error || rutasRes.error) throw (puestosRes.error || rutasRes.error);
+    const rutaByPuesto = {};
+    (rutasRes.data||[]).forEach(r => { rutaByPuesto[r.puesto] = r; });
+    ROLES = (puestosRes.data||[]).map(p => {
+      const r = rutaByPuesto[p.nombre];
+      return r
+        ? { name:p.nombre, order:r.orden, c9001:r.c9001, c14001:r.c14001, c45001:r.c45001, c37001:r.c37001 }
+        : { name:p.nombre, order:'Calidad → Ambiental → SST → Ética', c9001:3, c14001:3, c45001:3, c37001:3 };
+    });
+  }catch(e){
+    console.warn('No se pudo cargar el catálogo de puestos desde Supabase, usando el de respaldo:', e);
+    ROLES = window.PEM_ROLES || [];
+  }
+  roleSelect.innerHTML = ROLES.map((r,i)=>`<option value="${i}">${r.name}</option>`).join('');
+  rolesLoaded = true;
+}
+
 function render(){
   if(!window.PEM_SHELL || !window.PEM_SHELL.ready){ setTimeout(render, 30); return; }
-  PEM_SHELL.ready.then(renderAfterReady);
+  PEM_SHELL.ready.then(async () => { await loadRoles(); renderAfterReady(); });
 }
 async function renderAfterReady(){
   const progress = PEM_SHELL.computeProgress();
