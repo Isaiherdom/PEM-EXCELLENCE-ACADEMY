@@ -160,6 +160,7 @@
     if(base === 'recursos.html') return 'Recursos';
     if(base === 'dashboard-ejecutivo.html') return 'Dashboard Ejecutivo';
     if(base === 'admin-plantilla.html') return 'Administrar plantilla';
+    if(base === 'admin-puestos.html') return 'Administrar puestos';
     if(base === 'proximamente.html') return 'Próximamente';
     if((m = base.match(/^certificado-modulo(\d+)\.html$/))) return 'Certificado · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
     if((m = base.match(/^examen-modulo(\d+)/))) return 'Examen · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
@@ -185,6 +186,7 @@
     {label:'Dashboard Ejecutivo', href:prefix+'dashboard-ejecutivo.html', match:/dashboard-ejecutivo/, icon:'growth'},
     {label:'Administrar usuarios', href:prefix+'admin-usuarios.html', match:/admin-usuarios/, icon:'users'},
     {label:'Administrar plantilla', href:prefix+'admin-plantilla.html', match:/admin-plantilla/, icon:'users'},
+    {label:'Administrar puestos', href:prefix+'admin-puestos.html', match:/admin-puestos/, icon:'users'},
     {label:'Noticias', href:prefix+'noticias.html', match:/noticias\.html/, icon:'news'}
   ];
   var NAV_SOON = [];
