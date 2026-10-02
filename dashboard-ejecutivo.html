@@ -653,9 +653,14 @@ function render(){
   `).join('') || '<div style="color:var(--muted);font-size:12px;">Aún no hay suficientes datos para generar insights.</div>';
 
   // ==================== Filtro de sitio (poblar opciones una sola vez) ====================
+  // Se incluyen tanto los sitios con colaboradores ya registrados (RAW_DATA) como los
+  // que ya existen en "Administrar plantilla" aunque todavía no tengan a nadie — así
+  // se pueden ver desde el día uno, con cobertura 0% en vez de estar ausentes del filtro.
   const sitioSel = document.getElementById('fSitio');
   if(sitioSel.options.length <= 1){
-    const allBases = Array.from(new Set(RAW_DATA.filter(d=>d.base).map(d=>d.base.toUpperCase()))).sort();
+    const bancoDesdeDatos = RAW_DATA.filter(d=>d.base).map(d=>d.base.toUpperCase());
+    const bancoDesdePlantilla = Object.keys(HEADCOUNT_BY_SITE);
+    const allBases = Array.from(new Set([...bancoDesdeDatos, ...bancoDesdePlantilla])).sort();
     allBases.forEach(b => {
       const opt = document.createElement('option'); opt.value = b; opt.textContent = b;
       sitioSel.appendChild(opt);
