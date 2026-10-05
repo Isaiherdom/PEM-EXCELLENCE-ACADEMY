@@ -47,6 +47,21 @@ html[data-theme="dark"]{
 .pem-nav a.active{background:var(--pem-x-mint); color:var(--pem-x-green); box-shadow:inset 3px 0 0 var(--pem-x-green);}
 html[data-theme="dark"] .pem-nav a:hover{box-shadow:0 0 16px rgba(34,232,138,.10);}
 html[data-theme="dark"] .pem-nav a.active{box-shadow:inset 3px 0 0 var(--pem-x-green), 0 0 18px rgba(34,232,138,.16);}
+.pem-nav-group{margin-bottom:2px;}
+.pem-nav-toggle{
+  display:flex; align-items:center; gap:11px; width:100%; padding:10px 12px; border-radius:8px;
+  background:none; border:none; cursor:pointer; text-align:left;
+  color:var(--pem-x-nav-ink, var(--pem-x-muted)); font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600;
+  transition:.12s;
+}
+.pem-nav-toggle svg{flex-shrink:0; opacity:.85;}
+.pem-nav-toggle:hover{background:var(--pem-x-hover); color:var(--pem-x-ink);}
+.pem-nav-toggle.active{color:var(--pem-x-green);}
+.pem-nav-toggle .chev{margin-left:auto; transition:transform .15s; opacity:.7;}
+.pem-nav-group.open .pem-nav-toggle .chev{transform:rotate(90deg);}
+.pem-nav-sub{overflow:hidden; max-height:0; transition:max-height .18s ease;}
+.pem-nav-group.open .pem-nav-sub{max-height:260px;}
+.pem-nav-sub a{padding-left:34px; font-size:13px;}
 .pem-nav a.soon{cursor:pointer;}
 .pem-nav a.soon .badge{
   margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:.04em;

@@ -186,14 +186,19 @@
     {label:'Generar DC-3', href:prefix+'generar-dc3.html', match:/generar-dc3/, icon:'doc'},
     {label:'Recursos', href:prefix+'recursos.html', match:/recursos\.html/, icon:'doc'},
     {label:'Dashboard Ejecutivo', href:prefix+'dashboard-ejecutivo.html', match:/dashboard-ejecutivo/, icon:'growth'},
+    {label:'Noticias', href:prefix+'noticias.html', match:/noticias\.html/, icon:'news'}
+  ];
+  var NAV_SOON = [];
+
+  // Los paneles de "Administrador" se agrupan aparte (menú plegable) para no saturar
+  // el resto del menú — ver buildSidebar().
+  var NAV_ADMIN = [
     {label:'Administrar usuarios', href:prefix+'admin-usuarios.html', match:/admin-usuarios/, icon:'users'},
     {label:'Administrar plantilla', href:prefix+'admin-plantilla.html', match:/admin-plantilla/, icon:'users'},
     {label:'Administrar puestos', href:prefix+'admin-puestos.html', match:/admin-puestos/, icon:'users'},
     {label:'Administrar requisitos', href:prefix+'admin-requisitos.html', match:/admin-requisitos/, icon:'users'},
-    {label:'Administrar rutas', href:prefix+'admin-rutas.html', match:/admin-rutas/, icon:'users'},
-    {label:'Noticias', href:prefix+'noticias.html', match:/noticias\.html/, icon:'news'}
+    {label:'Administrar rutas', href:prefix+'admin-rutas.html', match:/admin-rutas/, icon:'users'}
   ];
-  var NAV_SOON = [];
 
   var ICONS = {
     home:'<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/>',
@@ -210,7 +215,8 @@
     user:'<circle cx="12" cy="8.5" r="3.5"/><path d="M4.5 19.5c0-3.6 3.4-6.5 7.5-6.5s7.5 2.9 7.5 6.5" stroke-linecap="round"/>',
     back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>',
     induc:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke-linecap="round"/><circle cx="12" cy="12" r="6"/><path d="m12 9 1.8 3.8L18 14l-4.2 1.2L12 19l-1.8-3.8L6 14l4.2-1.2Z"/>',
-    logout:'<path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-linecap="round"/>'
+    logout:'<path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-linecap="round"/>',
+    chev:'<path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }
 
@@ -222,13 +228,42 @@
     var soon = NAV_SOON.map(function(label){
       return '<a href="'+prefix+'proximamente.html" class="soon">'+svg('soon')+'<span>'+label+'</span><span class="badge">pronto</span></a>';
     }).join('');
+
+    // Grupo plegable "Administrador": se abre solo si ya estás en uno de sus paneles,
+    // o si tú mismo lo dejaste abierto la última vez (se recuerda en este navegador).
+    var adminActive = NAV_ADMIN.some(function(item){ return item.match.test(path); });
+    var adminOpenStored = null;
+    try{ adminOpenStored = localStorage.getItem('pemAdminNavOpen'); }catch(e){}
+    var adminOpen = adminActive || adminOpenStored === '1';
+    var adminItems = NAV_ADMIN.map(function(item){
+      var active = item.match.test(path);
+      return '<a href="'+item.href+'" class="'+(active?'active':'')+'">'+svg(item.icon)+'<span>'+item.label+'</span></a>';
+    }).join('');
+    var adminGroup =
+      '<div class="pem-nav-group'+(adminOpen?' open':'')+'" id="pemAdminGroup">'+
+        '<button type="button" class="pem-nav-toggle'+(adminActive?' active':'')+'" id="pemAdminToggle">'+
+          svg('users')+'<span>Administrador</span>'+svg('chev')+
+        '</button>'+
+        '<div class="pem-nav-sub">'+adminItems+'</div>'+
+      '</div>';
+
     return (
       '<nav class="pem-sidebar" id="pemSidebar">'+
         '<div class="pem-sidebar-brand"><div class="k">Production Enhancement México</div><div class="t">PEM Excellence Academy</div></div>'+
-        '<div class="pem-nav">'+items+soon+'</div>'+
+        '<div class="pem-nav">'+items+adminGroup+soon+'</div>'+
         '<div class="pem-sidebar-foot"><a href="#" id="pemLogoutBtn">'+svg('logout')+'<span>Cerrar sesión</span></a></div>'+
       '</nav>'
     );
+  }
+  function wireAdminToggle(){
+    var toggle = document.getElementById('pemAdminToggle');
+    var group = document.getElementById('pemAdminGroup');
+    if(!toggle || !group) return;
+    toggle.addEventListener('click', function(){
+      var nowOpen = !group.classList.contains('open');
+      group.classList.toggle('open', nowOpen);
+      try{ localStorage.setItem('pemAdminNavOpen', nowOpen ? '1' : '0'); }catch(e){}
+    });
   }
   function wireLogout(){
     var btn = document.getElementById('pemLogoutBtn');
@@ -287,6 +322,7 @@
     var skipHeader = document.body.hasAttribute('data-pem-no-shell-header');
     document.body.insertAdjacentHTML('afterbegin', (skipHeader ? '' : buildHeader()) + buildSidebar() + buildOverlay());
     wireLogout();
+    wireAdminToggle();
     var sidebar = document.getElementById('pemSidebar');
     var overlay = document.getElementById('pemOverlay');
     var burger = document.getElementById('pemBurger'); // shell's own, or a page-provided one with the same id
