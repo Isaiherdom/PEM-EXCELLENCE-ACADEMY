@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/shell.css?v=3">
 <script src="assets/modules.js"></script>
+<script src="assets/roles.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
@@ -333,17 +334,60 @@ function effectiveHeadcount(sitioValue){
   return HEADCOUNT_BY_SITE[sitioValue] || 0;
 }
 
-// Requisitos por puesto — qué escuelas (normas) le corresponden a cada puesto, editable
-// desde "Administrar requisitos" sin tocar código. Se guarda como EXCEPCIONES (lo que
-// NO le corresponde a un puesto); por default, si un puesto no tiene ninguna excepción
-// registrada, se asume que requiere las 4 escuelas — así ningún número cambia solo hasta
-// que tú decidas destildar algo en ese panel.
+// Módulos que le corresponden a cada puesto — se leen de las rutas de aprendizaje
+// (tabla rutas_puesto, editable en "Administrar rutas"): cada puesto tiene un nivel 1–6 por
+// escuela y PEM_MOD_BY_LEVEL lo traduce a cuántos de los 12 módulos le tocan (nivel 3 = 8,
+// etc.). Es la MISMA regla que ya usan "Mis cursos", "Mi desarrollo" y "Rutas de
+// aprendizaje". Quien no tiene puesto, o cuyo puesto aún no tiene ruta, se cuenta con el
+// nivel genérico 3 (igual que "Rutas de aprendizaje").
 let ALL_PROFILES = [];
-let EXCEPCIONES_PUESTO = new Set(); // claves "puesto||escuela"
+let RUTAS_PUESTO = {}; // puesto -> {c9001, c14001, c45001, c37001}
+const NIVEL_GENERICO = 3;
 
-function escuelasRequeridas(rol){
-  if(!rol) return PEM_SCHOOL_ORDER.slice(); // sin puesto asignado todavía → se asume que debe las 4
-  return PEM_SCHOOL_ORDER.filter(key => !EXCEPCIONES_PUESTO.has(rol + '||' + key));
+function modulosRequeridos(rol){
+  let ruta = rol ? RUTAS_PUESTO[rol] : null;
+  if(!ruta && rol && window.PEM_ROLES) ruta = PEM_ROLES.find(r => r.name === rol) || null; // respaldo estático
+  const out = {};
+  PEM_SCHOOL_ORDER.forEach(key => {
+    out[key] = PEM_MOD_BY_LEVEL[ruta ? ruta['c'+key] : NIVEL_GENERICO] || PEM_MOD_BY_LEVEL[NIVEL_GENERICO];
+  });
+  return out;
+}
+
+// Avance contra lo que le corresponde a cada colaborador. Solo cuentan los módulos 1..N
+// que su nivel le exige en cada escuela (mismo criterio que "★ Obligatorio para tu puesto").
+// Dos denominadores: toda la plantilla del sitio (incluye a quien aún no se registra,
+// con nivel genérico) y solo quien ya tiene perfil registrado.
+function computeAvance(data, sitio){
+  const profiles = ALL_PROFILES.filter(p => sitio === 'all' || (p.base||'').toUpperCase() === sitio);
+  const sinRegistrar = Math.max(0, effectiveHeadcount(sitio) - profiles.length);
+  const sinPuesto = profiles.filter(p => !p.rol).length;
+  const generico = modulosRequeridos(null);
+  const porEscuela = {};
+  PEM_SCHOOL_ORDER.forEach(k => { porEscuela[k] = {count:0, potential:0}; });
+  const byUser = {};
+  data.forEach(d => { (byUser[d.user_id] = byUser[d.user_id] || []).push(d); });
+  let requeridoRegistrados = 0, completado = 0;
+  profiles.forEach(p => {
+    const req = modulosRequeridos(p.rol);
+    const certs = byUser[p.id] || [];
+    PEM_SCHOOL_ORDER.forEach(k => {
+      const hechos = new Set(certs
+        .filter(d => (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === k && d.moduloN >= 1 && d.moduloN <= req[k])
+        .map(d => d.moduloN)).size;
+      porEscuela[k].count += hechos;
+      porEscuela[k].potential += req[k];
+      completado += hechos;
+      requeridoRegistrados += req[k];
+    });
+  });
+  let requeridoSinRegistrar = 0;
+  PEM_SCHOOL_ORDER.forEach(k => {
+    porEscuela[k].potential += sinRegistrar * generico[k];
+    requeridoSinRegistrar += sinRegistrar * generico[k];
+  });
+  return {profiles, sinRegistrar, sinPuesto, completado, requeridoRegistrados,
+          requerido: requeridoRegistrados + requeridoSinRegistrar, porEscuela};
 }
 
 const SCHOOL_KEY_MAP = {
@@ -389,16 +433,16 @@ async function fetchFromSupabase(){
   if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
   if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
 
-  const [certsRes, profilesRes, headcountRes, excepcionesRes] = await Promise.all([
+  const [certsRes, profilesRes, headcountRes, rutasRes] = await Promise.all([
     window.PEM_SB.from('certificados').select('*'),
     window.PEM_SB.from('profiles').select('*'),
     window.PEM_SB.from('headcount').select('*'),
-    window.PEM_SB.from('puesto_excepciones').select('*')
+    window.PEM_SB.from('rutas_puesto').select('*')
   ]);
   if(certsRes.error) throw new Error('No se pudieron leer los certificados (' + certsRes.error.message + ')');
   if(profilesRes.error) throw new Error('No se pudieron leer los perfiles (' + profilesRes.error.message + ')');
   if(headcountRes.error) throw new Error('No se pudo leer la plantilla por sitio (' + headcountRes.error.message + ')');
-  if(excepcionesRes.error) throw new Error('No se pudieron leer los requisitos por puesto (' + excepcionesRes.error.message + ')');
+  if(rutasRes.error) throw new Error('No se pudieron leer las rutas por puesto (' + rutasRes.error.message + ')');
 
   HEADCOUNT_BY_SITE = {};
   HEADCOUNT_TOTAL = 0;
@@ -408,7 +452,8 @@ async function fetchFromSupabase(){
   });
 
   ALL_PROFILES = profilesRes.data || [];
-  EXCEPCIONES_PUESTO = new Set((excepcionesRes.data||[]).map(e => e.puesto + '||' + e.escuela));
+  RUTAS_PUESTO = {};
+  (rutasRes.data||[]).forEach(r => { RUTAS_PUESTO[r.puesto] = r; });
 
   const profileById = {};
   (profilesRes.data||[]).forEach(p => { profileById[p.id] = p; });
@@ -428,6 +473,7 @@ async function fetchFromSupabase(){
       const fecha = fechaObj ? fechaObj.toLocaleDateString('es-MX',{year:'numeric',month:'long',day:'numeric'}) : '';
       return {
         user_id: row.user_id,
+        moduloN: Number(row.modulo),
         nombre: p.nombre || '(sin nombre en perfil)',
         base: p.base || '',
         escuela: SCHOOL_SHORT[row.escuela] || row.escuela || '',
@@ -516,33 +562,27 @@ function render(){
   // avance de los que sí.
   const schoolKeys = PEM_SCHOOL_ORDER;
   const modulesPerSchool = PEM_SCHOOLS[schoolKeys[0]].modules.length;
-  const profilesFiltrados = ALL_PROFILES.filter(p => sitio === 'all' || (p.base||'').toUpperCase() === sitio);
-  const sinPuesto = profilesFiltrados.filter(p => !p.rol).length;
-  const sinRegistrar = Math.max(0, TOTAL_HEADCOUNT - profilesFiltrados.length);
+  const av = computeAvance(data, sitio);
+  const sinPuesto = av.sinPuesto;
+  const sinRegistrar = av.sinRegistrar;
 
   const schoolCoverage = schoolKeys.map(key => {
     const label = PEM_SCHOOLS[key].name;
     const color = PEM_SCHOOLS[key].color;
-    const requierenEscuela = profilesFiltrados.filter(p => escuelasRequeridas(p.rol).includes(key));
-    const requierenIds = new Set(requierenEscuela.map(p => p.id));
-    const count = data.filter(d => (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === key && requierenIds.has(d.user_id)).length;
-    // Quien aún no se registra se asume que debe las 4 escuelas → cuenta en el potencial de todas.
-    const potential = (requierenEscuela.length + sinRegistrar) * modulesPerSchool;
+    const count = av.porEscuela[key].count;
+    const potential = av.porEscuela[key].potential;
     const pct = potential > 0 ? Math.min(100, Math.round(100 * count / potential)) : null;
     return {key, label, color, count, potential, pct};
   });
   const minSchool = schoolCoverage.filter(s => s.pct !== null).sort((a,b)=>a.pct-b.pct)[0];
 
   // ---- Avance real agregado: módulos completados vs. módulos que le corresponden a TODA
-  // la plantilla del sitio (registrados + pendientes de registrar) ----
-  let avanceRequerido = 0, avanceCompletado = 0;
-  profilesFiltrados.forEach(p => {
-    const reqs = escuelasRequeridas(p.rol);
-    avanceRequerido += reqs.length * modulesPerSchool;
-    avanceCompletado += data.filter(d => d.user_id === p.id && reqs.includes(SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'')).length;
-  });
-  avanceRequerido += sinRegistrar * schoolKeys.length * modulesPerSchool;
+  // la plantilla del sitio (registrados + pendientes de registrar), y aparte solo contra
+  // quien ya tiene perfil registrado ----
+  const avanceRequerido = av.requerido, avanceCompletado = av.completado;
   const avanceReal = avanceRequerido > 0 ? Math.min(100, Math.round(100 * avanceCompletado / avanceRequerido)) : null;
+  const avanceRequeridoReg = av.requeridoRegistrados;
+  const avanceRegistrados = avanceRequeridoReg > 0 ? Math.min(100, Math.round(100 * avanceCompletado / avanceRequeridoReg)) : null;
 
   // ==================== Aviso de plantilla sin configurar ====================
   const headcountWarnEl = document.getElementById('headcountWarn');
@@ -635,11 +675,15 @@ function render(){
     : `<div class="avanceReal"><div class="rowTop"><strong>Avance real del sitio (contra toda su plantilla)</strong><span>${avanceReal}%</span></div>
          <div class="bar"><span style="width:${avanceReal}%;background:#087F5B"></span></div>
          <div class="avanceFoot">${avanceCompletado} de ${avanceRequerido} módulos requeridos, completados — incluye a quien todavía no se ha registrado</div></div>`;
+  const avanceRegHtml = avanceRegistrados === null ? '' :
+    `<div class="avanceReal"><div class="rowTop"><strong>Avance de quien ya se registró</strong><span>${avanceRegistrados}%</span></div>
+         <div class="bar"><span style="width:${avanceRegistrados}%;background:#19A974"></span></div>
+         <div class="avanceFoot">${avanceCompletado} de ${avanceRequeridoReg} módulos que les corresponden a los ${av.profiles.length} colaborador${av.profiles.length===1?'':'es'} con perfil — sin contar a quien aún no entra</div></div>`;
   const avisos = [];
-  if(sinRegistrar > 0) avisos.push(`${sinRegistrar} de la plantilla${sitio!=='all' ? ' de '+sitio : ''} aún no se ha${sinRegistrar===1?'':'n'} registrado en la plataforma — cuenta${sinRegistrar===1?'':'n'} como pendiente de las 4 escuelas en el % de arriba.`);
-  if(sinPuesto > 0) avisos.push(`${sinPuesto} colaborador${sinPuesto===1?'':'es'} ya registrado${sinPuesto===1?'':'s'} pero sin puesto asignado — se ${sinPuesto===1?'le':'les'} cuenta igual, como si debiera${sinPuesto===1?'':'n'} las 4 escuelas, hasta que le${sinPuesto===1?'':'s'} asignes un puesto en <a href="admin-usuarios.html">Administrar usuarios</a>.`);
+  if(sinRegistrar > 0) avisos.push(`${sinRegistrar} de la plantilla${sitio!=='all' ? ' de '+sitio : ''} aún no se ha${sinRegistrar===1?'':'n'} registrado en la plataforma — cuenta${sinRegistrar===1?'':'n'} como pendiente con nivel genérico (${PEM_MOD_BY_LEVEL[NIVEL_GENERICO]} módulos por escuela) en el avance real de toda la plantilla.`);
+  if(sinPuesto > 0) avisos.push(`${sinPuesto} colaborador${sinPuesto===1?'':'es'} ya registrado${sinPuesto===1?'':'s'} pero sin puesto asignado — se ${sinPuesto===1?'le':'les'} cuenta con nivel genérico (${PEM_MOD_BY_LEVEL[NIVEL_GENERICO]} módulos por escuela) hasta que le${sinPuesto===1?'':'s'} asignes un puesto en <a href="admin-usuarios.html">Administrar usuarios</a>.`);
   const sinPuestoHtml = avisos.length ? `<div class="avanceWarn">⚠️ ${avisos.join(' ')}</div>` : '';
-  document.getElementById('bySchool').innerHTML = avanceRealHtml + sinPuestoHtml + schoolCoverage.map(s => `
+  document.getElementById('bySchool').innerHTML = avanceRealHtml + avanceRegHtml + sinPuestoHtml + schoolCoverage.map(s => `
     <div class="progressRow"><div class="rowTop"><strong>${s.label}</strong><span>${s.pct===null ? 'N/A' : s.pct+'%'}</span></div>
       <div class="bar"><span style="width:${s.pct||0}%;background:${s.color}"></span></div>
       ${s.pct===null ? `<div class="avanceFoot">Nadie en este filtro requiere esta escuela</div>` : ''}</div>
@@ -771,19 +815,12 @@ function exportXLSX(){
   const avg = validScores.length ? Math.round(validScores.reduce((a,n)=>a+n,0)/validScores.length) : null;
   const cobertura = TOTAL_HEADCOUNT > 0 ? Math.min(100, Math.round(100 * colaboradoresSet.size / TOTAL_HEADCOUNT)) : 0;
 
-  // Avance real: igual que en render(), contra TODA la plantilla del sitio — a quien aún
-  // no se registra se le cuenta pendiente de las 4 escuelas (ver "Administrar requisitos").
-  const modulesPerSchool = PEM_SCHOOLS[PEM_SCHOOL_ORDER[0]].modules.length;
-  const profilesFiltrados = ALL_PROFILES.filter(p => sitio === 'all' || (p.base||'').toUpperCase() === sitio);
-  const sinRegistrar = Math.max(0, TOTAL_HEADCOUNT - profilesFiltrados.length);
-  let avanceRequerido = 0, avanceCompletado = 0;
-  profilesFiltrados.forEach(p => {
-    const reqs = escuelasRequeridas(p.rol);
-    avanceRequerido += reqs.length * modulesPerSchool;
-    avanceCompletado += data.filter(d => d.user_id === p.id && reqs.includes(SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'')).length;
-  });
-  avanceRequerido += sinRegistrar * PEM_SCHOOL_ORDER.length * modulesPerSchool;
+  // Avance real: igual que en render() (mismo computeAvance), según el nivel de cada puesto
+  // en "Administrar rutas"; a quien aún no se registra se le cuenta con nivel genérico.
+  const av = computeAvance(data, sitio);
+  const avanceRequerido = av.requerido, avanceCompletado = av.completado;
   const avanceReal = avanceRequerido > 0 ? Math.min(100, Math.round(100 * avanceCompletado / avanceRequerido)) : null;
+  const avanceRegistrados = av.requeridoRegistrados > 0 ? Math.min(100, Math.round(100 * avanceCompletado / av.requeridoRegistrados)) : null;
 
   // Hoja 1 — Resumen ejecutivo
   const resumen = [
@@ -796,6 +833,7 @@ function exportXLSX(){
     ['Colaboradores con al menos 1 certificado', colaboradoresSet.size + ' / ' + (TOTAL_HEADCOUNT || '?')],
     ['Avance real (contra toda la plantilla del sitio)', avanceReal!==null ? avanceReal + '%' : 'Plantilla sin configurar y sin colaboradores registrados'],
     ['Módulos requeridos completados', avanceCompletado + ' / ' + avanceRequerido],
+    ['Avance de quien ya se registró', avanceRegistrados!==null ? avanceRegistrados + '% (' + avanceCompletado + ' / ' + av.requeridoRegistrados + ')' : 'Sin colaboradores registrados'],
     ['Certificaciones activas', data.length],
     ['Promedio de evaluación', avg!==null ? avg + '%' : 'Sin datos'],
     ['Horas de aprendizaje acumuladas', Math.round(data.length * HOURS_PER_MODULE * 10)/10 + ' h'],
@@ -803,10 +841,8 @@ function exportXLSX(){
     ['Cobertura por escuela', '% de lo que le corresponde a cada quien']
   ];
   PEM_SCHOOL_ORDER.forEach(key => {
-    const requierenEscuela = profilesFiltrados.filter(p => escuelasRequeridas(p.rol).includes(key));
-    const requierenIds = new Set(requierenEscuela.map(p => p.id));
-    const count = data.filter(d => (SCHOOL_KEY_MAP[d.escuela.toUpperCase()]||'') === key && requierenIds.has(d.user_id)).length;
-    const potential = (requierenEscuela.length + sinRegistrar) * modulesPerSchool;
+    const count = av.porEscuela[key].count;
+    const potential = av.porEscuela[key].potential;
     const pct = potential > 0 ? Math.min(100, Math.round(100 * count / potential)) : null;
     resumen.push([PEM_SCHOOLS[key].name, pct!==null ? pct + '%' : 'N/A (nadie la requiere aquí)']);
   });
