@@ -451,7 +451,10 @@ async function fetchFromSupabase(){
     HEADCOUNT_TOTAL += h.total || 0;
   });
 
-  ALL_PROFILES = profilesRes.data || [];
+  // Las cuentas marcadas "fuera de plantilla" en Administrar usuarios (p. ej. el Director
+  // General, que no forma parte de los colaboradores contados) no entran a ningún cálculo.
+  const fueraDePlantilla = new Set((profilesRes.data||[]).filter(p => p.en_plantilla === false).map(p => p.id));
+  ALL_PROFILES = (profilesRes.data || []).filter(p => p.en_plantilla !== false);
   RUTAS_PUESTO = {};
   (rutasRes.data||[]).forEach(r => { RUTAS_PUESTO[r.puesto] = r; });
 
@@ -459,6 +462,7 @@ async function fetchFromSupabase(){
   (profilesRes.data||[]).forEach(p => { profileById[p.id] = p; });
 
   return (certsRes.data||[])
+    .filter(row => !fueraDePlantilla.has(row.user_id))
     .filter(row => row.escuela !== 'PRUEBA') // descarta el certificado de prueba del piloto (Fase 3)
     .filter(row => { // descarta certificados vencidos (norma actualizada de versión) — no cuentan como cumplimiento vigente
       const school = PEM_SCHOOLS[row.escuela];

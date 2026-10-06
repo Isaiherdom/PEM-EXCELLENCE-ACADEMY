@@ -72,6 +72,10 @@
   .switch input:checked + .slider{background:var(--green);}
   .switch input:checked + .slider::before{transform:translateX(17px);}
   .switch input:disabled + .slider{opacity:.5;cursor:not-allowed;}
+  .name-cell input.nombre-input{width:100%;max-width:260px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;}
+  .name-cell .email{display:block;font-size:11px;color:var(--muted);margin:3px 0 5px;word-break:break-all;}
+  .name-cell select.base-select{width:100%;max-width:200px;padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:12px;}
+  .fuera{font-size:10.5px;color:var(--muted);display:block;margin-top:3px;}
   .certs-pill{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;background:var(--mint);color:var(--green);border-radius:20px;padding:3px 9px;}
   .save-note{font-size:10.5px;color:var(--green);margin-left:8px;opacity:0;transition:.3s;}
   .save-note.show{opacity:1;}
@@ -94,20 +98,20 @@
 <div class="wrap">
   <div class="kicker">Gobernanza de la plataforma</div>
   <h1>Administrar usuarios</h1>
-  <div class="subtitle">Marca administradores y corrige el puesto de cualquier colaborador — sin escribir SQL. Los cambios se guardan al instante. ¿Falta un puesto en la lista? Agrégalo en <a href="admin-puestos.html" style="color:inherit;">Administrar puestos</a>.</div>
+  <div class="subtitle">Marca administradores y corrige nombre, sitio y puesto de cualquier colaborador — sin escribir SQL. Apaga "En plantilla" para cuentas que no forman parte de los colaboradores contados (por ejemplo, el Director General). Los cambios se guardan al instante. ¿Falta un puesto en la lista? Agrégalo en <a href="admin-puestos.html" style="color:inherit;">Administrar puestos</a>.</div>
 
   <div id="loadingState" class="card state">Cargando usuarios…</div>
   <div id="errorState" class="card state err" style="display:none;"></div>
 
   <div id="content" style="display:none;">
     <div class="toolbar">
-      <input type="text" id="search" placeholder="Buscar por nombre o sitio...">
+      <input type="text" id="search" placeholder="Buscar por nombre, correo o sitio...">
       <span class="count" id="countLabel"></span>
     </div>
     <div class="card" style="overflow-x:auto;">
       <table>
         <thead>
-          <tr><th>Colaborador</th><th>Rol / puesto</th><th>Certificados</th><th>Administrador</th></tr>
+          <tr><th>Colaborador</th><th>Rol / puesto</th><th>Certificados</th><th>En plantilla</th><th>Administrador</th></tr>
         </thead>
         <tbody id="usersBody"></tbody>
       </table>
@@ -117,6 +121,7 @@
 
 <script>
 let ROLES = [];
+let SITES = [];
 
 let USERS = [];
 let MY_ID = null;
@@ -132,23 +137,41 @@ function rolOptions(current){
     [...ROLES, ...extra].map(r => `<option ${r===current?'selected':''}>${r}</option>`).join('');
 }
 
+function siteOptions(current){
+  const cur = (current||'').toUpperCase();
+  const match = SITES.find(s => s.toUpperCase() === cur);
+  const extra = current && !match ? [current] : [];
+  return '<option value="">— sin sitio —</option>' +
+    [...SITES, ...extra].map(si => `<option value="${escapeHtml(si)}" ${(si===match || si===current)?'selected':''}>${escapeHtml(si)}</option>`).join('');
+}
+
 function renderRows(){
   const q = document.getElementById('search').value.trim().toLowerCase();
   const filtered = USERS.filter(u =>
-    !q || (u.nombre||'').toLowerCase().includes(q) || (u.base||'').toLowerCase().includes(q)
+    !q || (u.nombre||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q) || (u.base||'').toLowerCase().includes(q)
   );
   document.getElementById('countLabel').textContent = filtered.length + ' de ' + USERS.length + ' colaboradores';
   document.getElementById('usersBody').innerHTML = filtered.map(u => `
     <tr data-id="${u.id}">
       <td class="name-cell">
-        <b>${escapeHtml(u.nombre) || '(sin nombre)'}</b>
-        <span>${escapeHtml(u.base) || 'Sin sitio registrado'}</span>
+        <input class="nombre-input" type="text" data-field="nombre" value="${escapeHtml(u.nombre)}" placeholder="(sin nombre)">
+        <span class="save-note"></span>
+        <span class="email">${escapeHtml(u.email) || '—'}</span>
+        <select class="base-select" data-field="base">${siteOptions(u.base)}</select>
+        <span class="save-note"></span>
       </td>
       <td>
         <select class="rol-select" data-field="rol">${rolOptions(u.rol)}</select>
         <span class="save-note"></span>
       </td>
       <td><span class="certs-pill">${u.certCount}</span></td>
+      <td>
+        <label class="switch">
+          <input type="checkbox" data-field="en_plantilla" ${u.en_plantilla !== false ? 'checked' : ''}>
+          <span class="slider"></span>
+        </label>
+        <span class="save-note"></span>
+      </td>
       <td>
         <label class="switch">
           <input type="checkbox" data-field="is_admin" ${u.is_admin ? 'checked' : ''} ${u.id === MY_ID ? 'disabled title="No puedes quitarte tu propio acceso desde aquí"' : ''}>
@@ -159,10 +182,7 @@ function renderRows(){
     </tr>
   `).join('');
 
-  document.querySelectorAll('#usersBody select[data-field="rol"]').forEach(el => {
-    el.addEventListener('change', () => saveField(el));
-  });
-  document.querySelectorAll('#usersBody input[data-field="is_admin"]').forEach(el => {
+  document.querySelectorAll('#usersBody select[data-field], #usersBody input[type="checkbox"][data-field], #usersBody input.nombre-input').forEach(el => {
     el.addEventListener('change', () => saveField(el));
   });
 }
@@ -171,8 +191,10 @@ async function saveField(el){
   const tr = el.closest('tr');
   const id = tr.dataset.id;
   const field = el.dataset.field;
-  const value = field === 'is_admin' ? el.checked : (el.value || null);
-  const note = el.parentElement.querySelector('.save-note') || el.nextElementSibling;
+  const isBool = field === 'is_admin' || field === 'en_plantilla';
+  const value = isBool ? el.checked : ((el.value || '').trim() || null);
+  const anchor = el.closest('label') || el; // los interruptores van dentro de un <label>
+  const note = anchor.nextElementSibling;
 
   const { error } = await window.PEM_SB.from('profiles').update({ [field]: value }).eq('id', id);
   const u = USERS.find(u => u.id === id);
@@ -202,15 +224,17 @@ async function load(){
     if(profErr) throw new Error('No se pudo verificar tu perfil (' + profErr.message + ')');
     if(!myProfile || !myProfile.is_admin) throw new Error('ACCESO_RESTRINGIDO');
 
-    const [profilesRes, certsRes, puestosRes] = await Promise.all([
+    const [profilesRes, certsRes, puestosRes, sitesRes] = await Promise.all([
       window.PEM_SB.from('profiles').select('*').order('nombre'),
       window.PEM_SB.from('certificados').select('user_id').neq('escuela', 'PRUEBA'),
-      window.PEM_SB.from('puestos').select('nombre').order('orden')
+      window.PEM_SB.from('puestos').select('nombre').order('orden'),
+      window.PEM_SB.from('headcount').select('site').order('site')
     ]);
     if(profilesRes.error) throw new Error('No se pudieron leer los perfiles (' + profilesRes.error.message + ')');
     if(puestosRes.error) throw new Error('No se pudo leer el catálogo de puestos (' + puestosRes.error.message + ')');
 
     ROLES = (puestosRes.data || []).map(p => p.nombre);
+    SITES = (sitesRes.data || []).map(h => h.site).filter(Boolean);
 
     const certCountByUser = {};
     (certsRes.data||[]).forEach(c => { certCountByUser[c.user_id] = (certCountByUser[c.user_id]||0) + 1; });
