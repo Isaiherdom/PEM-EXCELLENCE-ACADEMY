@@ -82,7 +82,7 @@
 <body data-pem-no-shell-header>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/supabase-config.js"></script>
-<script src="assets/pem-gate.js"></script>
+<script src="assets/pem-gate.js?v=154"></script>
 
 <div class="exec-nav">
   <button class="burger" id="pemBurger" aria-label="Abrir menú">
@@ -134,6 +134,23 @@ function initials(name){
   return ((parts[0]||'')[0] || '') + ((parts[1]||'')[0] || '');
 }
 
+// Llena el selector con los puestos en vivo (tabla "puestos"). Usa PEM_PUESTOS si existe y,
+// si no (p. ej. el navegador aún tiene guardada una versión vieja de pem-gate.js), consulta directo.
+async function llenarPuestos(actual){
+  const sel = document.getElementById('fRol');
+  try{
+    if(window.PEM_PUESTOS){ await window.PEM_PUESTOS.fill(sel, actual, '— sin rol —'); return; }
+  }catch(e){ console.warn('PEM_PUESTOS falló, consultando directo', e); }
+  let names = [];
+  try{
+    const { data } = await window.PEM_SB.from('puestos').select('nombre').order('orden');
+    names = (data || []).map(p => p.nombre);
+  }catch(e){ console.warn('No se pudo leer puestos', e); }
+  if(actual && !names.includes(actual)) names.push(actual);
+  sel.innerHTML = '<option value="">— sin rol —</option>' + names.map(r => `<option>${r}</option>`).join('');
+  sel.value = actual || '';
+}
+
 async function load(){
   const { data: { session } } = await window.PEM_SB.auth.getSession();
   if(!session) return;
@@ -148,7 +165,7 @@ async function load(){
   document.getElementById('avatarInit').textContent = initials(profile.nombre).toUpperCase() || '—';
   document.getElementById('fNombre').value = profile.nombre || '';
   document.getElementById('fBase').value = profile.base || '';
-  await window.PEM_PUESTOS.fill(document.getElementById('fRol'), profile.rol || '', '— sin rol —');
+  await llenarPuestos(profile.rol || '');
   if(profile.is_admin) document.getElementById('adminBadge').style.display = 'inline-block';
   if(profile.created_at){
     document.getElementById('kSince').textContent = new Date(profile.created_at).toLocaleDateString('es-MX',{year:'numeric',month:'short',day:'numeric'});
