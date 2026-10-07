@@ -124,14 +124,7 @@
 </div>
 
 <script>
-const ROLES = [
-  "Director General","Gerentes de área/base","Supervisores de campo","Calidad (área)",
-  "HSE (área)","Operadores","Mecánicos","Compras","Recursos Humanos","Finanzas",
-  "Director de Operación","Director/Gerente de Ventas y Desarrollo de Negocio",
-  "Cuentas por Pagar","Cuentas por Cobrar","Almacén","Tesorería","Administrativos en general"
-];
-document.getElementById('fRol').innerHTML = '<option value="">— sin rol —</option>' +
-  ROLES.map(r => `<option>${r}</option>`).join('');
+// El catálogo de puestos se lee en vivo de la tabla "puestos" (Administrar puestos) vía PEM_PUESTOS.
 
 let MY_ID = null;
 
@@ -155,7 +148,7 @@ async function load(){
   document.getElementById('avatarInit').textContent = initials(profile.nombre).toUpperCase() || '—';
   document.getElementById('fNombre').value = profile.nombre || '';
   document.getElementById('fBase').value = profile.base || '';
-  document.getElementById('fRol').value = profile.rol || '';
+  await window.PEM_PUESTOS.fill(document.getElementById('fRol'), profile.rol || '', '— sin rol —');
   if(profile.is_admin) document.getElementById('adminBadge').style.display = 'inline-block';
   if(profile.created_at){
     document.getElementById('kSince').textContent = new Date(profile.created_at).toLocaleDateString('es-MX',{year:'numeric',month:'short',day:'numeric'});

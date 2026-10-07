@@ -171,17 +171,17 @@ async function renamePuesto(el){
     return;
   }
 
-  // La tabla usa el nombre como llave primaria: se borra el viejo y se crea el nuevo con el mismo orden.
-  const r = ROWS.find(r => r.nombre === oldNombre);
-  const { error: insErr } = await window.PEM_SB.from('puestos')
-    .insert({ nombre: newNombre, orden: r.orden, updated_by: MY_ID });
-  if(insErr){
-    note.textContent = '✕ ' + insErr.message;
+  // El nombre es la llave primaria y está ligado en cascada: renombrar actualiza solo
+  // a las personas que tienen el puesto y a su ruta en Administrar rutas.
+  const { error: updErr } = await window.PEM_SB.from('puestos')
+    .update({ nombre: newNombre, updated_by: MY_ID }).eq('nombre', oldNombre);
+  if(updErr){
+    note.textContent = '✕ ' + updErr.message;
     note.className = 'save-note err show';
     el.value = oldNombre;
     return;
   }
-  await window.PEM_SB.from('puestos').delete().eq('nombre', oldNombre);
+  const r = ROWS.find(r => r.nombre === oldNombre);
 
   r.nombre = newNombre;
   tr.dataset.nombre = newNombre;
@@ -193,7 +193,7 @@ async function renamePuesto(el){
 async function deletePuesto(el){
   const tr = el.closest('tr');
   const nombre = tr.dataset.nombre;
-  if(!confirm(`¿Quitar "${nombre}" del catálogo de puestos? Esto no afecta a quien ya lo tenga asignado, solo deja de aparecer para asignarlo a futuro.`)) return;
+  if(!confirm(`¿Quitar "${nombre}" del catálogo de puestos? Quien lo tenga asignado quedará sin puesto y se le pedirá elegir otro al entrar. También se borra su ruta de Administrar rutas.`)) return;
 
   const { error } = await window.PEM_SB.from('puestos').delete().eq('nombre', nombre);
   if(error){ alert('No se pudo eliminar: ' + error.message); return; }
