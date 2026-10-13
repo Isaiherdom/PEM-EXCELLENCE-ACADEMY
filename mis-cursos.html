@@ -148,6 +148,13 @@ function renderModules(progress){
   const el = document.getElementById('modGrid');
   el.innerHTML = s.modules.map((m,i)=>{
     const n = i+1;
+    // Orden de estudio: 1) Video primero, luego flashcards, infografía, examen y certificado
+    const pasos = [];
+    if(m[2]) pasos.push({href:`${s.prefix}video-modulo${n}.html`, icon:'🎥', label:'Video', inicio:true});
+    pasos.push({href:`${s.prefix}flashcards-modulo${n}.html`, icon:'🗂', label:'Flashcards'});
+    pasos.push({href:`${s.prefix}infografia-modulo${n}.html`, icon:'📊', label:'Infografía'});
+    pasos.push({href:`${s.prefix}examen-modulo${n}${s.examSuffix}.html`, icon:'📝', label:'Examen'});
+    pasos.push({href:`${s.prefix}certificado-modulo${n}.html`, icon:'🎖', label:'Certificado'});
     const cert = PEM_SHELL.readCert(s.prefix, n);
     const statusHtml = cert
       ? (cert.vigente === false
@@ -163,11 +170,7 @@ function renderModules(progress){
       <div class="modcard-title">${m[0]}</div>
       ${statusHtml}
       <div class="assets">
-        <a class="asset-link" href="${s.prefix}flashcards-modulo${n}.html">🗂 Flashcards</a>
-        <a class="asset-link" href="${s.prefix}infografia-modulo${n}.html">📊 Infografía</a>
-        <a class="asset-link" href="${s.prefix}examen-modulo${n}${s.examSuffix}.html">📝 Examen</a>
-        <a class="asset-link" href="${s.prefix}certificado-modulo${n}.html">🎖 Certificado</a>
-        ${m[2] ? `<a class="asset-link" href="${s.prefix}video-modulo${n}.html" style="grid-column:1 / -1;border-color:${s.color};color:${s.color};">🎥 Video</a>` : ''}
+        ${pasos.map((a,k) => `<a class="asset-link" href="${a.href}"${a.inicio ? ' style="grid-column:1 / -1;border-color:${s.color};color:${s.color};"' : ''}>${k+1}. ${a.icon} ${a.label}${a.inicio ? ' · empieza aquí' : ''}</a>`).join('')}
       </div>
     </div>`;
   }).join('');
