@@ -55,7 +55,11 @@
   .modcard:hover{border-color:var(--green);box-shadow:0 14px 32px rgba(0,0,0,.55),0 0 0 1px rgba(34,232,138,.18),0 0 24px rgba(34,232,138,.14);}
   .modcard.done{border-color:var(--green);}
   .modcard-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-  .modcard-n{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:13px;color:var(--sc,var(--green));}
+  /* Casilla del módulo: gris = pendiente · verde = certificado · ámbar = vencido (recertificar) */
+  .modcard-n{width:36px;height:36px;border-radius:10px;background:color-mix(in srgb,var(--muted) 22%,var(--surface));color:var(--muted);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:12.5px;flex-shrink:0;}
+  .modcard-n.done{background:var(--green);border-color:var(--green);color:#FFFFFF;}
+  .modcard-n.expired{background:var(--amber);border-color:var(--amber);color:#FFFFFF;}
+  html[data-theme="dark"] .modcard-n.done,html[data-theme="dark"] .modcard-n.expired{color:#06140D;}
   .modcard-clause{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
   .modcard-title{font-weight:700;font-size:14px;line-height:1.35;margin-bottom:10px;min-height:38px;}
   .modcard-req{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--sc,var(--green));background:color-mix(in srgb, var(--sc,var(--green)) 14%, transparent);border-radius:20px;padding:3px 9px;margin-bottom:9px;}
@@ -163,7 +167,7 @@ function renderModules(progress){
       : `<div class="status pending">⏳ Pendiente</div>`;
     return `<div class="card modcard ${cert && cert.vigente !== false ? 'done':''}" style="--sc:${s.color}">
       <div class="modcard-head">
-        <span class="modcard-n">M${n}</span>
+        <span class="modcard-n ${cert ? (cert.vigente === false ? 'expired' : 'done') : ''}">M${n}</span>
         <span class="modcard-clause">${m[1]}</span>
       </div>
       ${REQUIRED && REQUIRED[current] && n <= REQUIRED[current] ? '<div class="modcard-req">★ Obligatorio para tu puesto</div>' : ''}

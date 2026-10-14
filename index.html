@@ -160,7 +160,11 @@
   .modcard{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;transition:.15s;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
   .modcard:hover{border-color:var(--mod-c,var(--green));}
   .modcard-head{padding:16px 16px 14px;display:flex;align-items:flex-start;gap:12px;}
-  .modcard-n{width:36px;height:36px;border-radius:10px;background:var(--mod-c,var(--green));color:#06140D;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:12.5px;flex-shrink:0;}
+  /* Casilla del módulo: gris = pendiente · verde = certificado · ámbar = vencido (recertificar) */
+  .modcard-n{width:36px;height:36px;border-radius:10px;background:color-mix(in srgb,var(--muted) 22%,var(--surface));color:var(--muted);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:12.5px;flex-shrink:0;}
+  .modcard-n.done{background:var(--green);border-color:var(--green);color:#FFFFFF;}
+  .modcard-n.expired{background:var(--amber);border-color:var(--amber);color:#FFFFFF;}
+  html[data-theme="dark"] .modcard-n.done,html[data-theme="dark"] .modcard-n.expired{color:#06140D;}
   .modcard-clause{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mod-c,var(--muted));font-weight:700;white-space:nowrap;margin-top:2px;}
   .modcard-title{padding:0 16px 4px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;line-height:1.3;}
   .assets{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 16px 16px;}
@@ -507,6 +511,9 @@ function renderModules(){
   }
   el.innerHTML = s.modules.map((m,i)=>{
     const n = i+1;
+    // Estado de la casilla según el certificado del usuario (vacío = pendiente/gris)
+    const cert = (window.PEM_SHELL && PEM_SHELL.readCert) ? PEM_SHELL.readCert(s.prefix, n) : null;
+    const estado = cert ? (cert.vigente === false ? 'expired' : 'done') : '';
     // Orden de estudio: 1) Video primero, luego flashcards, infografía, examen y certificado
     const pasos = [];
     if(m[2]) pasos.push({href:`${s.prefix}video-modulo${n}.html`, icon:'🎥', label:'Video', inicio:true});
@@ -517,7 +524,7 @@ function renderModules(){
     return `
     <div class="modcard" style="--mod-c:${s.color}">
       <div class="modcard-head">
-        <span class="modcard-n">M${n}</span>
+        <span class="modcard-n ${estado}">M${n}</span>
         <div>
           <span class="modcard-clause">${m[1]}</span>
         </div>
@@ -634,6 +641,8 @@ window.addEventListener('DOMContentLoaded', function(){
       '37001':'assets/img/etica-integridad.jpg'
     };
     document.getElementById('continuePhoto').style.backgroundImage = "url('" + photoMap[next.school.key] + "')";
+    // Las casillas de los módulos ya pueden pintarse con el progreso real
+    if(typeof renderModules === 'function') renderModules();
   }
   setTimeout(function(){
     // window.PEM_SHELL ya existe aquí (shell.js corre antes de DOMContentLoaded);
