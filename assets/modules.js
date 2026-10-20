@@ -67,18 +67,18 @@ window.PEM_SCHOOLS = {
     name:"Escuela de Ética", norm:"ISO 37001:2025", version:"2025", color:"#E8603D", active:true, progress:"12/12",
     prefix:"escuela-etica/", examSuffix:"-iso37001",
     modules:[
-      ["Fundamentos y contexto del riesgo de soborno","Cl. 4"],
-      ["Liderazgo, función de cumplimiento y compromiso","Cl. 5"],
-      ["Política antisoborno y gobierno","Cl. 5.2–5.3"],
-      ["Evaluación de riesgo de soborno","Cl. 4.5"],
-      ["Debida diligencia de terceros, socios y clientes","Cl. 8.2"],
-      ["Controles financieros y no financieros","Cl. 8.3–8.4"],
-      ["Regalos, hospitalidad, donativos y beneficios","Cl. 8.7"],
-      ["Compromisos antisoborno de terceros","Cl. 8.6"],
-      ["Canal de denuncias (whistleblowing)","Cl. 8.9"],
-      ["Investigaciones y conflictos de interés","Cl. 8.10"],
-      ["Comunicación, competencia y conciencia","Cl. 7"],
-      ["Evaluación del desempeño, auditoría interna y mejora","Cl. 9–10"]
+      ["Fundamentos y contexto del riesgo de soborno","Cl. 4", true],
+      ["Liderazgo, función de cumplimiento y compromiso","Cl. 5", true],
+      ["Política antisoborno y gobierno","Cl. 5.2–5.3", true],
+      ["Evaluación de riesgo de soborno","Cl. 4.5", true],
+      ["Debida diligencia de terceros, socios y clientes","Cl. 8.2", true],
+      ["Controles financieros y no financieros","Cl. 8.3–8.4", true],
+      ["Regalos, hospitalidad, donativos y beneficios","Cl. 8.7", true],
+      ["Compromisos antisoborno de terceros","Cl. 8.6", true],
+      ["Canal de denuncias (whistleblowing)","Cl. 8.9", true],
+      ["Investigaciones y conflictos de interés","Cl. 8.10", true],
+      ["Comunicación, competencia y conciencia","Cl. 7", true],
+      ["Evaluación del desempeño, auditoría interna y mejora","Cl. 9–10", true]
     ]
   }
 };
