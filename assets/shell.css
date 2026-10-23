@@ -94,6 +94,37 @@ html[data-theme="dark"] .pem-nav a.active{box-shadow:inset 3px 0 0 var(--pem-x-g
    !important es necesario porque cada página ya declara su propio padding en body. */
 body{padding-left:var(--pem-sb-w) !important; padding-top:var(--pem-hd-h) !important;}
 
+/* ---- Menú contraíble (solo escritorio): franja de íconos ---- */
+.pem-sidebar,.pem-header{transition:transform .25s ease,width .22s ease,left .22s ease;}
+body{transition:padding-left .22s ease;}
+.pem-sidebar-brand{display:flex;align-items:center;gap:8px;justify-content:space-between;}
+.pem-collapse{flex-shrink:0;width:30px;height:30px;border-radius:8px;border:1px solid var(--pem-x-line);background:var(--pem-x-panel);color:var(--pem-x-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.12s;}
+.pem-collapse:hover{color:var(--pem-x-green);border-color:var(--pem-x-green);}
+.pem-collapse svg{transition:transform .2s;}
+html.pem-collapsed{--pem-sb-w:68px;}
+html.pem-collapsed .pem-collapse svg{transform:rotate(180deg);}
+html.pem-collapsed .pem-sidebar-brand{padding:22px 0 18px;justify-content:center;}
+html.pem-collapsed .pem-sidebar-brand .txt{display:none;}
+html.pem-collapsed .pem-nav{padding:14px 8px;overflow-x:hidden;}
+html.pem-collapsed .pem-nav a,html.pem-collapsed .pem-nav-toggle,html.pem-collapsed .pem-sidebar-foot a{justify-content:center;padding:11px 0;gap:0;}
+html.pem-collapsed .pem-nav a span,html.pem-collapsed .pem-nav-toggle span,html.pem-collapsed .pem-nav-toggle .chev,html.pem-collapsed .pem-sidebar-foot a span,html.pem-collapsed .pem-nav a.soon .badge{display:none;}
+html.pem-collapsed .pem-nav a svg,html.pem-collapsed .pem-nav-toggle svg,html.pem-collapsed .pem-sidebar-foot a svg{width:20px;height:20px;}
+html.pem-collapsed .pem-nav-group .pem-nav-sub{display:none;}
+html.pem-collapsed .pem-nav-toggle svg:last-child{display:none;}
+html.pem-collapsed .pem-nav a.active{box-shadow:inset 3px 0 0 var(--pem-x-green);}
+
+@media(max-width:900px){
+  html.pem-collapsed{--pem-sb-w:248px;}
+  .pem-collapse{display:none;}
+  html.pem-collapsed .pem-sidebar-brand{padding:22px 20px 18px;justify-content:space-between;}
+  html.pem-collapsed .pem-sidebar-brand .txt{display:block;}
+  html.pem-collapsed .pem-nav a span,html.pem-collapsed .pem-nav-toggle span,html.pem-collapsed .pem-sidebar-foot a span{display:inline;}
+  html.pem-collapsed .pem-nav-toggle .chev,html.pem-collapsed .pem-nav-toggle svg:last-child{display:inline;}
+  html.pem-collapsed .pem-nav a,html.pem-collapsed .pem-nav-toggle,html.pem-collapsed .pem-sidebar-foot a{justify-content:flex-start;padding:10px 12px;gap:11px;}
+  html.pem-collapsed .pem-nav-group .pem-nav-sub{display:block;}
+  html.pem-collapsed .pem-nav a svg,html.pem-collapsed .pem-nav-toggle svg,html.pem-collapsed .pem-sidebar-foot a svg{width:16px;height:16px;}
+  html.pem-collapsed .pem-nav a.soon .badge{display:inline;}
+}
 @media(max-width:900px){
   .pem-sidebar{transform:translateX(-100%);}
   .pem-sidebar.open{transform:translateX(0);}

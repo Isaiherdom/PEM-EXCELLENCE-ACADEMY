@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/fonts.css">
-<link rel="stylesheet" href="assets/shell.css?v=3">
+<link rel="stylesheet" href="assets/shell.css?v=4">
 <script src="assets/modules.js"></script>
 <style>
   :root{
@@ -157,6 +157,49 @@
   .school-tab .prog{font-family:'JetBrains Mono',monospace;font-size:10.5px;margin-top:6px;color:var(--tab-c,var(--green));font-weight:700;}
   .school-tab .go{width:28px;height:28px;border-radius:50%;background:color-mix(in srgb, var(--tab-c,var(--green)) 14%, var(--surface));color:var(--tab-c,var(--green));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;font-size:13px;}
   .modgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px;}
+
+  /* ---- Panel personal (Inicio) ---- */
+  .mypanel{max-width:1680px;margin:0 auto;padding:28px 40px 4px;position:relative;z-index:2;}
+  .mp-banner{background:#0E1A15;color:#fff;border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+  .mp-banner h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,3vw,26px);margin:0;}
+  .mp-banner .sub{font-size:13px;color:#B8C7BF;margin-top:4px;}
+  .mp-prog{display:flex;align-items:center;gap:14px;min-width:240px;}
+  .mp-prog .num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:#22E88A;}
+  .mp-prog .bar{flex:1;height:8px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden;min-width:120px;}
+  .mp-prog .bar span{display:block;height:100%;background:#22E88A;border-radius:99px;transition:width .4s;}
+  .mp-prog .lbl{font-size:11.5px;color:#B8C7BF;}
+  .mp-grid{display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:18px;margin-top:18px;}
+  .mp-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
+  .mp-card h3{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:0 0 12px;}
+  .mp-me{text-align:center;}
+  .mp-av{width:84px;height:84px;border-radius:50%;margin:4px auto 12px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:30px;}
+  html[data-theme="dark"] .mp-av{color:#06140D;}
+  .mp-me .nm{font-weight:700;font-size:16px;}
+  .mp-me .pt{color:var(--muted);font-size:13px;margin-top:2px;}
+  .mp-me .tg{display:inline-block;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:3px 10px;}
+  .mp-links{display:grid;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+  .mp-links a{font-size:13px;font-weight:600;color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:9px 12px;}
+  .mp-links a:hover{border-color:var(--green);color:var(--green);}
+  .mp-todo{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:10px;}
+  .mp-todo.first{border-color:var(--c,var(--green));box-shadow:0 0 0 1px var(--c,var(--green)) inset;}
+  .mp-todo .dot{width:10px;height:10px;border-radius:50%;background:var(--c,var(--green));flex-shrink:0;}
+  .mp-todo .tx{flex:1;min-width:0;}
+  .mp-todo .t1{font-weight:700;font-size:14px;line-height:1.3;}
+  .mp-todo .t2{font-size:12px;color:var(--muted);margin-top:2px;}
+  .mp-todo .go{white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#fff;background:var(--c,var(--green));border-radius:9px;padding:9px 16px;}
+  html[data-theme="dark"] .mp-todo .go{color:#06140D;}
+  .mp-todo:not(.first) .go{background:transparent;color:var(--c,var(--green));border:1px solid var(--c,var(--green));}
+  .mp-more{font-size:12.5px;color:var(--muted);margin-top:4px;}
+  .mp-done{text-align:center;padding:18px 8px;}
+  .mp-done .big{font-size:34px;}
+  .mp-sub{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+  .mp-rec{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;}
+  .mp-rec:last-child{border-bottom:0;}
+  .mp-rec .m{color:var(--muted);font-size:12px;}
+  .mp-news .nt{font-weight:700;font-size:14px;}
+  .mp-news .nb{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.5;}
+  .mp-empty{font-size:13px;color:var(--muted);}
+  @media(max-width:900px){.mypanel{padding:18px 18px 0;}.mp-grid,.mp-sub{grid-template-columns:1fr;}.mp-todo{flex-wrap:wrap;}.mp-todo .go{width:100%;text-align:center;}}
   .modcard{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden;transition:.15s;box-shadow:0 1px 2px rgba(28,26,22,.04),0 3px 12px rgba(28,26,22,.05);}
   .modcard:hover{border-color:var(--mod-c,var(--green));}
   .modcard-head{padding:16px 16px 14px;display:flex;align-items:flex-start;gap:12px;}
@@ -233,6 +276,32 @@
       <a class="nav-cta" href="bienvenida-orientacion.html">🤚 Empieza aquí — Bienvenida</a>
     </div>
   </div>
+
+
+  <section class="mypanel" id="myPanel" aria-label="Tu panel">
+    <div class="mp-banner">
+      <div><h2 id="mpHello">¡Bienvenido!</h2><div class="sub" id="mpSub">Cargando tu avance…</div></div>
+      <div class="mp-prog"><div><div class="num" id="mpPct">—</div><div class="lbl">tu avance</div></div>
+        <div style="flex:1"><div class="bar"><span id="mpBar" style="width:0%"></span></div><div class="lbl" id="mpCount" style="margin-top:6px"></div></div></div>
+    </div>
+    <div class="mp-grid">
+      <div class="mp-card mp-me">
+        <div class="mp-av" id="mpAv">·</div>
+        <div class="nm" id="mpName">—</div>
+        <div class="pt" id="mpRole"></div>
+        <span class="tg" id="mpBase" style="display:none"></span>
+        <div class="mp-links"><a href="mi-perfil.html">👤 Mi perfil</a><a href="certificaciones.html">🎖 Mis certificados</a><a href="mis-cursos.html">📚 Mis cursos</a></div>
+      </div>
+      <div class="mp-card">
+        <h3 id="mpTodoTitle">Te toca ahora</h3>
+        <div id="mpTodo"><div class="mp-empty">Cargando…</div></div>
+      </div>
+    </div>
+    <div class="mp-sub">
+      <div class="mp-card"><h3>Aprendizaje reciente</h3><div id="mpRecent"><div class="mp-empty">Cargando…</div></div></div>
+      <div class="mp-card mp-news"><h3>Último aviso</h3><div id="mpNews"><div class="mp-empty">Cargando…</div></div></div>
+    </div>
+  </section>
 
   <section class="hero" aria-label="PEM Excellence Academy" id="heroCarousel">
     <div class="hero-slide active" style="background-image:url('assets/img/hero-planta-atardecer.jpg');background-position:center 40%">
@@ -613,7 +682,103 @@ document.querySelectorAll('.school-card').forEach(function(card){
   });
 })();
 </script>
-<script src="assets/shell.js?v=4" defer></script>
+<script>
+// ---------- Panel personal ----------
+(function(){
+  var LEVEL = {1:2,2:5,3:8,4:10,5:11,6:12};
+  function esc(t){ return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  async function build(){
+    if(!window.PEM_SB || !window.PEM_SHELL) return;
+    var ses = await PEM_SB.auth.getSession(); ses = ses.data && ses.data.session; if(!ses) return;
+    var uid = ses.user.id, email = ses.user.email || '';
+    var prof = null;
+    try{ var pr = await PEM_SB.from('profiles').select('nombre,rol,base,is_admin').eq('id', uid).maybeSingle(); prof = pr.data; }catch(e){}
+    prof = prof || {};
+    var nombre = (prof.nombre || '').trim() || email.split('@')[0] || 'colaborador';
+    var first = nombre.split(/\s+/)[0];
+    document.getElementById('mpHello').textContent = '¡Bienvenido de nuevo, ' + first + '! 👋';
+    document.getElementById('mpName').textContent = nombre;
+    document.getElementById('mpAv').textContent = nombre.split(/\s+/).slice(0,2).map(function(w){return w[0]||'';}).join('').toUpperCase() || '·';
+    document.getElementById('mpRole').textContent = prof.rol || (prof.is_admin ? 'Administrador' : '');
+    if(prof.base){ var b=document.getElementById('mpBase'); b.textContent = prof.base; b.style.display='inline-block'; }
+
+    // Módulos obligatorios por escuela, según la ruta del puesto (si no hay puesto: nivel general 3)
+    var ORDER = PEM_SCHOOL_ORDER, req = {}, hasRoute = false;
+    if(prof.rol){
+      try{
+        var rr = await PEM_SB.from('rutas_puesto').select('*').eq('puesto', prof.rol).maybeSingle();
+        if(rr.data){ ORDER.forEach(function(k){ req[k] = LEVEL[rr.data['c'+k]] || 0; }); hasRoute = true; }
+      }catch(e){}
+    }
+    var noList = !hasRoute && prof.is_admin;      // admin sin puesto: solo avance general
+    if(!hasRoute && !noList){ ORDER.forEach(function(k){ req[k] = LEVEL[3]; }); }
+
+    var prog = PEM_SHELL.computeProgress();
+    document.getElementById('mpPct').textContent = Math.round(100*prog.totalCerts/prog.totalModules) + '%';
+    document.getElementById('mpBar').style.width = Math.round(100*prog.totalCerts/prog.totalModules) + '%';
+    document.getElementById('mpCount').textContent = prog.totalCerts + ' de ' + prog.totalModules + ' módulos aprobados';
+
+    var items = [], pendingTotal = 0, reqTotal = 0;
+    if(!noList){
+      ORDER.forEach(function(k){
+        var sc = PEM_SCHOOLS[k], r = req[k] || 0, firstP = null, cnt = 0;
+        reqTotal += r;
+        for(var n=1;n<=r;n++){
+          var c = PEM_SHELL.readCert(sc.prefix, n);
+          if(!(c && c.vigente !== false)){ cnt++; if(!firstP) firstP = {n:n, vencido: !!c}; }
+        }
+        pendingTotal += cnt;
+        if(firstP) items.push({sc:sc, n:firstP.n, vencido:firstP.vencido, cnt:cnt, req:r});
+      });
+    }
+    var todo = document.getElementById('mpTodo'), sub = document.getElementById('mpSub');
+    if(noList){
+      document.getElementById('mpTodoTitle').textContent = 'Tu avance';
+      todo.innerHTML = '<div class="mp-empty">Aún no tienes un puesto asignado, por eso no hay módulos obligatorios. Puedes explorar cualquier módulo más abajo.</div>';
+      sub.textContent = 'Panel de administrador';
+    } else if(!items.length){
+      todo.innerHTML = '<div class="mp-done"><div class="big">🎉</div><b>¡Felicidades! Completaste todos tus módulos obligatorios.</b><div class="mp-empty" style="margin-top:6px">Puedes seguir aprendiendo en las demás escuelas.</div></div>';
+      sub.textContent = 'Estás al día con tu ruta de aprendizaje';
+    } else {
+      sub.textContent = 'Te faltan ' + pendingTotal + ' de ' + reqTotal + ' módulos obligatorios para tu puesto';
+      var shown = items.slice(0,4);
+      todo.innerHTML = shown.map(function(it,i){
+        var href = it.sc.prefix + (it.sc.modules[it.n-1][2] ? 'video-modulo' + it.n + '.html' : 'flashcards-modulo' + it.n + '.html');
+        return '<div class="mp-todo'+(i===0?' first':'')+'" style="--c:'+it.sc.color+'"><span class="dot"></span>'+
+          '<div class="tx"><div class="t1">'+esc(it.sc.name)+' · Módulo '+it.n+(it.vencido?' (recertificar)':'')+'</div>'+
+          '<div class="t2">'+esc(it.sc.modules[it.n-1][0])+' · faltan '+it.cnt+' de '+it.req+'</div></div>'+
+          '<a class="go" href="'+href+'">'+(i===0?'Continuar':'Abrir')+'</a></div>';
+      }).join('');
+    }
+
+    // Aprendizaje reciente
+    try{
+      var rc = await PEM_SB.from('certificados').select('escuela,modulo,calificacion,fecha').eq('user_id', uid).order('fecha',{ascending:false}).limit(3);
+      var rows = (rc.data || []).slice(0,3);
+      document.getElementById('mpRecent').innerHTML = rows.length ? rows.map(function(r){
+        var sc = PEM_SCHOOLS[r.escuela]; var d=''; try{ d = new Date(r.fecha).toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'}); }catch(e){}
+        return '<div class="mp-rec"><div>'+esc(sc?sc.name:r.escuela)+' · Módulo '+r.modulo+'<div class="m">'+esc(sc && sc.modules[r.modulo-1] ? sc.modules[r.modulo-1][0] : '')+'</div></div><div style="text-align:right"><b>'+(r.calificacion==null?'—':esc(r.calificacion)+'%')+'</b><div class="m">'+esc(d)+'</div></div></div>';
+      }).join('') : '<div class="mp-empty">Aún no has aprobado ningún módulo. ¡Empieza con el primero!</div>';
+    }catch(e){ document.getElementById('mpRecent').innerHTML = '<div class="mp-empty">—</div>'; }
+
+    // Último aviso
+    try{
+      var nw = await PEM_SB.from('noticias').select('titulo,cuerpo,fecha').order('fecha',{ascending:false}).limit(1);
+      var n0 = nw.data && nw.data[0];
+      document.getElementById('mpNews').innerHTML = n0
+        ? '<div class="nt">'+esc(n0.titulo)+'</div><div class="nb">'+esc((n0.cuerpo||'').slice(0,180))+((n0.cuerpo||'').length>180?'…':'')+'</div><a href="noticias.html" style="display:inline-block;margin-top:10px;font-size:13px;font-weight:600;color:var(--green)">Ver todas →</a>'
+        : '<div class="mp-empty">No hay avisos por ahora.</div>';
+    }catch(e){ document.getElementById('mpNews').innerHTML = '<div class="mp-empty">—</div>'; }
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    setTimeout(function(){
+      var go = function(){ build().catch(function(e){ console.warn('Panel personal:', e); }); };
+      if(window.PEM_SHELL && PEM_SHELL.ready) PEM_SHELL.ready.then(go); else go();
+    }, 0);
+  });
+})();
+</script>
+<script src="assets/shell.js?v=5" defer></script>
 <script defer>
 window.addEventListener('DOMContentLoaded', function(){
   function fillDashboard(){
