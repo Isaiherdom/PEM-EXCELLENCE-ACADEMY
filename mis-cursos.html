@@ -60,6 +60,11 @@
   .modcard-n.done{background:var(--green);border-color:var(--green);color:#FFFFFF;}
   .modcard-n.expired{background:var(--amber);border-color:var(--amber);color:#FFFFFF;}
   html[data-theme="dark"] .modcard-n.done,html[data-theme="dark"] .modcard-n.expired{color:#06140D;}
+  .modcard.locked{opacity:.62;}
+  .modcard.locked:hover{transform:none;box-shadow:none;border-color:var(--line);}
+  .asset-link.off{opacity:.55;cursor:not-allowed;background:transparent;color:var(--muted);border:1px dashed var(--line);pointer-events:none;}
+  .lock-note{font-size:11.5px;color:var(--muted);margin:2px 0 10px;display:flex;gap:6px;align-items:center;}
+  .lock-banner{grid-column:1 / -1;background:color-mix(in srgb,var(--amber,#A9720F) 14%,var(--surface));border:1px solid var(--amber,#A9720F);color:var(--text);border-radius:10px;padding:12px 14px;font-size:13px;font-weight:600;}
   .modcard-clause{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);}
   .modcard-title{font-weight:700;font-size:14px;line-height:1.35;margin-bottom:10px;min-height:38px;}
   .modcard-req{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--sc,var(--green));background:color-mix(in srgb, var(--sc,var(--green)) 14%, transparent);border-radius:20px;padding:3px 9px;margin-bottom:9px;}
@@ -160,21 +165,24 @@ function renderModules(progress){
     pasos.push({href:`${s.prefix}examen-modulo${n}${s.examSuffix}.html`, icon:'📝', label:'Examen'});
     pasos.push({href:`${s.prefix}certificado-modulo${n}.html`, icon:'🎖', label:'Certificado'});
     const cert = PEM_SHELL.readCert(s.prefix, n);
+    const locked = !!(PEM_SHELL.isLocked && PEM_SHELL.isLocked(s.prefix, n));
     const statusHtml = cert
       ? (cert.vigente === false
           ? `<div class="status" style="color:var(--amber);">⚠️ Vencido — norma actualizada, recertificar</div>`
           : `<div class="status ok">✅ Certificado · ${PEM_SHELL.scoreLabel(cert)} · ${cert.date}</div>`)
       : `<div class="status pending">⏳ Pendiente</div>`;
-    return `<div class="card modcard ${cert && cert.vigente !== false ? 'done':''}" style="--sc:${s.color}">
+    return `<div class="card modcard ${cert && cert.vigente !== false ? 'done':''}${locked ? ' locked' : ''}" style="--sc:${s.color}">
       <div class="modcard-head">
-        <span class="modcard-n ${cert ? (cert.vigente === false ? 'expired' : 'done') : ''}">M${n}</span>
+        <span class="modcard-n ${cert ? (cert.vigente === false ? 'expired' : 'done') : ''}">${locked ? '🔒' : 'M'+n}</span>
         <span class="modcard-clause">${m[1]}</span>
       </div>
       ${REQUIRED && REQUIRED[current] && n <= REQUIRED[current] ? '<div class="modcard-req">★ Obligatorio para tu puesto</div>' : ''}
       <div class="modcard-title">${m[0]}</div>
-      ${statusHtml}
+      ${locked ? `<div class="lock-note">🔒 Aprueba el Módulo ${n-1} para abrir este.</div>` : statusHtml}
       <div class="assets">
-        ${pasos.map((a,k) => `<a class="asset-link" href="${a.href}"${a.inicio ? ' style="grid-column:1 / -1;border-color:${s.color};color:${s.color};"' : ''}>${k+1}. ${a.icon} ${a.label}${a.inicio ? ' · empieza aquí' : ''}</a>`).join('')}
+        ${pasos.map((a,k) => locked
+          ? `<span class="asset-link off"${a.inicio ? ' style="grid-column:1 / -1;"' : ''}>${k+1}. ${a.icon} ${a.label}</span>`
+          : `<a class="asset-link" href="${a.href}"${a.inicio ? ' style="grid-column:1 / -1;border-color:${s.color};color:${s.color};"' : ''}>${k+1}. ${a.icon} ${a.label}${a.inicio ? ' · empieza aquí' : ''}</a>`).join('')}
       </div>
     </div>`;
   }).join('');
@@ -206,6 +214,6 @@ function init(){
 init();
 </script>
 
-<script src="assets/shell.js?v=3" defer></script>
+<script src="assets/shell.js?v=4" defer></script>
 </body>
 </html>

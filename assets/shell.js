@@ -89,7 +89,23 @@
     return n === null ? 'Sin calificación registrada' : n + '%';
   }
 
-  window.PEM_SHELL = { SCHOOLS: SCHOOLS, MODULES_PER_SCHOOL: MODULES_PER_SCHOOL, computeProgress: computeProgress, nextStep: nextStep, prefix: prefix, readCert: readCert, scoreNum: scoreNum, scoreLabel: scoreLabel };
+  // ---------- Candado secuencial: el módulo N solo abre si el N-1 ya está aprobado ----------
+  // - Lo ya aprobado (vigente) siempre queda abierto: nadie pierde avance previo.
+  // - Los administradores están exentos.
+  // - Si no se pudo leer el avance (error de red), NO se bloquea (falla abierta).
+  var _isAdmin = false, _loaded = false;
+  function certOk(folder, n){ var c = readCert(folder, n); return !!(c && c.vigente !== false); }
+  function isLocked(folder, n){
+    if(_isAdmin || !_loaded || n <= 1) return false;
+    if(certOk(folder, n)) return false;
+    return !certOk(folder, n - 1);
+  }
+  function firstPending(folder){
+    for(var n=1;n<=MODULES_PER_SCHOOL;n++){ if(!certOk(folder, n)) return n; }
+    return MODULES_PER_SCHOOL;
+  }
+
+  window.PEM_SHELL = { isLocked: isLocked, firstPending: firstPending, SCHOOLS: SCHOOLS, MODULES_PER_SCHOOL: MODULES_PER_SCHOOL, computeProgress: computeProgress, nextStep: nextStep, prefix: prefix, readCert: readCert, scoreNum: scoreNum, scoreLabel: scoreLabel };
 
   // Fase 4D — llena _certCache desde Supabase para la sesión activa.
   // Todas las páginas que consultan progreso deben esperar esta promesa antes de leerlo
@@ -103,6 +119,11 @@
       if(!session) return;
       var res = await window.PEM_SB.from('certificados').select('*').eq('user_id', session.user.id);
       if(res.error || !res.data) { console.warn('PEM_SHELL: no se pudo leer certificados de Supabase', res.error); return; }
+      try{
+        var pr = await window.PEM_SB.from('profiles').select('is_admin').eq('id', session.user.id).maybeSingle();
+        _isAdmin = !!(pr && pr.data && pr.data.is_admin);
+      }catch(e){}
+      _loaded = true;
       res.data.forEach(function(row){
         var dateStr = '';
         if(row.fecha){
@@ -122,6 +143,29 @@
         };
       });
     }catch(e){ console.warn('PEM_SHELL: error inesperado leyendo progreso de Supabase', e); }
+  })();
+
+
+  // ---------- Guardia: si abren por URL directa un módulo bloqueado, se regresa al que toca ----------
+  (function(){
+    var base = path.split('/').pop();
+    var m = base.match(/^(?:examen|flashcards|infografia|video)-modulo(\d+)/);
+    if(!m) return; // los certificados no se guardan aquí: se llegan desde el examen aprobado
+    var n = parseInt(m[1], 10);
+    var schoolMatch = path.match(/\/escuela-(ambiental|etica|seguridad)\//);
+    var folder = schoolMatch ? 'escuela-' + schoolMatch[1] + '/' : '';
+    var keyMap = {'':'9001','escuela-ambiental/':'14001','escuela-seguridad/':'45001','escuela-etica/':'37001'};
+    var de = document.documentElement;
+    de.style.visibility = 'hidden';
+    var reveal = function(){ de.style.visibility = ''; };
+    setTimeout(reveal, 6000); // por si algo tarda: nunca dejar la página en blanco
+    Promise.resolve(window.PEM_SHELL.ready).then(function(){
+      if(window.PEM_SHELL.isLocked(folder, n)){
+        var go = window.PEM_SHELL.firstPending(folder);
+        try{ sessionStorage.setItem('pemLockMsg', 'Primero completa y aprueba el Módulo ' + (n-1) + ' para abrir el Módulo ' + n + '.'); }catch(e){}
+        window.location.replace(prefix + 'index.html?escuela=' + keyMap[folder] + '&modulo=' + go + '#explorar');
+      } else { reveal(); }
+    }).catch(reveal);
   })();
 
   // ---------- Enlace "Volver al módulo" (hacia Inicio, con la escuela correcta preseleccionada) ----------
