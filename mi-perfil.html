@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/fonts.css">
-<link rel="stylesheet" href="assets/shell.css?v=3">
+<link rel="stylesheet" href="assets/shell.css?v=4">
 <script src="assets/modules.js"></script>
 <style>
   :root{
@@ -72,6 +72,29 @@
   #saveMsg.err{color:var(--red);}
   #saveMsg.ok{color:var(--green);}
 
+
+  /* ---- Tu ruta de aprendizaje (Mi perfil) ---- */
+  .mp-card{padding:20px 22px;margin-bottom:16px;}
+  .mp-card h2{font-family:'Space Grotesk',sans-serif;font-size:14.5px;margin:0 0 4px;}
+  .mp-card .mp-sub{font-size:12.5px;color:var(--muted);margin-bottom:14px;}
+  .mp-todo{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:10px;}
+  .mp-todo.first{border-color:var(--c,var(--green));box-shadow:0 0 0 1px var(--c,var(--green)) inset;}
+  .mp-todo .dot{width:10px;height:10px;border-radius:50%;background:var(--c,var(--green));flex-shrink:0;}
+  .mp-todo .tx{flex:1;min-width:0;}
+  .mp-todo .t1{font-weight:700;font-size:14px;line-height:1.3;}
+  .mp-todo .t2{font-size:12px;color:var(--muted);margin-top:2px;}
+  .mp-todo .go{white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#fff;background:var(--c,var(--green));border:1px solid var(--c,var(--green));border-radius:9px;padding:9px 16px;}
+  html[data-theme="dark"] .mp-todo .go{color:#06140D;}
+  .mp-todo:not(.first) .go{background:transparent;color:var(--c,var(--green));}
+  .mp-done{text-align:center;padding:12px 8px;}
+  .mp-done .big{font-size:32px;}
+  .mp-rec{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;}
+  .mp-rec:last-child{border-bottom:0;}
+  .mp-rec .m{color:var(--muted);font-size:12px;}
+  .mp-news .nt{font-weight:700;font-size:14px;}
+  .mp-news .nb{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.5;}
+  .mp-empty{font-size:13px;color:var(--muted);}
+  @media(max-width:700px){.mp-todo{flex-wrap:wrap;}.mp-todo .go{width:100%;text-align:center;}}
   @media(max-width:700px){
     .wrap{padding:18px 14px 50px;}
     .grid3{grid-template-columns:1fr;}
@@ -110,6 +133,22 @@
     <div class="card kpi"><div class="label">Certificados</div><div class="value" id="kCerts">—</div><div class="foot">Obtenidos de 48</div></div>
     <div class="card kpi"><div class="label">Progreso general</div><div class="value" id="kProgress">—</div><div class="foot">Sobre las 4 escuelas</div></div>
     <div class="card kpi"><div class="label">Miembro desde</div><div class="value" id="kSince" style="font-size:15px;">—</div><div class="foot">Primer inicio de sesión</div></div>
+  </div>
+
+  <div class="card mp-card">
+    <h2 id="mpTodoTitle">Te toca ahora</h2>
+    <div class="mp-sub" id="mpSub">Cargando tu avance…</div>
+    <div id="mpTodo"><div class="mp-empty">Cargando…</div></div>
+  </div>
+
+  <div class="card mp-card">
+    <h2>Aprendizaje reciente</h2>
+    <div id="mpRecent"><div class="mp-empty">Cargando…</div></div>
+  </div>
+
+  <div class="card mp-card mp-news">
+    <h2>Último aviso</h2>
+    <div id="mpNews"><div class="mp-empty">Cargando…</div></div>
   </div>
 
   <div class="card edit-card">
@@ -232,6 +271,84 @@ load();
   });
 })();
 </script>
-<script src="assets/shell.js?v=4" defer></script>
+
+<script>
+// ---------- Tu ruta de aprendizaje: pendientes, reciente y último aviso ----------
+(function(){
+  var LEVEL = {1:2,2:5,3:8,4:10,5:11,6:12};
+  function esc(t){ return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  async function build(){
+    if(!window.PEM_SB || !window.PEM_SHELL || !window.PEM_SCHOOLS) return;
+    var ses = await PEM_SB.auth.getSession(); ses = ses.data && ses.data.session; if(!ses) return;
+    var uid = ses.user.id, prof = {};
+    try{ var pr = await PEM_SB.from('profiles').select('rol,is_admin').eq('id', uid).maybeSingle(); prof = pr.data || {}; }catch(e){}
+    var ORDER = PEM_SCHOOL_ORDER, req = {}, hasRoute = false;
+    if(prof.rol){
+      try{
+        var rr = await PEM_SB.from('rutas_puesto').select('*').eq('puesto', prof.rol).maybeSingle();
+        if(rr.data){ ORDER.forEach(function(k){ req[k] = LEVEL[rr.data['c'+k]] || 0; }); hasRoute = true; }
+      }catch(e){}
+    }
+    var noList = !hasRoute && prof.is_admin;      // admin sin puesto: sin lista de obligatorios
+    if(!hasRoute && !noList){ ORDER.forEach(function(k){ req[k] = LEVEL[3]; }); }
+
+    var items = [], pendingTotal = 0, reqTotal = 0;
+    if(!noList){
+      ORDER.forEach(function(k){
+        var sc = PEM_SCHOOLS[k], r = req[k] || 0, firstP = null, cnt = 0;
+        reqTotal += r;
+        for(var n=1;n<=r;n++){
+          var c = PEM_SHELL.readCert(sc.prefix, n);
+          if(!(c && c.vigente !== false)){ cnt++; if(!firstP) firstP = {n:n, vencido: !!c}; }
+        }
+        pendingTotal += cnt;
+        if(firstP) items.push({sc:sc, n:firstP.n, vencido:firstP.vencido, cnt:cnt, req:r});
+      });
+    }
+    var todo = document.getElementById('mpTodo'), sub = document.getElementById('mpSub');
+    if(noList){
+      document.getElementById('mpTodoTitle').textContent = 'Tu ruta de aprendizaje';
+      sub.textContent = 'Panel de administrador';
+      todo.innerHTML = '<div class="mp-empty">Aún no tienes un puesto asignado, por eso no hay módulos obligatorios.</div>';
+    } else if(!items.length){
+      sub.textContent = 'Estás al día con tu ruta de aprendizaje';
+      todo.innerHTML = '<div class="mp-done"><div class="big">🎉</div><b>¡Felicidades! Completaste todos tus módulos obligatorios.</b><div class="mp-empty" style="margin-top:6px">Puedes seguir aprendiendo en las demás escuelas.</div></div>';
+    } else {
+      sub.textContent = 'Te faltan ' + pendingTotal + ' de ' + reqTotal + ' módulos obligatorios para tu puesto';
+      todo.innerHTML = items.slice(0,4).map(function(it,i){
+        var href = it.sc.prefix + (it.sc.modules[it.n-1][2] ? 'video-modulo' + it.n + '.html' : 'flashcards-modulo' + it.n + '.html');
+        return '<div class="mp-todo'+(i===0?' first':'')+'" style="--c:'+it.sc.color+'"><span class="dot"></span>'+
+          '<div class="tx"><div class="t1">'+esc(it.sc.name)+' · Módulo '+it.n+(it.vencido?' (recertificar)':'')+'</div>'+
+          '<div class="t2">'+esc(it.sc.modules[it.n-1][0])+' · faltan '+it.cnt+' de '+it.req+'</div></div>'+
+          '<a class="go" href="'+href+'">'+(i===0?'Continuar':'Abrir')+'</a></div>';
+      }).join('');
+    }
+
+    try{
+      var rc = await PEM_SB.from('certificados').select('escuela,modulo,calificacion,fecha').eq('user_id', uid).order('fecha',{ascending:false}).limit(3);
+      var rows = (rc.data || []).slice(0,3);
+      document.getElementById('mpRecent').innerHTML = rows.length ? rows.map(function(r){
+        var sc = PEM_SCHOOLS[r.escuela]; var d=''; try{ d = new Date(r.fecha).toLocaleDateString('es-MX',{day:'numeric',month:'short',year:'numeric'}); }catch(e){}
+        return '<div class="mp-rec"><div>'+esc(sc?sc.name:r.escuela)+' · Módulo '+r.modulo+'<div class="m">'+esc(sc && sc.modules[r.modulo-1] ? sc.modules[r.modulo-1][0] : '')+'</div></div><div style="text-align:right"><b>'+(r.calificacion==null?'—':esc(r.calificacion)+'%')+'</b><div class="m">'+esc(d)+'</div></div></div>';
+      }).join('') : '<div class="mp-empty">Aún no has aprobado ningún módulo. ¡Empieza con el primero!</div>';
+    }catch(e){ document.getElementById('mpRecent').innerHTML = '<div class="mp-empty">—</div>'; }
+
+    try{
+      var nw = await PEM_SB.from('noticias').select('titulo,cuerpo,fecha').order('fecha',{ascending:false}).limit(1);
+      var n0 = nw.data && nw.data[0];
+      document.getElementById('mpNews').innerHTML = n0
+        ? '<div class="nt">'+esc(n0.titulo)+'</div><div class="nb">'+esc((n0.cuerpo||'').slice(0,180))+((n0.cuerpo||'').length>180?'…':'')+'</div><a href="noticias.html" style="display:inline-block;margin-top:10px;font-size:13px;font-weight:600;color:var(--green)">Ver todas →</a>'
+        : '<div class="mp-empty">No hay avisos por ahora.</div>';
+    }catch(e){ document.getElementById('mpNews').innerHTML = '<div class="mp-empty">—</div>'; }
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    setTimeout(function(){
+      var go = function(){ build().catch(function(e){ console.warn('Ruta de aprendizaje:', e); }); };
+      if(window.PEM_SHELL && PEM_SHELL.ready) PEM_SHELL.ready.then(go); else go();
+    }, 0);
+  });
+})();
+</script>
+<script src="assets/shell.js?v=5" defer></script>
 </body>
 </html>
