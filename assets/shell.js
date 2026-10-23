@@ -4,7 +4,6 @@
    (Fase 4D — antes vivía en localStorage; PEM_SHELL.ready se resuelve cuando
    la lectura desde Supabase para la sesión activa ya está en caché). */
 (function(){
-  try{ if(localStorage.getItem('pemSidebarCollapsed') === '1') document.documentElement.classList.add('pem-collapsed'); }catch(e){}
   var path = window.location.pathname;
   var siteRoot = path.replace(/(escuela-(ambiental|etica|seguridad)\/)?[^\/]*$/, '');
   var inSchool = /\/escuela-(ambiental|etica|seguridad)\//.test(path);
@@ -261,7 +260,6 @@
     back:'<path d="M11 5 5 12l6 7"/><path d="M5 12h14" stroke-linecap="round"/>',
     induc:'<path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke-linecap="round"/><circle cx="12" cy="12" r="6"/><path d="m12 9 1.8 3.8L18 14l-4.2 1.2L12 19l-1.8-3.8L6 14l4.2-1.2Z"/>',
     logout:'<path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-linecap="round"/>',
-    collapse:'<path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>',
     chev:'<path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>'
   };
   function svg(name){ return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'; }
@@ -269,10 +267,10 @@
   function buildSidebar(){
     var items = NAV_REAL.map(function(item){
       var active = item.match.test(path) || (item.href.indexOf('index.html')>-1 && /\/(index\.html)?$/.test(path));
-      return '<a href="'+item.href+'" class="'+(active?'active':'')+'" title="'+item.label+'">'+svg(item.icon)+'<span>'+item.label+'</span></a>';
+      return '<a href="'+item.href+'" class="'+(active?'active':'')+'">'+svg(item.icon)+'<span>'+item.label+'</span></a>';
     }).join('');
     var soon = NAV_SOON.map(function(label){
-      return '<a href="'+prefix+'proximamente.html" class="soon" title="'+label+'">'+svg('soon')+'<span>'+label+'</span><span class="badge">pronto</span></a>';
+      return '<a href="'+prefix+'proximamente.html" class="soon">'+svg('soon')+'<span>'+label+'</span><span class="badge">pronto</span></a>';
     }).join('');
 
     // Grupo plegable "Administrador": se abre solo si ya estás en uno de sus paneles,
@@ -283,11 +281,11 @@
     var adminOpen = adminActive || adminOpenStored === '1';
     var adminItems = NAV_ADMIN.map(function(item){
       var active = item.match.test(path);
-      return '<a href="'+item.href+'" class="'+(active?'active':'')+'" title="'+item.label+'">'+svg(item.icon)+'<span>'+item.label+'</span></a>';
+      return '<a href="'+item.href+'" class="'+(active?'active':'')+'">'+svg(item.icon)+'<span>'+item.label+'</span></a>';
     }).join('');
     var adminGroup =
       '<div class="pem-nav-group'+(adminOpen?' open':'')+'" id="pemAdminGroup">'+
-        '<button type="button" class="pem-nav-toggle'+(adminActive?' active':'')+'" id="pemAdminToggle" title="Administrador">'+
+        '<button type="button" class="pem-nav-toggle'+(adminActive?' active':'')+'" id="pemAdminToggle">'+
           svg('users')+'<span>Administrador</span>'+svg('chev')+
         '</button>'+
         '<div class="pem-nav-sub">'+adminItems+'</div>'+
@@ -295,30 +293,17 @@
 
     return (
       '<nav class="pem-sidebar" id="pemSidebar">'+
-        '<div class="pem-sidebar-brand"><div class="txt"><div class="k">Production Enhancement México</div><div class="t">PEM Excellence Academy</div></div>'+
-          '<button type="button" class="pem-collapse" id="pemCollapse" aria-label="Contraer o expandir menú" title="Contraer / expandir menú">'+svg('collapse')+'</button></div>'+
+        '<div class="pem-sidebar-brand"><div class="k">Production Enhancement México</div><div class="t">PEM Excellence Academy</div></div>'+
         '<div class="pem-nav">'+items+adminGroup+soon+'</div>'+
         '<div class="pem-sidebar-foot"><a href="#" id="pemLogoutBtn">'+svg('logout')+'<span>Cerrar sesión</span></a></div>'+
       '</nav>'
     );
-  }
-  function setCollapsed(c){
-    document.documentElement.classList.toggle('pem-collapsed', c);
-    try{ localStorage.setItem('pemSidebarCollapsed', c ? '1' : '0'); }catch(e){}
-  }
-  function wireCollapse(){
-    var b = document.getElementById('pemCollapse');
-    if(b) b.addEventListener('click', function(){ setCollapsed(!document.documentElement.classList.contains('pem-collapsed')); });
   }
   function wireAdminToggle(){
     var toggle = document.getElementById('pemAdminToggle');
     var group = document.getElementById('pemAdminGroup');
     if(!toggle || !group) return;
     toggle.addEventListener('click', function(){
-      // con el menú contraído, el grupo no cabe: primero se expande el menú
-      if(document.documentElement.classList.contains('pem-collapsed') && window.innerWidth > 900){
-        setCollapsed(false);
-      }
       var nowOpen = !group.classList.contains('open');
       group.classList.toggle('open', nowOpen);
       try{ localStorage.setItem('pemAdminNavOpen', nowOpen ? '1' : '0'); }catch(e){}
@@ -382,7 +367,6 @@
     document.body.insertAdjacentHTML('afterbegin', (skipHeader ? '' : buildHeader()) + buildSidebar() + buildOverlay());
     wireLogout();
     wireAdminToggle();
-    wireCollapse();
     var sidebar = document.getElementById('pemSidebar');
     var overlay = document.getElementById('pemOverlay');
     var burger = document.getElementById('pemBurger'); // shell's own, or a page-provided one with the same id
