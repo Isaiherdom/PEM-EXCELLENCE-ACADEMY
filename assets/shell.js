@@ -208,6 +208,8 @@
     if(base === 'admin-puestos.html') return 'Administrar puestos';
     if(base === 'admin-requisitos.html') return 'Administrar requisitos por puesto';
     if(base === 'admin-rutas.html') return 'Administrar rutas';
+    if(base === 'admin-videos.html') return 'Administrar videos';
+    if(base === 'escuela-operaciones.html') return 'Escuela de Operaciones';
     if(base === 'proximamente.html') return 'Próximamente';
     if((m = base.match(/^certificado-modulo(\d+)\.html$/))) return 'Certificado · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
     if((m = base.match(/^examen-modulo(\d+)/))) return 'Examen · Módulo ' + m[1] + ' · Escuela de ' + schoolLabel;
@@ -222,6 +224,7 @@
     {label:'Inicio', href:prefix+'index.html', match:/(^|\/)index\.html$|\/$/, icon:'home'},
     {label:'Mi perfil', href:prefix+'mi-perfil.html', match:/mi-perfil/, icon:'user'},
     {label:'Escuelas', href:prefix+'mapa-academico-pem-excellence-academy.html', match:/mapa-academico/, icon:'grid'},
+    {label:'Escuela de Operaciones', href:prefix+'escuela-operaciones.html', match:/escuela-operaciones/, icon:'play'},
     {label:'Inducción', href:prefix+'induccion.html', match:/(^|\/)induccion(-|\.html)/, icon:'induc'},
     {label:'Rutas de aprendizaje', href:prefix+'rutas-aprendizaje-pem-excellence-academy.html', match:/rutas-aprendizaje/, icon:'route'},
     {label:'Mi desarrollo', href:prefix+'mi-desarrollo.html', match:/mi-desarrollo/, icon:'growth'},
@@ -242,11 +245,13 @@
     {label:'Administrar plantilla', href:prefix+'admin-plantilla.html', match:/admin-plantilla/, icon:'users'},
     {label:'Administrar puestos', href:prefix+'admin-puestos.html', match:/admin-puestos/, icon:'users'},
     {label:'Administrar requisitos', href:prefix+'admin-requisitos.html', match:/admin-requisitos/, icon:'users'},
-    {label:'Administrar rutas', href:prefix+'admin-rutas.html', match:/admin-rutas/, icon:'users'}
+    {label:'Administrar rutas', href:prefix+'admin-rutas.html', match:/admin-rutas/, icon:'users'},
+    {label:'Administrar videos', href:prefix+'admin-videos.html', match:/admin-videos/, icon:'users'}
   ];
 
   var ICONS = {
     home:'<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/>',
+    play:'<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="m10.5 9.2 4 2.8-4 2.8z" stroke-linejoin="round"/>',
     grid:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     route:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8 7 16 17M8.5 6h7A3 3 0 0 1 18 9v3"/>',
     soon:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',

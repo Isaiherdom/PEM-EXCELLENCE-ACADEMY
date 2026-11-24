@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrar videos · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css?v=4">
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA; --ops:#6E4FD6; --opsSoft:#ECE7FB;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14); --ops:#B29BFF; --opsSoft:rgba(178,155,255,.14);
+    --cyan:#3FE0E8;
+    --gold:#FFB84D; --goldSoft:rgba(255,184,77,.14);
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
+
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:900px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--ops);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .kicker::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ops);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,32px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:680px;line-height:1.5;margin-bottom:20px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
+  .soon{display:flex;gap:12px;align-items:flex-start;background:var(--opsSoft);border:1px solid var(--ops);color:var(--ink);border-radius:12px;padding:13px 16px;font-size:13px;line-height:1.5;margin-bottom:22px;}
+  .soon b{color:var(--ops);}
+  .vt-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+  .vt-head h2{font-family:'Space Grotesk',sans-serif;font-size:20px;margin:0;}
+  .vt-head .cnt{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .adm-link{font-size:12.5px;font-weight:700;color:var(--ops);text-decoration:none;border:1px solid var(--ops);border-radius:9px;padding:8px 14px;display:none;}
+  .adm-link:hover{background:var(--opsSoft);}
+  .tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+  .search{flex:1;min-width:220px;max-width:360px;padding:10px 13px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:13.5px;}
+  .search:focus{outline:2px solid var(--ops);outline-offset:1px;}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:99px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .chip:hover{border-color:var(--ops);color:var(--ink);}
+  .chip.on{background:var(--ops);border-color:var(--ops);color:#fff;}
+  html[data-theme="dark"] .chip.on{color:#150C33;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;}
+  .vcard{display:flex;flex-direction:column;padding:18px;gap:10px;transition:.15s;}
+  .vcard:hover{transform:translateY(-2px);border-color:var(--ops);}
+  .vtop{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#fff;border-radius:99px;padding:4px 11px;background:var(--c,#6B7280);}
+  .badge svg{width:11px;height:11px;fill:currentColor;}
+  .tema{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .vtitle{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;line-height:1.3;}
+  .vdesc{font-size:13px;color:var(--muted);line-height:1.5;flex:1;}
+  .go{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-weight:700;font-size:13px;color:var(--ops);border:1px solid var(--ops);border-radius:10px;padding:10px 14px;margin-top:4px;}
+  .go:hover{background:var(--ops);color:#fff;}
+  html[data-theme="dark"] .go:hover{color:#150C33;}
+  .state{padding:46px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .state.err{color:var(--red);}
+  .note{font-size:11.5px;color:var(--muted);margin-top:22px;line-height:1.5;}
+  @media(max-width:700px){.wrap{padding:18px 14px 50px;}}
+  .hint{display:flex;gap:10px;background:var(--opsSoft);border-radius:10px;padding:12px 14px;font-size:12.5px;line-height:1.55;margin-bottom:16px;}
+  .form{padding:20px 22px;margin-bottom:22px;}
+  .form h2,.listh{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 14px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;}
+  .field input,.field textarea,.field select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:13.5px;}
+  .field textarea{min-height:64px;resize:vertical;}
+  .btn{background:var(--ops);color:#fff;border:none;border-radius:9px;padding:10px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;}
+  html[data-theme="dark"] .btn{color:#150C33;}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);}
+  .btn.ghost:hover{border-color:var(--ops);}
+  .btn.danger{background:transparent;color:var(--red);border:1px solid var(--red);}
+  .btn.sm{padding:7px 12px;font-size:12px;}
+  .msg{font-size:12.5px;margin-left:10px;}
+  .msg.ok{color:var(--green);} .msg.err{color:var(--red);}
+  .item{padding:16px 18px;margin-bottom:12px;}
+  .item.off{opacity:.6;}
+  .item .top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .badge{display:inline-flex;font-size:11px;font-weight:700;color:#fff;border-radius:99px;padding:4px 11px;background:var(--c,#6B7280);}
+  .item .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+  .state{padding:46px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .state.err{color:var(--red);}
+  @media(max-width:700px){.row2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body data-pem-no-shell-header>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js?v=154"></script>
+<script src="assets/videoteca.js"></script>
+
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
+</div>
+
+<div class="wrap">
+  <div class="kicker">Escuela de Operaciones</div>
+  <h1>Administrar videos</h1>
+  <div class="subtitle">Agrega, edita, ordena u oculta los videos de la <a href="escuela-operaciones.html" style="color:inherit;">Videoteca</a>. Los cambios se ven al instante, sin publicar una versión nueva.</div>
+
+  <div id="loadingState" class="card state">Cargando…</div>
+  <div id="errorState" class="card state err" style="display:none;"></div>
+
+  <div id="content" style="display:none;">
+    <div class="hint">💡 <div>Pega el enlace tal como lo copiaste. La plataforma de origen se detecta sola y se <b>quitan los parámetros de rastreo</b> del enlace. Si el título trae letras decorativas (𝐁𝐨𝐭𝐭𝐨𝐦), se convierten a letra normal.</div></div>
+
+    <div class="card form">
+      <h2>Agregar video</h2>
+      <div class="field"><label>Enlace del video *</label><input id="nUrl" placeholder="https://www.instagram.com/reel/..."></div>
+      <div class="field"><label>Título *</label><input id="nTitulo" placeholder="Ej. Bottom Hole Assembly BHA"></div>
+      <div class="row2">
+        <div class="field"><label>Tema *</label><input id="nTema" list="temasList" placeholder="Ej. Perforación, Seguridad, Mantenimiento…"><datalist id="temasList"></datalist></div>
+        <div class="field"><label>Descripción (opcional)</label><input id="nDesc" placeholder="Una línea que explique de qué trata"></div>
+      </div>
+      <button class="btn" id="addBtn">Agregar video</button><span class="msg" id="addMsg"></span>
+    </div>
+
+    <div class="listh" id="listTitle"></div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script>
+const V = window.PEM_VIDEOS;
+let ROWS = [], MY_ID = null;
+
+function flash(el, text, ok){ el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'err'); setTimeout(()=>{ el.textContent=''; }, 4000); }
+function validar(url, titulo, tema){
+  if(!/^https?:\/\//i.test(url)) return 'El enlace debe empezar con http:// o https://';
+  if(!titulo) return 'Escribe un título.';
+  if(!tema) return 'Escribe o elige un tema.';
+  return '';
+}
+
+function renderList(){
+  document.getElementById('listTitle').textContent = ROWS.length ? ('Videos cargados (' + ROWS.length + ')') : '';
+  const temas = Array.from(new Set(ROWS.map(r => r.tema))).sort((a,b)=>a.localeCompare(b,'es'));
+  document.getElementById('temasList').innerHTML = temas.map(t => '<option value="'+V.esc(t)+'">').join('');
+  document.getElementById('list').innerHTML = ROWS.length ? ROWS.map((r,i) => {
+    const o = V.origenInfo(r.origen);
+    return '<div class="card item'+(r.activo?'':' off')+'" data-id="'+r.id+'">' +
+      '<div class="top"><span class="badge" style="--c:'+o.color+'">'+V.esc(o.label)+'</span>' +
+      (r.activo ? '' : '<span style="font-size:12px;color:var(--muted)">Oculto (no lo ven los colaboradores)</span>') + '</div>' +
+      '<div class="field"><label>Título</label><input data-f="titulo" value="'+V.esc(r.titulo)+'"></div>' +
+      '<div class="row2"><div class="field"><label>Tema</label><input data-f="tema" list="temasList" value="'+V.esc(r.tema)+'"></div>' +
+      '<div class="field"><label>Descripción</label><input data-f="descripcion" value="'+V.esc(r.descripcion||'')+'"></div></div>' +
+      '<div class="field"><label>Enlace</label><input data-f="url" value="'+V.esc(r.url)+'"></div>' +
+      '<div class="acts">' +
+        '<button class="btn sm" data-a="save">Guardar cambios</button>' +
+        '<button class="btn sm ghost" data-a="up"'+(i===0?' disabled':'')+'>↑ Subir</button>' +
+        '<button class="btn sm ghost" data-a="down"'+(i===ROWS.length-1?' disabled':'')+'>↓ Bajar</button>' +
+        '<button class="btn sm ghost" data-a="toggle">'+(r.activo?'Ocultar':'Mostrar')+'</button>' +
+        '<a class="btn sm ghost" style="text-decoration:none" href="'+V.esc(r.url)+'" target="_blank" rel="noopener noreferrer">Probar enlace ↗</a>' +
+        '<button class="btn sm danger" data-a="del">Eliminar</button>' +
+        '<span class="msg"></span></div></div>';
+  }).join('') : '<div class="card state">Todavía no hay videos. Agrega el primero arriba.</div>';
+}
+
+async function reload(){
+  const r = await window.PEM_SB.from('videos_instructivos').select('*').eq('escuela','operaciones').order('orden').order('created_at');
+  if(r.error) throw r.error;
+  ROWS = r.data || [];
+  renderList();
+}
+
+async function addVideo(){
+  const msg = document.getElementById('addMsg');
+  const url = V.cleanUrl(document.getElementById('nUrl').value);
+  const titulo = V.normTexto(document.getElementById('nTitulo').value);
+  const tema = V.normTexto(document.getElementById('nTema').value);
+  const descripcion = V.normTexto(document.getElementById('nDesc').value);
+  const err = validar(url, titulo, tema); if(err){ flash(msg, err, false); return; }
+  const orden = ROWS.reduce((m,r)=>Math.max(m, r.orden||0), 0) + 1;
+  const { error } = await window.PEM_SB.from('videos_instructivos').insert({ titulo, tema, descripcion: descripcion || null, url, origen: V.detectOrigen(url), orden });
+  if(error){ flash(msg, 'No se pudo guardar: ' + error.message, false); return; }
+  ['nUrl','nTitulo','nDesc'].forEach(id => document.getElementById(id).value = '');
+  flash(msg, '✓ Video agregado', true);
+  await reload();
+}
+
+document.getElementById('list').addEventListener('click', async ev => {
+  const btn = ev.target.closest('button[data-a]'); if(!btn) return;
+  const card = btn.closest('.item'); const id = card.dataset.id; const idx = ROWS.findIndex(r => r.id === id);
+  const row = ROWS[idx]; const msg = card.querySelector('.msg'); const a = btn.dataset.a;
+  const get = f => card.querySelector('[data-f="'+f+'"]').value;
+  let error = null;
+  if(a === 'save'){
+    const url = V.cleanUrl(get('url')), titulo = V.normTexto(get('titulo')), tema = V.normTexto(get('tema')), descripcion = V.normTexto(get('descripcion'));
+    const err = validar(url, titulo, tema); if(err){ flash(msg, err, false); return; }
+    ({ error } = await window.PEM_SB.from('videos_instructivos').update({ titulo, tema, descripcion: descripcion || null, url, origen: V.detectOrigen(url), updated_at: new Date().toISOString() }).eq('id', id));
+  } else if(a === 'toggle'){
+    ({ error } = await window.PEM_SB.from('videos_instructivos').update({ activo: !row.activo, updated_at: new Date().toISOString() }).eq('id', id));
+  } else if(a === 'del'){
+    if(!confirm('¿Eliminar este video de la videoteca?\n\n' + row.titulo)) return;
+    ({ error } = await window.PEM_SB.from('videos_instructivos').delete().eq('id', id));
+  } else if(a === 'up' || a === 'down'){
+    const j = a === 'up' ? idx - 1 : idx + 1; const other = ROWS[j]; if(!other) return;
+    // reasigna el orden de toda la lista para que nunca haya empates
+    const order = ROWS.map(r => r.id); [order[idx], order[j]] = [order[j], order[idx]];
+    for(let k = 0; k < order.length && !error; k++){
+      ({ error } = await window.PEM_SB.from('videos_instructivos').update({ orden: k + 1 }).eq('id', order[k]));
+    }
+  }
+  if(error){ flash(msg, 'No se pudo: ' + error.message, false); return; }
+  await reload();
+  if(a === 'save'){ const c = document.querySelector('.item[data-id="'+id+'"] .msg'); if(c) flash(c, '✓ Guardado', true); }
+});
+
+async function load(){
+  try{
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session) return;
+    MY_ID = session.user.id;
+    const p = await window.PEM_SB.from('profiles').select('is_admin').eq('id', MY_ID).maybeSingle();
+    if(!p.data || !p.data.is_admin) throw new Error('ACCESO_RESTRINGIDO');
+    await reload();
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('content').style.display = '';
+  }catch(e){
+    document.getElementById('loadingState').style.display = 'none';
+    const el = document.getElementById('errorState');
+    el.textContent = e.message === 'ACCESO_RESTRINGIDO' ? '🔒 Este panel es solo para administradores.' : 'No se pudo cargar: ' + (e.message || e);
+    el.style.display = '';
+  }
+}
+document.getElementById('addBtn').addEventListener('click', addVideo);
+load();
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
+})();
+</script>
+<script src="assets/shell.js?v=5" defer></script>
+</body>
+</html>

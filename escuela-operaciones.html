@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<script>(function(){var t=localStorage.getItem("pemTheme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escuela de Operaciones · PEM Excellence Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/shell.css?v=4">
+<style>
+  :root{
+    --bg:#F5F6F3; --panel:#FFFFFF; --ink:#15201D; --muted:#68736F; --line:#E3E7E3;
+    --green:#087F5B; --green2:#19A974; --mint:#DFF3EA; --ops:#6E4FD6; --opsSoft:#ECE7FB;
+    --gold:#C7923E; --goldSoft:#F8EDD9;
+    --red:#C76A58; --redSoft:#F7E5E0;
+    --shadow:0 8px 24px rgba(24,39,33,.07);
+  }
+  html[data-theme="dark"]{
+    --bg:#040807; --panel:#0D1311; --ink:#FFFFFF; --muted:#8A9690; --line:#1D2622;
+    --green:#22E88A; --green2:#5CFFB0; --mint:rgba(34,232,138,.14); --ops:#B29BFF; --opsSoft:rgba(178,155,255,.14);
+    --cyan:#3FE0E8;
+    --gold:#FFB84D; --goldSoft:rgba(255,184,77,.14);
+    --red:#FF6B6B; --redSoft:rgba(255,107,107,.14);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
+
+  body[data-pem-no-shell-header]{padding-top:var(--home-nav-h,64px) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar{top:var(--home-nav-h,64px) !important;height:calc(100vh - var(--home-nav-h,64px)) !important;}
+  body[data-pem-no-shell-header] .pem-sidebar-brand{display:none;}
+  .exec-nav{position:fixed;top:0;left:0;right:0;z-index:9500;display:flex;align-items:center;gap:14px;padding:14px 24px;background:var(--panel);border-bottom:1px solid var(--line);margin-left:calc(-1 * var(--pem-sb-w,0px));width:calc(100% + var(--pem-sb-w,0px));}
+  .exec-nav .burger{display:none;align-items:center;justify-content:center;background:none;border:1px solid var(--line);border-radius:7px;width:32px;height:32px;color:var(--ink);cursor:pointer;}
+  .exec-nav .wordmark{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:14px;color:var(--ink);}
+  .exec-nav .wordmark span{color:var(--green);}
+  .theme-toggle{margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0;}
+  .theme-toggle:hover{border-color:var(--green);}
+  @media(max-width:900px){
+    .exec-nav{margin-left:0;width:100%;}
+    .exec-nav .burger{display:inline-flex;}
+  }
+
+  .wrap{max-width:1100px;margin:0 auto;padding:26px 28px 60px;position:relative;z-index:1;}
+  .kicker{font-size:10.5px;letter-spacing:2px;color:var(--ops);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+  .kicker::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--ops);}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,32px);margin:6px 0 5px;letter-spacing:-.5px;}
+  .subtitle{font-size:13.5px;color:var(--muted);max-width:680px;line-height:1.5;margin-bottom:20px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);}
+  .soon{display:flex;gap:12px;align-items:flex-start;background:var(--opsSoft);border:1px solid var(--ops);color:var(--ink);border-radius:12px;padding:13px 16px;font-size:13px;line-height:1.5;margin-bottom:22px;}
+  .soon b{color:var(--ops);}
+  .vt-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+  .vt-head h2{font-family:'Space Grotesk',sans-serif;font-size:20px;margin:0;}
+  .vt-head .cnt{font-size:12.5px;color:var(--muted);margin-top:3px;}
+  .adm-link{font-size:12.5px;font-weight:700;color:var(--ops);text-decoration:none;border:1px solid var(--ops);border-radius:9px;padding:8px 14px;display:none;}
+  .adm-link:hover{background:var(--opsSoft);}
+  .tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px;}
+  .search{flex:1;min-width:220px;max-width:360px;padding:10px 13px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-family:'Inter',sans-serif;font-size:13.5px;}
+  .search:focus{outline:2px solid var(--ops);outline-offset:1px;}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:99px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+  .chip:hover{border-color:var(--ops);color:var(--ink);}
+  .chip.on{background:var(--ops);border-color:var(--ops);color:#fff;}
+  html[data-theme="dark"] .chip.on{color:#150C33;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;}
+  .vcard{display:flex;flex-direction:column;padding:18px;gap:10px;transition:.15s;}
+  .vcard:hover{transform:translateY(-2px);border-color:var(--ops);}
+  .vtop{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#fff;border-radius:99px;padding:4px 11px;background:var(--c,#6B7280);}
+  .badge svg{width:11px;height:11px;fill:currentColor;}
+  .tema{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+  .vtitle{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;line-height:1.3;}
+  .vdesc{font-size:13px;color:var(--muted);line-height:1.5;flex:1;}
+  .go{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-weight:700;font-size:13px;color:var(--ops);border:1px solid var(--ops);border-radius:10px;padding:10px 14px;margin-top:4px;}
+  .go:hover{background:var(--ops);color:#fff;}
+  html[data-theme="dark"] .go:hover{color:#150C33;}
+  .state{padding:46px 24px;text-align:center;color:var(--muted);font-size:13.5px;}
+  .state.err{color:var(--red);}
+  .note{font-size:11.5px;color:var(--muted);margin-top:22px;line-height:1.5;}
+  @media(max-width:700px){.wrap{padding:18px 14px 50px;}}
+</style>
+</head>
+<body data-pem-no-shell-header>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/supabase-config.js"></script>
+<script src="assets/pem-gate.js?v=154"></script>
+<script src="assets/videoteca.js"></script>
+
+<div class="exec-nav">
+  <button class="burger" id="pemBurger" aria-label="Abrir menú">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+  </button>
+  <div class="wordmark">PEM <span>Excellence Academy</span></div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Cambiar a modo oscuro" title="Cambiar a modo oscuro">🌙</button>
+</div>
+
+<div class="wrap">
+  <div class="kicker">Escuela de Operaciones</div>
+  <h1>Videoteca instructiva</h1>
+  <div class="subtitle">Videos cortos para aprender y reforzar el trabajo en campo. Cada uno te lleva directamente a su origen (Instagram, YouTube, TikTok…).</div>
+
+  <div class="soon">🛠️ <div><b>Próximamente:</b> módulos de la Escuela de Operaciones con examen y certificado. Por ahora, la videoteca ya está disponible para todos.</div></div>
+
+  <div class="vt-head">
+    <div><h2>Videos instructivos</h2><div class="cnt" id="cnt"></div></div>
+    <a class="adm-link" id="admLink" href="admin-videos.html">⚙️ Administrar videos</a>
+  </div>
+
+  <div class="tools">
+    <input class="search" id="q" type="search" placeholder="Buscar un video…" aria-label="Buscar un video">
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div id="loadingState" class="card state">Cargando videos…</div>
+  <div id="errorState" class="card state err" style="display:none;"></div>
+  <div id="empty" class="card state" style="display:none;">Aún no hay videos en esta sección. Pronto se irán agregando.</div>
+  <div class="grid" id="grid"></div>
+
+  <div class="note">Los videos se abren en su plataforma de origen, en una pestaña nueva. Algunas plataformas pueden pedirte iniciar sesión para verlos.</div>
+</div>
+
+<script>
+const V = window.PEM_VIDEOS;
+const PLAY = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+let ALL = [], TEMA = 'Todos';
+
+function render(){
+  const q = V.normTexto(document.getElementById('q').value).toLowerCase();
+  const rows = ALL.filter(v =>
+    (TEMA === 'Todos' || v.tema === TEMA) &&
+    (!q || (v.titulo + ' ' + (v.descripcion||'') + ' ' + v.tema).toLowerCase().includes(q)));
+  document.getElementById('cnt').textContent = ALL.length ? (rows.length + ' de ' + ALL.length + ' videos') : '';
+  document.getElementById('empty').style.display = (!ALL.length) ? '' : 'none';
+  const grid = document.getElementById('grid');
+  if(ALL.length && !rows.length){ grid.innerHTML = '<div class="card state" style="grid-column:1/-1">No se encontraron videos con ese filtro.</div>'; return; }
+  grid.innerHTML = rows.map(v => {
+    const o = V.origenInfo(v.origen || V.detectOrigen(v.url));
+    return '<div class="card vcard">' +
+      '<div class="vtop"><span class="badge" style="--c:'+o.color+'">'+PLAY+V.esc(o.label)+'</span><span class="tema">'+V.esc(v.tema)+'</span></div>' +
+      '<div class="vtitle">'+V.esc(V.normTexto(v.titulo))+'</div>' +
+      (v.descripcion ? '<div class="vdesc">'+V.esc(v.descripcion)+'</div>' : '<div class="vdesc"></div>') +
+      '<a class="go" href="'+V.esc(v.url)+'" target="_blank" rel="noopener noreferrer">Ver en '+V.esc(o.label)+' ↗</a></div>';
+  }).join('');
+}
+
+function renderChips(){
+  const temas = ['Todos'].concat(Array.from(new Set(ALL.map(v => v.tema))).sort((a,b)=>a.localeCompare(b,'es')));
+  document.getElementById('chips').innerHTML = temas.length > 2
+    ? temas.map(t => '<button class="chip'+(t===TEMA?' on':'')+'" data-t="'+V.esc(t)+'">'+V.esc(t)+'</button>').join('') : '';
+  document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => { TEMA = b.dataset.t; renderChips(); render(); }));
+}
+
+async function load(){
+  try{
+    const { data: { session } } = await window.PEM_SB.auth.getSession();
+    if(!session) return; // pem-gate redirige al login
+    const r = await window.PEM_SB.from('videos_instructivos').select('*').eq('escuela','operaciones').eq('activo', true).order('orden').order('created_at');
+    if(r.error) throw r.error;
+    ALL = r.data || [];
+    document.getElementById('loadingState').style.display = 'none';
+    renderChips(); render();
+    window.PEM_SB.from('profiles').select('is_admin').eq('id', session.user.id).maybeSingle()
+      .then(p => { if(p.data && p.data.is_admin) document.getElementById('admLink').style.display = 'inline-block'; });
+  }catch(e){
+    console.error(e);
+    document.getElementById('loadingState').style.display = 'none';
+    const el = document.getElementById('errorState');
+    el.textContent = 'No se pudieron cargar los videos. Intenta recargar la página.'; el.style.display = '';
+  }
+}
+document.getElementById('q').addEventListener('input', render);
+load();
+
+(function(){
+  function syncNavHeight(){
+    var nav = document.querySelector('.exec-nav');
+    if(nav) document.documentElement.style.setProperty('--home-nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('DOMContentLoaded', syncNavHeight);
+})();
+</script>
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+  function updateBtn(){
+    if(isDark()){
+      btn.textContent = '☀️';
+      btn.setAttribute('aria-label','Cambiar a modo claro');
+      btn.setAttribute('title','Cambiar a modo claro');
+    } else {
+      btn.textContent = '🌙';
+      btn.setAttribute('aria-label','Cambiar a modo oscuro');
+      btn.setAttribute('title','Cambiar a modo oscuro');
+    }
+  }
+  updateBtn();
+  btn.addEventListener('click', function(){
+    if(isDark()){
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('pemTheme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('pemTheme','dark');
+    }
+    updateBtn();
+  });
+})();
+</script>
+<script src="assets/shell.js?v=5" defer></script>
+</body>
+</html>
